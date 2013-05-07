@@ -29,7 +29,7 @@ $(document).ready(function(){
 			}, hideLoader);
         return false;
     });
-	/*
+	
 	//Icone Alterar
     $("#alterar").live('click', function(){
         var href = $(this).attr('href');
@@ -44,8 +44,8 @@ $(document).ready(function(){
 		if (resp){
 		   showLoader();
 		   $('#tabela').load('acoes.php?identifier=excluir',{
-			    ID_UNIDADE_IRP:$(this).attr('href'),
-				TX_UNIDADE_IRP:$('#TX_UNIDADE_IRP').val(),
+			    ID_ORGAO_GESTOR_ESTAGIO:$(this).attr('href'),
+				TX_ORGAO_GESTOR_ESTAGIO:$('#TX_ORGAO_GESTOR_ESTAGIO').val(),
 				ID_UNIDADE_ORG:$('#ID_UNIDADE_ORG').val(),
 				PAGE:$('.selecionado').text()
 			}, hideLoader);
@@ -53,5 +53,5 @@ $(document).ready(function(){
 					
 		return false;
 	});
-*/
+
 });

@@ -12,26 +12,30 @@ $titulopage = 'Órgão Gestor de Estágio';
 session_start();
 require_once "../autenticacao/validaPermissao.php";
 
-unset($_SESSION['ID_ORGAO_GESTOR_ESTAGIO']);
-
 // Iniciando Instância
 $VO = new orgao_gestorVO();
 
-if($_POST){
-    $VO->configuracao();
-    $VO->setCaracteristica('TX_ORGAO_GESTOR_ESTAGIO,ID_UNIDADE_ORG','obrigatorios');
-    $validar = $VO->preencher($_POST);
-	
-	(!$validar) ? $id_pk = $VO->inserir() : false;
-	
-    if (!$validar) {
-        $_SESSION['TX_ORGAO_GESTOR_ESTAGIO'] = $VO->TX_ORGAO_GESTOR_ESTAGIO;
-		$_SESSION['ID_UNIDADE_ORG'] = $VO->ID_UNIDADE_ORG;
-		$_SESSION['STATUS'] = '*Registro inserido com sucesso!';
-		$_SESSION['PAGE'] = '1';
-		header("Location: ".$url."src/".$pasta."/index.php");
+if ($_SESSION['ID_ORGAO_GESTOR_ESTAGIO']){
+    
+    $VO->ID_ORGAO_GESTOR_ESTAGIO = $_SESSION['ID_ORGAO_GESTOR_ESTAGIO'];
+    $VO->buscar();
+    $VO->preencherVOBD($VO->getVetor());
+  
+    if($_POST){
+		$VO->configuracao();
+		$VO->setCaracteristica('TX_ORGAO_GESTOR_ESTAGIO,ID_UNIDADE_ORG','obrigatorios');
+		$validar = $VO->preencher($_POST);
+
+        if (!$validar){
+            $VO->alterar();
+			$_SESSION['TX_ORGAO_GESTOR_ESTAGIO'] = $VO->TX_ORGAO_GESTOR_ESTAGIO;
+			$_SESSION['ID_UNIDADE_ORG'] = $VO->ID_UNIDADE_ORG;
+			$_SESSION['STATUS'] = '*Registro alterado com sucesso!';
+			$_SESSION['PAGE'] = '1';
+            header("Location: ".$url."src/".$pasta."/index.php");
+        }
     }
-}
+}else header("Location: ".$url."src/".$pasta."/index.php");
 
 $smarty->assign("current"       , $current);
 $smarty->assign("pasta"         , $pasta);

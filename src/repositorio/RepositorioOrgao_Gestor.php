@@ -30,26 +30,26 @@ class RepositorioOrgao_Gestor extends Repositorio{
 
         return $this->sqlVetor($query);
     }
-	/*
+	
 	function inserir($VO){
 		
-		$queryPK = "select SEMAD.F_G_PK_UNIDADE_IRP as ID_UNIDADE_IRP from DUAL";
+		$queryPK = "select SEMAD.F_G_PK_ORGAO_GESTOR_ESTAGIO as ID_ORGAO_GESTOR_ESTAGIO from DUAL";
         $this->sqlVetor($queryPK);
         $CodigoPK = $this->getVetor();
 
         $query = "
-            INSERT INTO UNIDADE_IRP(ID_UNIDADE_IRP, TX_UNIDADE_IRP, DT_CADASTRO, DT_ATUALIZACAO, ID_UNIDADE_ORG) 
+            INSERT INTO ORGAO_GESTOR_ESTAGIO(ID_ORGAO_GESTOR_ESTAGIO, TX_ORGAO_GESTOR_ESTAGIO, DT_CADASTRO, DT_ATUALIZACAO, ID_UNIDADE_ORG) 
 						values
-								('".$CodigoPK['ID_UNIDADE_IRP'][0]."', '".$VO->TX_UNIDADE_IRP."', SYSDATE, SYSDATE, '".$VO->ID_UNIDADE_ORG."')
+								('".$CodigoPK['ID_ORGAO_GESTOR_ESTAGIO'][0]."', '".$VO->TX_ORGAO_GESTOR_ESTAGIO."', SYSDATE, SYSDATE, '".$VO->ID_UNIDADE_ORG."')
         ";
 
         $retorno = $this->sql($query);
-        return $retorno ? '' : $CodigoPK['ID_UNIDADE_IRP'][0];
+        return $retorno ? '' : $CodigoPK['ID_ORGAO_GESTOR_ESTAGIO'][0];
     }
 	
 	function buscar($VO) {
 		
-        $query = "select id_unidade_irp, TX_UNIDADE_IRP, TO_CHAR(DT_CADASTRO, 'dd/mm/yyyy hh24:mi:ss') DT_CADASTRO, to_char(DT_ATUALIZACAO, 'dd/mm/yyyy hh24:mi:ss') DT_ATUALIZACAO, ID_UNIDADE_ORG from unidade_irp where id_unidade_irp = '".$VO->ID_UNIDADE_IRP."'";
+        $query = "select ID_ORGAO_GESTOR_ESTAGIO, TX_ORGAO_GESTOR_ESTAGIO, TO_CHAR(DT_CADASTRO, 'dd/mm/yyyy hh24:mi:ss') DT_CADASTRO, to_char(DT_ATUALIZACAO, 'dd/mm/yyyy hh24:mi:ss') DT_ATUALIZACAO, ID_UNIDADE_ORG from ORGAO_GESTOR_ESTAGIO where ID_ORGAO_GESTOR_ESTAGIO = '".$VO->ID_ORGAO_GESTOR_ESTAGIO."'";
        
 
         return $this->sqlVetor($query);
@@ -57,24 +57,24 @@ class RepositorioOrgao_Gestor extends Repositorio{
 	
 	function alterar($VO){
 
-        $query = "update unidade_irp set
-					TX_UNIDADE_IRP = '".$VO->TX_UNIDADE_IRP."' ,
+        $query = "update ORGAO_GESTOR_ESTAGIO set
+					TX_ORGAO_GESTOR_ESTAGIO = '".$VO->TX_ORGAO_GESTOR_ESTAGIO."' ,
 					ID_UNIDADE_ORG = '".$VO->ID_UNIDADE_ORG."' ,
 					DT_ATUALIZACAO = SYSDATE
 				 where
- 					ID_UNIDADE_IRP = '".$VO->ID_UNIDADE_IRP."'";
+ 					ID_ORGAO_GESTOR_ESTAGIO = '".$VO->ID_ORGAO_GESTOR_ESTAGIO."'";
 
         return $this->sql($query);
     }
 	
 	function excluir($VO){
 
-        $query = "delete from unidade_irp
-                	where ID_UNIDADE_IRP = '".$VO->ID_UNIDADE_IRP."'";
+        $query = "delete from ORGAO_GESTOR_ESTAGIO
+                	where ID_ORGAO_GESTOR_ESTAGIO = '".$VO->ID_ORGAO_GESTOR_ESTAGIO."'";
         
         return $this->sql($query);
     }
-	*/
+	
 }
 
 ?>

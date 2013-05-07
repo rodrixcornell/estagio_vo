@@ -38,7 +38,7 @@ function gerarTabela($param=''){
 		echo '<div id="status">'.$_SESSION['STATUS'].'</div>
 		<table width="100%" class="dataGrid">
                             <tr>
-                                <th>Órgão Gestor</th>
+                                <th>Órgão Gestor de Estágio</th>
 								<th>Unidade Organizacional</th>
 								<th>Data Cadastro</th>
 								<th>Data Atualização</th>';
@@ -96,7 +96,7 @@ if ($_REQUEST['identifier'] == "tabela"){
 	gerarTabela($erro);
 }else if ($_REQUEST['identifier'] == 'excluir'){
 	
-	$VO->ID_UNIDADE_IRP 		= $_REQUEST['ID_UNIDADE_IRP'];
+	$VO->ID_ORGAO_GESTOR_ESTAGIO 		= $_REQUEST['ID_ORGAO_GESTOR_ESTAGIO'];
 	
 	if ($acesso){
 		
