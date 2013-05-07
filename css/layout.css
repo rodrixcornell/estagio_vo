@@ -1,0 +1,406 @@
+/*************************** 
+  Disposicao do layout
+ ***************************/
+body{
+    background: #F6F6F6;
+    background-image: url("../img/bg_body.png");
+    font-family: verdana,arial,helvetica,sans-serif;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    text-align: center;
+}
+
+embed{
+    position:relative;
+    top:7px;
+}
+
+body a:link, body a:visited{
+    text-decoration: none;
+    color:blue; 
+}
+
+img{
+    border: 0px;
+}
+
+#centraliza{
+    width: 960px;
+    margin: 0 auto;
+    border: 0px solid blue;
+    text-align: left;
+    background: #F6F6F6;
+    padding: 10px;
+}
+
+/* Estilos para o Topo */
+
+#linhaTopo {width: 960px;}
+
+#linhaTopo *{
+    background-color: #98afc2;
+    color: #fff;
+    vertical-align: bottom;
+}
+
+#msgTopo{
+    font-family: sans-serif;
+    font-size: 8pt;
+    font-weight: bolder;
+    vertical-align: bottom;
+}
+
+#msgTopo #msgRight{
+    text-align: right;
+}
+
+#logo_pmm{
+    height: 84px;
+    width: 960px;
+    background-color: #0067AC;
+    background-image: url("../img/topo/topo.png");
+    background-position: left center;
+    background-repeat: no-repeat;
+    margin-bottom: 1px;
+}
+
+#logo {
+    left:130px;
+    position:relative;
+    top:10px;
+}
+
+#logo_ug {
+    left:530px;
+    position:relative;
+    top:10px;
+}
+
+#breadCrumbs{
+    float: right;
+    height: 22px;
+    margin: 2px;
+    padding: 0;
+    border-bottom: 0px solid #ccc
+}
+
+#breadCrumbs li{
+    font-size: 11px;
+    display: inline;
+    color: #696969;
+    line-height: 28px;
+}
+
+
+#breadCrumbs a:link{ color:#696969 }
+#breadCrumbs a:visited{ color:#696969 }
+
+/* Estilos para o Rodape */
+
+#frameContentBottom{
+    display: block;
+    margin-top: 50px;
+    width: 960px;
+    height: 100px; /*Height of bottom frame div*/
+    clear: both;
+    background-color: #005EA8;
+}
+
+#credito{
+    display: inline-block;
+    width: 550px;
+    margin: 40px 0px 0px 20px;
+    text-align: left;
+    color: #fff;
+    font-size: 10px;
+    font-weight: bolder;
+    border: 0px solid white;
+    float: left;
+}
+
+#marca_pmm{
+    display: inline-block;
+    width: 124px;
+    height: 68px;
+    margin: 20px;
+    border: 0px solid white;
+    background-image: url("../img/rodape/logoSistemasPMM.png");
+    float: right;
+}
+
+#centro{
+	padding: 10px;
+}
+
+#imgTitulo{
+	float:left;	
+}
+
+#titulo{
+	border: 0px solid red;
+	padding:10px;
+	font-family:"Trebuchet MS", Arial, Helvetica, sans-serif;
+	font-size: 20px;
+	float:left;
+}
+
+hr {
+	margin: 0 0 10px 0;
+	border: 1px groove black;
+}
+
+#conteudo{
+	font-family:Verdana, Geneva, sans-serif;
+	font-size:12px;
+}
+
+input {
+    border-bottom: #98afc2 1px solid;
+    border-left: #98afc2 1px solid;
+    border-right: #98afc2 1px solid;
+    border-top: #98afc2 1px solid;
+    font-family: Verdana, Geneva, sans-serif;
+    font-size: 13px;	
+}
+
+
+.leitura{
+	background-color:#B9B9B9;	
+}
+
+#camada{
+	border: 0px solid red;
+	margin-top: 4px;
+	display: inline-block;
+}
+
+
+table.dataGrid
+{
+	margin-top:3px;
+	border-collapse: collapse;
+	border: solid 1px #CCC;
+}
+
+table.dataGrid th
+{
+	font-size: 12px;
+	border: 1px #CCC solid;
+	padding:5px;
+	vertical-align:middle;
+	text-align: center;
+	background-color:#DBDBDB;
+	background-image:url(../img/background/fundoTabela.png);
+	text-shadow: 0 1px 0 #FFF;
+}
+
+table.dataGrid td{
+	font-size: 11px;
+	/*background-color:#F0EFEF;*/
+	border: 1px #CCC solid;
+	padding: 0.3em;
+	vertical-align:middle;	
+	height: 22px;
+}
+
+.fundo_pag{
+	display: none;
+	font-size: 13px;
+	font-weight: bold;
+	height:120px;
+	position: absolute;
+	padding-top:40px;
+	text-align: center;
+	opacity:0.5;filter: alpha(opacity=50) ;
+	text-decoration: none;
+	width: 910px;
+}
+
+#nao_encontrado{
+	height:40px;
+	text-align:center;
+	font-family:Verdana, Geneva, sans-serif;
+	font-weight:bold;
+}
+
+
+#paginacao ul{ width:900px; padding:0px; margin:8px; }
+
+#paginacao ul li { 
+	-moz-border-radius: 3px 3px 3px 3px;
+    background: none repeat scroll 0 0 #54AFE3;
+    color: #FFFFFF;
+    float: left;
+    font-family: Verdana, Geneva, sans-serif;
+    font-size: 12px;
+    font-weight: 500;
+    margin: 0 2px 0px;
+    padding: 5px 5px;
+    text-align: center;
+    text-decoration: none;
+    text-shadow: none;
+	list-style-type:none; 
+    width: 25px;
+	cursor:pointer;
+}
+
+#paginacao ul li.selecionado{
+	background:#D8543A;
+}
+	
+#paginacao ul li:hover{background:#D8543A;}
+
+
+/*Inicio*/
+#paginacaoInicio ul{ width:900px; padding:0px; margin:8px; }
+
+#paginacaoInicio ul li { 
+	-moz-border-radius: 3px 3px 3px 3px;
+    background: none repeat scroll 0 0 #54AFE3;
+    color: #FFFFFF;
+    float: left;
+    font-family: Verdana, Geneva, sans-serif;
+    font-size: 12px;
+    font-weight: 500;
+    margin: 0 2px 0px;
+    padding: 5px 5px;
+    text-align: center;
+    text-decoration: none;
+    text-shadow: none;
+	list-style-type:none; 
+    width: 25px;
+	cursor:pointer;
+}
+
+#paginacaoInicio ul li.selecionado{
+	background:#D8543A;
+}
+	
+#paginacaoInicio ul li:hover{background:#D8543A;}
+
+
+
+
+UL.tabNavigation {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+
+UL.tabNavigation LI {
+	display: inline;
+}
+
+UL.tabNavigation LI A {
+	padding: 3px 5px;
+	background-color: #E1E1E1;
+	color: #000;
+	text-decoration: none;
+}
+
+UL.tabNavigation LI A.selected,
+UL.tabNavigation LI A:hover {
+	background-color: #005ea8;
+	color: #fff;
+	padding-top: 5px;
+}
+
+UL.tabNavigation LI A:focus {
+	outline: 0;
+}
+
+div.tabs > div {
+	padding: 5px;
+	margin-top: 3px;
+	border: 1px solid #005ea8;
+}
+
+#conteudoTabs {
+	padding: 5px;
+	margin-top: 3px;
+	border: 1px solid #005ea8;
+}
+
+div.tabs > div h2 {
+	margin-top: 0;
+}
+
+.fonteVermelha{
+	font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+	font-size: 14px;  
+	color: #00F;
+	font-weight:bold;
+}
+
+legend{background-color: #4682B4; padding: 3px 14px; font-weight: bolder; color: #FFF; font-size: 12px; font-family:Verdana, Geneva, sans-serif;}
+fieldset{-moz-border-radius: 5px; font-size: 11px; margin-bottom:4px; }	
+
+#checkbox{
+	border: none;	
+}
+
+#navegacao{
+	text-align: center;
+}
+
+#loaderTab{
+	text-align: center;	
+}
+
+#cadastrar_novo{
+	padding: 10px;	
+}
+
+#bloqueio{
+	text-align:	center;
+	padding-top:50px;
+	font-weight:bold;
+}
+
+#novidades{
+    background-image: url("../img/icones/info_barra.png");
+    background-repeat: no-repeat;
+    background-color: #e9eef0;
+    text-align: left;
+    border: 0px solid red;
+    list-style-position: outside;
+    margin-top: 150px;
+    width: 100%;
+    -moz-border-radius: 10px;
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:12px;
+}
+
+.ui-combobox {
+	position: relative;
+	display: inline-block;
+	font-family: Verdana, Geneva, sans-serif;
+    font-size: 12px;
+	
+}
+.ui-combobox-toggle {
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	margin-left: -1px;
+	padding: 0;
+	/* adjust styles for IE 6/7 */
+	*height: 1.7em;
+	*top: 0.1em;
+}
+.ui-combobox-input {
+	border-bottom: #98afc2 1px solid;
+    border-left: #98afc2 1px solid;
+    border-right: #98afc2 1px solid;
+    border-top: #98afc2 1px solid;
+}
+
+.ui-combobox input{
+	margin:0;	
+}
+
+#status{
+	text-align:center;
+	color:#03F;	
+}
