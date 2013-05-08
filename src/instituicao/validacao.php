@@ -11,10 +11,8 @@ session_start();
 // Iniciando Instância 
 $codigo = explode('_', $_REQUEST['ID']);
 
-
 $_SESSION['ID_INSTITUICAO_ENSINO']   = $codigo[0];
 $_SESSION['TX_INSTITUICAO_ENSINO']   = $codigo[1];
-
 
 header("Location: ".$url."src/".$pasta."/alterar.php");
 

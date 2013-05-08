@@ -28,6 +28,7 @@ class RepositorioInstituicao extends Repositorio {
         return $this->sqlVetor($query);
     }
 
+    
 //-------------------
     function inserir($VO) {
         $queryPK = "select SEMAD.F_G_PK_INSTITUICAO_ENSINO() as ID_INSTITUICAO_ENSINO from dual";
@@ -46,6 +47,7 @@ class RepositorioInstituicao extends Repositorio {
             return $CodigoPK['ID_INSTITUICAO_ENSINO'][0];
     }
 
+    
 //-------------------    
     function buscar($VO) {
         $query = "SELECT ID_INSTITUICAO_ENSINO,
@@ -57,6 +59,7 @@ class RepositorioInstituicao extends Repositorio {
         return $this->sqlVetor($query);
     }
 
+    
 //-----------------
     function alterar($VO) {
 

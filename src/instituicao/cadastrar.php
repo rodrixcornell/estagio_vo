@@ -1,7 +1,8 @@
 <?php
+
 require_once "../../php/define.php";
-require_once $path."src/instituicao/arrays.php";
-require_once $pathvo."instituicaoVO.php";
+require_once $path . "src/instituicao/arrays.php";
+require_once $pathvo . "instituicaoVO.php";
 
 $modulo = 78;
 $programa = 6;
@@ -17,31 +18,31 @@ unset($_SESSION['ID_INSTITUICAO_ENSINO']);
 // Iniciando Instância
 $VO = new instituicaoVO();
 
-if($_POST){
+if ($_POST) {
     $VO->configuracao();
-    $VO->setCaracteristica('TX_INSTITUICAO_ENSINO,TX_SIGLA','obrigatorios');
-     
+    $VO->setCaracteristica('TX_INSTITUICAO_ENSINO,TX_SIGLA', 'obrigatorios');
+
     $validar = $VO->preencher($_POST);
-	
-	(!$validar) ? $id_pk = $VO->inserir() : false;
-	
+
+    (!$validar) ? $id_pk = $VO->inserir() : false;
+
     if (!$validar) {
-         $_SESSION['ID_INSTITUICAO_ENSINO'] = $VO->ID_INSTITUICAO_ENSINO;
-         $_SESSION['TX_INSTITUICAO_ENSINO'] = $VO->TX_INSTITUICAO_ENSINO;
-	 $_SESSION['TX_SIGLA'] = $VO->TX_SIGLA;
-	 $_SESSION['STATUS'] = '*Registro inserido com sucesso!';
-	 $_SESSION['PAGE'] = '1';
-	header("Location: ".$url."src/".$pasta."/index.php");
+        $_SESSION['ID_INSTITUICAO_ENSINO'] = $VO->ID_INSTITUICAO_ENSINO;
+        $_SESSION['TX_INSTITUICAO_ENSINO'] = $VO->TX_INSTITUICAO_ENSINO;
+        $_SESSION['TX_SIGLA'] = $VO->TX_SIGLA;
+        $_SESSION['STATUS'] = '*Registro inserido com sucesso!';
+        $_SESSION['PAGE'] = '1';
+        header("Location: " . $url . "src/" . $pasta . "/index.php");
     }
 }
 
-$smarty->assign("current"       , $current);
-$smarty->assign("pasta"         , $pasta);
-$smarty->assign("validar"	, $validar);
-$smarty->assign("VO"		, $VO);
-$smarty->assign("titulopage"    , $titulopage);
-$smarty->assign("arquivoCSS"    , $pasta);
-$smarty->assign("arquivoJS"     , $pasta);
-$smarty->assign("nomeArquivo"   , $pasta."/".$nomeArquivo.".tpl");	
+$smarty->assign("current", $current);
+$smarty->assign("pasta", $pasta);
+$smarty->assign("validar", $validar);
+$smarty->assign("VO", $VO);
+$smarty->assign("titulopage", $titulopage);
+$smarty->assign("arquivoCSS", $pasta);
+$smarty->assign("arquivoJS", $pasta);
+$smarty->assign("nomeArquivo", $pasta . "/" . $nomeArquivo . ".tpl");
 $smarty->display('index.tpl');
 ?>

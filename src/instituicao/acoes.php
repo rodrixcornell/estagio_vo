@@ -5,6 +5,7 @@ require_once $pathvo."instituicaoVO.php";
 $modulo = 78;
 $programa = 6;
 
+
 require_once "../autenticacao/validaPermissao.php";
 
 session_start();
@@ -86,6 +87,7 @@ function gerarTabela($param=''){
 	
 	unset($_SESSION['STATUS']);			
 }
+
 
 $VO = new instituicaoVO();
 

@@ -14,9 +14,7 @@ $(document).ready(function(){
 	 $('#tabela').load('acoes.php?identifier=tabela',{TX_INSTITUICAO_ENSINO:$('#TX_INSTITUICAO_ENSINO').val(),TX_SIGLA:$('#TX_SIGLA').val()}, hideLoader);
        return false;    
       });    
-    
   
-
 //Paginacao
 $("#paginacao li").live('click', function(){
  showLoader();
