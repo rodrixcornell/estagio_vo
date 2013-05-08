@@ -31,18 +31,15 @@
     <script charset="UTF-8" type="text/javascript" language="JavaScript">
         $(document).ready(function(){
         function showLoader(){ $('.fundo_pag').fadeIn(200); }
-    function hideLoader(){ $('.fundo_pag').fadeOut(200); };
-	
-	
-   if ("{$VO->TX_INSTITUICAO_ENSINO}" || "{$VO->TX_SIGLA}"){
-showLoader();
-$("#tabela").load('acoes.php?identifier=tabela',{
-   TX_INSTITUICAO_ENSINO:"{$VO->TX_INSTITUICAO_ENSINO}",
-   TX_SIGLA:             "{$VO->TX_SIGLA}",
-   PAGE:"{$VO->PAGE}"
-}, hideLoader); 
-}
-	
+    	function hideLoader(){ $('.fundo_pag').fadeOut(200); };
+			if (!"{$s}"){
+				showLoader();
+				$("#tabela").load('acoes.php?identifier=tabela',{
+				   TX_INSTITUICAO_ENSINO:"{$VO->TX_INSTITUICAO_ENSINO}",
+				   TX_SIGLA:             "{$VO->TX_SIGLA}",
+				   PAGE:"{$VO->PAGE}"
+				}, hideLoader); 
+			}
 });
     </script>
 

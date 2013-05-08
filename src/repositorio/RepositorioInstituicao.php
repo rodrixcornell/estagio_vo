@@ -38,8 +38,8 @@ class RepositorioInstituicao extends Repositorio {
         $query = "INSERT INTO INSTITUICAO_ENSINO(ID_INSTITUICAO_ENSINO,TX_INSTITUICAO_ENSINO,TX_SIGLA)
 			       values("
                 . "'" . $CodigoPK['ID_INSTITUICAO_ENSINO'][0] . "'"
-                . ", UPPER('" . $VO->TX_INSTITUICAO_ENSINO . "')"
-                . ", '" . $VO->TX_SIGLA . "'"
+                . ", '" . $VO->TX_INSTITUICAO_ENSINO . "'"
+                . ", UPPER('" . $VO->TX_SIGLA . "')"
                 . " )";
 
         $retorno = $this->sql($query);
@@ -65,7 +65,7 @@ class RepositorioInstituicao extends Repositorio {
 
         $query = "update INSTITUICAO_ENSINO set
 					TX_INSTITUICAO_ENSINO = '" . $VO->TX_INSTITUICAO_ENSINO . "' ,
-					TX_SIGLA = '" . $VO->TX_SIGLA . "' 
+					TX_SIGLA = UPPER('" . $VO->TX_SIGLA . "') 
                                    where
  					ID_INSTITUICAO_ENSINO = '" . $VO->ID_INSTITUICAO_ENSINO . "'";
 
