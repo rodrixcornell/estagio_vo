@@ -1,9 +1,10 @@
 <?php
 include "../../php/define.php";
-require_once $pathvo."orgao_gestorVO.php";
+require_once $pathvo."instituicaoVO.php";
 
 $modulo = 78;
-$programa = 1;
+$programa = 6;
+
 
 require_once "../autenticacao/validaPermissao.php";
 
@@ -11,13 +12,14 @@ session_start();
 
 function gerarTabela($param=''){
 	include "../../php/define.php";
-	require_once $pathvo."orgao_gestorVO.php";
+	require_once $pathvo."instituicaoVO.php";
 	$acesso = $GLOBALS['acesso']; //Acessar a Variavel global;
 
-	$VO = new orgao_gestorVO();
-	$VO->TX_ORGAO_GESTOR_ESTAGIO 	= $_REQUEST['TX_ORGAO_GESTOR_ESTAGIO'];
-	$VO->ID_UNIDADE_ORG 			= $_REQUEST['ID_UNIDADE_ORG'];
-	$page               			= $_REQUEST['PAGE'];
+	$VO = new instituicaoVO();
+        $VO->ID_INSTITUICAO_ENSINO 	= $_REQUEST['ID_INSTITUICAO_ENSINO'];
+	$VO->TX_INSTITUICAO_ENSINO 	= $_REQUEST['TX_INSTITUICAO_ENSINO'];
+	$VO->TX_SIGLA           	= $_REQUEST['TX_SIGLA'];
+	$page               	        = $_REQUEST['PAGE'];
 	
 	$VO->preencherSessionPesquisar($_REQUEST);
 	
@@ -38,10 +40,8 @@ function gerarTabela($param=''){
 		echo '<div id="status">'.$_SESSION['STATUS'].'</div>
 		<table width="100%" class="dataGrid">
                             <tr>
-                                <th>Órgão Gestor de Estágio</th>
-								<th>Unidade Organizacional</th>
-								<th>Data Cadastro</th>
-								<th>Data Atualização</th>';
+                            <th>Nome da Instituição</th>
+			    <th>Siglas da Instituição</th>';
 			//Somente ver a coluna de alterar se tiver acesso completo a tela					
 			if ($acesso) 
 				echo '<th style="width:50px;"></th>';
@@ -51,17 +51,15 @@ function gerarTabela($param=''){
                     ($bgcolor == '#E6E6E6') ? $bgcolor = '#F0EFEF' : $bgcolor = '#E6E6E6';
 
                     echo '<tr bgcolor="'.$bgcolor.'">
-                            <td align="center">'.$dados['TX_ORGAO_GESTOR_ESTAGIO'][$i].'</td>
-							<td align="center">'.$dados['TX_UNIDADE_ORG'][$i].'</td>
-							<td align="center">'.$dados['DT_CADASTRO'][$i].'</td>
-							<td align="center">'.$dados['DT_ATUALIZACAO'][$i].'</td>';
+                            <td align="center">'.$dados['TX_INSTITUICAO_ENSINO'][$i].'</td>
+                            <td align="center">'.$dados['TX_SIGLA'][$i].'</td>';
 							
 		//Somente ver a coluna de alterar se tiver acesso completo a tela					
            if ($acesso) 
-		 			echo '<td align="center"> 
-								<a href="'.$dados['ID_ORGAO_GESTOR_ESTAGIO'][$i].'" id="alterar"><img src="'.$urlimg.'icones/editar.png" alt="itens" title="Alterar"/></a>
-								<a href="'.$dados['ID_ORGAO_GESTOR_ESTAGIO'][$i].'" id="excluir"><img src="'.$urlimg.'icones/excluirItem.png" alt="itens" title="Excluir"/></a></td>';
-					echo '</tr>';
+	       echo '<td align="center"> 
+		        <a href="'.$dados['ID_INSTITUICAO_ENSINO'][$i].'" id="alterar"><img src="'.$urlimg.'icones/editar.png" alt="itens" title="Alterar"/></a>
+			<a href="'.$dados['ID_INSTITUICAO_ENSINO'][$i].'" id="excluir"><img src="'.$urlimg.'icones/excluirItem.png" alt="itens" title="Excluir"/></a></td>';
+			   echo '</tr>';
 		}
 		
 		echo '</table>';
@@ -90,14 +88,14 @@ function gerarTabela($param=''){
 	unset($_SESSION['STATUS']);			
 }
 
-$VO = new orgao_gestorVO();
+
+$VO = new instituicaoVO();
 
 if ($_REQUEST['identifier'] == "tabela"){
 	gerarTabela($erro);
 }else if ($_REQUEST['identifier'] == 'excluir'){
-	
-	$VO->ID_ORGAO_GESTOR_ESTAGIO 		= $_REQUEST['ID_ORGAO_GESTOR_ESTAGIO'];
-	
+	$VO->ID_INSTITUICAO_ENSINO = $_REQUEST['ID_INSTITUICAO_ENSINO'];
+	        
 	if ($acesso){
 		
 		$retorno = $VO->excluir();
