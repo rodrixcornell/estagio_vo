@@ -6,7 +6,7 @@
                     <li><a href="{$url}src/orgao_gestor/?s=1" ><span>1-Órgão Gestor</span></a></li>
                     <li><a href="{$url}src/orgao_solicitante/?s=1"><span>2-Órgão Solicitante</span></a></li>
                     <li><a href="{$url}src/agente_setorial/?s=1"><span>3-Agente Setorial</span></a></li>
-                    <li><a href="{$url}src/tipo_estagio/?s=1"><span>4-Tipo de Estágio</span></a></li>
+                    <li><a href="{$url}src/tipo_estagio/?s=1"><span>4-Tipo de Vaga de Estágio</span></a></li>
                     <li><a href="{$url}src/curso/?s=1"><span>5-Curso</span></a></li>
                     <li><a href="{$url}src/instituicao/?s=1"><span>6-Instituição de Ensino</span></a></li>
                     <li><a href="{$url}src/agencia/?s=1"><span>7-Agência de Estágio</span></a></li>

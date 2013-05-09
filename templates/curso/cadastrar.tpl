@@ -15,7 +15,7 @@
             <br />
             
             <div id="camada" style="font-family:Verdana, Geneva, sans-serif; width:410px;">
-                <font color="#FF0000">*</font>Área de conehcimento <font color="#FF0000">{$validar.ID_UNIDADE_ORG}</font><br />
+                <font color="#FF0000">*</font>Área de Conhecimento <font color="#FF0000">{$validar.ID_UNIDADE_ORG}</font><br />
                 <select name="CS_AREA_CONHECIMENTO" id="CS_AREA_CONHECIMENTO" style="width:400px;">
                     {html_options options=$arrayUnidade selected=$VO->CS_AREA_CONHECIMENTO}
                 </select></div>
