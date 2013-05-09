@@ -17,7 +17,6 @@
                     <input type="text" name="TX_TIPO_VAGA_ESTAGIO" id="TX_TIPO_VAGA_ESTAGIO" value="{$VO->TX_TIPO_VAGA_ESTAGIO}" style="width:400px;" /><br />
 
                     <br />
-                    <br />
                 
                 <input type="button" name="pesquisar" id="pesquisar" value="Pesquisar" />
 

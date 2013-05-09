@@ -20,10 +20,11 @@ $VO = new tipo_estagioVO();
 if($_POST){
     $VO->configuracao();
     $VO->setCaracteristica('CS_TIPO_VAGA_ESTAGIO,TX_TIPO_VAGA_ESTAGIO','obrigatorios');
+	$VO->setCaracteristica('CS_TIPO_VAGA_ESTAGIO','numeros');
    
     $validar = $VO->preencher($_POST);
 
-	(!$validar) ? $id_pk = $VO->inserir() : false;
+	(!$validar) ? $validar = $VO->inserir() : false;
 
     if (!$validar) {
         $_SESSION['CS_TIPO_VAGA_ESTAGIO'] = $VO->CS_TIPO_VAGA_ESTAGIO;
@@ -31,7 +32,9 @@ if($_POST){
 		$_SESSION['STATUS'] = '*Registro inserido com sucesso!';
 		$_SESSION['PAGE'] = '1';
 		header("Location: ".$url."src/".$pasta."/index.php");
-    }
+    }else{
+		$validar['CS_TIPO_VAGA_ESTAGIO'] = 'Registro já existe!';	
+	}
 }
 
 $smarty->assign("current"       , $current);

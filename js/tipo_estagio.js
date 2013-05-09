@@ -8,6 +8,7 @@ $(document).ready(function(){
         $('.fundo_pag').fadeOut(200);
     };
 
+	$('#CS_TIPO_VAGA_ESTAGIO').setMask({ mask:'99999999' });
 
 	$('#pesquisar').click(function(){
 //		if ($('#TX_UNIDADE_IRP').val() || $('#ID_UNIDADE_ORG').val()){

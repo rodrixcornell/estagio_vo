@@ -25,7 +25,6 @@ if ($_SESSION['CS_TIPO_VAGA_ESTAGIO']){
     if($_POST){
 		$VO->configuracao();
         $VO->setCaracteristica('CS_TIPO_VAGA_ESTAGIO,TX_TIPO_VAGA_ESTAGIO','obrigatorios');
-        $VO->verificarMoeda('NB_VALOR');
                 
 		$validar = $VO->preencher($_POST);
 
