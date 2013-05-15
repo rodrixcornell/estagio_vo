@@ -25,16 +25,7 @@ class RepositorioAgente_setorial extends Repositorio {
         return $this->sqlVetor($query);
     }
 
-    /*
-      function pesquisarUnidadeSolicitante($VO) {
-
-      $query = "select distinct a.ID_UNIDADE_IRP CODIGO, B.TX_UNIDADE_IRP
-      from UNID_RESP_SOLIC a, UNIDADE_IRP B
-      WHERE A.ID_UNIDADE_IRP = B.ID_UNIDADE_IRP";
-
-      return $this->sqlVetor($query);
-      } */
-
+  
     function pesquisar($VO) {
 
         $query = "SELECT 
@@ -60,7 +51,6 @@ class RepositorioAgente_setorial extends Repositorio {
 
         $query .= " ORDER BY A.TX_FUNCIONARIO";
 
-//        print_r($query);
 
         if ($VO->Reg_quantidade) {
             !$VO->Reg_inicio ? $VO->Reg_inicio = 0 : false;
@@ -122,7 +112,7 @@ class RepositorioAgente_setorial extends Repositorio {
                     A.TX_UNIDADE_ORG,
                     C.ID_ORGAO_ESTAGIO ID_ORGAO_ESTAGIO,
                     C.TX_ORGAO_ESTAGIO,
-                    TO_CHAR(B.DT_ATUALIZACAO,'dd/mm/yyyy') DT_ATUALIZACAO
+                    TO_CHAR(B.DT_ATUALIZACAO,'dd/mm/yyyy hh24:mi:ss') DT_ATUALIZACAO
                     FROM ORGAO_ESTAGIO C ,ORGAO_AGENTE_SETORIAL B,UNIDADE_ORG A
                     WHERE C.ID_ORGAO_ESTAGIO =B.ID_ORGAO_ESTAGIO 
                     and A.ID_UNIDADE_ORG = C.ID_UNIDADE_ORG 

@@ -19,7 +19,7 @@ if ($_SESSION['ID_SETORIAL_ESTAGIO']){
 	$retorno = $VO->excluir();
 			
 	if (!$retorno){
-		$msg = 'Registro de Agente setorial excluída com sucesso.<br><br> <a href="'.$url.'src/'.$pasta.'/index.php">Clique aqui</a> para voltar';	
+		$msg = 'Agente setorial excluído com sucesso.<br><br> <a href="'.$url.'src/'.$pasta.'/index.php">Clique aqui</a> para voltar';	
 		unset($_SESSION['ID_RESP_UNID_IRP']);
 	}else{
 		$msg = 'Este registro não pode ser excluído pois possui dependentes.<br /> <a href="'.$url.'src/'.$pasta.'/detail.php">clique aqui</a> para voltar';

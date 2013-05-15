@@ -1,5 +1,4 @@
 <?php
-
 include "../../php/define.php";
 require_once $pathvo . "agente_setorialVO.php";
 
@@ -37,8 +36,7 @@ function gerarTabela($param = '') {
         <tr>
         <th>Órgão Solicitante</th>
         <th>Unidade Organizacional</th>
-       
-        <th style="width:130px;">Data de Atualização</th>';
+        <th style="width:145px;">Data de Atualização</th>';
 
     //Somente ver a coluna de alterar se tiver acesso completo a tela	
     if ($acesso)
@@ -118,10 +116,10 @@ if ($_REQUEST['identifier'] == "tabela") {
              <th>Usuário</th>
              <th>Funcionário</th>
              <th>Data de Cadastro</th>
-             <th style="width:130px;">Data de Atualização</th>
+             <th style="width:150px;">Data de Atualização</th>
 								';
         //Somente ver a coluna de alterar se tiver acesso completo a tela					
-        if ($acesso)
+        //if ($acesso)
             echo '<th style="width:30px;"></th>';
         echo '</tr>';
 
@@ -135,7 +133,7 @@ if ($_REQUEST['identifier'] == "tabela") {
                 <td align="center">' . $dados['DT_ATULIZACAO'][$i] . '</td>';
 
             //Somente ver a coluna de alterar se tiver acesso completo a tela					
-            if ($acesso)
+           // if ($acesso)
                 echo '<td align="center"> 
 		  <a href="' . $dados['ID_SETORIAL_ESTAGIO'][$i] . '" id="alterar"><img src="' . $urlimg . 'icones/editar.png" alt="itens" title="Alterar"/></a></td>';
 
