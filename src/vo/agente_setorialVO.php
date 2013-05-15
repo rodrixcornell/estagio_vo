@@ -19,13 +19,13 @@ class agente_setorialVO extends VO{
 //        return $this->repositorio->pesquisarUnidadeSolicitante($this);
 //    }
 //	
-//	function  buscarUnidades(){    
-//        return $this->repositorio->buscarUnidades($this);
-//    }
-//	
-//	function  pesquisarUnidade(){    
-//        return $this->repositorio->pesquisarUnidade($this);
-//    }
+	function  buscarUnidades(){    
+        return $this->repositorio->buscarUnidades($this);
+    }
+	
+	function  pesquisarUnidade(){    
+        return $this->repositorio->pesquisarUnidade($this);
+    }
 //	
 //	function  inserirUnidade(){    
 //        return $this->repositorio->inserirUnidade($this);

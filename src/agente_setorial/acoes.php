@@ -16,7 +16,8 @@ function gerarTabela($param = '') {
     $acesso = $GLOBALS['acesso']; //Acessar a Variavel global;
 
     $VO = new agente_setorialVO();
-    $VO->ID_RESP_UNID_IRP = $_SESSION['ID_RESP_UNID_IRP'];
+    $VO->ID_SETORIAL_ESTAGIO = $_SESSION['ID_SETORIAL_ESTAGIO'];
+    $VO->TX_FUNCIONARIO = $_SESSION['TX_FUNCIONARIO'];
     $page = $_REQUEST['PAGE'];
 
 
@@ -34,9 +35,10 @@ function gerarTabela($param = '') {
 
     echo '<table width="100%" id="tabelaItens" >
         <tr>
-        <th>Sigla</th>
-        <th>Unidade Solicitante</th>
-        <th style="width:130px;">Data de Cadastro</th>';
+        <th>Órgão Solicitante</th>
+        <th>Unidade Organizacional</th>
+       
+        <th style="width:130px;">Data de Atualização</th>';
 
     //Somente ver a coluna de alterar se tiver acesso completo a tela	
     if ($acesso)
@@ -52,9 +54,9 @@ function gerarTabela($param = '') {
             ($bgcolor == '#F0F0F0') ? $bgcolor = '#DDDDDD' : $bgcolor = '#F0F0F0';
 
             echo '<tr bgcolor="' . $bgcolor . '" onmouseover="mudarCor(this);" onmouseout="mudarCor(this);">
-                <td align="center">' . $dados['TX_SIGLA_UNIDADE'][$i] . '</td>
-                <td align="center">' . $dados['TX_UNIDADE_IRP'][$i] . '</td>
-                <td align="center">' . $dados['DT_CADASTRO'][$i] . '</td>';
+                <td align="center">' . $dados['TX_ORGAO_ESTAGIO'][$i] . '</td>
+                <td align="center">' . $dados['TX_UNIDADE_ORG'][$i] . '</td>
+                <td align="center">' . $dados['DT_ATUALIZACAO'][$i] . '</td>';
 
             //Somente ver a coluna de alterar se tiver acesso completo a tela					
             if ($acesso)
@@ -88,9 +90,9 @@ function gerarTabela($param = '') {
 $VO = new agente_setorialVO();
 
 if ($_REQUEST['identifier'] == "tabela") {
-    $VO->ID_USUARIO = $_REQUEST['ID_USUARIO_RESP'];
+    $VO->ID_USUARIO_RESP = $_REQUEST['ID_USUARIO_RESP'];
     $VO->TX_FUNCIONARIO = $_REQUEST['TX_FUNCIONARIO'];
-    $VO->ID_UNIDADE_IRP = $_REQUEST['ID_UNIDADE_IRP'];
+
     $page = $_REQUEST['PAGE'];
 
     $VO->preencherSessionPesquisar($_REQUEST);
@@ -98,6 +100,7 @@ if ($_REQUEST['identifier'] == "tabela") {
     $qtd = 15;
     !$page ? $page = 1 : false;
     $primeiro = ($page * $qtd) - $qtd;
+
 
     $total = $VO->pesquisar();
 
@@ -108,32 +111,33 @@ if ($_REQUEST['identifier'] == "tabela") {
     $tot_da_pagina = $VO->pesquisar();
 
     if ($tot_da_pagina) {
+
         $dados = $VO->getVetor();
+
         echo '<table width="100%" class="dataGrid">
-            <tr>
-            <th>Sigla</th>
-            <th>Unidade Solicitante</th>
-            <th>Usuário</th>
-            <th>Funcionário</th>
+             <th>Usuário</th>
+             <th>Funcionário</th>
+             <th>Data de Cadastro</th>
+             <th style="width:130px;">Data de Atualização</th>
 								';
         //Somente ver a coluna de alterar se tiver acesso completo a tela					
-        //if ($acesso) 
-        echo '<th style="width:30px;"></th>';
+        if ($acesso)
+            echo '<th style="width:30px;"></th>';
         echo '</tr>';
 
         for ($i = 0; $i < $tot_da_pagina; $i++) {
             ($bgcolor == '#E6E6E6') ? $bgcolor = '#F0EFEF' : $bgcolor = '#E6E6E6';
 
             echo '<tr bgcolor="' . $bgcolor . '">
-                <td align="center">' . $dados['TX_SIGLA_UNIDADE'][$i] . '</td>
-                <td align="center">' . $dados['TX_UNIDADE_IRP'][$i] . '</td>
                 <td align="center">' . $dados['TX_LOGIN'][$i] . '</td>
-                <td align="center">' . $dados['TX_FUNCIONARIO'][$i] . '</td>';
+                <td align="center">' . $dados['TX_FUNCIONARIO'][$i] . '</td>
+                <td align="center">' . $dados['DT_CADASTRO'][$i] . '</td>
+                <td align="center">' . $dados['DT_ATULIZACAO'][$i] . '</td>';
 
             //Somente ver a coluna de alterar se tiver acesso completo a tela					
-            //if ($acesso) 
-            echo '<td align="center"> 
-								<a href="' . $dados['ID_RESP_UNID_IRP'][$i] . '" id="alterar"><img src="' . $urlimg . 'icones/editar.png" alt="itens" title="Alterar"/></a></td>';
+            if ($acesso)
+                echo '<td align="center"> 
+		  <a href="' . $dados['ID_SETORIAL_ESTAGIO'][$i] . '" id="alterar"><img src="' . $urlimg . 'icones/editar.png" alt="itens" title="Alterar"/></a></td>';
 
             echo '</tr>';
         }

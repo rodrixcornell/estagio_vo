@@ -12,12 +12,12 @@ $titulopage = 'Agente Setorial';
 session_start();
 require_once "../autenticacao/validaPermissao.php";
 
-// Iniciando Instância
+ //Iniciando Instância
 $VO = new agente_setorialVO();
 
-if ($_SESSION['ID_RESP_UNID_IRP']){
-    
-    $VO->ID_RESP_UNID_IRP = $_SESSION['ID_RESP_UNID_IRP'];
+if ($_SESSION['ID_SETORIAL_ESTAGIO']){
+     
+    $VO->ID_SETORIAL_ESTAGIO = $_SESSION['ID_SETORIAL_ESTAGIO'];
 
     $total = $VO->buscar();
     $total ? $dados = $VO->getVetor() : false;

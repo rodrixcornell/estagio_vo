@@ -10,11 +10,11 @@ $VO->pesquisarUsuario();
 //$VO->pesquisarUnidadeSolicitante();
 //    $arrayUnidade = $VO->getArray("TX_UNIDADE_IRP");  
 //	
-//$VO->pesquisarUnidade();
-//    $arrayUnidadeDetail = $VO->getArray("TX_UNIDADE_IRP");  
+$VO->pesquisarUnidade();
+    $arrayUnidadeDetail = $VO->getArray("TX_ORGAO_ESTAGIO");  
 
 
 $smarty->assign("arrayUsuario"    	, $arrayUsuario);
 //$smarty->assign("arrayUnidade"    	, $arrayUnidade);
-//$smarty->assign("arrayUnidadeDetail", $arrayUnidadeDetail);
+$smarty->assign("arrayUnidadeDetail", $arrayUnidadeDetail);
 ?>

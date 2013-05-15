@@ -24,10 +24,10 @@ if($_POST){
 	
 	(!$validar) ? $id_pk = $VO->inserir() : false;
 	
-    if (!$validar) {
-        $_SESSION['ID_RESP_UNID_IRP'] = $id_pk;
-		header("Location: ".$url."src/".$pasta."/detail.php");
-    }
+//    if (!$validar) {
+//        $_SESSION['ID_RESP_UNID_IRP'] = $id_pk;
+//		header("Location: ".$url."src/".$pasta."/index.php");
+//    }
 }
 
 $smarty->assign("current"       , $current);
