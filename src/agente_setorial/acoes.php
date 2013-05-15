@@ -61,7 +61,7 @@ function gerarTabela($param = '') {
             //Somente ver a coluna de alterar se tiver acesso completo a tela					
             if ($acesso)
                 echo '<td align="center" class="icones">
-								<a href="' . $dados['ID_UNIDADE_IRP'][$i] . '" id="excluir" ><img src="' . $urlimg . 'icones/excluirItem.png" title="Excluir Registro"/></a></td>';
+		<a href="' . $dados['ID_ORGAO_ESTAGIO'][$i] . '" id="excluir" ><img src="' . $urlimg . 'icones/excluirItem.png" title="Excluir Registro"/></a></td>';
             echo '</tr>';
         }
 
@@ -172,14 +172,14 @@ if ($_REQUEST['identifier'] == "tabela") {
     echo $dados['TX_FUNCIONARIO'][0];
 } else if ($_REQUEST['identifier'] == "tabelaUnidade") {
     gerarTabela();
-} else if ($_REQUEST['identifier'] == "inserirUnidade") {
+} else if ($_REQUEST['identifier'] == "inserirOrgao") {
 
-    $VO->ID_RESP_UNID_IRP = $_SESSION['ID_RESP_UNID_IRP'];
-    $VO->ID_UNIDADE_IRP = $_REQUEST['ID_UNIDADE_IRP'];
+    $VO->ID_SETORIAL_ESTAGIO = $_SESSION['ID_SETORIAL_ESTAGIO'];
+    $VO->ID_ORGAO_ESTAGIO = $_REQUEST['ID_ORGAO_ESTAGIO'];
 
     if ($acesso) {
-        if ($VO->ID_UNIDADE_IRP) {
-            $retorno = $VO->inserirUnidade();
+        if ($VO->ID_ORGAO_ESTAGIO) {
+            $retorno = $VO->inserirOrgao();
 
             if ($retorno) {
                 $erro = 'Registro já existe.';
@@ -192,28 +192,20 @@ if ($_REQUEST['identifier'] == "tabela") {
     gerarTabela($erro);
 }else if ($_REQUEST['identifier'] == 'atualizarInf') {
 
-    $VO->ID_RESP_UNID_IRP = $_SESSION['ID_RESP_UNID_IRP'];
-    ;
+    $VO->ID_SETORIAL_ESTAGIO = $_SESSION['ID_SETORIAL_ESTAGIO'];
+    
 
     $dados = $VO->atualizarInf();
 
     echo json_encode($dados);
-}/* else if ($_REQUEST['identifier'] == "inserirTodas"){
+} else if ($_REQUEST['identifier'] == 'excluirOrgao') {
 
-  $VO->ID_USUARIO 			= $_SESSION['ID_USUARIO_ACESSO'];
-
-  $VO->inserirTodas();
-
-  gerarTabela();
-
-  } */ else if ($_REQUEST['identifier'] == 'excluirUnidade') {
-
-    $VO->ID_RESP_UNID_IRP = $_SESSION['ID_RESP_UNID_IRP'];
-    $VO->ID_UNIDADE_IRP = $_REQUEST['ID_UNIDADE_IRP'];
+    $VO->ID_SETORIAL_ESTAGIO = $_SESSION['ID_SETORIAL_ESTAGIO'];
+    $VO->ID_ORGAO_ESTAGIO = $_REQUEST['ID_ORGAO_ESTAGIO'];
 
     if ($acesso) {
 
-        $retorno = $VO->excluirUnidade();
+        $retorno = $VO->excluirOrgao();
 
         if (is_array($retorno))
             $erro = 'Este registro não pode ser excluído pois possui dependentes.';

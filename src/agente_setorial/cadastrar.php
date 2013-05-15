@@ -12,7 +12,7 @@ $titulopage = 'Agente Setorial';
 session_start();
 require_once "../autenticacao/validaPermissao.php";
 
-unset($_SESSION['ID_RESP_UNID_IRP']);
+unset($_SESSION['ID_SETORIAL_ESTAGIO']);
 
 // Iniciando Instância
 $VO = new agente_setorialVO();
@@ -24,10 +24,10 @@ if($_POST){
 	
 	(!$validar) ? $id_pk = $VO->inserir() : false;
 	
-//    if (!$validar) {
-//        $_SESSION['ID_RESP_UNID_IRP'] = $id_pk;
-//		header("Location: ".$url."src/".$pasta."/index.php");
-//    }
+    if (!$validar) {
+        $_SESSION['ID_SETORIAL_ESTAGIO'] = $id_pk;
+		header("Location: ".$url."src/".$pasta."/detail.php");
+    }
 }
 
 $smarty->assign("current"       , $current);

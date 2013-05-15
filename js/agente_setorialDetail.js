@@ -9,11 +9,12 @@ $(document).ready(function(){
 	
 	function emptyHideLoader(){
         $('.fundo_pag').fadeOut(200);
-		$("#ID_UNIDADE_IRP option:first").attr('selected','selected');
+		$("#ID_ORGAO_ESTAGIO option:first").attr('selected','selected');
        
 		$.getJSON('acoes.php?identifier=atualizarInf', atualizarInf);
 			function atualizarInf(campo){
-					$("#atualizacao").html(campo['DT_ATUALIZACAO'][0]);
+					$("#atualizacao").html(campo['DT_ATULIZACAO'][0]);
+					$("#funcionario").html(campo['TX_LOGIN_ATU'][0]);
 			}     
 		
     };
@@ -26,12 +27,12 @@ $(document).ready(function(){
 
     // Inserção de Acesso
     $('#inserir').live('click', function(){
-        if (!$('#ID_UNIDADE_IRP').val()){
-            alert('Para inserir escolha uma Unidade Solicitante.');
-            $('#ID_UNIDADE_IRP').focus();
+        if (!$('#ID_ORGAO_ESTAGIO').val()){
+            alert('Para inserir escolha um Orgão Solicitante.');
+            $('#ID_ORGAO_ESTAGIO').focus();
         }else{
             showLoader();
-            $("#tabelaUnidade").load('acoes.php?identifier=inserirUnidade&ID_UNIDADE_IRP='+$('#ID_UNIDADE_IRP').val()+'&PAGE='+$('.selecionado').text(), emptyHideLoader);
+            $("#tabelaUnidade").load('acoes.php?identifier=inserirOrgao&ID_ORGAO_ESTAGIO='+$('#ID_ORGAO_ESTAGIO').val()+'&PAGE='+$('.selecionado').text(), emptyHideLoader);
         }
         return false;
     });
@@ -49,7 +50,7 @@ $(document).ready(function(){
         resp = window.confirm('Tem certeza que deseja excluir este Registro?');
         if (resp){
             showLoader();
-            $("#tabelaUnidade").load('acoes.php?identifier=excluirUnidade&ID_UNIDADE_IRP='+href+'&PAGE='+$('.selecionado').text(), hideLoader);
+            $("#tabelaUnidade").load('acoes.php?identifier=excluirOrgao&ID_ORGAO_ESTAGIO='+href+'&PAGE='+$('.selecionado').text(), emptyHideLoader);
         }
         return false;
     });

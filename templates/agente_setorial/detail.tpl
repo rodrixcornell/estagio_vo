@@ -20,11 +20,11 @@
                         <td><strong>Cadastrado por</strong></td>
                         <td>{$dados.TX_LOGIN_CAD[0]}</td>
                         <td><strong>Data de Cadastro</strong></td>
-                        <td style="text-align:right;"><div id="atualizacao">{$dados.DT_CADASTRO[0]}</div></td>
+                        <td style="text-align:right;">{$dados.DT_CADASTRO[0]}</td>
                     </tr>
                     <tr bgcolor="#E0E0E0">
                         <td><strong>Alterado por</strong></td>
-                        <td>{$dados.TX_LOGIN_ATU[0]}</td>
+                        <td><div id="funcionario">{$dados.TX_LOGIN_ATU[0]}</div></td>
                         <td><strong>Data de Atualização</strong></td>
                         <td style="text-align:right;"><div id="atualizacao">{$dados.DT_ATULIZACAO[0]}</div></td>
                     </tr>
@@ -43,8 +43,8 @@
         	<legend>Cadastro de Órgão Solicitante</legend>
 
             <div id="camada" style="width:510px;"><strong><font color="#FF0000">*</font>Órgão Solicitante</strong>
-                <select name="ID_UNIDADE_IRP" id="ID_UNIDADE_IRP" style="width:500px;">
-                    {html_options options=$arrayUnidadeDetail selected=$VO->ID_UNIDADE_IRP}
+                <select name="ID_ORGAO_ESTAGIO" id="ID_ORGAO_ESTAGIO" style="width:500px;">
+                    {html_options options=$arrayUnidadeDetail selected=$VO->ID_ORGAO_ESTAGIO}
                 </select></div>
 
             <input type="button" name="inserir" id="inserir" value=" Inserir " />

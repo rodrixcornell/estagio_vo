@@ -90,12 +90,14 @@ class RepositorioAgente_setorial extends Repositorio {
 
     function buscar($VO) {
 
-        $query = "SELECT  V_FUNCIONARIO_TOTAL.TX_FUNCIONARIO TX_FUNCIONARIO,
+        $query = "SELECT 
+                    USUARIO.ID_USUARIO ID_USUARIO_RESP,
+                    V_FUNCIONARIO_TOTAL.TX_FUNCIONARIO TX_FUNCIONARIO,
                     USUARIO.TX_LOGIN TX_LOGIN ,
                     USUARIO_ATUALIZACAO.TX_LOGIN TX_LOGIN_CAD,
                     USUARIO_CADASTRADO.TX_LOGIN TX_LOGIN_ATU,
-                    TO_CHAR(AGENTE_SETORIAL_ESTAGIO.DT_ATULIZACAO,'dd/mm/yyyy') DT_ATULIZACAO,
-                    to_char(AGENTE_SETORIAL_ESTAGIO.DT_CADASTRO,'dd/mm/yyyy') DT_CADASTRO
+                    TO_CHAR(AGENTE_SETORIAL_ESTAGIO.DT_ATULIZACAO,'dd/mm/yyyy hh24:mi:ss') DT_ATULIZACAO,
+                    to_char(AGENTE_SETORIAL_ESTAGIO.DT_CADASTRO,'dd/mm/yyyy hh24:mi:ss') DT_CADASTRO
             FROM 
                     AGENTE_SETORIAL_ESTAGIO  AGENTE_SETORIAL_ESTAGIO ,
                     USUARIO USUARIO ,
@@ -118,7 +120,7 @@ class RepositorioAgente_setorial extends Repositorio {
         $query = "SELECT 
                     B.ID_SETORIAL_ESTAGIO ID_SETORIAL_ESTAGIO,
                     A.TX_UNIDADE_ORG,
-                    C.ID_ORGAO_ESTAGIO,
+                    C.ID_ORGAO_ESTAGIO ID_ORGAO_ESTAGIO,
                     C.TX_ORGAO_ESTAGIO,
                     TO_CHAR(B.DT_ATUALIZACAO,'dd/mm/yyyy') DT_ATUALIZACAO
                     FROM ORGAO_ESTAGIO C ,ORGAO_AGENTE_SETORIAL B,UNIDADE_ORG A
@@ -145,30 +147,32 @@ class RepositorioAgente_setorial extends Repositorio {
         return $this->sqlVetor($query);
     }
 
-    /*
-      function inserirUnidade($VO) {
+    
+      function inserirOrgao($VO) {
 
       $query = "
-      INSERT INTO UNID_RESP_SOLIC(ID_RESP_UNID_IRP, ID_UNIDADE_IRP, DT_CADASTRO, DT_ATUALIZACAO)
+      INSERT INTO ORGAO_AGENTE_SETORIAL(ID_SETORIAL_ESTAGIO, ID_ORGAO_ESTAGIO, DT_ATUALIZACAO)
       values
-      (" . $VO->ID_RESP_UNID_IRP . ", " . $VO->ID_UNIDADE_IRP . ", SYSDATE, SYSDATE)
+      (" . $VO->ID_SETORIAL_ESTAGIO . ", " . $VO->ID_ORGAO_ESTAGIO . ", SYSDATE)
       ";
 
       return $this->sql($query);
-      }
+     }
 
       function atualizarInf($VO) {
 
-      $query = "update RESP_UNID_IRP set
-      DT_ATUALIZACAO = sysdate
+      $query = "update AGENTE_SETORIAL_ESTAGIO set
+      DT_ATULIZACAO = sysdate,
+      id_usuario_atualizacao = ".$_SESSION['ID_USUARIO']."
       where
-      ID_RESP_UNID_IRP = '" . $VO->ID_RESP_UNID_IRP . "'";
+      ID_SETORIAL_ESTAGIO =" . $VO->ID_SETORIAL_ESTAGIO ;
 
       $this->sql($query);
 
-      $data = "SELECT TO_CHAR(RESP_UNID_IRP.DT_ATUALIZACAO, 'dd/mm/yyyy hh24:mi:ss') AS DT_ATUALIZACAO
-      FROM RESP_UNID_IRP
-      WHERE ID_RESP_UNID_IRP = '" . $VO->ID_RESP_UNID_IRP . "'";
+      $data = "SELECT usuario.tx_login tx_login_atu,TO_CHAR(AGENTE_SETORIAL_ESTAGIO.DT_ATULIZACAO, 'dd/mm/yyyy hh24:mi:ss') AS DT_ATULIZACAO
+      FROM AGENTE_SETORIAL_ESTAGIO,usuario      
+      WHERE usuario.id_usuario=agente_setorial_estagio.id_usuario and
+      ID_SETORIAL_ESTAGIO = '" . $VO->ID_SETORIAL_ESTAGIO . "'";
 
       $this->sqlVetor($data);
       $datahora = $this->getVetor();
@@ -176,38 +180,39 @@ class RepositorioAgente_setorial extends Repositorio {
       return $datahora;
       }
 
-      function excluirUnidade($VO) {
+      function excluirOrgao($VO) {
 
       $query = "
-      delete from UNID_RESP_SOLIC
-      where ID_RESP_UNID_IRP = " . $VO->ID_RESP_UNID_IRP . "
-      and ID_UNIDADE_IRP = " . $VO->ID_UNIDADE_IRP . "
-      ";
+      delete from  orgao_agente_setorial
+      where ID_SETORIAL_ESTAGIO = " . $VO->ID_SETORIAL_ESTAGIO . "
+      and ID_ORGAO_ESTAGIO = " . $VO->ID_ORGAO_ESTAGIO ;
 
       return $this->sql($query);
       }
 
       function alterar($VO) {
 
-      $query = "update RESP_UNID_IRP set
+      $query = "update AGENTE_SETORIAL_ESTAGIO set
       ID_USUARIO = " . $VO->ID_USUARIO_RESP . " ,
-      DT_ATUALIZACAO = SYSDATE
+      DT_ATULIZACAO = SYSDATE ,
+      ID_USUARIO_ATUALIZACAO =".$_SESSION['ID_USUARIO']."
       where
-      ID_RESP_UNID_IRP = '" . $VO->ID_RESP_UNID_IRP . "'";
-
+     ID_SETORIAL_ESTAGIO = " . $VO->ID_SETORIAL_ESTAGIO;
+//      print_r($query);
+        
       return $this->sql($query);
       }
 
       function excluir($VO) {
 
       $query = "
-      delete from RESP_UNID_IRP
-      where ID_RESP_UNID_IRP = " . $VO->ID_RESP_UNID_IRP . "
+      delete from agente_setorial_estagio
+      where ID_SETORIAL_ESTAGIO = " . $VO->ID_SETORIAL_ESTAGIO . "
       ";
 
       return $this->sql($query);
       }
-     */
+    
 }
 
 ?>

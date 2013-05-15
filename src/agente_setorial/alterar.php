@@ -15,9 +15,9 @@ require_once "../autenticacao/validaPermissao.php";
 // Iniciando Instância
 $VO = new agente_setorialVO();
 
-if ($_SESSION['ID_RESP_UNID_IRP']){
+if ($_SESSION['ID_SETORIAL_ESTAGIO']){
     
-    $VO->ID_RESP_UNID_IRP = $_SESSION['ID_RESP_UNID_IRP'];
+    $VO->ID_SETORIAL_ESTAGIO = $_SESSION['ID_SETORIAL_ESTAGIO'];
     $VO->buscar();
     $VO->preencherVOBD($VO->getVetor());
   
@@ -27,7 +27,7 @@ if ($_SESSION['ID_RESP_UNID_IRP']){
 		$validar = $VO->preencher($_POST);
 
         if (!$validar){
-            $VO->alterar();
+  $VO->alterar();
             header("Location: ".$url."src/".$pasta."/detail.php");
         }
     }
