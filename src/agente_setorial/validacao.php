@@ -11,7 +11,7 @@ session_start();
 
 // Iniciando Instância
 
-$_SESSION['ID_RESP_UNID_IRP'] = $_REQUEST['ID'];
+$_SESSION['ID_SETORIAL_ESTAGIO'] = $_REQUEST['ID'];
 
 header("Location: ".$url."src/".$pasta."/detail.php");
 

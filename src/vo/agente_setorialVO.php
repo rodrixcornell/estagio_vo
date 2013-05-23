@@ -19,25 +19,25 @@ class agente_setorialVO extends VO{
 //        return $this->repositorio->pesquisarUnidadeSolicitante($this);
 //    }
 //	
-//	function  buscarUnidades(){    
-//        return $this->repositorio->buscarUnidades($this);
-//    }
+	function  buscarUnidades(){    
+        return $this->repositorio->buscarUnidades($this);
+    }
+	
+	function  pesquisarUnidade(){    
+        return $this->repositorio->pesquisarUnidade($this);
+    }
 //	
-//	function  pesquisarUnidade(){    
-//        return $this->repositorio->pesquisarUnidade($this);
-//    }
-//	
-//	function  inserirUnidade(){    
-//        return $this->repositorio->inserirUnidade($this);
-//    }
-//	
-//	function  atualizarInf(){    
-//        return $this->repositorio->atualizarInf($this);
-//    }
-//	
-//	function  excluirUnidade(){    
-//        return $this->repositorio->excluirUnidade($this);
-//    }
+	function  inserirOrgao(){    
+        return $this->repositorio->inserirOrgao($this);
+    }
+	
+	function  atualizarInf(){    
+        return $this->repositorio->atualizarInf($this);
+    }
+	
+	function  excluirOrgao(){    
+        return $this->repositorio->excluirOrgao($this);
+    }
 
 	
 }
