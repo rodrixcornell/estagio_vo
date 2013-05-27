@@ -2,7 +2,7 @@
 require_once "../../php/define.php";
 require_once $pathvo."eventosVO.php";
 
-$modulo = 78;
+$modulo = 80;
 $programa = 2;
 $pasta = 'eventos';
 $current = 3;
