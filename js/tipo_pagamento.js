@@ -6,30 +6,43 @@ $(document).ready(function(){
 
     function hideLoader(){
         $('.fundo_pag').fadeOut(200);
-    };
-
-
-	$('#pesquisar').click(function(){
-		if ($('#TX_ORGAO_GESTOR_ESTAGIO').val() || $('#ID_UNIDADE_ORG').val()){
+    }
+    
+    
+   $('#pesquisar').click(function(){
+		if ($('#CS_TIPO_PAG_ESTAGIO').val()){
 			showLoader();
 			$('#tabela').load('acoes.php?identifier=tabela',{
-					TX_ORGAO_GESTOR_ESTAGIO:$('#TX_ORGAO_GESTOR_ESTAGIO').val(),
-					ID_UNIDADE_ORG:$('#ID_UNIDADE_ORG').val()
+					CS_TIPO_PAG_ESTAGIO:$('#CS_TIPO_PAG_ESTAGIO').val()
 				}, hideLoader);
 		}else
 			alert('Preencha pelo menos um campo para realizar a pesquisa!');
     });
-	
-    //Paginacao
+      
+   //Paginacao
     $("#paginacao li").live('click', function(){
         showLoader();
         $("#tabela").load('acoes.php?identifier=tabela&PAGE='+this.id,{
-				TX_ORGAO_GESTOR_ESTAGIO:$('#TX_ORGAO_GESTOR_ESTAGIO').val(),
-				ID_UNIDADE_ORG:$('#ID_UNIDADE_ORG').val()
+				CS_TIPO_PAG_ESTAGIO:$('#CS_TIPO_PAG_ESTAGIO').val()
 			}, hideLoader);
         return false;
     });
-	/*
+    
+    
+      //INSERIR
+    $('#inserir').live('click', function() {
+        if (!$('#CS_TIPO_PAG_ESTAGIO').val()) {
+            $('#CS_TIPO_PAG_ESTAGIO').focus();
+        } else if (!$('#TX_TIPO_PAG_ESTAGIO').val()) {
+            $('#TX_TIPO_PAG_ESTAGIO').focus();
+        }  else {
+            showLoader();
+            $('#tabela').load('acoes.php?identifier=tabela&CS_TIPO_PAG_ESTAGIO=' + $('#CS_TIPO_PAG_ESTAGIO').val() + '&TX_TIPO_PAG_ESTAGIO=' + $('#TX_TIPO_PAG_ESTAGIO').val(), hideLoader);
+            return false;
+        }
+        return false;
+    });
+	
 	//Icone Alterar
     $("#alterar").live('click', function(){
         var href = $(this).attr('href');
@@ -44,14 +57,14 @@ $(document).ready(function(){
 		if (resp){
 		   showLoader();
 		   $('#tabela').load('acoes.php?identifier=excluir',{
-			    ID_UNIDADE_IRP:$(this).attr('href'),
-				TX_UNIDADE_IRP:$('#TX_UNIDADE_IRP').val(),
-				ID_UNIDADE_ORG:$('#ID_UNIDADE_ORG').val(),
+			    CS_TIPO_PAG_ESTAGIO:$(this).attr('href'),
+				TX_TIPO_PAG_ESTAGIO:$('#TX_TIPO_PAG_ESTAGIO').val(),
+                                CS_TIPO_PAG_ESTAGIO:$('#CS_TIPO_PAG_ESTAGIO').val(),
 				PAGE:$('.selecionado').text()
 			}, hideLoader);
 		}
 					
 		return false;
 	});
-*/
+
 });

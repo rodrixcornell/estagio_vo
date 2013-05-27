@@ -1,11 +1,17 @@
 <?php
 require_once "../../php/define.php";
-require_once $pathvo."orgao_gestorVO.php";
+require_once $pathvo."tipo_pagamentoVO.php";
 	
-$VO = new orgao_gestorVO();
+$VO = new tipo_pagamentoVO();
 
-$VO->pesquisarUnidade();
-    $arrayUnidade = $VO->getArray("TX_UNIDADE_ORG");    
+$VO->pesquisarTipo();
+     $pesquisarTipo = $VO->getArray("TX_TIPO_PAG_ESTAGIO");    
 
-$smarty->assign("arrayUnidade"    	, $arrayUnidade);
-?>
+$VO->pesquisar();
+     $pesquisar = $VO->getArray("TX_TIPO_PAG_ESTAGIO");    
+
+$smarty->assign("pesquisarTipo"      , $pesquisarTipo);
+$smarty->assign("pesquisar"      , $pesquisar);
+
+ ?>
+ 

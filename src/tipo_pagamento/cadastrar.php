@@ -1,36 +1,39 @@
 <?php
 require_once "../../php/define.php";
-require_once $path."src/orgao_gestor/arrays.php";
-require_once $pathvo."orgao_gestorVO.php";
+require_once $path."src/tipo_pagamento/arrays.php";
+require_once $pathvo."tipo_pagamentoVO.php";
 
-$modulo = 78;
-$programa = 1;
-$pasta = 'orgao_gestor';
-$current = 1;
-$titulopage = 'Órgão Gestor';
+$modulo = 80;
+$programa = 3;
+$pasta = 'tipo_pagamento';
+$current = 4;
+$titulopage = 'Tipo de Pagamento';
 
 session_start();
 require_once "../autenticacao/validaPermissao.php";
 
-unset($_SESSION['ID_ORGAO_GESTOR_ESTAGIO']);
+unset($_SESSION['CS_TIPO_PAG_ESTAGIO']);
 
 // Iniciando Instância
-$VO = new orgao_gestorVO();
+$VO = new tipo_pagamentoVO();
 
 if($_POST){
     $VO->configuracao();
-    $VO->setCaracteristica('TX_ORGAO_GESTOR_ESTAGIO,ID_UNIDADE_ORG','obrigatorios');
+    $VO->setCaracteristica('CS_TIPO_PAG_ESTAGIO,TX_TIPO_PAG_ESTAGIO','obrigatorios');
+    $VO->setCaracteristica('CS_TIPO_PAG_ESTAGIO','numeros');
     $validar = $VO->preencher($_POST);
 	
-	(!$validar) ? $id_pk = $VO->inserir() : false;
+	(!$validar) ? $validar = $VO->inserir() : false;
 	
     if (!$validar) {
-        $_SESSION['TX_ORGAO_GESTOR_ESTAGIO'] = $VO->TX_ORGAO_GESTOR_ESTAGIO;
-		$_SESSION['ID_UNIDADE_ORG'] = $VO->ID_UNIDADE_ORG;
-		$_SESSION['STATUS'] = '*Registro inserido com sucesso!';
+		$_SESSION['CS_TIPO_PAG_ESTAGIO'] = $VO->CS_TIPO_PAG_ESTAGIO;
+                $_SESSION['TX_TIPO_PAG_ESTAGIO'] = $VO->TX_TIPO_PAG_ESTAGIO;
+                $_SESSION['STATUS'] = '*Registro inserido com sucesso!';
 		$_SESSION['PAGE'] = '1';
-		header("Location: ".$url."src/".$pasta."/index.php");
-    }
+		header("Location: ".$url."src/".$pasta."/index.php");                    
+     } else {
+          (!$validar['CS_TIPO_PAG_ESTAGIO'] = 'Registro já existe!');
+     }
 }
 
 $smarty->assign("current"       , $current);
