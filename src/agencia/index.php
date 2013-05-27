@@ -3,9 +3,9 @@ require_once "../../php/define.php";
 require_once $pathvo."agenciaVO.php";
 
 $modulo = 78;
-$programa = 1;
+$programa = 7;
 $pasta = 'agencia';
-$current = 7;
+$current = 1;
 $titulopage = 'Agência de Estágio';
 
 require_once "../autenticacao/validaPermissao.php";

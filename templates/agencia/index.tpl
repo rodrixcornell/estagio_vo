@@ -1,4 +1,3 @@
-
 <div id="centro">
     <img src="{$urlimg}icones/{$pasta}.png"  id="imgTitulo"/>
     <div id="titulo">{$titulopage}</div>
@@ -6,20 +5,19 @@
     <br /><br /><br /><hr />
 
     <div id="conteudo">
-        <br />
         {*Mostra Botao de Novo Registro Somente se Tiver Acesso Completo a Tela*}
         {if $acesso}<br /><a href="{$url}src/{$pasta}/cadastrar.php" id="nova_rm"><img src="{$urlimg}icones/novo.png" /></a>{/if}
         <br /><br />
 
-</br>
         <div id="camada" style="width:140px;"><strong>Nome da Agência</strong><font color="#FF0000"> {$validar.TX_AGENCIA_ESTAGIO} </font> </div>              
         <input type="text" name="TX_AGENCIA_ESTAGIO" id="TX_AGENCIA_ESTAGIO" value="{$VO->TX_AGENCIA_ESTAGIO}" style="width:400px;"/> 
         <br />
 
         <div id="camada" style="width:140px;"><strong>Sigla da Agência</strong><font color="#FF0000"> {$validar.TX_SIGLA} </font> </div>              
         <input type="text" name="TX_SIGLA" id="TX_SIGLA" value="{$VO->TX_SIGLA}" style="width:150px;"/> 
-        <br />
-</br>
+        
+        <br /></br>
+        
         <input type="button" name="pesquisar" id="pesquisar" value="Pesquisar" />
        
 <script charset="UTF-8" type="text/javascript" language="JavaScript">
