@@ -3,7 +3,7 @@ include "../../php/define.php";
 require_once $pathvo."estagiarioVO.php";
 
 $modulo = 79;
-$programa = 1;
+$programa = 2;
 
 require_once "../autenticacao/validaPermissao.php";
 

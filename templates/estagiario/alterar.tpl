@@ -40,6 +40,13 @@
                     <select name="CS_SEXO" id="CS_SEXO" style="width:120px;">
                         {html_options options=$arraySexo selected=$VO->CS_SEXO}
                     </select></div>
+                    
+                <br />
+                    
+                <div id="camada" style="width:450px;">Funcionário<font color="#FF0000"> {$validar.ID_PESSOA_FUNCIONARIO} </font><br />
+                    <select name="ID_PESSOA_FUNCIONARIO" id="ID_PESSOA_FUNCIONARIO" style="width:385px;">
+                        {html_options options=$arrayFuncionario selected=$VO->CS_SEXO}
+                    </select></div>
 
                 <br /><br />
                 <input type="button" name="cancelar" id="cancelar" value="Cancelar" onclick="window.location.href='{$url}src/{$pasta}/index.php'" />&nbsp;&nbsp;&nbsp;&nbsp;

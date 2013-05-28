@@ -10,6 +10,13 @@ class RepositorioEstagiario extends Repositorio{
 			
         return $this->sqlVetor($query);	
     }
+	
+	function pesquisarFuncionario($VO){
+        
+        $query="select ID_PESSOA_FUNCIONARIO CODIGO, TX_FUNCIONARIO FROM V_FUNCIONARIO ORDER BY TX_FUNCIONARIO";
+			
+        return $this->sqlVetor($query);	
+    }
 
    function checacpf($VO){
         

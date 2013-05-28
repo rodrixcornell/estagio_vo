@@ -18,9 +18,14 @@ class estagiarioVO extends VO{
     function checacpf(){    
         return $this->repositorio->checacpf($this);
     }
+	
     function inserirestagiario(){    
         return $this->repositorio->inserirestagiario($this);
     }
 	
+	function pesquisarFuncionario(){    
+        return $this->repositorio->pesquisarFuncionario($this);
+    }
+
 }
 ?>
