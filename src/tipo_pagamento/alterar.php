@@ -1,14 +1,12 @@
 <?php
-
 require_once "../../php/define.php";
-require_once $path . "src/tipo_pagamento/arrays.php";
 require_once $pathvo . "tipo_pagamentoVO.php";
 
 $modulo = 80;
-$programa = 3;
+$programa = 4;
 $pasta = 'tipo_pagamento';
-$current = 4;
-$titulopage = 'Tipo Pagamento';
+$current = 3;
+$titulopage = 'Tipo de Pagamento';
 
 session_start();
 require_once "../autenticacao/validaPermissao.php";
@@ -18,7 +16,6 @@ $VO = new tipo_pagamentoVO();
 if ($_SESSION['CS_TIPO_PAG_ESTAGIO']) {
 
     $VO->CS_TIPO_PAG_ESTAGIO = $_SESSION['CS_TIPO_PAG_ESTAGIO'];
-    $VO->TX_TIPO_PAG_ESTAGIO = $_SESSION['TX_TIPO_PAG_ESTAGIO'];
 
     $VO->buscar();
     $VO->preencherVOBD($VO->getVetor());
@@ -30,14 +27,13 @@ if ($_SESSION['CS_TIPO_PAG_ESTAGIO']) {
         $VO->preencher($_POST);
 
         if (!$validar) {
-
-            $validar = $VO->alterar();
-
-            if (!$validar)
-                header("Location: " . $url . "src/" . $pasta . "/index.php?status=2"); //msg que foi alterado
-            else {
-                $erro = 'Registro já existe!';
-            }
+			if (!$validar){
+				$VO->alterar();
+				$_SESSION['CS_TIPO_PAG_ESTAGIO'] = $VO->CS_TIPO_PAG_ESTAGIO;
+				$_SESSION['STATUS'] = '*Registro alterado com sucesso!';
+				$_SESSION['PAGE'] = '1';
+				header("Location: ".$url."src/".$pasta."/index.php");
+        	}
         }
     }
 }

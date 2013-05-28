@@ -1,13 +1,12 @@
 <?php
-
 require_once "../../php/define.php";
 require_once $path . "src/tipo_pagamento/arrays.php";
 require_once $pathvo . "tipo_pagamentoVO.php";
 
 $modulo = 80;
-$programa = 3;
+$programa = 4;
 $pasta = 'tipo_pagamento';
-$current = 4;
+$current = 3;
 $titulopage = 'Tipo de Pagamento';
 
 require_once "../autenticacao/validaPermissao.php";

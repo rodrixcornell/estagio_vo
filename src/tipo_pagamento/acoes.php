@@ -1,10 +1,9 @@
 <?php
-
 include "../../php/define.php";
 require_once $pathvo . "tipo_pagamentoVO.php";
 
 $modulo = 80;
-$programa = 3;
+$programa = 4;
 
 require_once "../autenticacao/validaPermissao.php";
 
@@ -22,7 +21,7 @@ function gerarTabela($param = '') {
 
     $VO->preencherSessionPesquisar($_REQUEST);
 
-    $qtd = 5;
+    $qtd = 15;
     !$page ? $page = 1 : false;
     $primeiro = ($page * $qtd) - $qtd;
 
@@ -40,7 +39,7 @@ function gerarTabela($param = '') {
 		<table width="100%" class="dataGrid">
                             <tr>
                                 <th>Código</th>
-				<th>Descrição</th>';
+								<th>Descrição</th>';
         //Somente ver a coluna de alterar se tiver acesso completo a tela					
         if ($acesso)
             echo '<th style="width:50px;"></th>';
@@ -50,7 +49,7 @@ function gerarTabela($param = '') {
             ($bgcolor == '#E6E6E6') ? $bgcolor = '#F0EFEF' : $bgcolor = '#E6E6E6';
             echo '<tr bgcolor="' . $bgcolor . '">
                                    <td align="center">' . $dados['CS_TIPO_PAG_ESTAGIO'][$i] . '</td>
-			           <td align="center">' . $dados['TX_TIPO_PAG_ESTAGIO'][$i] . '</td>';
+			           			   <td align="center">' . $dados['TX_TIPO_PAG_ESTAGIO'][$i] . '</td>';
 
             //Somente ver a coluna de alterar se tiver acesso completo a tela					
             if ($acesso)
@@ -91,8 +90,8 @@ $VO = new tipo_pagamentoVO();
 if ($_REQUEST['identifier'] == "tabela") {
     gerarTabela($erro);
 } else if ($_REQUEST['identifier'] == 'excluir') {
-//	$_SESSION['CS_TIPO_PAG_ESTAGIO'] = $_REQUEST['ID'];
-    $VO->CS_TIPO_PAG_ESTAGIO = $_REQUEST['CS_TIPO_PAG_ESTAGIO'];
+	
+    $VO->CS_TIPO_PAG_ESTAGIO = $_REQUEST['ID'];
 
     if ($acesso) {
 
