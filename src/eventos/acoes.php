@@ -2,7 +2,7 @@
 include "../../php/define.php";
 require_once $pathvo."eventosVO.php";
 
-$modulo = 78;
+$modulo = 80;
 $programa = 2;
 
 require_once "../autenticacao/validaPermissao.php";
@@ -33,11 +33,11 @@ function gerarTabela($param=''){
 	
 	echo '<table width="100%" id="tabelaItens" >
 			<tr>
-				<th>Valor</th>
-				<th>Início de Vigência</th>
-                <th>Fim de Vigência</th>
-                <th>Dt. Cadastro</th>
-                <th>Dt. Atualização</th>';
+				<th style="width:150px;">Valor</th>
+				<th style="width:150px;">Início de Vigência</th>
+                <th style="width:150px;">Fim de Vigência</th>
+                <th>Data Cadastro</th>
+                <th>Data Atualização</th>';
 	
 	//Somente ver a coluna de alterar se tiver acesso completo a tela	
 	if ($acesso) echo '<th style="width:50px;"></th>';
@@ -52,14 +52,14 @@ function gerarTabela($param=''){
 			($bgcolor == '#F0F0F0') ? $bgcolor = '#DDDDDD' : $bgcolor = '#F0F0F0';
                      
 			echo '<tr bgcolor="'.$bgcolor.'" onmouseover="mudarCor(this);" onmouseout="mudarCor(this);">
-						<td align="center">'.number_format($dados['NB_VALOR_BASE'][$i],2,',','.').'</td>
-						<td align="center">'.$dados['DT_INICIO_VIGENCIA'][$i].'</td>
-						<td align="center">'.$dados['DT_FIM_VIGENCIA'][$i].'</td>
+						<td align="center" class="valor">'.number_format($dados['NB_VALOR_BASE'][$i],2,',','.').'</td>
+						<td align="center" class="dtInicio">'.$dados['DT_INICIO_VIGENCIA'][$i].'</td>
+						<td align="center" class="dtFim">'.$dados['DT_FIM_VIGENCIA'][$i].'</td>
                         <td align="center">'.$dados['DT_CADASTRO'][$i].'</td>
                         <td align="center">'.$dados['DT_ATUALIZACAO'][$i].'</td>';
 		//Somente ver a coluna de alterar se tiver acesso completo a tela					
 			 if ($acesso) echo '<td align="center" class="icones">
-			                    <a href="'.$dados['NB_VALOR_BASE_ITEM_PAG'][$i].'" id="alterar"><img src="'.$urlimg.'icones/editar.png" title="Alterar Registro"/></a>
+			                    <a href="'.$dados['NB_VALOR_BASE_ITEM_PAG'][$i].'" id="alterar"><img src="'.$urlimg.'icones/alterarItem.png" title="Alterar Registro"/></a>
 								<a href="'.$dados['NB_VALOR_BASE_ITEM_PAG'][$i].'" id="excluir" ><img src="'.$urlimg.'icones/excluirItem.png" title="Excluir Registro"/></a></td>';                                
 			 echo '</tr>';
 		}
@@ -81,65 +81,10 @@ function gerarTabela($param=''){
 		}
 			
 	}else
-		echo '<tr><td colspan="4" class="nenhum">Nenhum registro encontrado.</td></tr></table><br /> ';
+		echo '<tr><td colspan="6" class="nenhum">Nenhum registro encontrado.</td></tr></table><br /> ';
 		
 	if ($param) echo '<script>alert("'.$param.'")</script>';
 					
-}
-
-function gerarTabelaAlterarBase($param=''){
-    include "../../php/define.php";
-    require_once $path."src/eventos/arrays.php";
-    require_once $pathvo."eventosVO.php";
-    
-    $VO = new eventosVO();
-    $VO->ID_ITEM_PAGAMENTO_ESTAGIO = $_SESSION['ID_ITEM_PAGAMENTO_ESTAGIO'];
-    $VO->NB_VALOR_BASE_ITEM_PAG = $_REQUEST['NB_VALOR_BASE_ITEM_PAG'];
-    $_SESSION['NB_VALOR_BASE_ITEM_PAG'] = $_REQUEST['NB_VALOR_BASE_ITEM_PAG'];
-    
-    $VO->pesquisarBase();
-    $dados = $VO->getVetor();
-
-        echo "
-            <script>
-                $(document).ready(function(){
-                    $('#NB_VALOR_BASE_ALT').maskMoney({showSymbol:false, symbol:'R$', decimal:',', thousands:'.', allowZero:true, allowNegative:false, defaultZero:false});
-                    $('#DT_INICIO_VIGENCIA_ALT').setMask({ mask:'99/99/9999' });
-                    $('#DT_INICIO_VIGENCIA_ALT').datepicker({changeMonth: true, changeYear: true});
-                    $('#DT_FIM_VIGENCIA_ALT').setMask({ mask:'99/99/9999' });
-                    $('#DT_FIM_VIGENCIA_ALT').datepicker({changeMonth: true, changeYear: true});
-                })
-            </script>
-        ";
-        echo '
-            <fieldset>
-                <legend>Alterar Valor</legend>
-
-                    
-                <div id="camada" style="font-family:Verdana, Geneva, sans-serif; width:160px;" ><font color="#FF0000">*</font><strong>Valor: </strong>
-                    <input type="text" name="NB_VALOR_BASE_ALT" id="NB_VALOR_BASE_ALT" value="'.$dados['NB_VALOR_BASE'][0].'"  style="width:150px;" />
-                </div>
-                
-                <div id="camada" style="font-family:Verdana, Geneva, sans-serif; width:160px;" ><font color="#FF0000">*</font><strong>Início de Vigência: </strong>
-                    <input type="text" name="DT_INICIO_VIGENCIA_ALT" id="DT_INICIO_VIGENCIA_ALT" value="'.$dados['DT_INICIO_VIGENCIA'][0].'"  style="width:150px;" />
-                </div>
-                
-                <div id="camada" style="font-family:Verdana, Geneva, sans-serif; width:160px;" ><font color="#FF0000">*</font><strong>Fim de Vigência: </strong>
-                    <input type="text" name="DT_FIM_VIGENCIA_ALT" id="DT_FIM_VIGENCIA_ALT" value="'.$dados['DT_FIM_VIGENCIA'][0].'"  style="width:150px;" />
-                </div>
-                
-                <div id="camada" style="font-family:Verdana, Geneva, sans-serif; width:160px;"><strong>Data de Cadastro</strong><br />
-                    <input type="text" name="DT_CADASTRO_ALT" id="DT_CADASTRO_ALT" value="'.$dados['DT_CADASTRO'][0].'" style="width:150px;" class="leitura" readonly="readonly" /></div>
-                    
-                <div id="camada" style="font-family:Verdana, Geneva, sans-serif; width:160px;"><strong>Data de Atualização</strong><br />
-                    <input type="text" name="DT_ATUALIZACAO_ALT" id="DT_ATUALIZACAO_ALT" value="'.$dados['DT_ATUALIZACAO'][0].'" style="width:150px;" class="leitura" readonly="readonly" /></div>
-
-            </fieldset>
-        ';
-
-    if ($param){
-        echo '<script>alert("'.$param.'");</script>';
-    }                   
 }
 
 $VO = new eventosVO();
@@ -226,17 +171,21 @@ if ($_REQUEST['identifier'] == "tabela"){
 	gerarTabela();
 }else if ($_REQUEST['identifier'] == "inserirBase"){
 	
-    $VO->NB_VALOR_BASE        = $_REQUEST['NB_VALOR_BASE'];
-    $VO->DT_INICIO_VIGENCIA   = $_REQUEST['DT_INICIO_VIGENCIA'];
-	$VO->DT_FIM_VIGENCIA      = $_REQUEST['DT_FIM_VIGENCIA'];
+	$VO->ID_ITEM_PAGAMENTO_ESTAGIO 	= $_SESSION['ID_ITEM_PAGAMENTO_ESTAGIO'];
+    $VO->NB_VALOR_BASE        		= $_REQUEST['NB_VALOR_BASE'];
+    $VO->DT_INICIO_VIGENCIA   		= $_REQUEST['DT_INICIO_VIGENCIA'];
+	$VO->DT_FIM_VIGENCIA      		= $_REQUEST['DT_FIM_VIGENCIA'];
 
 	if ($acesso){
 		if (($VO->NB_VALOR_BASE) && ($VO->DT_INICIO_VIGENCIA) && ($VO->DT_FIM_VIGENCIA)){
 			$retorno = $VO->inserirBase();
     
-			if (!$retorno){
-				$erro = 'Registro já existe.';   
-			}
+			if (is_array($retorno)){    
+                $posicao = stripos($retorno['message'], ":");
+                $string1 = substr($retorno['message'], $posicao+1);
+                $posicao2 = stripos($string1, "ORA");
+                $erro = substr($retorno['message'], $posicao+1, $posicao2-1);
+            }
 			
 		}else
 			$erro = 'Para inserir preencha os campos Valor, Início de Vigência e Fim de Vigência.';
@@ -245,8 +194,6 @@ if ($_REQUEST['identifier'] == "tabela"){
 	
 	gerarTabela($erro);	
 
-}else if ($_REQUEST['identifier'] == "tabela_Base"){
-   gerarTabelaAlterarBase();
 }else if ($_REQUEST['identifier'] == 'excluirBase'){
 	
 	$VO->NB_VALOR_BASE_ITEM_PAG 		= $_REQUEST['NB_VALOR_BASE_ITEM_PAG'];
@@ -264,10 +211,12 @@ if ($_REQUEST['identifier'] == "tabela"){
         
 }else if ($_REQUEST['identifier'] == 'alterar'){
     
-     $VO->NB_VALOR_BASE            = $_REQUEST['NB_VALOR_BASE'];
-     $VO->DT_INICIO_VIGENCIA       = $_REQUEST['DT_INICIO_VIGENCIA'];
-     $VO->DT_FIM_VIGENCIA          = $_REQUEST['DT_FIM_VIGENCIA'];
-
+	 $VO->ID_ITEM_PAGAMENTO_ESTAGIO = $_SESSION['ID_ITEM_PAGAMENTO_ESTAGIO'];
+	 $VO->NB_VALOR_BASE_ITEM_PAG    = $_REQUEST['NB_VALOR_BASE_ITEM_PAG'];
+     $VO->NB_VALOR_BASE             = $_REQUEST['NB_VALOR_BASE'];
+     $VO->DT_INICIO_VIGENCIA        = $_REQUEST['DT_INICIO_VIGENCIA'];
+     $VO->DT_FIM_VIGENCIA           = $_REQUEST['DT_FIM_VIGENCIA'];
+if ($acesso){
      if ($VO->NB_VALOR_BASE && $VO->DT_INICIO_VIGENCIA && $VO->DT_FIM_VIGENCIA){
 
             $retorno = $VO->alterarBase();
@@ -281,8 +230,10 @@ if ($_REQUEST['identifier'] == "tabela"){
 
         }else
             $erro = "Os campos Valor, Início de Vigência e Fim de Vigência devem ser preenchidos!";
-
-        gerarTabela($erro);
+}else
+	$erro = "Você não tem permissão para realizar esta ação.";
+    
+	gerarTabela($erro);
         
 }else if($_REQUEST['identifier'] == 'atualizarInfMaster'){
     

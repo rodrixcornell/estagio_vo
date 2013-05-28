@@ -4,8 +4,8 @@ require_once $pathvo."eventosVO.php";
 	
 $VO = new eventosVO();
 
-$arrayTipoEvento = array('' => "ESCOLHA...", 1 => "CRÉDITO", 2 => "DÉBITO", 3 => "INFORMATIVO");
-$arraySituacao = array('' => "ESCOLHA...", 2 => "ATIVADO", 1 => "DESATIVADO");
+$arrayTipoEvento = array('' => "Escolha...", 1 => "Crédito", 2 => "Débito", 3 => "Informativo");
+$arraySituacao = array('' => "Escolha...", 1 => "Ativado", 2 => "Desativado");
 
 $smarty->assign("arrayTipoEvento"   , $arrayTipoEvento);
 $smarty->assign("arraySituacao"    	, $arraySituacao);
