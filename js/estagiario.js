@@ -7,11 +7,12 @@ $(document).ready(function(){
     function hideLoader(){
         $('.fundo_pag').fadeOut(200);
     };
+	
+	$('#NB_CPF').setMask({ mask:'99999999999' });
 
 
 	//Formatar Campos
-	$('input[name=DT_EMISSAO]').setMask({ mask:'99/99/9999' });
-	$('input[name=DT_NASCIMENTO]').setMask({ mask:'99/99/9999' });
+	$('#DT_EMISSAO,#DT_NASCIMENTO').setMask({ mask:'99/99/9999' });
 	
 	$('#DT_EMISSAO,#DT_NASCIMENTO').datepicker({
 		changeMonth: true,
@@ -30,6 +31,7 @@ $(document).ready(function(){
 			alert('Preencha pelo menos um campo para realizar a pesquisa!');
     });
 	
+	
     //Paginacao
     $("#paginacao li").live('click', function(){
         showLoader();
@@ -39,6 +41,7 @@ $(document).ready(function(){
 			}, hideLoader);
         return false;
     });
+	
 	
 	//Icone Alterar
     $("#alterar").live('click', function(){

@@ -15,10 +15,6 @@ class estagiarioVO extends VO{
         return $this->repositorio->pesquisarLocalidade($this);
     }
 	
-	function pesquisarFuncionario(){    
-        return $this->repositorio->pesquisarFuncionario($this);
-    }
-
     function checacpf(){    
         return $this->repositorio->checacpf($this);
     }

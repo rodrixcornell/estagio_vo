@@ -21,7 +21,7 @@ function gerarTabela($param=''){
 	
 	$VO->preencherSessionPesquisar($_REQUEST);
 	
-	$qtd = 5;
+	$qtd = 15;
 	!$page ? $page = 1: false;
 	$primeiro = ($page*$qtd)-$qtd;
 	
@@ -38,7 +38,7 @@ function gerarTabela($param=''){
 		echo '<div id="status">'.$_SESSION['STATUS'].'</div>
 		<table width="100%" class="dataGrid">
                             <tr>
-                                <th>Nome </th>
+                                <th>Nome</th>
 								<th>CPF</th>
 								<th>RG</th>';
 			//Somente ver a coluna de alterar se tiver acesso completo a tela					

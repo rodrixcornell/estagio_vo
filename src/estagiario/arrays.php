@@ -7,14 +7,10 @@ $VO = new estagiarioVO();
 $VO->pesquisarLocalidade();
     $arrayLocalidade = $VO->getArray("TX_LOCALIDADE");    
 
-$VO->pesquisarFuncionario();
-    $arrayFuncionario = $VO->getArray("TX_FUNCIONARIO");    
-
 $arraySexo[''] 	= 'Escolha...';
-$arraySexo[1] 	= 'M';
-$arraySexo[2] 	= 'F';
+$arraySexo[1] 	= 'Masculino';
+$arraySexo[2] 	= 'Feminino';
 
 $smarty->assign("arrayLocalidade"    	, $arrayLocalidade);
-$smarty->assign("arrayFuncionario"    	, $arrayFuncionario);
 $smarty->assign("arraySexo"			    , $arraySexo);
 ?>

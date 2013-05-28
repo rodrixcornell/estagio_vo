@@ -1,10 +1,9 @@
 <?php
 require_once "../../php/define.php";
-require_once $path."src/estagiario/arrays.php";
 require_once $pathvo."estagiarioVO.php";
 
 $modulo = 79;
-$programa = 1;
+$programa = 2;
 $pasta = 'estagiario';
 $current = 1;
 $titulopage = 'Estagiário';
