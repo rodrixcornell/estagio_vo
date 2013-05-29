@@ -9,7 +9,7 @@ $(document).ready(function(){
     };
 	
 
-//---------------------pequisa------------------------------------------------------
+//---------------------pequisa--------------------------------------------------
 $('#pesquisar').click(function(){
 //if ($('#TX_CODIGO').val()){
 if(($('#ID_QUADRO_VAGAS_ESTAGIO').val() || $('#ID_ORGAO_GESTOR_ESTAGIO').val()) || ($('#ID_AGENCIA_ESTAGIO').val() || $('#CS_SITUACAO').val())){
@@ -24,7 +24,7 @@ $('#tabela').load('acoes.php?identifier=tabela',{ID_QUADRO_VAGAS_ESTAGIO:$('#ID_
 });
 
    
-//--------------------Paginacao-----------------------------------------------------
+//--------------------Paginacao-------------------------------------------------
 $("#paginacao li").live('click', function(){
   showLoader();
   $("#tabela").load('acoes.php?identifier=tabela&PAGE='+this.id,{ID_QUADRO_VAGAS_ESTAGIO:$('#ID_QUADRO_VAGAS_ESTAGIO').val(),

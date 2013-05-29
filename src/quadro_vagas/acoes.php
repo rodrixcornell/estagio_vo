@@ -14,7 +14,7 @@ session_start();
 function gerarTabela($param = '') {
     include "../../php/define.php";
     require_once $pathvo . "quadro_vagasVO.php";
-
+    //require_once $path . "src/quadro_vagas/arrays.php";
     $acesso = $GLOBALS['acesso']; //Acessar a Variavel global;
 
     $VO = new quadro_vagasVO();
@@ -95,8 +95,10 @@ function gerarTabela($param = '') {
 //------------------------quando clico no alterar do detail----------------
 function gerarTabelaAlterarUinidade($param = '') {
     include "../../php/define.php";
-    require_once $path . "src/quadro_vagas/arrays.php";
+    
     require_once $pathvo . "quadro_vagasVO.php";
+   
+    require_once $path . "src/quadro_vagas/arrays.php";
 
     $VO = new quadro_vagasVO();
     $VO->ID_QUADRO_VAGAS_ESTAGIO = $_SESSION['ID_QUADRO_VAGAS_ESTAGIO'];
@@ -104,10 +106,10 @@ function gerarTabelaAlterarUinidade($param = '') {
     $VO->CS_TIPO_VAGA_ESTAGIO = $_REQUEST['CS_TIPO_VAGA_ESTAGIO'];
     $VO->ID_CURSO_ESTAGIO = $_REQUEST['ID_CURSO_ESTAGIO'];
 
-    //print_r($VO);
+   // print_r($VO);
     $VO->buscarVagasEstagio();
     $dados = $VO->getVetor();
-
+    //print_r($dados);
     foreach ($orgao_Solicitante as $key => $value) {
         ($dados['ID_ORGAO_ESTAGIO'][0] == $key) ? $selected = 'selected' : $selected = '';
         $orgao_SolicitanteAlt .= '<option value="' . $key . '" ' . $selected . '>' . $value . '</option> ';
@@ -143,7 +145,7 @@ function gerarTabelaAlterarUinidade($param = '') {
                     
                 <div id="camada" style="width:130px;"><font color="#FF0000">*</font>Quantidade 
                     <input type="text" name="NB_QUANTIDADE_ALT" id="NB_QUANTIDADE_ALT" value="' . $dados['NB_QUANTIDADE'][0] . '" style="width:120px;" /></div>
-
+                     
                 <div id="camada" style="width:200px;"><font color="#FF0000">*</font>Curso 
                     <select name="ID_CURSO_ESTAGIO_ALT" id="ID_CURSO_ESTAGIO_ALT" style="width:230px;">' . $pesquisaCursosAlt . '</select></div>
 
@@ -160,6 +162,7 @@ function gerarTabelaAlterarUinidade($param = '') {
 //-----------------PESQUISA COMUM-------------------------------------------
 $VO = new quadro_vagasVO();
 if ($_REQUEST['identifier'] == "tabela") {
+    require_once $path . "src/quadro_vagas/arrays.php";
 
     $VO->ID_ORGAO_GESTOR_ESTAGIO = $_SESSION['ID_ORGAO_GESTOR_ESTAGIO'];
     $VO->ID_AGENCIA_ESTAGIO = $_SESSION['ID_AGENCIA_ESTAGIO'];
@@ -204,12 +207,12 @@ if ($_REQUEST['identifier'] == "tabela") {
                             <td align="center">' . $dados['TX_CODIGO'][$i] . '</td>
                             <td align="center">' . $dados['TX_ORGAO_GESTOR_ESTAGIO'][$i] . '</td>
 			    <td align="center">' . $dados['TX_AGENCIA_ESTAGIO'][$i] . '</td>
-                            <td align="center">' . $dados['CS_SITUACAO'][$i] . '</td>    
+                            <td align="center">' . $arraySituacao[$dados['CS_SITUACAO'][$i]] . '</td>    
 			    <td align="center">' . $dados['DT_CADASTRO'][$i] . '</td>
                             <td align="center">' . $dados['DT_ATUALIZACAO'][$i] . '</td>
-                                
+                               
 			    ';
-
+              //<td align="center">' . $pesquisarCriterio[$dados['CS_CRITERIO'][$i]] . '</td>  
             //Somente ver a coluna de alterar se tiver acesso completo a tela					
             //if ($acesso) 
             echo '<td align="center"> 

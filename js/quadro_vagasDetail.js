@@ -85,15 +85,28 @@ $(document).ready(function(){
         var href = $(this).attr('href');
         var valor = href.split('_');
         
-        
-
+        if (!$('#ID_ORGAO_ESTAGIO').val()){
+                    alert('Para inserir escolha um Órgão Solicitante.');
+                    $('#ID_ORGAO_ESTAGIO').focus();
+            
+                }else if (!$('#CS_TIPO_VAGA_ESTAGIO').val()){
+                    alert('Para inserir escolha um Tipo.');
+                    $('#CS_TIPO_VAGA_ESTAGIO').focus();
+                  
+               }else if (!$('#NB_QUANTIDADE').val()){
+                    alert('Para inserir escolha uma Quantidade.');
+                    $('#NB_QUANTIDADE').focus();
+                  
+                }else if (!$('#ID_CURSO_ESTAGIO').val()){
+                    alert('Para inserir escolha um Curso.');
+                    $('#ID_CURSO_ESTAGIO').focus();
+            
+                }        
         $( "#dialog" ).dialog( "open" );
         $('#tabela_Item_Adquirido').html('');
         //showLoader();
-        $('#tabela_Item_Adquirido').load('acoes.php?identifier=alterarUnidade',{
-            ID_ORGAO_ESTAGIO:valor[0],
-            CS_TIPO_VAGA_ESTAGIO:valor[1]
-            }, hideLoaderForm);
+        $('#tabela_Item_Adquirido').load('acoes.php?identifier=alterarUnidade',{ID_ORGAO_ESTAGIO:valor[0],
+                                                                                CS_TIPO_VAGA_ESTAGIO:valor[1]}, hideLoaderForm);
         return false;
     });
 
@@ -104,7 +117,8 @@ $(document).ready(function(){
         modal: true,
         buttons:{
             "Salvar": function() {
-                //var vlr = $('#ID_ORGAO_ESTAGIO_ALT').val();
+                //var href = $(this).attr('href');
+                //var valor = href.split('_');
                            
                 if (!$('#ID_ORGAO_ESTAGIO').val()){
                     alert('Para inserir escolha um Órgão Solicitante.');
@@ -123,15 +137,13 @@ $(document).ready(function(){
                     $('#ID_CURSO_ESTAGIO').focus();
             
                 }else{
-                // showLoader();
-   $('#tabelaUnidade').load('acoes.php?identifier=alterarUnidade',{
-            ID_ORGAO_ESTAGIO:valor[0],
-            CS_TIPO_VAGA_ESTAGIO:valor[1]
-            }, hideLoader);             
-/*$("#tabelaUnidade").load('acoes.php?identifier=alterarUnidade',{ID_ORGAO_ESTAGIO:$('#ID_ORGAO_ESTAGIO').val(),
-                                                                  CS_TIPO_VAGA_ESTAGIO:$('#CS_TIPO_VAGA_ESTAGIO').val(),
-                                                                  NB_QUANTIDADE:$('#NB_QUANTIDADE').val(),
-                                                                  ID_CURSO_ESTAGIO:$('#ID_CURSO_ESTAGIO').val()},hideLoader);*/
+               showLoader();
+  /* $('#tabelaUnidade').load('acoes.php?identifier=alterarUnidade',{ID_ORGAO_ESTAGIO:valor[0],
+                                                                   CS_TIPO_VAGA_ESTAGIO:valor[1]}, hideLoader);    */         
+$("#tabelaUnidade").load('acoes.php?identifier=alterarUnidade',{ID_ORGAO_ESTAGIO:valor[0],
+                                                                  CS_TIPO_VAGA_ESTAGIO:valor[1],
+                                                                  NB_QUANTIDADE:valor[2],
+                                                                  ID_CURSO_ESTAGIO:[3]},hideLoader);
                                                     
                                                $( this ).dialog("close");
                 }

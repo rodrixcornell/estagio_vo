@@ -19,10 +19,14 @@ $pesquisaCursos = $VO->getArray("TX_CURSO_ESTAGIO");
 $VO->orgao_Solicitante();
 $orgao_Solicitante = $VO->getArray("TX_ORGAO_ESTAGIO");
 
+$VO->orgao_Solicitante();
+$orgao_Solicitante = $VO->getArray("TX_ORGAO_ESTAGIO");
+
 $VO->pesquisarCodigo();
 $pesquisarCodigo = $VO->getArray("TX_CODIGO");
 
-$arraySituacao = array('' => "Escolha...", 0 => "DESATIVADO", 1 => "ATIVO");
+
+$arraySituacao = array('' => "Escolha", 1 => "ATIVO", 2 => "DESATIVO");
   
 $smarty->assign("arraySituacao"	               , $arraySituacao);
 $smarty->assign("pesquisarOrgaogestor"         , $pesquisarOrgaogestor);
@@ -31,5 +35,6 @@ $smarty->assign("pesquisarTipo"                , $pesquisarTipo);
 $smarty->assign("pesquisaCursos"               , $pesquisaCursos);
 $smarty->assign("orgao_Solicitante"            , $orgao_Solicitante);
 $smarty->assign("pesquisarCodigo"              , $pesquisarCodigo);
+//$smarty->assign("pesquisarSituacao"            , $pesquisarSituacao);
 ?>
 

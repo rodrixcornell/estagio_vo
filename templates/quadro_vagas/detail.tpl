@@ -21,7 +21,7 @@
                         <td style="width:150px;"><strong>Agencia de Estágio</strong></td>
                         <td style="text-laft:right;">{$dados.TX_AGENCIA_ESTAGIO[0]}</td>
                         <td style="width:120px;"><strong>Situação</strong></td>
-                        <td colspan="3">{$dados.CS_SITUACAO[0]}</td>
+                        <td colspan="3">{$dados.TX_SITUACAO[0]}</td>
                     </tr>
 
                     <tr bgcolor="#E0E0E0">

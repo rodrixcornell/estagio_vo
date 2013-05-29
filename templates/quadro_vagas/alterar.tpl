@@ -27,15 +27,15 @@
             {html_options options=$pesquisarAgenciaestagio selected=$VO->ID_AGENCIA_ESTAGIO}
             </select></div>
             <br />
-          
-             <div id="camada" style="font-family:Verdana, Geneva, sans-serif; width:210px;">
-            <font color="#FF0000">*</font>Situação:  <font color="#FF0000">{$validar.TX_SITUACAO}</font><br />
-            <select name="TX_SITUACAO" id="TX_SITUACAO" style="width:200px;">
-            {html_options options=$arraySituacao selected=$VO->TX_SITUACAO}
+          <!--FFF-->
+            <div id="camada" style="font-family:Verdana, Geneva, sans-serif; width:210px;">
+            <font color="#FF0000">*</font>Situação:  <font color="#FF0000">{$validar.CS_SITUACAO}</font><br />
+            <select name="CS_SITUACAO" id="CS_SITUACAO" style="width:200px;">
+            {html_options options=$arraySituacao selected=$VO->CS_SITUACAO}
             </select></div>
             <br />
-            
-            
+            <!---------------------------------------------------->
+                        
             <div id="camada" style="font-family:Verdana, Geneva, sans-serif; width:410px;">Usuário do Cadastro: <font color="#FF0000">{$validar.TX_LOGIN}</font><br />
             <input type="text" name="TX_LOGIN" id="TX_LOGIN" value="{$VO->TX_LOGIN}" style="width:400px;" class="leitura" readonly="readonly" /></div>
             

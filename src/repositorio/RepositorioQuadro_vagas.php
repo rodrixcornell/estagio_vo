@@ -15,7 +15,15 @@ class RepositorioQuadro_vagas extends Repositorio {
 			 AND V_PERFIL_USUARIO.ID_SISTEMA = 75";
         return $this->sqlVetor($query);
     }
-
+/*
+   
+function pesquisarSituacao($VO) {
+        $query = " SELECT ID_QUADRO_VAGAS_ESTAGIO, ID_QUADRO_VAGAS_ESTAGIO CODIGO, 
+    DECODE(CS_SITUACAO, 0,'DESATIVADO', 1,'ATIVADO')CS_SITUACAO
+      FROM QUADRO_VAGAS_ESTAGIO";
+      
+      return $this->sqlVetor($query);
+}  */        
 //---pesquisa agencia de estagio-----
 function pesquisarCodigo($VO) {
         $query = "SELECT ID_QUADRO_VAGAS_ESTAGIO,
@@ -54,16 +62,17 @@ function pesquisarCodigo($VO) {
                    AG.TX_AGENCIA_ESTAGIO,
                    QVE.TX_CODIGO,
                    QVE.ID_QUADRO_VAGAS_ESTAGIO,
-                   DECODE(QVE.CS_SITUACAO, 0,'DESATIVADO', 1,'ATIVADO')CS_SITUACAO,
+                   QVE.CS_SITUACAO,
+                   DECODE(QVE.CS_SITUACAO, 1,'ATIVO ', 2,'DESATIVADO')TX_SITUACAO,
                    TO_CHAR(QVE.DT_CADASTRO,'DD/MM/YYYY')DT_CADASTRO,
                    TO_CHAR(QVE.DT_ATUALIZACAO,'DD/MM/YYYY')DT_ATUALIZACAO
               FROM QUADRO_VAGAS_ESTAGIO QVE,
                    AGENCIA_ESTAGIO AG,
                    ORGAO_GESTOR_ESTAGIO OGE
              WHERE QVE.ID_AGENCIA_ESTAGIO = AG.ID_AGENCIA_ESTAGIO
-                   AND QVE.ID_ORGAO_GESTOR_ESTAGIO = OGE.ID_ORGAO_GESTOR_ESTAGIO";
+                   AND QVE.ID_ORGAO_GESTOR_ESTAGIO = OGE.ID_ORGAO_GESTOR_ESTAGIO ";
 
-
+//DECODE(QVE.CS_SITUACAO, 1,'ATIVADO ', 2,'DESATIVADO')CS_SITUACAO,
         if ($VO->TX_CODIGO){
             $query .= " AND QVE.TX_CODIGO = ".$VO->TX_CODIGO." ";
         }
@@ -76,7 +85,7 @@ function pesquisarCodigo($VO) {
             $query .= " AND AG.ID_AGENCIA_ESTAGIO = " . $VO->ID_AGENCIA_ESTAGIO . " ";
         }
 
-        if ($VO->CS_SITUACAO == '0' || $VO->CS_SITUACAO == '1') {
+        if ($VO->CS_SITUACAO == '1' || $VO->CS_SITUACAO == '2') {
             $query .= " AND AG.CS_SITUACAO = " . $VO->CS_SITUACAO . " ";
         }
 
@@ -136,7 +145,7 @@ function pesquisarCodigo($VO) {
 
 		 where
  		    ID_QUADRO_VAGAS_ESTAGIO = '" . $VO->ID_QUADRO_VAGAS_ESTAGIO . "'";
-
+        print_r($query);
         return $this->sql($query);
     }
 
@@ -152,10 +161,10 @@ function pesquisarCodigo($VO) {
                         AG.TX_AGENCIA_ESTAGIO,
                         QVE.TX_CODIGO,
                         QVE.ID_QUADRO_VAGAS_ESTAGIO,
-                        DECODE(QVE.CS_SITUACAO, 0,'DESATIVADO', 1,'ATIVADO')CS_SITUACAO,
+                        QVE.CS_SITUACAO,
                         TO_CHAR(QVE.DT_CADASTRO,'DD/MM/YYYY')DT_CADASTRO,
-                        TO_CHAR(QVE.DT_ATUALIZACAO,'DD/MM/YYYY')DT_ATUALIZACAO
-
+                        TO_CHAR(QVE.DT_ATUALIZACAO,'DD/MM/YYYY')DT_ATUALIZACAO,
+                        DECODE(QVE.CS_SITUACAO, 1,'ATIVO', 2,'DESATIVADO')TX_SITUACAO
                    FROM QUADRO_VAGAS_ESTAGIO QVE,
                         AGENCIA_ESTAGIO AG,
                         ORGAO_GESTOR_ESTAGIO OGE,
@@ -171,10 +180,9 @@ function pesquisarCodigo($VO) {
                         AND QVE.ID_USUARIO_ATUALIZACAO = USUARIO_ATUALIZACAO.ID_USUARIO
                         AND V_PERFIL_USUARIO.ID_USUARIO = USUARIO.ID_USUARIO
                         AND USUARIO.ID_PESSOA_FUNCIONARIO = PESSOA.ID_PESSOA
-                        AND V_PERFIL_USUARIO.ID_SISTEMA = 77
                         AND USUARIO_ATUALIZACAO.ID_USUARIO = V_PERFIL_USUARIO.ID_USUARIO
                         AND QVE.ID_QUADRO_VAGAS_ESTAGIO = " . $VO->ID_QUADRO_VAGAS_ESTAGIO . " ";
-
+        //print_r($query);
         return $this->sqlVetor($query);
     }
 
@@ -301,9 +309,12 @@ function pesquisarCodigo($VO) {
                 and u_alt.id_pessoa_funcionario = p_alt.id_pessoa
               
         and ve.ID_ORGAO_ESTAGIO = " . $VO->ID_ORGAO_ESTAGIO . "
+         
         and ve.CS_TIPO_VAGA_ESTAGIO = " . $VO->CS_TIPO_VAGA_ESTAGIO . " ";
-       
+        // print_r($query);
         return $this->sqlVetor($query);
+     
+        
     }
 
 //-------alterar da pesquisa detail---------------
@@ -323,7 +334,7 @@ function pesquisarCodigo($VO) {
  		    ID_ORGAO_ESTAGIO = " . $VO->ID_ORGAO_ESTAGIO . "   
                     CS_TIPO_VAGA_ESTAGIO = " . $VO->CS_TIPO_VAGA_ESTAGIO . "    ";
 
-
+        print_r($query);
         return $this->sql($query);
     }
 //CS_TIPO_VAGA_ESTAGIO = " . $VO->CS_TIPO_VAGA_ESTAGIO . ",    
