@@ -38,8 +38,6 @@ $(document).ready(function(){
         return false;
     });
 
-
-     
     //--------master Alterar---------------------
     $("#alterar").live('click', function(){
         var href = $(this).attr('href');

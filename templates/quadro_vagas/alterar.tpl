@@ -48,7 +48,7 @@
                 <input type="text" name="TX_LOGIN" id="TX_LOGIN" value="{$VO->TX_LOGIN}" style="width:400px;" class="leitura" readonly="readonly" /></div>
 
             <div id="camada" style="font-family:Verdana, Geneva, sans-serif; width:160px;">Data de Atualização <font color="#FF0000">{$validar.DT_ATUALIZACAO}</font><br />
-                <input type="text" name="DT_ATUALIZACAO" id="DT_ATUALIZACAO" value="{$VO->DT_ATUALIZACAO}" style="width:150px;" class="leitura" readonly="readonly" /></div>
+            <input type="text" name="DT_ATUALIZACAO" id="DT_ATUALIZACAO" value="{$VO->DT_ATUALIZACAO}" style="width:150px;" class="leitura" readonly="readonly" /></div>
             <br />
             <br />
 

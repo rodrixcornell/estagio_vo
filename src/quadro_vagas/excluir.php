@@ -19,8 +19,6 @@ if ($_SESSION['ID_QUADRO_VAGAS_ESTAGIO']) {
     //$VO->ID_ORGAO_ESTAGIO = $_SESSION['ID_ORGAO_ESTAGIO'];
     //$VO->ID_CURSO_ESTAGIO = $_SESSION['ID_CURSO_ESTAGIO'];
 
-
-
     $retorno = $VO->excluir();
     //print_r($retorno);		
     if (!$retorno) {

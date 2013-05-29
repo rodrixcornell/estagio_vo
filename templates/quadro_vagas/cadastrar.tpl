@@ -38,7 +38,6 @@
                     {html_options options=$arraySituacao selected=$VO->CS_SITUACAO}
                 </select></div>
 
-
             <br /><br />
 
             <input type="button" name="cancelar" id="cancelar" value="Cancelar" onclick="window.location.href='{$url}src/{$pasta}/index.php'" />&nbsp;&nbsp;&nbsp;&nbsp;

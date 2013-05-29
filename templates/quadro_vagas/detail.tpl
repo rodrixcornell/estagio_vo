@@ -93,4 +93,5 @@
                     <a href="{$url}src/{$pasta}/index.php"><img src="{$urlimg}icones/finalizar.png" alt="Finalizar" title="Finalizar" class="finalizar"/></a>
                 </div>
             </div>
+                
         </div>

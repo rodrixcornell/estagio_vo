@@ -14,7 +14,6 @@ session_start();
 
 $_SESSION['ID_QUADRO_VAGAS_ESTAGIO'] = $_REQUEST['ID'];
 
-//print_r($_REQUEST);
 
 header("Location: " . $url . "src/" . $pasta . "/detail.php");
 ?>

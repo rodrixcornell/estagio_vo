@@ -12,6 +12,7 @@ $titulopage = 'Quadro de Vagas';
 
 require_once "../autenticacao/validaPermissao.php";
 
+
 $VO = new quadro_vagasVO();
 $VO->preencherVOSession($_SESSION);
 

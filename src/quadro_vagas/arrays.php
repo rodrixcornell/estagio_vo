@@ -36,6 +36,6 @@ $smarty->assign("pesquisarTipo", $pesquisarTipo);
 $smarty->assign("pesquisaCursos", $pesquisaCursos);
 $smarty->assign("orgao_Solicitante", $orgao_Solicitante);
 $smarty->assign("pesquisarCodigo", $pesquisarCodigo);
-//$smarty->assign("pesquisarSituacao"            , $pesquisarSituacao);
+
 ?>
 

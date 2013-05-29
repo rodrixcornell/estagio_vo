@@ -21,7 +21,6 @@ if ($_SESSION['ID_QUADRO_VAGAS_ESTAGIO']) {
     $VO->ID_QUADRO_VAGAS_ESTAGIO = $_SESSION['ID_QUADRO_VAGAS_ESTAGIO'];
 
 
-
     $VO->buscar();
     $VO->preencherVOBD($VO->getVetor());
     // print_r($VO);

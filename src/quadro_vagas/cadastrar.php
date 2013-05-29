@@ -51,7 +51,7 @@ if ($_POST) {
         $_SESSION['ID_QUADRO_VAGAS_ESTAGIO'] = $id_pk;
         header("Location: " . $url . "src/" . $pasta . "/detail.php");
     }
-    //else {            echo('Você não tem permisssão para está '); } 	
+    
 }
 
 $smarty->assign("current", $current);

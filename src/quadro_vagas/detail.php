@@ -20,7 +20,6 @@ if ($_SESSION['ID_QUADRO_VAGAS_ESTAGIO']) {
 
     $VO->ID_QUADRO_VAGAS_ESTAGIO = $_SESSION['ID_QUADRO_VAGAS_ESTAGIO'];
 
-
     $total = $VO->buscar();
     $total ? $dados = $VO->getVetor() : false;
 }else

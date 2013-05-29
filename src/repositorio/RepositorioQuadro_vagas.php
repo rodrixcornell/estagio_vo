@@ -16,15 +16,7 @@ class RepositorioQuadro_vagas extends Repositorio {
         return $this->sqlVetor($query);
     }
 
-    /*
-
-      function pesquisarSituacao($VO) {
-      $query = " SELECT ID_QUADRO_VAGAS_ESTAGIO, ID_QUADRO_VAGAS_ESTAGIO CODIGO,
-      DECODE(CS_SITUACAO, 0,'DESATIVADO', 1,'ATIVADO')CS_SITUACAO
-      FROM QUADRO_VAGAS_ESTAGIO";
-
-      return $this->sqlVetor($query);
-      } */
+    
 
 //---pesquisa agencia de estagio-----
     function pesquisarCodigo($VO) {
