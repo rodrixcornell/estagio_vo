@@ -1,20 +1,11 @@
 <?php
 require_once "../../php/define.php";
-require_once $pathvo."agente_setorialVO.php";
+require_once $pathvo."orgao_solicitanteVO.php";
 	
-$VO = new agente_setorialVO();
+$VO = new orgao_solicitanteVO();
 
-$VO->pesquisarUsuario();
-    $arrayUsuario = $VO->getArray("TX_LOGIN");    
+$VO->pesquisarOrgaoSolicitante();
+    $pesquisarOrgaoSolicitante = $VO->getArray("TX_UNIDADE_ORG");  
 
-//$VO->pesquisarUnidadeSolicitante();
-//    $arrayUnidade = $VO->getArray("TX_UNIDADE_IRP");  
-//	
-$VO->pesquisarUnidade();
-    $arrayUnidadeDetail = $VO->getArray("TX_ORGAO_ESTAGIO");  
-
-
-$smarty->assign("arrayUsuario"    	, $arrayUsuario);
-//$smarty->assign("arrayUnidade"    	, $arrayUnidade);
-$smarty->assign("arrayUnidadeDetail", $arrayUnidadeDetail);
+$smarty->assign("pesquisarOrgaoSolicitante"    	, $pesquisarOrgaoSolicitante);
 ?>

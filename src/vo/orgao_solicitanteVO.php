@@ -1,44 +1,22 @@
 <?php
 
 require_once $pathvo."VO.php";
-require_once $path."src/repositorio/RepositorioAgente_setorial.php";
+require_once $path."src/repositorio/RepositorioOrgao_solicitante.php";
 
-class agente_setorialVO extends VO{
+class orgao_solicitanteVO extends VO{
     
-    function agente_setorialVO(){
+    function orgao_solicitanteVO(){
         
-        return $this->repositorio = new RepositorioAgente_setorial(); 
+        return $this->repositorio = new RepositorioOrgao_solicitante(); 
         
-    }
-    
-	function  pesquisarUsuario(){    
-        return $this->repositorio->pesquisarUsuario($this);
-    }
-	
-//	function  pesquisarUnidadeSolicitante(){    
-//        return $this->repositorio->pesquisarUnidadeSolicitante($this);
-//    }
-//	
-	function  buscarUnidades(){    
-        return $this->repositorio->buscarUnidades($this);
-    }
-	
-	function  pesquisarUnidade(){    
-        return $this->repositorio->pesquisarUnidade($this);
-    }
-//	
-	function  inserirOrgao(){    
-        return $this->repositorio->inserirOrgao($this);
-    }
-	
-	function  atualizarInf(){    
-        return $this->repositorio->atualizarInf($this);
-    }
-	
-	function  excluirOrgao(){    
-        return $this->repositorio->excluirOrgao($this);
+    }	
+	function  buscarAgenteSetorial(){    
+        return $this->repositorio->buscarAgenteSetorial($this);
     }
 
-	
+	function  pesquisarOrgaoSolicitante(){    
+        return $this->repositorio->pesquisarOrgaoSolicitante($this);
+    }
+   
 }
 ?>

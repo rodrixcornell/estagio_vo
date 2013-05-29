@@ -1,42 +1,43 @@
 <?php
+
 require_once "../../php/define.php";
-require_once $path."src/agente_setorial/arrays.php";
-require_once $pathvo."agente_setorialVO.php";
+require_once $path . "src/orgao_solicitante/arrays.php";
+require_once $pathvo . "orgao_solicitanteVO.php";
 
 $modulo = 78;
-$programa = 3;
-$pasta = 'agente_setorial';
+$programa = 2;
+$pasta = 'orgao_solicitante';
 $current = 1;
-$titulopage = 'Agente Setorial';
+$titulopage = 'Órgão Solicitante';
 
 session_start();
 require_once "../autenticacao/validaPermissao.php";
 
-unset($_SESSION['ID_SETORIAL_ESTAGIO']);
+unset($_SESSION['ID_ORGAO_ESTAGIO']);
 
 // Iniciando Instância
-$VO = new agente_setorialVO();
+$VO = new orgao_solicitanteVO();
 
-if($_POST){
+if ($_POST) {
     $VO->configuracao();
-    $VO->setCaracteristica('ID_USUARIO_RESP','obrigatorios');
+    $VO->setCaracteristica('TX_ORGAO_ESTAGIO,ID_UNIDADE_ORG', 'obrigatorios');
     $validar = $VO->preencher($_POST);
-	
-	(!$validar) ? $id_pk = $VO->inserir() : false;
-	
-    if (!$validar) {
-        $_SESSION['ID_SETORIAL_ESTAGIO'] = $id_pk;
-		header("Location: ".$url."src/".$pasta."/detail.php");
+
+    (!$validar) ? $id_pk = $VO->inserir() : false;
+
+    if ($id_pk) {
+        $_SESSION['ID_ORGAO_ESTAGIO'] = $id_pk;
+        header("Location: " . $url . "src/" . $pasta . "/detail.php");
     }
 }
 
-$smarty->assign("current"       , $current);
-$smarty->assign("pasta"         , $pasta);
-$smarty->assign("validar"		, $validar);
-$smarty->assign("VO"			, $VO);
-$smarty->assign("titulopage"    , $titulopage);
-$smarty->assign("arquivoCSS"    , $pasta);
-$smarty->assign("arquivoJS"     , $pasta);
-$smarty->assign("nomeArquivo"   , $pasta."/".$nomeArquivo.".tpl");	
+$smarty->assign("current", $current);
+$smarty->assign("pasta", $pasta);
+$smarty->assign("validar", $validar);
+$smarty->assign("VO", $VO);
+$smarty->assign("titulopage", $titulopage);
+$smarty->assign("arquivoCSS", $pasta);
+$smarty->assign("arquivoJS", $pasta);
+$smarty->assign("nomeArquivo", $pasta . "/" . $nomeArquivo . ".tpl");
 $smarty->display('index.tpl');
 ?>

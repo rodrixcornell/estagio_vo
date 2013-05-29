@@ -1,9 +1,9 @@
 <?php
 include "../../php/define.php";
-require_once $pathvo . "agente_setorialVO.php";
+require_once $pathvo . "orgao_solicitanteVO.php";
 
 $modulo = 78;
-$programa = 3;
+$programa = 2;
 
 require_once "../autenticacao/validaPermissao.php";
 
@@ -11,36 +11,38 @@ session_start();
 
 function gerarTabela($param = '') {
     include "../../php/define.php";
-    require_once $pathvo . "agente_setorialVO.php";
+    require_once $pathvo . "orgao_solicitanteVO.php";
     $acesso = $GLOBALS['acesso']; //Acessar a Variavel global;
+    
+    //PESQUISA DETAIL
 
-    $VO = new agente_setorialVO();
-    $VO->ID_SETORIAL_ESTAGIO = $_SESSION['ID_SETORIAL_ESTAGIO'];
-    $VO->TX_FUNCIONARIO = $_SESSION['TX_FUNCIONARIO'];
+    $VO = new orgao_solicitanteVO();
+    $VO->ID_ORGAO_ESTAGIO = $_SESSION['ID_ORGAO_ESTAGIO'];    
+    
     $page = $_REQUEST['PAGE'];
-
 
     $qtd = 15;
     !$page ? $page = 1 : false;
     $primeiro = ($page * $qtd) - $qtd;
 
-    $total = $VO->buscarUnidades();
+    $total = $VO->buscarAgenteSetorial();
 
     $total_page = ceil($total / $qtd);
 
     $VO->Reg_inicio = $primeiro;
     $VO->Reg_quantidade = $qtd;
-    $tot_da_pagina = $VO->buscarUnidades();
+    $tot_da_pagina = $VO->buscarAgenteSetorial();
 
     echo '<table width="100%" id="tabelaItens" >
         <tr>
-        <th>Órgão Solicitante</th>
-        <th>Unidade Organizacional</th>
-        <th style="width:145px;">Data de Atualização</th>';
+        <th>Usuário</th>
+        <th>Funcionário</th>
+        <th>Data Cadastro</th>
+        <th>Data de Atualização</th>';
 
     //Somente ver a coluna de alterar se tiver acesso completo a tela	
-    if ($acesso)
-        echo '<th style="width:30px;"></th>';
+//    if ($acesso)
+      //echo '<th style="width:0px;"></th>';
 
     echo '</tr>';
 
@@ -52,14 +54,15 @@ function gerarTabela($param = '') {
             ($bgcolor == '#F0F0F0') ? $bgcolor = '#DDDDDD' : $bgcolor = '#F0F0F0';
 
             echo '<tr bgcolor="' . $bgcolor . '" onmouseover="mudarCor(this);" onmouseout="mudarCor(this);">
-                <td align="center">' . $dados['TX_ORGAO_ESTAGIO'][$i] . '</td>
-                <td align="center">' . $dados['TX_UNIDADE_ORG'][$i] . '</td>
+                <td align="center">' . $dados['TX_USUARIO'][$i] . '</td>
+                <td align="center">' . $dados['TX_FUNCIONARIO'][$i] . '</td>
+                <td align="center">' . $dados['DT_CADASTRO'][$i] . '</td>
                 <td align="center">' . $dados['DT_ATUALIZACAO'][$i] . '</td>';
 
             //Somente ver a coluna de alterar se tiver acesso completo a tela					
-            if ($acesso)
-                echo '<td align="center" class="icones">
-		<a href="' . $dados['ID_ORGAO_ESTAGIO'][$i] . '" id="excluir" ><img src="' . $urlimg . 'icones/excluirItem.png" title="Excluir Registro"/></a></td>';
+//            if ($acesso)
+//                echo '<td align="center" class="icones">
+//		<a href="' . $dados['ID_ORGAO_ESTAGIO'][$i] . '" id="excluir" ><img src="' . $urlimg . 'icones/excluirItem.png" title="Excluir Registro"/></a></td>';
             echo '</tr>';
         }
 
@@ -85,12 +88,15 @@ function gerarTabela($param = '') {
         echo '<script>alert("' . $param . '")</script>';
 }
 
-$VO = new agente_setorialVO();
+//PESQUISAR INDEX
+
+$VO = new orgao_solicitanteVO();
 
 if ($_REQUEST['identifier'] == "tabela") {
-    $VO->ID_USUARIO_RESP = $_REQUEST['ID_USUARIO_RESP'];
-    $VO->TX_FUNCIONARIO = $_REQUEST['TX_FUNCIONARIO'];
-
+   
+    $VO->ID_UNIDADE_ORG = $_REQUEST['ID_UNIDADE_ORG'];
+    $VO->TX_ORGAO_ESTAGIO = $_REQUEST['TX_ORGAO_ESTAGIO'];
+    
     $page = $_REQUEST['PAGE'];
 
     $VO->preencherSessionPesquisar($_REQUEST);
@@ -113,10 +119,10 @@ if ($_REQUEST['identifier'] == "tabela") {
         $dados = $VO->getVetor();
 
         echo '<table width="100%" class="dataGrid">
-             <th>Usuário</th>
-             <th>Funcionário</th>
+             <th>Órgao Solicitante</th>
+             <th>Unidade Organizacional</th>
              <th>Data de Cadastro</th>
-             <th style="width:150px;">Data de Atualização</th>
+             <th>Data de Atualização</th>
 								';
         //Somente ver a coluna de alterar se tiver acesso completo a tela					
         //if ($acesso)
@@ -127,16 +133,15 @@ if ($_REQUEST['identifier'] == "tabela") {
             ($bgcolor == '#E6E6E6') ? $bgcolor = '#F0EFEF' : $bgcolor = '#E6E6E6';
 
             echo '<tr bgcolor="' . $bgcolor . '">
-                <td align="center">' . $dados['TX_LOGIN'][$i] . '</td>
-                <td align="center">' . $dados['TX_FUNCIONARIO'][$i] . '</td>
+                <td align="center">' . $dados['TX_ORGAO_ESTAGIO'][$i] . '</td>
+                <td align="center">' . $dados['TX_UNIDADE_ORG'][$i] . '</td>
                 <td align="center">' . $dados['DT_CADASTRO'][$i] . '</td>
-                <td align="center">' . $dados['DT_ATULIZACAO'][$i] . '</td>';
+                <td align="center">' . $dados['DT_ATUALIZACAO'][$i] . '</td>';
 
             //Somente ver a coluna de alterar se tiver acesso completo a tela					
-           // if ($acesso)
+            if ($acesso)
                 echo '<td align="center"> 
-		  <a href="' . $dados['ID_SETORIAL_ESTAGIO'][$i] . '" id="alterar"><img src="' . $urlimg . 'icones/editar.png" alt="itens" title="Alterar"/></a></td>';
-
+		  <a href="' . $dados['ID_ORGAO_ESTAGIO'][$i] . '" id="alterar"><img src="' . $urlimg . 'icones/editar.png" alt="itens" title="Alterar"/></a></td>';
             echo '</tr>';
         }
 
@@ -158,47 +163,19 @@ if ($_REQUEST['identifier'] == "tabela") {
     }else {
         echo '<div id="nao_encontrado">Nenhum registro encontrado.</div>';
     }
-} else if ($_REQUEST['identifier'] == "buscarNome") {
-
-    $VO->ID_USUARIO = $_REQUEST['ID_USUARIO_RESP'];
-
-    $VO->pesquisarUsuario();
-    $dados = $VO->getVetor();
-
-
-
-    echo $dados['TX_FUNCIONARIO'][0];
 } else if ($_REQUEST['identifier'] == "tabelaUnidade") {
     gerarTabela();
-} else if ($_REQUEST['identifier'] == "inserirOrgao") {
 
-    $VO->ID_SETORIAL_ESTAGIO = $_SESSION['ID_SETORIAL_ESTAGIO'];
-    $VO->ID_ORGAO_ESTAGIO = $_REQUEST['ID_ORGAO_ESTAGIO'];
+}else if ($_REQUEST['identifier'] == 'alterar') {
 
-    if ($acesso) {
-        if ($VO->ID_ORGAO_ESTAGIO) {
-            $retorno = $VO->inserirOrgao();
-
-            if ($retorno) {
-                $erro = 'Registro já existe.';
-            }
-        }else
-            $erro = 'Para inserir escolha uma Unidade Solicitante.';
-    }else
-        $erro = "Você não tem permissão para realizar esta ação.";
-
-    gerarTabela($erro);
-}else if ($_REQUEST['identifier'] == 'atualizarInf') {
-
-    $VO->ID_SETORIAL_ESTAGIO = $_SESSION['ID_SETORIAL_ESTAGIO'];
+    $VO->ID_ORGAO_ESTAGIO = $_SESSION['ID_ORGAO_ESTAGIO'];
     
+    $dados = $VO->alterar();
 
-    $dados = $VO->atualizarInf();
-
-    echo json_encode($dados);
+   // echo json_encode($dados);
 } else if ($_REQUEST['identifier'] == 'excluirOrgao') {
 
-    $VO->ID_SETORIAL_ESTAGIO = $_SESSION['ID_SETORIAL_ESTAGIO'];
+    $VO->ID_ORGAO_ESTAGIO = $_SESSION['ID_ORGAO_ESTAGIO'];
     $VO->ID_ORGAO_ESTAGIO = $_REQUEST['ID_ORGAO_ESTAGIO'];
 
     if ($acesso) {

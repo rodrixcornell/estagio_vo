@@ -1,25 +1,25 @@
 <?php
 require_once "../../php/define.php";
-require_once $pathvo."agente_setorialVO.php";
+require_once $pathvo."orgao_solicitanteVO.php";
 
 $modulo = 78;
-$programa = 3;
-$pasta = 'agente_setorial';
+$programa = 2;
+$pasta = 'orgao_solicitante';
 $current = 1;
-$titulopage = 'Agente Setorial';
+$titulopage = 'Órgão Solicitante';
 
 session_start();
 require_once "../autenticacao/validaPermissao.php";
 
 // Iniciando Instância
-if ($_SESSION['ID_SETORIAL_ESTAGIO']){
-	$VO = new agente_setorialVO();
-	$VO->ID_SETORIAL_ESTAGIO = $_SESSION['ID_SETORIAL_ESTAGIO'];
+if ($_SESSION['ID_ORGAO_ESTAGIO']){
+	$VO = new orgao_solicitanteVO();
+	$VO->ID_ORGAO_ESTAGIO = $_SESSION['ID_ORGAO_ESTAGIO'];
 	
 	$retorno = $VO->excluir();
 			
 	if (!$retorno){
-		$msg = 'Agente setorial excluído com sucesso.<br><br> <a href="'.$url.'src/'.$pasta.'/index.php">Clique aqui</a> para voltar';	
+		$msg = 'Órgao Solicitante excluído com sucesso.<br><br> <a href="'.$url.'src/'.$pasta.'/index.php">Clique aqui</a> para voltar';	
 		unset($_SESSION['ID_RESP_UNID_IRP']);
 	}else{
 		$msg = 'Este registro não pode ser excluído pois possui dependentes.<br /> <a href="'.$url.'src/'.$pasta.'/detail.php">clique aqui</a> para voltar';

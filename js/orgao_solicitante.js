@@ -10,11 +10,11 @@ $(document).ready(function(){
 	
 
     $('#pesquisar').click(function(){
-        if ($('#ID_USUARIO_RESP').val() || $('#TX_FUNCIONARIO').val()){
+        if ($('#TX_ORGAO_ESTAGIO').val() || $('#ID_UNIDADE_ORG').val()){
             showLoader();
             $('#tabela').load('acoes.php?identifier=tabela',{
-                ID_USUARIO_RESP:$('#ID_USUARIO_RESP').val(),
-                TX_FUNCIONARIO:$('#TX_FUNCIONARIO').val()
+                TX_ORGAO_ESTAGIO:$('#TX_ORGAO_ESTAGIO').val(),
+                ID_UNIDADE_ORG:$('#ID_UNIDADE_ORG').val()
                
             }, hideLoader);
         }else
@@ -25,31 +25,11 @@ $(document).ready(function(){
     $("#paginacao li").live('click', function(){
         showLoader();
         $("#tabela").load('acoes.php?identifier=tabela&PAGE='+this.id,{
-            ID_USUARIO_RESP:$('#ID_USUARIO_RESP').val(),
-            TX_FUNCIONARIO:$('#TX_FUNCIONARIO').val()
+            ID_UNIDADE_ORG:$('#ID_UNIDADE_ORG').val(),
+            ID_ORGAO_ESTAGIO:$('#ID_ORGAO_ESTAGIO').val()
            
         }, hideLoader);
         return false;
-    });
-	
-	
-    $("#ID_USUARIO_RESP").change(function(){
-        if ($("#ID_USUARIO_RESP").val() != 0){
-            $("#TX_FUNCIONARIO").val('');
-
-            $.post("acoes.php",
-            {
-                ID_USUARIO_RESP:$("#ID_USUARIO_RESP").val(), 
-                identifier:'buscarNome'
-            },
-            function(valor){
-                $("#TX_FUNCIONARIO").val(valor);
-            }
-            );
-			
-        }else{
-            $("#TX_FUNCIONARIO").val('');
-        }
     });
 	
 	
