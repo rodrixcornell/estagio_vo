@@ -10,7 +10,7 @@
         <form name="form" action="{$url}src/{$pasta}/alterar.php" method="post">
 
             <div id="camada" style="font-family:Verdana, Geneva, sans-serif; width:410px;">
-                Órgão Solicitante <font color="#FF0000">{$validar.TX_ORGAO_ESTAGIO}</font><br />
+                <font color="#FF0000">*</font>Órgão Solicitante <font color="#FF0000">{$validar.TX_ORGAO_ESTAGIO}</font><br />
                 <input type="text" name="TX_ORGAO_ESTAGIO" id="TX_ORGAO_ESTAGIO" value="{$VO->TX_ORGAO_ESTAGIO}" style="width:400px;" /></div>
 
             <div id="camada" style="font-family:Verdana, Geneva, sans-serif; width:160px;">

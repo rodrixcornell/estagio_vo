@@ -14,15 +14,16 @@ class RepositorioOrgao_solicitante extends Repositorio {
         return $this->sqlVetor($query);
     }
 
+
     function pesquisar($VO) {
 
         $query = "select a.ID_ORGAO_ESTAGIO, a.TX_ORGAO_ESTAGIO, 
-       TO_CHAR(a.DT_CADASTRO, 'dd/mm/yyyy hh24:mi:ss') DT_CADASTRO, 
-       to_char(a.DT_ATUALIZACAO, 'dd/mm/yyyy hh24:mi:ss') DT_ATUALIZACAO,
-       B.TX_UNIDADE_ORG    
+				   TO_CHAR(a.DT_CADASTRO, 'dd/mm/yyyy hh24:mi:ss') DT_CADASTRO, 
+				   to_char(a.DT_ATUALIZACAO, 'dd/mm/yyyy hh24:mi:ss') DT_ATUALIZACAO,
+				   B.TX_UNIDADE_ORG    
        
-   from ORGAO_ESTAGIO a, UNIDADE_ORG B
- where a.ID_UNIDADE_ORG = B.ID_UNIDADE_ORG ";
+   				from ORGAO_ESTAGIO a, UNIDADE_ORG B
+ 				where a.ID_UNIDADE_ORG = B.ID_UNIDADE_ORG ";
 
         ($VO->ID_UNIDADE_ORG) ? $query .= " AND a.ID_UNIDADE_ORG = '" . $VO->ID_UNIDADE_ORG . "' " : false;
         ($VO->TX_ORGAO_ESTAGIO) ? $query .= " AND upper(a.TX_ORGAO_ESTAGIO) like upper('%" . $VO->TX_ORGAO_ESTAGIO . "%') " : false;
@@ -38,9 +39,10 @@ class RepositorioOrgao_solicitante extends Repositorio {
         return $this->sqlVetor($query);
     }
 
+
     function inserir($VO) {
 
-        $queryPK = "select SEMAD.F_G_PK_ORGAO_ESTAGIO as ID_ORGAO_ESTAGIO from DUAL";
+        $queryPK = "select SEMAD.F_G_PK_ORGAO_ESTAGIO() as ID_ORGAO_ESTAGIO from DUAL";
         $this->sqlVetor($queryPK);
         $CodigoPK = $this->getVetor();
 
@@ -72,8 +74,8 @@ values  (" . $CodigoPK['ID_ORGAO_ESTAGIO'][0] . ",
 
         $query = "SELECT OE.ID_ORGAO_ESTAGIO,
        OE.TX_ORGAO_ESTAGIO,
-       TO_CHAR(OE.DT_CADASTRO, 'DD/MM/YYYY') DT_CADASTRO,
-       TO_CHAR(OE.DT_ATUALIZACAO, 'DD/MM/YYYY') DT_ATUALIZACAO,
+       TO_CHAR(OE.DT_CADASTRO, 'DD/MM/YYYY hh24:mi:ss') DT_CADASTRO,
+       TO_CHAR(OE.DT_ATUALIZACAO, 'DD/MM/YYYY hh24:mi:ss') DT_ATUALIZACAO,
        OE.ID_UNIDADE_ORG,
        OE.ID_USUARIO_CADASTRO,
        OE.ID_USUARIO_ATUALIZACAO,
@@ -104,8 +106,8 @@ values  (" . $CodigoPK['ID_ORGAO_ESTAGIO'][0] . ",
 
         $query = "SELECT U.TX_LOGIN TX_USUARIO,
        VFT.TX_FUNCIONARIO,
-       TO_CHAR(ASE.DT_CADASTRO, 'DD/MM/YYYY') DT_CADASTRO,
-       TO_CHAR(ASE.DT_ATULIZACAO, 'DD/MM/YYYY') DT_ATUALIZACAO
+       TO_CHAR(ASE.DT_CADASTRO, 'DD/MM/YYYY hh24:mi:ss') DT_CADASTRO,
+       TO_CHAR(OAS.DT_ATUALIZACAO, 'DD/MM/YYYY hh24:mi:ss') DT_ATUALIZACAO
   FROM ORGAO_ESTAGIO OE,
        ORGAO_AGENTE_SETORIAL OAS,
        AGENTE_SETORIAL_ESTAGIO ASE,
@@ -141,9 +143,9 @@ values  (" . $CodigoPK['ID_ORGAO_ESTAGIO'][0] . ",
     function excluir($VO) {
 
         $query = "
-      delete from orgao_estagio
-      where ID_ORGAO_ESTAGIO = " . $VO->ID_ORGAO_ESTAGIO . "
-      ";
+			  delete from orgao_estagio
+			  where ID_ORGAO_ESTAGIO = " . $VO->ID_ORGAO_ESTAGIO . "
+			  ";
 
         return $this->sql($query);
     }

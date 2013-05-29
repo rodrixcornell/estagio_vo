@@ -13,20 +13,7 @@ $(document).ready(function(){
         return false;
     });
 
-    //Exclusão de Acesso
-    $('#excluir').live('click', function(){
-        var href = $(this).attr('href');
-
-        resp = window.confirm('Tem certeza que deseja excluir este Registro?');
-        if (resp){
-            showLoader();
-            $("#tabelaUnidade").load('acoes.php?identifier=excluirOrgao&ID_ORGAO_ESTAGIO='+href+'&PAGE='+$('.selecionado').text(), emptyHideLoader);
-        }
-        return false;
-    });
-	
-	
-	//Excluir Master
+   //Excluir Master
 	$('#excluirMaster').click(function(){
 
 		if ($('.icones').length){

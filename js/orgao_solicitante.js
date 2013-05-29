@@ -25,8 +25,8 @@ $(document).ready(function(){
     $("#paginacao li").live('click', function(){
         showLoader();
         $("#tabela").load('acoes.php?identifier=tabela&PAGE='+this.id,{
-            ID_UNIDADE_ORG:$('#ID_UNIDADE_ORG').val(),
-            ID_ORGAO_ESTAGIO:$('#ID_ORGAO_ESTAGIO').val()
+            TX_ORGAO_ESTAGIO:$('#TX_ORGAO_ESTAGIO').val(),
+            ID_UNIDADE_ORG:$('#ID_UNIDADE_ORG').val()
            
         }, hideLoader);
         return false;

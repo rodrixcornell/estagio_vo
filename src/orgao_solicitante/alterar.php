@@ -23,11 +23,11 @@ if ($_SESSION['ID_ORGAO_ESTAGIO']){
   
     if($_POST){
 		$VO->configuracao();
-		$VO->setCaracteristica('TX_ORGAO_ESTAGIO', 'ID_UNIDADE_ORG','obrigatorios');
+		$VO->setCaracteristica('TX_ORGAO_ESTAGIO,ID_UNIDADE_ORG','obrigatorios');
 		$validar = $VO->preencher($_POST);
 
         if (!$validar){
-  $VO->alterar();
+  			$VO->alterar();
             header("Location: ".$url."src/".$pasta."/detail.php");
         }
     }

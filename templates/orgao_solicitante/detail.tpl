@@ -11,18 +11,20 @@
                 <legend>Órgão Solicitante</legend>
                 <table width="100%" class="dataGrid" >
                     <tr bgcolor="#E0E0E0">
-                        <td style="width:125px;"><strong>Órgão Solicitante</strong></td>
-                        <td style="width:350px;">{$dados.TX_ORGAO_ESTAGIO[0]}</td>
-                        <td><strong>Unidade Organizacional</strong></td>
-                        <td style="text-align:right;">{$dados.TX_UNIDADE_ORGANIZACIONAL[0]}</td>
+                        <td style="width:170px;"><strong>Órgão Solicitante</strong></td>
+                        <td colspan="3">{$dados.TX_ORGAO_ESTAGIO[0]}</td>
                     </tr>
                     <tr bgcolor="#F0EFEF">
-                        <td><strong>Cadastrado por</strong></td>
-                        <td>{$dados.TX_USUARIO_CAD[0]}</td>
-                        <td><strong>Data de Cadastro</strong></td>
-                        <td style="text-align:right;">{$dados.DT_CADASTRO[0]}</td>
+                    	<td><strong>Unidade Organizacional</strong></td>
+                        <td colspan="3">{$dados.TX_UNIDADE_ORGANIZACIONAL[0]}</td>
                     </tr>
                     <tr bgcolor="#E0E0E0">
+                        <td><strong>Cadastrado por</strong></td>
+                        <td>{$dados.TX_USUARIO_CAD[0]}</td>
+                        <td style="width:150px;"><strong>Data de Cadastro</strong></td>
+                        <td style="text-align:right; width:145px;">{$dados.DT_CADASTRO[0]}</td>
+                    </tr>
+                    <tr bgcolor="#F0EFEF">
                         <td><strong>Alterado por</strong></td>
                         <td><div id="funcionario">{$dados.TX_USUARIO_ALT[0]}</div></td>
                         <td><strong>Data de Atualização</strong></td>
@@ -39,10 +41,10 @@
 
         <div class="fundo_pag"><img src="{$urlimg}icones/loader.gif" alt=""></div>
         
-{if $acesso}<fieldset>
-    <legend>Agentes Autorizados</legend>
+	<fieldset>
+    	<legend>Agentes Autorizados</legend>
         <div id="tabelaUnidade"></div>
- 	</fieldset>{/if}
+ 	</fieldset>
         
         <div id="botoesInferiores">
             <a href="{$url}src/{$pasta}/index.php"><img src="{$urlimg}icones/voltar.png" alt="Voltar" title="Voltar" class="voltar" /></a>

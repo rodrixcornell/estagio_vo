@@ -10,10 +10,10 @@
                 
                 <br /><br />		
                             
-                <div id="camada" style="font-family:Verdana, Geneva, sans-serif; width:200px;" ><strong>Órgão Solicitante </strong></div>
+                <div id="camada" style="font-family:Verdana, Geneva, sans-serif; width:200px;" ><strong>Órgão Solicitante: </strong></div>
                     <input type="text" name="TX_ORGAO_ESTAGIO" id="TX_ORGAO_ESTAGIO" value="{$VO->TX_ORGAO_ESTAGIO}"  style="width:500px;" /><br />    
                       
-                    <div id="camada" style="font-family:Verdana, Geneva, sans-serif; width:200px;" ><strong>Unidade Organizacional </strong></div>
+                    <div id="camada" style="font-family:Verdana, Geneva, sans-serif; width:200px;" ><strong>Unidade Organizacional: </strong></div>
                     <select name="ID_UNIDADE_ORG" id="ID_UNIDADE_ORG" style="width:500px;">
                         {html_options options=$pesquisarOrgaoSolicitante selected=$VO->ID_UNIDADE_ORG}
                     </select><br />

@@ -139,7 +139,7 @@ if ($_REQUEST['identifier'] == "tabela") {
                 <td align="center">' . $dados['DT_ATUALIZACAO'][$i] . '</td>';
 
             //Somente ver a coluna de alterar se tiver acesso completo a tela					
-            if ($acesso)
+           // if ($acesso)
                 echo '<td align="center"> 
 		  <a href="' . $dados['ID_ORGAO_ESTAGIO'][$i] . '" id="alterar"><img src="' . $urlimg . 'icones/editar.png" alt="itens" title="Alterar"/></a></td>';
             echo '</tr>';
