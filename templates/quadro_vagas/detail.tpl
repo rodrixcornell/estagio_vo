@@ -12,30 +12,30 @@
                 <table width="100%" class="dataGrid" >
                     <tr bgcolor="#E0E0E0">
                         <td style="width:150px;"><strong>Código</strong></td>
-                        <td style="text-laft:right;">{$dados.TX_CODIGO[0]}</td>
-                        <td style="width:120px;"><strong>Órgão Gestor</strong></td>
-                        <td style="width:300px;">{$dados.TX_ORGAO_GESTOR_ESTAGIO[0]}</td>
+                        <td><font color="#0000FF"><strong>{$dados.TX_CODIGO[0]}</strong></font></td>
+                        <td style="width:140px;"><strong>Órgão Gestor</strong></td>
+                        <td style="width:250px; text-align:right;">{$dados.TX_ORGAO_GESTOR_ESTAGIO[0]}</td>
                     </tr>
 
                     <tr bgcolor="#F0EFEF">
-                        <td style="width:150px;"><strong>Agencia de Estágio</strong></td>
-                        <td style="text-laft:right;">{$dados.TX_AGENCIA_ESTAGIO[0]}</td>
-                        <td style="width:120px;"><strong>Situação</strong></td>
-                        <td colspan="3">{$dados.TX_SITUACAO[0]}</td>
+                        <td><strong>Agencia de Estágio</strong></td>
+                        <td>{$dados.TX_AGENCIA_ESTAGIO[0]}</td>
+                        <td><strong>Situação</strong></td>
+                        <td style="text-align:right;">{$dados.TX_SITUACAO[0]}</td>
                     </tr>
 
                     <tr bgcolor="#E0E0E0">
-                        <td style="width:120px;"><strong>Cadastrado por </strong></td>
-                        <td style="width:300px;">{$dados.TX_FUNCIONARIO[0]}</td>
-                        <td style="width:150px;"><strong>Data de Cadastro</strong></td>
-                        <td style="width:300px;">{$dados.DT_CADASTRO[0]}</td>
+                        <td><strong>Cadastrado por </strong></td>
+                        <td>{$dados.TX_FUNCIONARIO_CADASTRO[0]}</td>
+                        <td><strong>Data de Cadastro</strong></td>
+                        <td style="text-align:right;">{$dados.DT_CADASTRO[0]}</td>
                     </tr>
 
                     <tr bgcolor="#F0EFEF">
                         <td><strong>Alterado por</strong></td>
-                        <td>{$dados.TX_FUNCIONARIO[0]}</td>
+                        <td><div id="funcionario">{$dados.TX_FUNCIONARIO_ATUALIZACAO[0]}</div></td>
                         <td><strong>Data de Atualização</strong></td>
-                        <td style="width:300px;"><div id="atualizacao">{$dados.DT_ATUALIZACAO[0]}</div></td>
+                        <td style="text-align:right;"><div id="atualizacao">{$dados.DT_ATUALIZACAO[0]}</div></td>
                     </tr>
                 </table>
 
@@ -52,37 +52,37 @@
             {if $acesso}<fieldset>
                     <legend>Vagas</legend>
 
-                    <div id="camada" style="font-family:Verdana, Geneva, sans-serif; width:259px;">
+                    <div id="camada" style="font-family:Verdana, Geneva, sans-serif; width:310px;">
                         <font color="#FF0000">*</font>Órgão Solicitante <font color="#FF0000">{$validar.ID_ORGAO_ESTAGIO}</font><br />
                         <select name="ID_ORGAO_ESTAGIO" id="ID_ORGAO_ESTAGIO" style="width:300px;">
                             {html_options options=$orgao_Solicitante selected=$VO->ID_ORGAO_ESTAGIO}
-                        </select></div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        </select></div>
 
 
-                    <div id="camada" style="font-family:Verdana, Geneva, sans-serif; width:123px;">
+                    <div id="camada" style="font-family:Verdana, Geneva, sans-serif; width:130px;">
                         <font color="#FF0000">*</font>Tipo <font color="#FF0000">{$validar.CS_TIPO_VAGA_ESTAGIO}</font><br />
                         <select name="CS_TIPO_VAGA_ESTAGIO" id="CS_TIPO_VAGA_ESTAGIO" style="width:120px;">
                             {html_options options=$pesquisarTipo selected=$VO->CS_TIPO_VAGA_ESTAGIO}
                         </select></div>
 
-                    <div id="camada" style="width:103px;"><font color="#FF0000">*</font>Quantidade:<font color="#FF0000"> {$validar.NB_QUANTIDADE} </font><br />     
-                        <input type="text" name="NB_QUANTIDADE" id="NB_QUANTIDADE" value="{$VO->NB_QUANTIDADE}" style="width:100px;"  />
+                    <div id="camada" style="width:110px;"><font color="#FF0000">*</font>Quantidade:<font color="#FF0000"> {$validar.NB_QUANTIDADE} </font><br />     
+                        <input type="text" name="NB_QUANTIDADE" id="NB_QUANTIDADE" value="{$VO->NB_QUANTIDADE}" style="width:100px; text-align:center;"  />
                     </div>
 
 
-                    <div id="camada" style="font-family:Verdana, Geneva, sans-serif; width:300px;">
+                    <div id="camada" style="font-family:Verdana, Geneva, sans-serif; width:310px;">
                         <font color="#FF0000">*</font>Curso <font color="#FF0000">{$validar.ID_CURSO_ESTAGIO}</font><br />
-                        <select name="ID_CURSO_ESTAGIO" id="ID_CURSO_ESTAGIO" style="width:298px;">
+                        <select name="ID_CURSO_ESTAGIO" id="ID_CURSO_ESTAGIO" style="width:300px;">
                             {html_options options=$pesquisaCursos selected=$VO->ID_CURSO_ESTAGIO}
                         </select></div>
 
-                    <input type="button" name="inserir" id="inserir" value=" Inserir " />
+                    <input type="button" name="inserir" id="inserir" value=" Inserir " style="margin-top:10px;"/>
                 </fieldset>{/if}
 
                 <div id="tabelaUnidade"></div>
 
-                <div id="dialog" title="Cadastrar Vagas de Estágio">
-                    <div id="tabela_Item_Adquirido" style="text-align:left;"></div>
+                <div id="dialog" title="Alterar Vagas de Estágio">
+                    <div id="alterar_vaga" style="text-align:left;"></div>
                     <div class="fundoForm">
                         <img src="{$urlimg}icones/loader3.gif" >
                     </div>

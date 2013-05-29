@@ -43,18 +43,19 @@
     <script charset="UTF-8" type="text/javascript" language="JavaScript">
         $(document).ready(function(){
         function showLoader(){ $('.fundo_pag').fadeIn(200); }
-    function hideLoader(){ $('.fundo_pag').fadeOut(200); };
+    	function hideLoader(){ $('.fundo_pag').fadeOut(200); };
 	
 	
-if ("{$VO->ID_QUADRO_VAGAS_ESTAGIO}"|| "{$VO->ID_ORGAO_GESTOR_ESTAGIO}" || "{$VO->ID_AGENCIA_ESTAGIO}" || "{$VO->CS_SITUACAO}"){
-showLoader();
-$("#tabela").load('acoes.php?identifier=tabela',{
-ID_ORGAO_GESTOR_ESTAGIO:"{$VO->ID_ORGAO_GESTOR_ESTAGIO}",
-ID_AGENCIA_ESTAGIO:"{$VO->ID_AGENCIA_ESTAGIO}",
-CS_SITUACAO:"{$VO->CS_SITUACAO}",
-PAGE:"{$VO->PAGE}"
-}, hideLoader); 
-}
+			if ("{$VO->ID_QUADRO_VAGAS_ESTAGIO}"|| "{$VO->ID_ORGAO_GESTOR_ESTAGIO}" || "{$VO->ID_AGENCIA_ESTAGIO}" || "{$VO->CS_SITUACAO}"){
+					showLoader();
+					$("#tabela").load('acoes.php?identifier=tabela',{
+						ID_QUADRO_VAGAS_ESTAGIO:"{$VO->ID_QUADRO_VAGAS_ESTAGIO}",
+						ID_ORGAO_GESTOR_ESTAGIO:"{$VO->ID_ORGAO_GESTOR_ESTAGIO}",
+						ID_AGENCIA_ESTAGIO:"{$VO->ID_AGENCIA_ESTAGIO}",
+						CS_SITUACAO:"{$VO->CS_SITUACAO}",
+					PAGE:"{$VO->PAGE}"
+			}, hideLoader); 
+			}
 	
 });
     </script>

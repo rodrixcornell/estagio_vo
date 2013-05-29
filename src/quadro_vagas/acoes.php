@@ -1,8 +1,7 @@
 <?php
-
 include "../../php/define.php";
-
 require_once $pathvo . "quadro_vagasVO.php";
+
 $modulo = 79;
 $programa = 1;
 
@@ -21,7 +20,6 @@ function gerarTabela($param = '') {
 
     $VO->ID_QUADRO_VAGAS_ESTAGIO = $_SESSION['ID_QUADRO_VAGAS_ESTAGIO'];
 
-
     $page = $_REQUEST['PAGE'];
 
     $qtd = 15;
@@ -29,7 +27,7 @@ function gerarTabela($param = '') {
     $primeiro = ($page * $qtd) - $qtd;
 
     $total = $VO->pesquisarUnidades();
-    //print_r($total);
+
     $total_page = ceil($total / $qtd);
 
     $VO->Reg_inicio = $primeiro;
@@ -42,8 +40,8 @@ function gerarTabela($param = '') {
                         <th>Tipo</th>
                         <th>Quantidade</th>
                         <th>Curso</th>
-			<th>Data de Cadastro</th>
-			<th>Data de Atualização</th>';
+						<th style="width:135px;">Data de Cadastro</th>
+						<th style="width:135px;"> Data de Atualização</th>';
 
     //Somente ver a coluna de alterar se tiver acesso completo a tela	
     if ($acesso)
@@ -57,7 +55,7 @@ function gerarTabela($param = '') {
             ($bgcolor == '#F0F0F0') ? $bgcolor = '#DDDDDD' : $bgcolor = '#F0F0F0';
             echo '<tr bgcolor="' . $bgcolor . '" onmouseover="mudarCor(this);" onmouseout="mudarCor(this);">
                                            <td align="center">' . $dados['TX_ORGAO_ESTAGIO'][$i] . '</td>
-	                                   <td align="center">' . $dados['TX_TIPO_VAGA_ESTAGIO'][$i] . '</td>
+	                                   	   <td align="center">' . $dados['TX_TIPO_VAGA_ESTAGIO'][$i] . '</td>
                                            <td align="center">' . $dados['NB_QUANTIDADE'][$i] . '</td>  
                                            <td align="center">' . $dados['TX_CURSO_ESTAGIO'][$i] . '</td>   
                                            <td align="center">' . $dados['DT_CADASTRO'][$i] . '</td>    
@@ -66,7 +64,7 @@ function gerarTabela($param = '') {
             //Somente ver a coluna de alterar se tiver acesso completo a tela					
             if ($acesso)
                 echo'<td align="center" class="icones"> ';
-            echo '<a href="' . $dados['ID_ORGAO_ESTAGIO'][$i] . '_' . $dados['CS_TIPO_VAGA_ESTAGIO'][$i] . '" id="alterar"><img src="' . $urlimg . 'icones/editar.png" alt="itens" title="Alterar"/></a> ';
+            echo '<a href="' . $dados['ID_ORGAO_ESTAGIO'][$i] . '_' . $dados['CS_TIPO_VAGA_ESTAGIO'][$i] . '" id="alterar"><img src="' . $urlimg . 'icones/alterarItem.png" alt="itens" title="Alterar"/></a> ';
             echo '<a href="' . $dados['ID_ORGAO_ESTAGIO'][$i] . '_' . $dados['CS_TIPO_VAGA_ESTAGIO'][$i] . '" id="excluir"><img src="' . $urlimg . 'icones/excluirItem.png" title="Excluir Registro"/></a>';
 
             echo '</td>';
@@ -86,28 +84,25 @@ function gerarTabela($param = '') {
             echo '</ul>	</div><br><br>';
         }
     }else
-        echo '<tr><td colspan="4" class="nenhum">Nenhum registro encontrado.</td></tr></table><br /> ';
+        echo '<tr><td colspan="7" class="nenhum">Nenhum registro encontrado.</td></tr></table><br /> ';
 
     if ($param)
         echo '<script>alert("' . $param . '")</script>';
 }
 
 //------------------------quando clico no alterar do detail----------------
-function gerarTabelaAlterarUinidade($param = '') {
+function gerarTabelaAlterarVaga($param = '') {
     include "../../php/define.php";
 
     require_once $pathvo . "quadro_vagasVO.php";
-
     require_once $path . "src/quadro_vagas/arrays.php";
 
     $VO = new quadro_vagasVO();
-    $VO->ID_QUADRO_VAGAS_ESTAGIO = $_SESSION['ID_QUADRO_VAGAS_ESTAGIO'];
-    $VO->ID_ORGAO_ESTAGIO = $_REQUEST['ID_ORGAO_ESTAGIO'];
-    $VO->CS_TIPO_VAGA_ESTAGIO = $_REQUEST['CS_TIPO_VAGA_ESTAGIO'];
-    $VO->ID_CURSO_ESTAGIO = $_REQUEST['ID_CURSO_ESTAGIO'];
+    $VO->ID_QUADRO_VAGAS_ESTAGIO 	= $_SESSION['ID_QUADRO_VAGAS_ESTAGIO'];
+    $VO->ID_ORGAO_ESTAGIO 			= $_REQUEST['ID_ORGAO_ESTAGIO'];
+    $VO->CS_TIPO_VAGA_ESTAGIO 		= $_REQUEST['CS_TIPO_VAGA_ESTAGIO'];
 
-    // print_r($VO);
-    $VO->buscarVagasEstagio();
+    $VO->pesquisarUnidades();
     $dados = $VO->getVetor();
     //print_r($dados);
     foreach ($orgao_Solicitante as $key => $value) {
@@ -128,30 +123,29 @@ function gerarTabelaAlterarUinidade($param = '') {
     echo "
             <script>
                 $(document).ready(function(){
-                    $('#NB_QUANTIDADE_ALT').setMask({ mask:'999999' });
+                    $('#NB_QUANTIDADE_ALT').setMask({ mask:'999' });
                 })
             </script>
         ";
 
     echo '
-            <fieldset>
-                <legend>Cadastrar Item Adquirido</legend>
+            
 
-                <div id="camada" style="width:240px;"><font color="#FF0000">*</font>Órgão Solicitante 
-                    <select name="ID_ORGAO_ESTAGIO_ALT" id="ID_ORGAO_ESTAGIO_ALT" style="width:230px;">' . $orgao_SolicitanteAlt . '</select></div>
+                <div id="camada" style="width:350px;"><font color="#FF0000">*</font>Órgão Solicitante 
+                    <select name="ID_ORGAO_ESTAGIO_ALT" id="ID_ORGAO_ESTAGIO_ALT" style="width:340px;">' . $orgao_SolicitanteAlt . '</select></div><br />
 
                 <div id="camada" style="width:130px;"><font color="#FF0000">*</font>Tipo
-                    <select name="CS_TIPO_VAGA_ESTAGIO_ALT" id="CS_TIPO_VAGA_ESTAGIO_ALT" style="width:120px;">' . $pesquisarTipoAlt . '</select></div>
+                    <select name="CS_TIPO_VAGA_ESTAGIO_ALT" id="CS_TIPO_VAGA_ESTAGIO_ALT" style="width:120px;">' . $pesquisarTipoAlt . '</select></div><br />
                     
-                <div id="camada" style="width:130px;"><font color="#FF0000">*</font>Quantidade 
-                    <input type="text" name="NB_QUANTIDADE_ALT" id="NB_QUANTIDADE_ALT" value="' . $dados['NB_QUANTIDADE'][0] . '" style="width:120px;" /></div>
+                <div id="camada" style="width:110px;"><font color="#FF0000">*</font>Quantidade 
+                    <input type="text" name="NB_QUANTIDADE_ALT" id="NB_QUANTIDADE_ALT" value="' . $dados['NB_QUANTIDADE'][0] . '" style="width:100px; text-align:center;" /></div><br />
                      
-                <div id="camada" style="width:200px;"><font color="#FF0000">*</font>Curso 
-                    <select name="ID_CURSO_ESTAGIO_ALT" id="ID_CURSO_ESTAGIO_ALT" style="width:230px;">' . $pesquisaCursosAlt . '</select></div>
-
-                <input type="hidden" name="DT_CADASTRO" id="DT_CADASTRO" value="' . $_SESSION['DT_CADASTRO'] . '" />
-                <input type="hidden" name="DT_ATUALIZACAO" id="DT_ATUALIZACAO" value="' . $_SESSION['DT_ATUALIZACAO'] . '" />
-            </fieldset>
+                <div id="camada" style="width:350px;"><font color="#FF0000">*</font>Curso 
+                    <select name="ID_CURSO_ESTAGIO_ALT" id="ID_CURSO_ESTAGIO_ALT" style="width:340px;">' . $pesquisaCursosAlt . '</select></div><br />
+					
+				<input type="hidden" name="ID_ORGAO_ESTAGIO_ANT" id="ID_ORGAO_ESTAGIO_ANT" value="'.$VO->ID_ORGAO_ESTAGIO.'" />
+				<input type="hidden" name="CS_TIPO_VAGA_ESTAGIO_ANT" id="CS_TIPO_VAGA_ESTAGIO_ANT" value="'.$VO->CS_TIPO_VAGA_ESTAGIO.'" />
+          
         ';
 
     if ($param) {
@@ -161,14 +155,15 @@ function gerarTabelaAlterarUinidade($param = '') {
 
 //-----------------PESQUISA COMUM-------------------------------------------
 $VO = new quadro_vagasVO();
-if ($_REQUEST['identifier'] == "tabela") {
-    require_once $path . "src/quadro_vagas/arrays.php";
 
-    $VO->ID_ORGAO_GESTOR_ESTAGIO = $_SESSION['ID_ORGAO_GESTOR_ESTAGIO'];
-    $VO->ID_AGENCIA_ESTAGIO = $_SESSION['ID_AGENCIA_ESTAGIO'];
-    $VO->CS_SITUACAO = $_SESSION['CS_SITUACAO'];
-    $VO->TX_CODIGO = $_SESSION['TX_CODIGO'];
-    $page = $_REQUEST['PAGE'];
+if ($_REQUEST['identifier'] == "tabela") {
+    
+
+    $VO->ID_ORGAO_GESTOR_ESTAGIO 	= $_REQUEST['ID_ORGAO_GESTOR_ESTAGIO'];
+    $VO->ID_AGENCIA_ESTAGIO 		= $_REQUEST['ID_AGENCIA_ESTAGIO'];
+    $VO->CS_SITUACAO 				= $_REQUEST['CS_SITUACAO'];
+    $VO->ID_QUADRO_VAGAS_ESTAGIO 	= $_REQUEST['ID_QUADRO_VAGAS_ESTAGIO'];
+    $page 							= $_REQUEST['PAGE'];
 
     $VO->preencherSessionPesquisar($_REQUEST);
 
@@ -207,7 +202,7 @@ if ($_REQUEST['identifier'] == "tabela") {
                             <td align="center">' . $dados['TX_CODIGO'][$i] . '</td>
                             <td align="center">' . $dados['TX_ORGAO_GESTOR_ESTAGIO'][$i] . '</td>
 			    <td align="center">' . $dados['TX_AGENCIA_ESTAGIO'][$i] . '</td>
-                            <td align="center">' . $arraySituacao[$dados['CS_SITUACAO'][$i]] . '</td>    
+                            <td align="center">' . $dados['TX_SITUACAO'][$i] . '</td>    
 			    <td align="center">' . $dados['DT_CADASTRO'][$i] . '</td>
                             <td align="center">' . $dados['DT_ATUALIZACAO'][$i] . '</td>
                                
@@ -238,29 +233,19 @@ if ($_REQUEST['identifier'] == "tabela") {
     }else {
         echo '<div id="nao_encontrado">Nenhum registro encontrado.</div>';
     }
-}/* else if ($_REQUEST['identifier'] == "buscarNome"){
-
-  $VO->ID_USUARIO = $_REQUEST['ID_USUARIO_RESP'];
-
-  $VO->pesquisarUsuario();
-  $dados = $VO->getVetor();
-
-  echo $dados['TX_LOGIN'][0];
-
-
-  //--------------- inserir do detail ---------------------------------
-  } */ else if ($_REQUEST['identifier'] == "tabelaUnidade") {
+} else if ($_REQUEST['identifier'] == "tabelaUnidade") {
 
     gerarTabela();
-} else if ($_REQUEST['identifier'] == "inserirUnidade") {
+} else if ($_REQUEST['identifier'] == "inserirVaga") {
 
-    $VO->ID_ORGAO_ESTAGIO = $_REQUEST['ID_ORGAO_ESTAGIO'];
-    $VO->CS_TIPO_VAGA_ESTAGIO = $_REQUEST['CS_TIPO_VAGA_ESTAGIO'];
-    $VO->NB_QUANTIDADE = $_REQUEST['NB_QUANTIDADE'];
-    $VO->ID_CURSO_ESTAGIO = $_REQUEST['ID_CURSO_ESTAGIO'];
+	$VO->ID_QUADRO_VAGAS_ESTAGIO 	= $_SESSION['ID_QUADRO_VAGAS_ESTAGIO'];
+    $VO->ID_ORGAO_ESTAGIO 			= $_REQUEST['ID_ORGAO_ESTAGIO'];
+    $VO->CS_TIPO_VAGA_ESTAGIO 		= $_REQUEST['CS_TIPO_VAGA_ESTAGIO'];
+    $VO->NB_QUANTIDADE 				= $_REQUEST['NB_QUANTIDADE'];
+    $VO->ID_CURSO_ESTAGIO 			= $_REQUEST['ID_CURSO_ESTAGIO'];
 
     if ($acesso) {
-        $retorno = $VO->inserirUnidade();
+        $retorno = $VO->inserirVaga();
 
         if (is_array($retorno)) {
             if ($retorno['code'] == '1')
@@ -274,22 +259,12 @@ if ($_REQUEST['identifier'] == "tabela") {
     gerarTabela($erro);
 }else if ($_REQUEST['identifier'] == 'atualizarInf') {
 
-    $VO->ID_QUADRO_VAGAS_ESTAGIO = $_SESSION['ID_QUADRO_VAGAS_ESTAGIO'];
-    ;
+    $VO->ID_QUADRO_VAGAS_ESTAGIO 		= $_SESSION['ID_QUADRO_VAGAS_ESTAGIO'];
 
     $dados = $VO->atualizarInf();
 
     echo json_encode($dados);
-}/* else if ($_REQUEST['identifier'] == "inserirTodas"){
-
-  $VO->ID_USUARIO = $_SESSION['ID_USUARIO'];
-
-  $VO->inserirTodas();
-
-  gerarTabela();
-
-  //---------------------excluir -------------------------------------------------
-  } */ else if ($_REQUEST['identifier'] == 'excluirUnidade') {
+} else if ($_REQUEST['identifier'] == 'excluirUnidade') {
 
     $VO->ID_QUADRO_VAGAS_ESTAGIO = $_SESSION['ID_QUADRO_VAGAS_ESTAGIO'];
     $VO->ID_ORGAO_ESTAGIO = $_REQUEST['ID_ORGAO_ESTAGIO'];
@@ -307,23 +282,29 @@ if ($_REQUEST['identifier'] == "tabela") {
     gerarTabela($erro);
 
 //-----------------------alterar da pesquisa do detail--------------------------        
-}else if ($_REQUEST['identifier'] == "alterarUnidade") {
-    gerarTabelaAlterarUinidade();
-} else if ($_REQUEST['identifier'] == 'alterar') {
+}else if ($_REQUEST['identifier'] == "formAlterarVaga") {
+    gerarTabelaAlterarVaga();
+} else if ($_REQUEST['identifier'] == 'alterarVaga') {
+	
+	$VO->ID_QUADRO_VAGAS_ESTAGIO = $_SESSION['ID_QUADRO_VAGAS_ESTAGIO'];
+	$VO->ID_ORGAO_ESTAGIO		 = $_REQUEST['ID_ORGAO_ESTAGIO'];
+    $VO->CS_TIPO_VAGA_ESTAGIO 	 = $_REQUEST['CS_TIPO_VAGA_ESTAGIO'];
+    $VO->NB_QUANTIDADE			 = $_REQUEST['NB_QUANTIDADE'];
+	$VO->ID_CURSO_ESTAGIO		 = $_REQUEST['ID_CURSO_ESTAGIO'];
+	$VO->ID_ORGAO_ESTAGIO_ANT	 = $_REQUEST['ID_ORGAO_ESTAGIO_ANT'];
+	$VO->CS_TIPO_VAGA_ESTAGIO_ANT = $_REQUEST['CS_TIPO_VAGA_ESTAGIO_ANT'];
 
-    $VO->ID_ORGAO_ESTAGIO = $_REQUEST['ID_ORGAO_ESTAGIO'];
-    $VO->CS_TIPO_VAGA_ESTAGIO = $_REQUEST['CS_TIPO_VAGA_ESTAGIO'];
-    $VO->ID_CURSO_ESTAGIO = $_REQUEST['ID_CURSO_ESTAGIO'];
-
-    $retorno = $VO->alterarUnidade();
-
+    $retorno = $VO->alterarVaga();
+if ($acesso) {
     if (is_array($retorno)) {
         if ($retorno['code'] == '1')
             $erro = 'Registro já existe.';
         else
             $erro = $retorno['message'];
     }
-
+ }else
+        $erro = "Você não tem permissão para realizar esta ação.";
+		
     gerarTabela($erro);
 }
 

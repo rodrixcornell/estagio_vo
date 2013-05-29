@@ -1,5 +1,4 @@
 <?php
-
 require_once "../../php/define.php";
 require_once $path . "src/quadro_vagas/arrays.php";
 require_once $pathvo . "quadro_vagasVO.php";
@@ -18,34 +17,14 @@ unset($_SESSION['ID_QUADRO_VAGAS_ESTAGIO']);
 // Iniciando Instância
 $VO = new quadro_vagasVO();
 
-/* if($_POST){
-  $VO->configuracao();
-  $VO->setCaracteristica('ID_ORGAO_GESTOR_ESTAGIO,ID_AGENCIA_ESTAGIO,CS_SITUACAO','obrigatorios');
-  $validar = $VO->preencher($_POST);
-
-  (!$validar) ? $id_pk = $VO->inserir() : false;
-
-
-  print_r($id_pk);
-  if (!$validar) {
-  $_SESSION['ID_QUADRO_VAGAS_ESTAGIO'] = $id_pk;
-  header("Location: ".$url."src/".$pasta."/detail.php");
-  }
-  } */
-
 if ($_POST) {
 
     $VO->configuracao();
-    $VO->setCaracteristica('TX_CODIGO,ID_ORGAO_GESTOR_ESTAGIO,ID_AGENCIA_ESTAGIO', 'obrigatorios');
-    //$VO->setCaracteristica('TX_CODIGO','numeros');   
+    $VO->setCaracteristica('ID_ORGAO_GESTOR_ESTAGIO,ID_AGENCIA_ESTAGIO,CS_SITUACAO', 'obrigatorios');
     $validar = $VO->preencher($_POST);
 
-    if (($_REQUEST['CS_SITUACAO'] == "0") || ($_REQUEST['CS_SITUACAO'] == "1")) {
-        unset($validar['CS_SITUACAO']);
-    }
-    if (!$validar)
+   	if (!$validar)
         $id_pk = $VO->inserir();
-
 
     if ($id_pk) {
         $_SESSION['ID_QUADRO_VAGAS_ESTAGIO'] = $id_pk;

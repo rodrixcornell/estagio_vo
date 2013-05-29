@@ -1,5 +1,4 @@
 <?php
-
 require_once "../../php/define.php";
 require_once $path . "src/quadro_vagas/arrays.php";
 require_once $pathvo . "quadro_vagasVO.php";

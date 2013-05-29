@@ -11,7 +11,7 @@ $(document).ready(function(){
 
     //---------------------pequisa--------------------------------------------------
     $('#pesquisar').click(function(){
-        //if ($('#TX_CODIGO').val()){
+       
         if(($('#ID_QUADRO_VAGAS_ESTAGIO').val() || $('#ID_ORGAO_GESTOR_ESTAGIO').val()) || ($('#ID_AGENCIA_ESTAGIO').val() || $('#CS_SITUACAO').val())){
             showLoader();
             $('#tabela').load('acoes.php?identifier=tabela',{
@@ -45,22 +45,7 @@ $(document).ready(function(){
         return false;
     });
 	
-/*	
-$("#ID_USUARIO").change(function(){
-  if ($("#ID_USUARIO").val() != 0){
-      $("#TX_LOGIN").val('');
 
-     $.post("acoes.php",{ID_USUARIO:$("#ID_USUARIO").val(), identifier:'buscarNome'},
-				function(valor){
-						$("#TX_LOGIN").val(valor);
-				}
-			);
-			
-		}else{
-			$("#TX_LOGIN").val('');
-		}
-	});*/
-	
   
 	
 });

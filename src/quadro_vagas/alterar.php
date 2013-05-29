@@ -1,5 +1,4 @@
 <?php
-
 require_once "../../php/define.php";
 require_once $path . "src/quadro_vagas/arrays.php";
 require_once $pathvo . "quadro_vagasVO.php";
@@ -20,18 +19,15 @@ if ($_SESSION['ID_QUADRO_VAGAS_ESTAGIO']) {
 
     $VO->ID_QUADRO_VAGAS_ESTAGIO = $_SESSION['ID_QUADRO_VAGAS_ESTAGIO'];
 
-
     $VO->buscar();
     $VO->preencherVOBD($VO->getVetor());
-    // print_r($VO);
+
     if ($_POST) {
         $VO->configuracao();
         $VO->setCaracteristica('ID_ORGAO_GESTOR_ESTAGIO,ID_AGENCIA_ESTAGIO,CS_SITUACAO', 'obrigatorios');
         $validar = $VO->preencher($_POST);
 
-
         if (!$validar) {
-
             $VO->alterar();
             header("Location: " . $url . "src/" . $pasta . "/detail.php");
         }

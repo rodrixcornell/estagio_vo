@@ -1,5 +1,4 @@
 <?php
-
 require_once "../../php/define.php";
 require_once $path . "src/quadro_vagas/arrays.php";
 require_once $pathvo . "quadro_vagasVO.php";
@@ -7,7 +6,7 @@ require_once $pathvo . "quadro_vagasVO.php";
 $modulo = 79;
 $programa = 1;
 $pasta = 'quadro_vagas';
-$current = 1;
+$current = 2;
 $titulopage = 'Quadro de Vagas';
 
 session_start();
@@ -22,6 +21,7 @@ if ($_SESSION['ID_QUADRO_VAGAS_ESTAGIO']) {
 
     $total = $VO->buscar();
     $total ? $dados = $VO->getVetor() : false;
+	
 }else
     header("Location: " . $url . "src/" . $pasta . "/index.php");
 
@@ -29,7 +29,6 @@ if ($_SESSION['ID_QUADRO_VAGAS_ESTAGIO']) {
 $smarty->assign("current", $current);
 $smarty->assign("pasta", $pasta);
 $smarty->assign("dados", $dados);
-$smarty->assign("censo", $censo);
 $smarty->assign("titulopage", $titulopage);
 $smarty->assign("arquivoCSS", $pasta . trim(ucfirst($nomeArquivo)));
 $smarty->assign("arquivoJS", $pasta . trim(ucfirst($nomeArquivo)));

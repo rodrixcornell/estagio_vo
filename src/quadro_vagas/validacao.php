@@ -1,5 +1,4 @@
 <?php
-
 require_once "../../php/define.php";
 require_once $pathvo . "quadro_vagasVO.php";
 
@@ -11,9 +10,7 @@ $titulopage = 'Quadro de vagas';
 session_start();
 
 // Iniciando Instância
-
 $_SESSION['ID_QUADRO_VAGAS_ESTAGIO'] = $_REQUEST['ID'];
-
 
 header("Location: " . $url . "src/" . $pasta . "/detail.php");
 ?>

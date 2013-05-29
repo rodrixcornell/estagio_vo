@@ -13,27 +13,22 @@
 
         <form name="form" action="{$url}src/{$pasta}/cadastrar.php" method="post">
 
-
-            <div id="camada" style="font-family:Verdana, Geneva, sans-serif; width:160px;"><font color="#FF0000">*</font>Código:{$validar.TX_CODIGO}</font><br />
-                <input type="text" name="TX_CODIGO" id="TX_CODIGO" value="{$VO->TX_CODIGO}" style="width:150px;" /></div>
-            <br />
-
             <div id="camada" style="font-family:Verdana, Geneva, sans-serif; width:210px;">
-                <font color="#FF0000">*</font>Órgão Gestor: <font color="#FF0000">{$validar.ID_ORGAO_GESTOR_ESTAGIO}</font><br />
+                <font color="#FF0000">*</font>Órgão Gestor <font color="#FF0000">{$validar.ID_ORGAO_GESTOR_ESTAGIO}</font><br />
                 <select name="ID_ORGAO_GESTOR_ESTAGIO" id="ID_ORGAO_GESTOR_ESTAGIO" style="width:500px;">
                     {html_options options=$pesquisarOrgaogestor selected=$VO->ID_ORGAO_GESTOR_ESTAGIO}
                 </select></div>
             <br />
 
             <div id="camada" style="font-family:Verdana, Geneva, sans-serif; width:210px;">
-                <font color="#FF0000">*</font>Agencia de Estágio: <font color="#FF0000">{$validar.ID_AGENCIA_ESTAGIO}</font><br />
+                <font color="#FF0000">*</font>Agencia de Estágio <font color="#FF0000">{$validar.ID_AGENCIA_ESTAGIO}</font><br />
                 <select name="ID_AGENCIA_ESTAGIO" id="ID_AGENCIA_ESTAGIO" style="width:500px;">
                     {html_options options=$pesquisarAgenciaestagio selected=$VO->ID_AGENCIA_ESTAGIO}
                 </select></div>
             <br />
 
             <div id="camada" style="font-family:Verdana, Geneva, sans-serif; width:210px;">
-                <font color="#FF0000">*</font>Situação: <font color="#FF0000">{$validar.CS_SITUACAO}</font><br />
+                <font color="#FF0000">*</font>Situação <font color="#FF0000">{$validar.CS_SITUACAO}</font><br />
                 <select name="CS_SITUACAO" id="CS_SITUACAO" style="width:200px;">
                     {html_options options=$arraySituacao selected=$VO->CS_SITUACAO}
                 </select></div>

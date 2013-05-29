@@ -5,6 +5,9 @@ require_once $pathvo . "quadro_vagasVO.php";
 
 $VO = new quadro_vagasVO();
 
+$VO->pesquisarCodigo();
+$pesquisarCodigo = $VO->getArray("TX_CODIGO");
+
 $VO->pesquisarOrgaogestor();
 $pesquisarOrgaogestor = $VO->getArray("TX_ORGAO_GESTOR_ESTAGIO");
 
@@ -23,11 +26,7 @@ $orgao_Solicitante = $VO->getArray("TX_ORGAO_ESTAGIO");
 $VO->orgao_Solicitante();
 $orgao_Solicitante = $VO->getArray("TX_ORGAO_ESTAGIO");
 
-$VO->pesquisarCodigo();
-$pesquisarCodigo = $VO->getArray("TX_CODIGO");
-
-
-$arraySituacao = array('' => "Escolha", 1 => "ATIVO", 2 => "DESATIVO");
+$arraySituacao = array('' => "Escolha", 1 => "ATIVO", 2 => "DESATIVADO");
 
 $smarty->assign("arraySituacao", $arraySituacao);
 $smarty->assign("pesquisarOrgaogestor", $pesquisarOrgaogestor);

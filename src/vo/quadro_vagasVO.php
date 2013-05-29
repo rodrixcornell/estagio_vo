@@ -22,10 +22,6 @@ class quadro_vagasVO extends VO {
         return $this->repositorio->pesquisarTipo($this);
     }
 
-    function pesquisarUsuario() {
-        return $this->repositorio->pesquisarUsuario($this);
-    }
-
     function pesquisarUnidades() {
         return $this->repositorio->pesquisarUnidades($this);
     }
@@ -34,8 +30,8 @@ class quadro_vagasVO extends VO {
         return $this->repositorio->pesquisaCursos($this);
     }
 
-    function inserirUnidade() {
-        return $this->repositorio->inserirUnidade($this);
+    function inserirVaga() {
+        return $this->repositorio->inserirVaga($this);
     }
 
     function atualizarInf() {
@@ -46,6 +42,10 @@ class quadro_vagasVO extends VO {
         return $this->repositorio->orgao_Solicitante($this);
     }
 
+	function alterarVaga() {
+        return $this->repositorio->alterarVaga($this);
+    }
+	
     function excluirUnidade() {
         return $this->repositorio->excluirUnidade($this);
     }
