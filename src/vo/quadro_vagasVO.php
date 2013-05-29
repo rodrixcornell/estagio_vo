@@ -1,73 +1,74 @@
 <?php
-require_once $pathvo."VO.php";
-require_once $path."src/repositorio/RepositorioQuadro_vagas.php";
 
+require_once $pathvo . "VO.php";
+require_once $path . "src/repositorio/RepositorioQuadro_vagas.php";
 
-class quadro_vagasVO extends VO{
-    
-    function quadro_vagasVO(){
-        
-        return $this->repositorio = new RepositorioQuadro_vagas(); 
-        
+class quadro_vagasVO extends VO {
+
+    function quadro_vagasVO() {
+
+        return $this->repositorio = new RepositorioQuadro_vagas();
     }
-    
-	function  pesquisarOrgaogestor(){    
+
+    function pesquisarOrgaogestor() {
         return $this->repositorio->pesquisarOrgaogestor($this);
     }
-	
-    
-	function  pesquisarAgenciaestagio(){    
+
+    function pesquisarAgenciaestagio() {
         return $this->repositorio->pesquisarAgenciaestagio($this);
     }
-	
-	function  pesquisarTipo(){    
+
+    function pesquisarTipo() {
         return $this->repositorio->pesquisarTipo($this);
     }
-	
-    function pesquisarUsuario(){
+
+    function pesquisarUsuario() {
         return $this->repositorio->pesquisarUsuario($this);
     }
-    
-    function  pesquisarUnidades(){    
+
+    function pesquisarUnidades() {
         return $this->repositorio->pesquisarUnidades($this);
     }
-	function  pesquisaCursos(){    
+
+    function pesquisaCursos() {
         return $this->repositorio->pesquisaCursos($this);
     }
-	
-	function  inserirUnidade(){    
+
+    function inserirUnidade() {
         return $this->repositorio->inserirUnidade($this);
     }
-	
-	function  atualizarInf(){    
+
+    function atualizarInf() {
         return $this->repositorio->atualizarInf($this);
     }
-	
-    function orgao_Solicitante(){
+
+    function orgao_Solicitante() {
         return $this->repositorio->orgao_Solicitante($this);
     }
-    function  excluirUnidade(){    
+
+    function excluirUnidade() {
         return $this->repositorio->excluirUnidade($this);
     }
-    function pesquisaSituacao(){
+
+    function pesquisaSituacao() {
         return $this->repositorio->pesquisaSituacao($this);
     }
-	
- function alterarQuadroVagas(){
+
+    function alterarQuadroVagas() {
         return $this->repositorio->alterarQuadroVagas($this);
     }
-    
-     function buscarVagasEstagio(){
+
+    function buscarVagasEstagio() {
         return $this->repositorio->buscarVagasEstagio($this);
     }
-    
-    function pesquisarCodigo(){
+
+    function pesquisarCodigo() {
         return $this->repositorio->pesquisarCodigo($this);
     }
-    
-    /*function pesquisarSituacao(){
-        return $this->repositorio->pesquisarSituacao($this);
-    }*/
-  
+
+    /* function pesquisarSituacao(){
+      return $this->repositorio->pesquisarSituacao($this);
+      } */
 }
+
 ?>

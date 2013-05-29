@@ -1,6 +1,7 @@
 <?php
+
 require_once "../../php/define.php";
-require_once $pathvo."quadro_vagasVO.php";
+require_once $pathvo . "quadro_vagasVO.php";
 
 $modulo = 79;
 $programa = 1;
@@ -15,6 +16,5 @@ $_SESSION['ID_QUADRO_VAGAS_ESTAGIO'] = $_REQUEST['ID'];
 
 //print_r($_REQUEST);
 
-header("Location: ".$url."src/".$pasta."/detail.php");
-
+header("Location: " . $url . "src/" . $pasta . "/detail.php");
 ?>

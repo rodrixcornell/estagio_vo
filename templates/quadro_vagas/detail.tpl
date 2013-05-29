@@ -11,11 +11,11 @@
                 <legend>Quadro de Vagas</legend>
                 <table width="100%" class="dataGrid" >
                     <tr bgcolor="#E0E0E0">
-                      <td style="width:150px;"><strong>Código</strong></td>
-                      <td style="text-laft:right;">{$dados.TX_CODIGO[0]}</td>
-                      <td style="width:120px;"><strong>Órgão Gestor</strong></td>
-                      <td style="width:300px;">{$dados.TX_ORGAO_GESTOR_ESTAGIO[0]}</td>
-                      </tr>
+                        <td style="width:150px;"><strong>Código</strong></td>
+                        <td style="text-laft:right;">{$dados.TX_CODIGO[0]}</td>
+                        <td style="width:120px;"><strong>Órgão Gestor</strong></td>
+                        <td style="width:300px;">{$dados.TX_ORGAO_GESTOR_ESTAGIO[0]}</td>
+                    </tr>
 
                     <tr bgcolor="#F0EFEF">
                         <td style="width:150px;"><strong>Agencia de Estágio</strong></td>

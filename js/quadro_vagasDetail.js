@@ -73,40 +73,42 @@ $(document).ready(function(){
                 NB_QUANTIDADE:$('#NB_QUANTIDADE').val(),
                 ID_CURSO_ESTAGIO:$('#ID_CURSO_ESTAGIO').val(),
                 PAGE:$('.selecionado').text()
-                }, emptyHideLoader);
+            }, emptyHideLoader);
         }        
         return false;
     });
     
 
-//--------------------alterar do detail-----------------------------------------
+    //--------------------alterar do detail-----------------------------------------
 
     $('#alterar').live('click', function(){
         var href = $(this).attr('href');
         var valor = href.split('_');
         
         if (!$('#ID_ORGAO_ESTAGIO').val()){
-                    alert('Para inserir escolha um Órgão Solicitante.');
-                    $('#ID_ORGAO_ESTAGIO').focus();
+            alert('Para inserir escolha um Órgão Solicitante.');
+            $('#ID_ORGAO_ESTAGIO').focus();
             
-                }else if (!$('#CS_TIPO_VAGA_ESTAGIO').val()){
-                    alert('Para inserir escolha um Tipo.');
-                    $('#CS_TIPO_VAGA_ESTAGIO').focus();
+        }else if (!$('#CS_TIPO_VAGA_ESTAGIO').val()){
+            alert('Para inserir escolha um Tipo.');
+            $('#CS_TIPO_VAGA_ESTAGIO').focus();
                   
-               }else if (!$('#NB_QUANTIDADE').val()){
-                    alert('Para inserir escolha uma Quantidade.');
-                    $('#NB_QUANTIDADE').focus();
+        }else if (!$('#NB_QUANTIDADE').val()){
+            alert('Para inserir escolha uma Quantidade.');
+            $('#NB_QUANTIDADE').focus();
                   
-                }else if (!$('#ID_CURSO_ESTAGIO').val()){
-                    alert('Para inserir escolha um Curso.');
-                    $('#ID_CURSO_ESTAGIO').focus();
+        }else if (!$('#ID_CURSO_ESTAGIO').val()){
+            alert('Para inserir escolha um Curso.');
+            $('#ID_CURSO_ESTAGIO').focus();
             
-                }        
+        }        
         $( "#dialog" ).dialog( "open" );
         $('#tabela_Item_Adquirido').html('');
         //showLoader();
-        $('#tabela_Item_Adquirido').load('acoes.php?identifier=alterarUnidade',{ID_ORGAO_ESTAGIO:valor[0],
-                                                                                CS_TIPO_VAGA_ESTAGIO:valor[1]}, hideLoaderForm);
+        $('#tabela_Item_Adquirido').load('acoes.php?identifier=alterarUnidade',{
+            ID_ORGAO_ESTAGIO:valor[0],
+            CS_TIPO_VAGA_ESTAGIO:valor[1]
+            }, hideLoaderForm);
         return false;
     });
 
@@ -128,7 +130,7 @@ $(document).ready(function(){
                     alert('Para inserir escolha um Tipo.');
                     $('#CS_TIPO_VAGA_ESTAGIO').focus();
                   
-               }else if (!$('#NB_QUANTIDADE').val()){
+                }else if (!$('#NB_QUANTIDADE').val()){
                     alert('Para inserir escolha uma Quantidade.');
                     $('#NB_QUANTIDADE').focus();
                   
@@ -137,15 +139,17 @@ $(document).ready(function(){
                     $('#ID_CURSO_ESTAGIO').focus();
             
                 }else{
-               showLoader();
-  /* $('#tabelaUnidade').load('acoes.php?identifier=alterarUnidade',{ID_ORGAO_ESTAGIO:valor[0],
+                    showLoader();
+                    /* $('#tabelaUnidade').load('acoes.php?identifier=alterarUnidade',{ID_ORGAO_ESTAGIO:valor[0],
                                                                    CS_TIPO_VAGA_ESTAGIO:valor[1]}, hideLoader);    */         
-$("#tabelaUnidade").load('acoes.php?identifier=alterarUnidade',{ID_ORGAO_ESTAGIO:valor[0],
-                                                                  CS_TIPO_VAGA_ESTAGIO:valor[1],
-                                                                  NB_QUANTIDADE:valor[2],
-                                                                  ID_CURSO_ESTAGIO:[3]},hideLoader);
+                    $("#tabelaUnidade").load('acoes.php?identifier=alterarUnidade',{
+                        ID_ORGAO_ESTAGIO:valor[0],
+                        CS_TIPO_VAGA_ESTAGIO:valor[1],
+                        NB_QUANTIDADE:valor[2],
+                        ID_CURSO_ESTAGIO:[3]
+                        },hideLoader);
                                                     
-                                               $( this ).dialog("close");
+                    $( this ).dialog("close");
                 }
             },
             "Cancelar": function() {
@@ -169,7 +173,7 @@ $("#tabelaUnidade").load('acoes.php?identifier=alterarUnidade',{ID_ORGAO_ESTAGIO
                 ID_ORGAO_ESTAGIO:valor[0],
                 CS_TIPO_VAGA_ESTAGIO:valor[1],
                 PAGE:$('.selecionado').text()
-                }, hideLoader);
+            }, hideLoader);
             //  ID_CURSO_ESTAGIO
             return false;    
         }

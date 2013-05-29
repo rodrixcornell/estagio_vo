@@ -95,9 +95,9 @@ function gerarTabela($param = '') {
 //------------------------quando clico no alterar do detail----------------
 function gerarTabelaAlterarUinidade($param = '') {
     include "../../php/define.php";
-    
+
     require_once $pathvo . "quadro_vagasVO.php";
-   
+
     require_once $path . "src/quadro_vagas/arrays.php";
 
     $VO = new quadro_vagasVO();
@@ -106,7 +106,7 @@ function gerarTabelaAlterarUinidade($param = '') {
     $VO->CS_TIPO_VAGA_ESTAGIO = $_REQUEST['CS_TIPO_VAGA_ESTAGIO'];
     $VO->ID_CURSO_ESTAGIO = $_REQUEST['ID_CURSO_ESTAGIO'];
 
-   // print_r($VO);
+    // print_r($VO);
     $VO->buscarVagasEstagio();
     $dados = $VO->getVetor();
     //print_r($dados);
@@ -212,7 +212,7 @@ if ($_REQUEST['identifier'] == "tabela") {
                             <td align="center">' . $dados['DT_ATUALIZACAO'][$i] . '</td>
                                
 			    ';
-              //<td align="center">' . $pesquisarCriterio[$dados['CS_CRITERIO'][$i]] . '</td>  
+            //<td align="center">' . $pesquisarCriterio[$dados['CS_CRITERIO'][$i]] . '</td>  
             //Somente ver a coluna de alterar se tiver acesso completo a tela					
             //if ($acesso) 
             echo '<td align="center"> 

@@ -1,12 +1,13 @@
 <?php
+
 require_once "../../php/define.php";
-require_once $pathvo."quadro_vagasVO.php";
-	
+require_once $pathvo . "quadro_vagasVO.php";
+
 $VO = new quadro_vagasVO();
 
 $VO->pesquisarOrgaogestor();
-$pesquisarOrgaogestor = $VO->getArray("TX_ORGAO_GESTOR_ESTAGIO");    
-    
+$pesquisarOrgaogestor = $VO->getArray("TX_ORGAO_GESTOR_ESTAGIO");
+
 $VO->pesquisarAgenciaestagio();
 $pesquisarAgenciaestagio = $VO->getArray("TX_AGENCIA_ESTAGIO");
 
@@ -27,14 +28,14 @@ $pesquisarCodigo = $VO->getArray("TX_CODIGO");
 
 
 $arraySituacao = array('' => "Escolha", 1 => "ATIVO", 2 => "DESATIVO");
-  
-$smarty->assign("arraySituacao"	               , $arraySituacao);
-$smarty->assign("pesquisarOrgaogestor"         , $pesquisarOrgaogestor);
-$smarty->assign("pesquisarAgenciaestagio"      , $pesquisarAgenciaestagio);
-$smarty->assign("pesquisarTipo"                , $pesquisarTipo);
-$smarty->assign("pesquisaCursos"               , $pesquisaCursos);
-$smarty->assign("orgao_Solicitante"            , $orgao_Solicitante);
-$smarty->assign("pesquisarCodigo"              , $pesquisarCodigo);
+
+$smarty->assign("arraySituacao", $arraySituacao);
+$smarty->assign("pesquisarOrgaogestor", $pesquisarOrgaogestor);
+$smarty->assign("pesquisarAgenciaestagio", $pesquisarAgenciaestagio);
+$smarty->assign("pesquisarTipo", $pesquisarTipo);
+$smarty->assign("pesquisaCursos", $pesquisaCursos);
+$smarty->assign("orgao_Solicitante", $orgao_Solicitante);
+$smarty->assign("pesquisarCodigo", $pesquisarCodigo);
 //$smarty->assign("pesquisarSituacao"            , $pesquisarSituacao);
 ?>
 
