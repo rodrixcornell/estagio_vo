@@ -23,7 +23,7 @@ switch ($srv){
         break;
 }
 
-    $titulo 		= 'Gestão de Estágio - Prefeitura de Manaus';
+    $titulo 		= 'Gestão de Estágiarios - Prefeitura de Manaus';
 	$urlcss 		= $url.'css/';
 	$urlimg 		= $url.'img/';
 	$pathvo 		= $path.'src/vo/';

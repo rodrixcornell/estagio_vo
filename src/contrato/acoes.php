@@ -29,7 +29,7 @@ function gerarTabela($param = '') {
 
     $VO->preencherSessionPesquisar($_REQUEST);
 
-    $qtd = 5;
+    $qtd = 15;
     !$page ? $page = 1 : false;
     $primeiro = ($page * $qtd) - $qtd;
 

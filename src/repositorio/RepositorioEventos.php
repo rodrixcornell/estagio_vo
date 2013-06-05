@@ -6,7 +6,7 @@ class RepositorioEventos extends Repositorio{
     function pesquisarEventos($VO){
         
         $query="SELECT I.ID_ITEM_PAGAMENTO_ESTAGIO, I.TX_CODIGO, I.TX_DESCRICAO, I.TX_SIGLA, TO_CHAR(I.DT_CADASTRO,'DD/MM/YYYY HH24:MI:SS') DT_CADASTRO, 
-                TO_CHAR(I.DT_ATUALIZACAO,'DD/MM/YYYY HH24:MI:SS') DT_ATUALIZACAO, I.CS_TIPO, DECODE(I.CS_TIPO, 1,'CRÉDITO', 2,'DÉBITO', 3, 'INFORMATIVO') TX_TIPO, CS_SITUACAO, DECODE(I.CS_SITUACAO, 1, 'DESATIVADO', 2, 'ATIVADO') TX_SITUACAO
+                TO_CHAR(I.DT_ATUALIZACAO,'DD/MM/YYYY HH24:MI:SS') DT_ATUALIZACAO, I.CS_TIPO, DECODE(I.CS_TIPO, 1,'Crédito', 2,'Débito', 3, 'Informativo') TX_TIPO, CS_SITUACAO, DECODE(I.CS_SITUACAO, 1, 'Ativado', 2, 'Desativado') TX_SITUACAO
                 FROM SEMAD.ITEM_PAGAMENTO_ESTAGIO I "; 
 
         $AUX = " WHERE ";
@@ -69,7 +69,7 @@ class RepositorioEventos extends Repositorio{
 
     function pesquisarBase($VO) {
         
-        $query = "SELECT ID_ITEM_PAGAMENTO_ESTAGIO, NB_VALOR_BASE_ITEM_PAG, TO_CHAR(DT_CADASTRO,'DD/MM/YYYY') DT_CADASTRO, TO_CHAR(DT_ATUALIZACAO,'DD/MM/YYYY') DT_ATUALIZACAO, TO_CHAR(DT_INICIO_VIGENCIA,'DD/MM/YYYY') DT_INICIO_VIGENCIA, TO_CHAR(DT_FIM_VIGENCIA,'DD/MM/YYYY') DT_FIM_VIGENCIA, NB_VALOR_BASE, TX_DESCRICAO_BASE
+        $query = "SELECT ID_ITEM_PAGAMENTO_ESTAGIO, NB_VALOR_BASE_ITEM_PAG, TO_CHAR(DT_CADASTRO,'DD/MM/YYYY hh24:mi:ss') DT_CADASTRO, TO_CHAR(DT_ATUALIZACAO,'DD/MM/YYYY hh24:mi:ss') DT_ATUALIZACAO, TO_CHAR(DT_INICIO_VIGENCIA,'DD/MM/YYYY') DT_INICIO_VIGENCIA, TO_CHAR(DT_FIM_VIGENCIA,'DD/MM/YYYY') DT_FIM_VIGENCIA, NB_VALOR_BASE, TX_DESCRICAO_BASE
                   FROM SEMAD.VALOR_BASE_ITEM_PAG
                   WHERE ID_ITEM_PAGAMENTO_ESTAGIO = ".$VO->ID_ITEM_PAGAMENTO_ESTAGIO;
 
@@ -92,19 +92,12 @@ class RepositorioEventos extends Repositorio{
     }
                
     function inserirBase($VO){
-                
-        $queryPK = "SELECT SEMAD.F_G_PK_VALOR_BASE_ITEM_PAG(".$_SESSION[ID_ITEM_PAGAMENTO_ESTAGIO].") AS NB_VALOR_BASE_ITEM_PAG FROM DUAL";
-        $this->sqlVetor($queryPK);
-        $CodigoPK = $this->getVetor();
                     
         $query = "INSERT INTO SEMAD.VALOR_BASE_ITEM_PAG(ID_ITEM_PAGAMENTO_ESTAGIO, NB_VALOR_BASE_ITEM_PAG, DT_CADASTRO, DT_ATUALIZACAO, DT_INICIO_VIGENCIA, DT_FIM_VIGENCIA, NB_VALOR_BASE) 
                   VALUES
-                  (".$_SESSION[ID_ITEM_PAGAMENTO_ESTAGIO].", ".$CodigoPK['NB_VALOR_BASE_ITEM_PAG'][0].", SYSDATE, SYSDATE, TO_DATE('".$VO->DT_INICIO_VIGENCIA."','DD/MM/YYYY'), TO_DATE('".$VO->DT_FIM_VIGENCIA."','DD/MM/YYYY'), ".$VO->moeda($VO->NB_VALOR_BASE).")";
+                  (".$VO->ID_ITEM_PAGAMENTO_ESTAGIO.", SEMAD.F_G_PK_VALOR_BASE_ITEM_PAG(".$VO->ID_ITEM_PAGAMENTO_ESTAGIO."), SYSDATE, SYSDATE, TO_DATE('".$VO->DT_INICIO_VIGENCIA."','DD/MM/YYYY'), TO_DATE('".$VO->DT_FIM_VIGENCIA."','DD/MM/YYYY'), ".$VO->moeda($VO->NB_VALOR_BASE).")";
         
-        $retorno = $this->sql($query);
-
-        return $retorno ? '' : $CodigoPK['NB_VALOR_BASE_ITEM_PAG'][0];
-
+        return $this->sql($query);
     }   
    
 
@@ -116,9 +109,8 @@ class RepositorioEventos extends Repositorio{
                     NB_VALOR_BASE = ".$VO->moeda($VO->NB_VALOR_BASE).",
                     DT_ATUALIZACAO = SYSDATE
                     WHERE
-                    ID_ITEM_PAGAMENTO_ESTAGIO = ".$_SESSION[ID_ITEM_PAGAMENTO_ESTAGIO]."
-                    AND NB_VALOR_BASE_ITEM_PAG = ".$_SESSION[NB_VALOR_BASE_ITEM_PAG]."
-                 ";
+                    ID_ITEM_PAGAMENTO_ESTAGIO = ".$VO->ID_ITEM_PAGAMENTO_ESTAGIO."
+                    AND NB_VALOR_BASE_ITEM_PAG = ".$VO->NB_VALOR_BASE_ITEM_PAG;
 
         return $this->sql($query);
     }     

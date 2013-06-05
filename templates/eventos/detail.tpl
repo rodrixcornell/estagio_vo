@@ -12,29 +12,27 @@
                 <table width="100%" class="dataGrid" >
                     <tr bgcolor="#E0E0E0">
                         <td style="width:150px;"><strong>Código</strong></td>
-                        <td style="width:180px;text-align:left;"><font color="#0000FF"><strong>{$dados.TX_CODIGO[0]}</strong></font></td>
-                        <td style="text-align:left;width:150px;"><strong>Descrição</strong></td>
-                        <td colspan="3"  style="text-align:left;width:500px;"><font color="#0000FF"><strong>{$dados.TX_DESCRICAO[0]}</strong></font></td>
+                        <td style="width:430px; text-align:left;"><font color="#0000FF"><strong>{$dados.TX_CODIGO[0]}</strong></font></td>
+                        <td style="width:150px;"><strong>Descrição</strong></td>
+                        <td style="text-align:right;"><font color="#0000FF"><strong>{$dados.TX_DESCRICAO[0]}</strong></font></td>
                     </tr>
                     <tr bgcolor="#F0EFEF">
-                        <td style="width:10px;text-align:left;"><strong>Sigla</strong></td>
-                        <td style="width:10px;text-align:left;">{$dados.TX_SIGLA[0]}</td>
-                        <td style="width:10px;text-align:left;"><strong>Tipo</strong></td>
-                        <td style="width:100px;text-align:left;">{$dados.TX_TIPO[0]}</td>    
-                        <td style="width:30px;text-align:left;"><strong>Situação</strong></td>
-                        <td style="width:30px;text-align:left;">{$dados.TX_SITUACAO[0]}</td>
+                        <td ><strong>Sigla</strong></td>
+                        <td >{$dados.TX_SIGLA[0]}</td>
+                        <td ><strong>Tipo</strong></td>
+                        <td style="text-align:right;">{$dados.TX_TIPO[0]}</td>    
                     </tr>    
                     <tr bgcolor="#E0E0E0">
-                        <td style="width:10px;text-align:left;"><strong>Tipo</strong></td>
-                        <td style="width:10px;text-align:left;">{$dados.TX_TIPO[0]}</td>    
-                        <td style="width:10px;text-align:left;"><strong>Situação</strong></td>
-                        <td colspan="3" style="width:10px;text-align:left;">{$dados.TX_SITUACAO[0]}</td>
+                    	<td style="text-align:left;"><strong>Situação</strong></td>
+                        <td style="text-align:left;">{$dados.TX_SITUACAO[0]}</td>	
+                        <td style="text-align:left;"><strong>Data de Realização</strong></td>
+                        <td style="text-align:right;">{$dados.DT_CADASTRO[0]}</td>    
                     </tr>
                     <tr bgcolor="#F0EFEF">                                        
                         <td><strong>Data de Cadastro</strong></td>
                         <td>{$dados.DT_CADASTRO[0]}</td>
                         <td><strong>Data de Atualização</strong></td>
-                        <td colspan="3"><div id="atualizacao"> {$dados.DT_ATUALIZACAO[0]}</div></td>    
+                        <td style="text-align:right;"><div id="atualizacao"> {$dados.DT_ATUALIZACAO[0]}</div></td>    
                     </tr>
                 </table>
 
@@ -54,16 +52,16 @@
                 <fieldset>
             	    <legend>Cadastrar Valor</legend>
                     
-                <div id="camada" style="font-family:Verdana, Geneva, sans-serif; width:160px;" ><font color="#FF0000">*</font><strong>Valor: </strong>
-                    <input type="text" name="NB_VALOR_BASE" id="NB_VALOR_BASE" value="{$VO->NB_VALOR_BASE}"  style="width:150px;" />
+                <div id="camada" style="font-family:Verdana, Geneva, sans-serif; width:130px;" ><font color="#FF0000">*</font><strong>Valor </strong>
+                    <input type="text" name="NB_VALOR_BASE" id="NB_VALOR_BASE" value="{$VO->NB_VALOR_BASE}"  style="width:120px; text-align:center;" />
                 </div>
                 
-                <div id="camada" style="font-family:Verdana, Geneva, sans-serif; width:160px;" ><font color="#FF0000">*</font><strong>Início de Vigência: </strong>
-                    <input type="text" name="DT_INICIO_VIGENCIA" id="DT_INICIO_VIGENCIA" value="{$VO->DT_INICIO_VIGENCIA}"  style="width:150px;" />
+                <div id="camada" style="font-family:Verdana, Geneva, sans-serif; width:140px;" ><font color="#FF0000">*</font><strong>Início de Vigência </strong>
+                    <input type="text" name="DT_INICIO_VIGENCIA" id="DT_INICIO_VIGENCIA" value="{$VO->DT_INICIO_VIGENCIA}"  style="width:130px; text-align:center;" />
                 </div>
                 
-                <div id="camada" style="font-family:Verdana, Geneva, sans-serif; width:160px;" ><font color="#FF0000">*</font><strong>Fim de Vigência: </strong>
-                    <input type="text" name="DT_FIM_VIGENCIA" id="DT_FIM_VIGENCIA" value="{$VO->DT_FIM_VIGENCIA}"  style="width:150px;" />
+                <div id="camada" style="font-family:Verdana, Geneva, sans-serif; width:150px;" ><font color="#FF0000">*</font><strong>Fim de Vigência </strong>
+                    <input type="text" name="DT_FIM_VIGENCIA" id="DT_FIM_VIGENCIA" value="{$VO->DT_FIM_VIGENCIA}"  style="width:140px; text-align:center;" />
                 </div>
                     
     
