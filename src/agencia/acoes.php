@@ -3,7 +3,7 @@ include "../../php/define.php";
 require_once $pathvo."agenciaVO.php";
 
 $modulo = 78;
-$programa = 1;
+$programa = 7;
 
 require_once "../autenticacao/validaPermissao.php";
 
@@ -16,18 +16,12 @@ function gerarTabela($param=''){
      
 	$VO = new agenciaVO();
 	$VO->TX_AGENCIA_ESTAGIO 	= $_REQUEST['TX_AGENCIA_ESTAGIO'];
-	$VO->TX_SIGLA 			= $_REQUEST['TX_SIGLA'];
-        $VO->TX_CNPJ 			= $_REQUEST['TX_CNPJ'];
-        $VO->DT_CADASTRO                = $_REQUEST['DT_CADASTRO'];
-        $VO->DT_ATUALIZACAO             = $_REQUEST['DT_ATUALIZACAO'];
-        $VO->ID_USUARIO_ATUALIZACAO     = $_REQUEST['ID_USUARIO_ATUALIZACAO'];
-        $VO->ID_USUARIO_CADASTRO        = $_REQUEST['ID_USUARIO_CADASTRO'];
-        $VO->ID_AGENCIA_ESTAGIO         = $_REQUEST['ID_AGENCIA_ESTAGIO'];
-	$page               			= $_REQUEST['PAGE'];
+	$VO->TX_SIGLA 				= $_REQUEST['TX_SIGLA'];
+	$page               		= $_REQUEST['PAGE'];
 	
 	$VO->preencherSessionPesquisar($_REQUEST);
 	
-	$qtd = 5;
+	$qtd = 15;
 	!$page ? $page = 1: false;
 	$primeiro = ($page*$qtd)-$qtd;
 	
@@ -43,9 +37,9 @@ function gerarTabela($param=''){
 		echo '<div id="status">'.$_SESSION['STATUS'].'</div>
 		<table width="100%" class="dataGrid">
                             <tr>
-                                <th>Nome da Agencia</th>
+                                <th>Nome da Agência</th>
 								<th>Sigla</th>
-                                                                <th>CNPJ</th>
+                                <th>CNPJ</th>
 								<th>Data de Cadastro</th>
 								<th>Data de Atualização</th>';
 			//Somente ver a coluna de alterar se tiver acesso completo a tela					
@@ -60,14 +54,14 @@ function gerarTabela($param=''){
                             <td align="center">'.$dados['TX_AGENCIA_ESTAGIO'][$i].'</td>
 							<td align="center">'.$dados['TX_SIGLA'][$i].'</td>
 							<td align="center">'.$dados['TX_CNPJ'][$i].'</td>
-                                                        <td align="center">'.$dados['DT_CADASTRO'][$i].'</td>
+                            <td align="center">'.$dados['DT_CADASTRO'][$i].'</td>
 							<td align="center">'.$dados['DT_ATUALIZACAO'][$i].'</td>';
 							
 		//Somente ver a coluna de alterar se tiver acesso completo a tela					
            if ($acesso) 
 		 			echo '<td align="center"> 
-								<a href="'.$dados['TX_AGENCIA_ESTAGIO'][$i].'" id="alterar"><img src="'.$urlimg.'icones/editar.png" alt="itens" title="Alterar"/></a>
-								<a href="'.$dados['TX_AGENCIA_ESTAGIO'][$i].'" id="excluir"><img src="'.$urlimg.'icones/excluirItem.png" alt="itens" title="Excluir"/></a></td>';
+								<a href="'.$dados['ID_AGENCIA_ESTAGIO'][$i].'" id="alterar"><img src="'.$urlimg.'icones/editar.png" alt="itens" title="Alterar"/></a>
+								<a href="'.$dados['ID_AGENCIA_ESTAGIO'][$i].'" id="excluir"><img src="'.$urlimg.'icones/excluirItem.png" alt="itens" title="Excluir"/></a></td>';
 					echo '</tr>';
 		}
 		
@@ -103,7 +97,7 @@ if ($_REQUEST['identifier'] == "tabela"){
 	gerarTabela($erro);
 }else if ($_REQUEST['identifier'] == 'excluir'){
 	
-	$VO->TX_AGENCIA_ESTAGIO 		= $_REQUEST['ID'];
+	$VO->ID_AGENCIA_ESTAGIO 		= $_REQUEST['ID'];
 	
 	if ($acesso){
 		
