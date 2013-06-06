@@ -108,7 +108,7 @@
                 </div>  
                 <div id="camada" style="font-family:Verdana, Geneva, sans-serif; width:290px;" >  <font color="#FF0000">*</font>Instituição de Ensino
                     <select name="ID_INSTITUICAO_ENSINO" id="ID_INSTITUICAO_ENSINO" style="width:280px;">
-                        {html_options options=$arrayInstituicaoeEnsino selected=$VO->ID_INSTITUICAO_ENSINO}
+                        {html_options options=$arrayInstituicaoDeEnsino selected=$VO->ID_INSTITUICAO_ENSINO}
                     </select>
                 </div>    
                 <!-- fim terceira linha do Cadastro               -->
