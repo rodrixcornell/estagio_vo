@@ -11,11 +11,6 @@ $titulopage = 'Supervisor de Estágio';
 
 session_start();
 
-
-$_SESSION['id_pessoa_supervisor'] = $_REQUEST['ID'];
-
-
-
-
+ $_SESSION['ID_PESSOA_FUNCIONARIO'] = $_REQUEST['ID'];
 header("Location: " . $url . "src/" . $pasta . "/alterar.php");
 ?>

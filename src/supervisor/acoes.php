@@ -14,17 +14,15 @@ function gerarTabela($param=''){
 	require_once $pathvo."supervisorVO.php";
 	$acesso = $GLOBALS['acesso']; //Acessar a Variavel global;
      
-	$VO = new supervisorVO();
-	$VO->NB_FUNCIONARIO             = $_REQUEST['NB_FUNCIONARIO'];
-	$VO->TX_CARGO                   = $_REQUEST['TX_CARGO'];
-        $VO->TX_FORMACAO 	        = $_REQUEST['TX_FORMACAO'];
-        $VO->ID_CONSELHO 	        = $_REQUEST['ID_CONSELHO'];
-        $VO->NB_INSCRICAO_CONSELHO 	= $_REQUEST['NB_INSCRICAO_CONSELHO'];
-        $VO->TX_CURRICULO 	        = $_REQUEST['TX_CURRICULO'];
-        $VO->ID_PESSOA_SUPERVISOR       = $_REQUEST['ID_PESSOA_SUPERVISOR'];
-        $VO->ID_PESSOA_FUNCIONARIO 	= $_REQUEST['ID_PESSOA_FUNCIONARIO'];
+	$VO = new supervisorVO(); 
+        
+	$codigo                         = explode('_', $_REQUEST['NB_FUNCIONARIO']);
+        $VO->ID_PESSOA_FUNCIONARIO      = $codigo[0];
+        $VO->NB_FUNCIONARIO             = $codigo[1];
+	$VO->TX_CARGO                   = $_REQUEST['TX_CARGO']; 
+        $VO->TX_FORMACAO                = $_REQUEST['TX_FORMACAO']; 
 	$page                           = $_REQUEST['PAGE'];
-	
+	 
 	$VO->preencherSessionPesquisar($_REQUEST);
 	
 	$qtd = 5;
@@ -38,6 +36,7 @@ function gerarTabela($param=''){
 	$VO->Reg_inicio = $primeiro;
 	$VO->Reg_quantidade = $qtd;
 	$tot_da_pagina = $VO->pesquisar();
+        
 	if ($tot_da_pagina){
 		$dados = $VO->getVetor();
 		echo '<div id="status">'.$_SESSION['STATUS'].'</div>
@@ -56,7 +55,7 @@ function gerarTabela($param=''){
                     ($bgcolor == '#E6E6E6') ? $bgcolor = '#F0EFEF' : $bgcolor = '#E6E6E6';
 
                     echo '<tr bgcolor="'.$bgcolor.'">
-                            <td align="center">'.$dados['NB_FUNCIONARIO'][$i].'</td>
+                            <td align="center">'.$dados['TX_NOME'][$i].'</td>
 							<td align="center">'.$dados['TX_CARGO'][$i].'</td>
 							<td align="center">'.$dados['TX_FORMACAO'][$i].'</td>
                                                         ';
@@ -98,10 +97,13 @@ function gerarTabela($param=''){
 $VO = new supervisorVO();
 
 if ($_REQUEST['identifier'] == "tabela"){
-	gerarTabela($erro);
+    gerarTabela();		
+    
 }else if ($_REQUEST['identifier'] == 'excluir'){
-	
-	$VO->ID_PESSOA_FUNCIONARIO 		= $_REQUEST['ID'];
+          $codigo             = explode('_', $_REQUEST['ID']);
+          $VO->ID_PESSOA_FUNCIONARIO   = $codigo[0];
+          $VO->NB_FUNCIONARIO          = $codigo[1];
+        
 	
 	if ($acesso){
 		
