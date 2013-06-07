@@ -13,6 +13,6 @@ session_start();
 
 $_SESSION[''] = $_REQUEST['ID'];
 
-header("Location: ".$url."src/".$pasta."/alterar.php");
+header("Location: ".$url."src/".$pasta."/index.php");
 
 ?>

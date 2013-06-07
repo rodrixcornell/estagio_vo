@@ -71,7 +71,7 @@
                     <input type="text" name="TX_CODIGO" id="TX_CODIGO" value="{$VO->TX_CODIGO}"  style="width:60px;" />
                 </div>  
                 <div id="camada" style="font-family:Verdana, Geneva, sans-serif; width:160px;" > <font color="#FF0000">*</font>CPF
-                    <input type="text" name="TX_CPF" id="TX_CPF" value="{$VO->TX_CPF}"  style="width:150px;" class="leitura" readonly="readonly" />
+                    <input type="text" name="NB_CPF" id="NB_CPF" value="{$VO->NB_CPF}"  style="width:150px;" class="leitura" readonly="readonly" />
                 </div>  
                 <div id="camada" style="font-family:Verdana, Geneva, sans-serif; width:160px;" > <font color="#FF0000">*</font>Fone
                     <input type="text" name="TX_TELEFONE" id="TX_TELEFONE" value="{$VO->TX_TELEFONE}"  style="width:150px;" />
@@ -84,7 +84,7 @@
                 <!-- Segunda linha do cadastro        -->
 
                 <div id="camada" style="font-family:Verdana, Geneva, sans-serif; width:210px;" > <font color="#FF0000">*</font>RG
-                    <input type="text" name="TX_RG" id="TX_RG" value="{$VO->TX_RG}"  style="width:200px;" class="leitura" readonly="readonly" />
+                    <input type="text" name="NB_RG" id="NB_RG" value="{$VO->NB_RG}"  style="width:200px;" class="leitura" readonly="readonly" />
                 </div>  
                 <div id="camada" style="font-family:Verdana, Geneva, sans-serif; width:695px;" > <font color="#FF0000">*</font>Endereço do Estagiario
                     <input type="text" name="TX_TELEFONE" id="TX_TELEFONE" value="{$VO->TX_TELEFONE}"  style="width:685px;" />
@@ -145,7 +145,7 @@
                     </select>
                 </div>
                 <div id="camada" style="font-family:Verdana, Geneva, sans-serif; width:160px;" > <font color="#FF0000">*</font>Cargo/Função
-                    <input type="text" name="TX_CARGO" id="TX_CARGO" value="{$VO->TX_CARGO}"  style="width:150px;" />
+                    <input type="text" name="TX_CARGO" id="TX_CARGO" value="{$VO->TX_CARGO}"  style="width:150px;"  class="leitura" readonly="readonly"  />
                 </div>  
 
                 <div id="camada" style="font-family:Verdana, Geneva, sans-serif; width:290px;" > <font color="#FF0000">*</font>Lotação
