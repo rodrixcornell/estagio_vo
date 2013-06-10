@@ -48,6 +48,7 @@
 
             if ("{$VO->ID_ORGAO_GESTOR_ESTAGIO}" && "{$VO->ID_ORGAO_ESTAGIO}" || ("{$VO->ID_AGENCIA_ESTAGIO}" || "{$VO->CS_SITUACAO}" || $.trim("{$VO->TX_COD_SOLICITACAO}"))){
                 showLoader();
+                //alert('ok: {$VO->ID_ORGAO_GESTOR_ESTAGIO}, {$VO->ID_ORGAO_ESTAGIO}, {$VO->ID_AGENCIA_ESTAGIO}, {$VO->CS_SITUACAO}, {$VO->TX_COD_SOLICITACAO}.');
                 $("#tabela").load('acoes.php?identifier=tabela',{
                     ID_ORGAO_GESTOR_ESTAGIO:"{$VO->ID_ORGAO_GESTOR_ESTAGIO}",
                     ID_ORGAO_ESTAGIO:"{$VO->ID_ORGAO_ESTAGIO}",

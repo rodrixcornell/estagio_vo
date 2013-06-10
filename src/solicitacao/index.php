@@ -12,6 +12,7 @@ $titulopage = 'Solicitação de Estagiário';
 
 require_once "../autenticacao/validaPermissao.php";
 
+// Iniciando Instância
 $VO = new solicitacaoVO();
 $VO->preencherVOSession($_SESSION);
 

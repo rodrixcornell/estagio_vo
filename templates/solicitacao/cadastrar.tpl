@@ -4,7 +4,6 @@
     <div id="titulo">Nova {$titulopage}</div>
 
     <br /><br /><br /><hr />
-
     <div id="conteudo">
         Para uma nova {$titulopage} preencha o formulário abaixo e clique em Salvar:<br /><br />
 
@@ -32,15 +31,22 @@
                 <font color="#FF0000">*</font>Código da Solicitação: <font color="#FF0000">{$validar.TX_COD_SOLICITACAO}</font>
                 <input type="text" name="TX_COD_SOLICITACAO" id="TX_COD_SOLICITACAO" value="{$VO->TX_COD_SOLICITACAO}"  style="width:200px;" /></div>
 
-            <div id="camada" style="font-family:Verdana, Geneva, sans-serif; width:210px;" >
+            <br />
+            <div id="camada" style="font-family:Verdana, Geneva, sans-serif; width:410px;" >
+                <font color="#FF0000">*</font>Quadro de Vagas de Estágio: <font color="#FF0000">{$validar.ID_QUADRO_VAGAS_ESTAGIO}</font>
+                <select name="ID_QUADRO_VAGAS_ESTAGIO" id="ID_QUADRO_VAGAS_ESTAGIO" style="width:300px;">
+                    {html_options options=$arrayQuadroVagasEstagio selected=$VO->ID_QUADRO_VAGAS_ESTAGIO}
+                </select></div>
+
+            <!--div id="camada" style="font-family:Verdana, Geneva, sans-serif; width:210px;" >
                 <font color="#FF0000">*</font>Situação: <font color="#FF0000">{$validar.CS_SITUACAO}</font>
                 <select name="CS_SITUACAO" id="CS_SITUACAO" style="width:200px;">
                     {html_options options=$arraySituacao selected=$VO->CS_SITUACAO}
-                </select></div><br />
+                </select></div--><br />
 
-            <div id="camada" style="font-family:Verdana, Geneva, sans-serif; width:730px;" >
-                Motivo / Justificativa:
-                <textarea name="TX_JUSTIFICATIVA" id="TX_JUSTIFICATIVA" style="width:720px;" rows="4">{$VO->TX_JUSTIFICATIVA}</textarea></div>
+            <div id="camada" style="font-family:Verdana, Geneva, sans-serif; width:630px;" >
+                Motivo / Justificativa: <font color="#FF0000">{$validar.TX_JUSTIFICATIVA}</font>
+                <textarea name="TX_JUSTIFICATIVA" id="TX_JUSTIFICATIVA" style="width:620px;" rows="2">{$VO->TX_JUSTIFICATIVA}</textarea></div>
 
             <br /><br />
 

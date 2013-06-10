@@ -17,7 +17,8 @@ function gerarTabela($param = '') {
     $acesso = $GLOBALS['acesso']; //Acessar a Variavel global;
 
     $VO = new solicitacaoVO();
-    $VO->ID_RESP_UNID_IRP = $_SESSION['ID_RESP_UNID_IRP'];
+    $VO->ID_SOLICITACAO_ESTAGIO = $_SESSION['ID_SOLICITACAO_ESTAGIO'];
+    $VO->ID_ORGAO_ESTAGIO = $_SESSION['ID_ORGAO_ESTAGIO'];
     $page = $_REQUEST['PAGE'];
 
 
@@ -25,23 +26,26 @@ function gerarTabela($param = '') {
     !$page ? $page = 1 : false;
     $primeiro = ($page * $qtd) - $qtd;
 
-    $total = $VO->buscarUnidades();
+    $total = $VO->pesquisarVagasSolicitadas();
 
     $total_page = ceil($total / $qtd);
 
     $VO->Reg_inicio = $primeiro;
     $VO->Reg_quantidade = $qtd;
-    $tot_da_pagina = $VO->buscarUnidades();
+    $tot_da_pagina = $VO->pesquisarVagasSolicitadas();
 
-    echo '<table width="100%" id="tabelaItens" >
-			<tr>
-				<th>Sigla</th>
-				<th>Unidade Solicitante</th>
-				<th style="width:130px;">Data de Cadastro</th>';
+    echo '
+        <table width="100%" id="tabelaItens" >
+            <tr>
+                <th style="width:210px;">Órgão Gestor</th>
+                <th style="width:210px;">Agencia de Estágio</th>
+                <th>Tipo</th>
+                <th style="width:70px;">Quantidade</th>
+                <th style="width:210px;">Curso</th>';
 
     //Somente ver a coluna de alterar se tiver acesso completo a tela
     if ($acesso)
-        echo '<th style="width:30px;"></th>';
+        echo '<th style="width:50px;"></th>';
 
     echo '</tr>';
 
@@ -52,23 +56,27 @@ function gerarTabela($param = '') {
 
             ($bgcolor == '#F0F0F0') ? $bgcolor = '#DDDDDD' : $bgcolor = '#F0F0F0';
 
-            echo '<tr bgcolor="' . $bgcolor . '" onmouseover="mudarCor(this);" onmouseout="mudarCor(this);">
-						<td align="center">' . $dados['TX_SIGLA_UNIDADE'][$i] . '</td>
-						<td align="center">' . $dados['TX_UNIDADE_IRP'][$i] . '</td>
-						<td align="center">' . $dados['DT_CADASTRO'][$i] . '</td>';
+            echo '
+                <tr bgcolor="' . $bgcolor . '" onmouseover="mudarCor(this);" onmouseout="mudarCor(this);">
+                    <td align="center">' . $dados['TX_ORGAO_ESTAGIO'][$i] . '</td>
+                    <td align="center">' . $dados['TX_AGENCIA_ESTAGIO'][$i] . '</td>
+                    <td align="center">' . $dados['TX_TIPO_VAGA_ESTAGIO'][$i] . '</td>
+                    <td align="center">' . $dados['NB_QUANTIDADE'][$i] . '</td>
+                    <td align="center">' . $dados['TX_CURSO_ESTAGIO'][$i] . '</td>';
 
             //Somente ver a coluna de alterar se tiver acesso completo a tela
             if ($acesso)
-                echo '<td align="center" class="icones">
-								<a href="' . $dados['ID_UNIDADE_IRP'][$i] . '" id="excluir" ><img src="' . $urlimg . 'icones/excluirItem.png" title="Excluir Registro"/></a></td>';
+                echo '
+                    <td align="center" class="icones">
+                        <a href="' . $dados['CODIGO'][$i] . '" id="alterar" ><img src="' . $urlimg . 'icones/alterarItem.png" title="Excluir Registro"/></a>
+                        <a href="' . $dados['CODIGO'][$i] . '" id="excluir" ><img src="' . $urlimg . 'icones/excluirItem.png" title="Excluir Registro"/></a></td>';
             echo '</tr>';
         }
 
         echo'</table>';
 
         if ($total_page > 1) {
-            echo '<div id="paginacao" align="center">
-					<ul>';
+            echo '<div id="paginacao" align="center"><ul>';
 
             for ($i = 1; $i <= $total_page; $i++) {
                 if ($i == $page)
@@ -76,11 +84,10 @@ function gerarTabela($param = '') {
                 else
                     echo '<li id="' . $i . '">' . $i . '</li>';
             }
-            echo '	</ul>
-				  </div><br><br>';
+            echo '</ul></div><br><br>';
         }
     }else
-        echo '<tr><td colspan="4" class="nenhum">Nenhum registro encontrado.</td></tr></table><br /> ';
+        echo '<tr><td colspan="6" class="nenhum">Nenhum registro encontrado.</td></tr></table><br /> ';
 
     if ($param)
         echo '<script>alert("' . $param . '")</script>';
@@ -135,14 +142,13 @@ if ($_REQUEST['identifier'] == "tabela") {
                     <td align="center">' . $dados['TX_ORGAO_ESTAGIO'][$i] . '</td>
                     <td align="center">' . $dados['TX_ORGAO_GESTOR_ESTAGIO'][$i] . '</td>
                     <td align="center">' . $dados['TX_AGENCIA_ESTAGIO'][$i] . '</td>
-                    <td align="center">' . $dados['CS_SITUACAO'][$i] . '</td>';
+                    <td align="center">' . $arraySituacao[$dados['CS_SITUACAO'][$i]] . '</td>';
 
             //Somente ver a coluna de alterar se tiver acesso completo a tela
             //if ($acesso)
             echo '
                 <td align="center">
                     <a href="' . $dados['ID_SOLICITACAO_ESTAGIO'][$i] . '" id="alterar"><img src="' . $urlimg . 'icones/editar.png" alt="itens" title="Alterar"/></a></td>';
-
             echo '</tr>';
         }
 
@@ -157,36 +163,69 @@ if ($_REQUEST['identifier'] == "tabela") {
                 else
                     echo '<li id="' . $i . '">' . $i . '</li>';
             }
-            echo '	</ul>
-				  </div>';
+            echo '</ul></div>';
         }
     }else {
         echo '<div id="nao_encontrado">Nenhum registro encontrado.</div>';
     }
-} else if ($_REQUEST['identifier'] == "buscarNome") {
+} else if ($_REQUEST['identifier'] == "pesquisarQuadroVagasEstagio") {
 
-    $VO->ID_USUARIO = $_REQUEST['ID_USUARIO_RESP'];
+    $VO->ID_ORGAO_GESTOR_ESTAGIO = $_REQUEST['ID_ORGAO_GESTOR_ESTAGIO'];
+    $VO->ID_AGENCIA_ESTAGIO = $_REQUEST['ID_AGENCIA_ESTAGIO'];
 
-    $VO->pesquisarUsuario();
+    $total = $VO->pesquisarQuadroVagasEstagio();
+
+    if ($total) {
+        $dados = $VO->getVetor();
+        echo '<option value="">Escolha...</option>';
+        for ($i = 0; $i < $total; $i++) {
+            echo '<option value="' . $dados['CODIGO'][$i] . '">' . $dados['TX_CODIGO'][$i] . '</option>';
+        }
+    }
+} else if ($_REQUEST['identifier'] == "buscarQuantidade") {
+
+    $VO->ID_ORGAO_ESTAGIO = $_SESSION['ID_ORGAO_ESTAGIO'];
+    $VO->ID_QUADRO_VAGAS_ESTAGIO = $_REQUEST['ID_QUADRO_VAGAS_ESTAGIO'];
+    $VO->CS_TIPO_VAGA_ESTAGIO = $_REQUEST['CS_TIPO_VAGA_ESTAGIO'];
+
+    $VO->buscarQuantidade();
+
     $dados = $VO->getVetor();
 
-    echo $dados['TX_FUNCIONARIO'][0];
-} else if ($_REQUEST['identifier'] == "tabelaUnidade") {
-    gerarTabela();
-} else if ($_REQUEST['identifier'] == "inserirUnidade") {
+    echo $dados['NB_QUANTIDADE'][0];
+} else if ($_REQUEST['identifier'] == "buscarCursos") {
 
-    $VO->ID_RESP_UNID_IRP = $_SESSION['ID_RESP_UNID_IRP'];
-    $VO->ID_UNIDADE_IRP = $_REQUEST['ID_UNIDADE_IRP'];
+    $VO->buscarCursos();
+    $dados = $VO->getArray("TX_CURSO_ESTAGIO");
+
+    foreach ($dados as $key => $value) {
+        ($_REQUEST['ID_CURSO_ESTAGIO'] == $key) ? $selected = 'selected' : $selected = '';
+        echo '<option value="' . $key . '" ' . $selected . '>' . $value . '</option> ';
+    }
+} else if ($_REQUEST['identifier'] == "tabelaVagasSolicitadas") {
+    gerarTabela();
+} else if ($_REQUEST['identifier'] == "inserirVagasSolicitadas") {
+
+    $VO->ID_SOLICITACAO_ESTAGIO = $_SESSION['ID_SOLICITACAO_ESTAGIO'];
+    $VO->ID_ORGAO_ESTAGIO = $_SESSION['ID_ORGAO_ESTAGIO'];
+
+    $valor = explode('_', $_REQUEST['ID_CS_CODIGO']);
+    $VO->ID_QUADRO_VAGAS_ESTAGIO = $valor[0];
+    $VO->CS_TIPO_VAGA_ESTAGIO = $valor[1];
+    $VO->ID_CURSO_ESTAGIO = $valor[2];
+
+    $VO->NB_QUANTIDADE = $_REQUEST['NB_QUANTIDADE'];
+    $VO->ID_CURSO_ESTAGIO = $_REQUEST['ID_CURSO_ESTAGIO'];
 
     if ($acesso) {
-        if ($VO->ID_UNIDADE_IRP) {
-            $retorno = $VO->inserirUnidade();
+        if ($VO->ID_QUADRO_VAGAS_ESTAGIO && $VO->CS_TIPO_VAGA_ESTAGIO && $VO->ID_CURSO_ESTAGIO && $VO->NB_QUANTIDADE) {
+            $retorno = $VO->inserirVagasSolicitadas();
 
             if ($retorno) {
                 $erro = 'Registro já existe.';
             }
         }else
-            $erro = 'Para inserir escolha uma Unidade Solicitante.';
+            $erro = 'Para inserir escolha Tipo e Quantidade.';
     }else
         $erro = "Você não tem permissão para realizar esta ação.";
 

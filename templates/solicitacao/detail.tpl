@@ -11,7 +11,7 @@
                 <legend>{$titulopage}</legend>
                 <table width="100%" class="dataGrid">
                     <tr bgcolor="#E0E0E0">
-                        <td style="width:180px;"><strong>Órgão Gestor</strong></td>
+                        <td style="width:210px;"><strong>Órgão Gestor</strong></td>
                         <td style="width:500px;">{$dados.TX_ORGAO_GESTOR_ESTAGIO[0]}</td>
                         <td style="width:150px;"><strong>Agencia de Estágio</strong></td>
                         <td style="width:200px;">{$dados.TX_AGENCIA_ESTAGIO[0]}</td>
@@ -23,18 +23,22 @@
                         <td><div id="atualizacao">{$dados.TX_COD_SOLICITACAO[0]}</div></td>
                     </tr>
                     <tr bgcolor="#E0E0E0">
-                        <td style="vertical-align:baseline;"><strong>Motivo / Justificativa</strong></td>
-                        <td>{$dados.TX_JUSTIFICATIVA[0]}</td>
-                        <td style="vertical-align:baseline;"><strong>Situação</strong></td>
-                        <td style="vertical-align:baseline;">{$arraySituacao[$dados.CS_SITUACAO[0]]}</td>
+                        <td><strong>Quadro de Vagas de Estágio</strong></td>
+                        <td>{$dados.TX_CODIGO[0]}</td>
+                        <td><strong>Situação</strong></td>
+                        <td>{$arraySituacao[$dados.CS_SITUACAO[0]]}</td>
                     </tr>
                     <tr bgcolor="#F0EFEF">
+                        <td style="vertical-align:baseline; padding-top:4px;"><strong>Motivo / Justificativa</strong></td>
+                        <td colspan="3">{$dados.TX_JUSTIFICATIVA[0]}</td>
+                    </tr>
+                    <tr bgcolor="#E0E0E0">
                         <td><strong>Cadastrado por</strong></td>
                         <td>{$dados.TX_FUNCIONARIO_CAD[0]}</td>
                         <td><strong>Data do Cadastro</strong></td>
                         <td style="text-align:right;">{$dados.DT_CADASTRO[0]}</div></td>
                     </tr>
-                    <tr bgcolor="#E0E0E0">
+                    <tr bgcolor="#F0EFEF">
                         <td><strong>Alterado por</strong></td>
                         <td>{$dados.TX_FUNCIONARIO_ATUAL[0]}</td>
                         <td><strong>Data de Atualização</strong></td>
@@ -59,18 +63,18 @@
 
                 <div id="camada" style="width:210px;">
                     <strong><font color="#FF0000">*</font>Tipo</strong><br />
-                    <select name="CS_TIPO_VAGA_ESTAGIO" id="CS_TIPO_VAGA_ESTAGIO" style="width:200px;">
-                        {html_options options=$arrayTipoVaga selected=$VO->CS_TIPO_VAGA_ESTAGIO}
+                    <select name="ID_CS_CODIGO" id="ID_CS_CODIGO" style="width:200px;">
+                        {html_options options=$arrayTipoVaga selected=$VO->ID_CS_CODIGO}
                     </select></div>
 
                 <div id="camada" style="width:110px;" >
                     <strong><font color="#FF0000">*</font>Quantidade</strong><br />
-                    <input type="text" name="TX_COD_SOLICITACAO" id="TX_COD_SOLICITACAO" value="{$VO->TX_COD_SOLICITACAO}" style="width:100px;" /></div>
+                    <input type="text" name="NB_QUANTIDADE" id="NB_QUANTIDADE" value="{$VO->NB_QUANTIDADE}" style="width:100px;" /></div>
 
                 <div id="camada" style="width:210px;">
                     <strong>Curso</strong><br />
-                    <select name="ID_UNIDADE_IRP" id="ID_UNIDADE_IRP" style="width:200px;">
-                        {html_options options=$arrayUnidadeDetail selected=$VO->ID_UNIDADE_IRP}
+                    <select name="ID_CURSO_ESTAGIO" id="ID_CURSO_ESTAGIO" style="width:200px;">
+                        {*html_options options=$arrayUnidadeDetail selected=$VO->ID_CURSO_ESTAGIO*}
                     </select></div>
 
                 <input type="button" name="inserir" id="inserir" value=" Inserir " />
@@ -78,7 +82,7 @@
             </fieldset>
         {/if}
 
-        <div id="tabelaUnidade"></div>
+        <div id="tabelaVagasSolicitadas"></div>
 
 
         <div id="botoesInferiores">

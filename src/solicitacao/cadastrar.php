@@ -14,28 +14,40 @@ session_start();
 require_once "../autenticacao/validaPermissao.php";
 
 unset($_SESSION['ID_SOLICITACAO_ESTAGIO']);
+unset($_SESSION['ID_ORGAO_ESTAGIO']);
+unset($_SESSION['ID_AGENCIA_ESTAGIO']);
 
 // Iniciando Instância
 $VO = new solicitacaoVO();
 
 if ($_POST) {
     $VO->configuracao();
-    //ID_ORGAO_GESTOR_ESTAGIO, ID_AGENCIA_ESTAGIO, ID_ORGAO_ESTAGIO, TX_COD_SOLICITACAO, CS_SITUACAO, TX_JUSTIFICATIVA, ID_SOLICITACAO_ESTAGIO
-    $VO->setCaracteristica('ID_ORGAO_GESTOR_ESTAGIO,ID_AGENCIA_ESTAGIO,ID_ORGAO_ESTAGIO,TX_COD_SOLICITACAO,CS_SITUACAO', 'obrigatorios');
+    //ID_ORGAO_GESTOR_ESTAGIO, ID_AGENCIA_ESTAGIO, ID_ORGAO_ESTAGIO, TX_COD_SOLICITACAO, CS_SITUACAO, TX_JUSTIFICATIVA, ID_SOLICITACAO_ESTAGIO, ID_QUADRO_VAGAS_ESTAGIO
+    $VO->setCaracteristica('ID_ORGAO_GESTOR_ESTAGIO,ID_AGENCIA_ESTAGIO,ID_ORGAO_ESTAGIO,TX_COD_SOLICITACAO,ID_QUADRO_VAGAS_ESTAGIO', 'obrigatorios');
     $validar = $VO->preencher($_POST);
 
-    $tamanho = strlen($_POST['TX_COD_SOLICITACAO']);
-    if ($tamanho > 20) {
-        $validar['TX_COD_SOLICITACAO'] = 'Valor máximo de 20, atual de: ' . $tamanho;
+    $tamanho_cod = strlen($_POST['TX_COD_SOLICITACAO']);
+    $tamanho_just = strlen($_POST['TX_JUSTIFICATIVA']);
+    if ($tamanho_cod > 20) {
+        $validar['TX_COD_SOLICITACAO'] = 'Valor máximo de 20, atual de: ' . $tamanho_cod;
+    } else if ($tamanho_just > 255) {
+        $validar['TX_JUSTIFICATIVA'] = 'Valor máximo de 255, atual de: ' . $tamanho_just;
     } else if (!$validar) {
         $id_pk = $VO->inserir();
 
         if ($id_pk) {
             $_SESSION['ID_SOLICITACAO_ESTAGIO'] = $id_pk;
+            //$_SESSION['ID_ORGAO_ESTAGIO'] = $VO->ID_ORGAO_ESTAGIO;
+            //$_SESSION['ID_AGENCIA_ESTAGIO'] = $VO->ID_AGENCIA_ESTAGIO;
             header("Location: " . $url . "src/" . $pasta . "/detail.php");
         } else {
             $validar['ID_ORGAO_GESTOR_ESTAGIO'] = "Erro de Cadastro!";
         }
+    }
+
+    if ($VO->ID_ORGAO_ESTAGIO && $VO->ID_AGENCIA_ESTAGIO) {
+        $VO->pesquisarQuadroVagasEstagio();
+        $smarty->assign("arrayQuadroVagasEstagio", $VO->getArray("TX_CODIGO"));
     }
 }
 
