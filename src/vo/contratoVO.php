@@ -28,6 +28,11 @@ class contratoVO extends VO {
      * 
      *  */
 
+    function buscarBolsa() {
+        // Função que pega todas as bolsas de estagio
+        return $this->repositorio->buscarBolsa($this);
+    }
+
     function buscarSupervisor() {
         // Função que pega todos os Supervisores
         return $this->repositorio->buscarSupervisor($this);

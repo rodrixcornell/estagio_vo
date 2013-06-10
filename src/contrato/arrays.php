@@ -40,6 +40,10 @@ $arrayInstituicaoDeEnsino=$VO->getArray('TX_INSTITUICAO_ENSINO');
 $VO->buscarSupervisor();
 $arrayPessoaSupervisor=$VO->getArray('TX_NOME');
 
+// buscar Bolsa 
+$VO->buscarBolsa();
+$arrayBolsa=$VO->getArray('TX_BOLSA_ESTAGIO');
+
 // #################################### ARRAYS PRÉ-DEFINIFINIDOS#####################################
 
 // Tipo de Contrato
@@ -83,4 +87,5 @@ $smarty->assign('arrayCursoEstagio',$arrayCursoEstagio);
 $smarty->assign('arrayAgenteIntegracao',$arrayAgenteIntegracao);
 $smarty->assign('arrayInstituicaoDeEnsino',$arrayInstituicaoDeEnsino);
 $smarty->assign('arrayPessoaSupervisor',$arrayPessoaSupervisor);
+$smarty->assign('arrayBolsa',$arrayBolsa);
 ?>

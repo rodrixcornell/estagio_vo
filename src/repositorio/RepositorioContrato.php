@@ -12,7 +12,9 @@ class RepositorioContrato extends Repositorio {
     }
 
     function inserir($VO) {
-        $query = "";
+        $query = "insert into 
+                   contrato_estagio()
+                    values ()";
         return $this->sql($query);
     }
 
@@ -42,9 +44,21 @@ class RepositorioContrato extends Repositorio {
      *               buscarAgenteIntegracao($VO);
      *               buscarSupervisor($VO);
      *               buscarCurso($VO);
-     *               buscarLotacao($VO)
+     *               buscarLotacao($VO);
+     *               buscarBolsa($VO);
      * 
      *  */
+    
+    function  buscarBolsa($VO){
+        $query ="SELECT 
+                    ID_BOLSA_ESTAGIO CODIGO,
+                    ID_BOLSA_ESTAGIO,
+                    TX_BOLSA_ESTAGIO,
+                NB_VALOR
+                    FROM BOLSA_ESTAGIO";
+        return $this->sqlVetor($query);
+        
+    }
 
     function buscarSupervisor($VO) {
 
@@ -235,6 +249,7 @@ class RepositorioContrato extends Repositorio {
      */
 
     function  buscarCargoSupervisor($VO){
+        
         $query="
             select 
                 id_pessoa_supervisor CODIGO,
