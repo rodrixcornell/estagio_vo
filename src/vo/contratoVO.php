@@ -28,6 +28,16 @@ class contratoVO extends VO {
      * 
      *  */
 
+    function buscarBolsa() {
+        // Função que pega todas as bolsas de estagio
+        return $this->repositorio->buscarBolsa($this);
+    }
+
+    function buscarSupervisor() {
+        // Função que pega todos os Supervisores
+        return $this->repositorio->buscarSupervisor($this);
+    }
+
     function buscarOrgaoGestor() {
         // Função que pega todos os orgãos Getores
         return $this->repositorio->buscarOrgaoGestor($this);
@@ -79,13 +89,12 @@ class contratoVO extends VO {
     }
 
     //############################ --------------- FIM VO Funções dos combosBox--------------------##################################
-
     // ###########################------------------- BUSCA ENDEREÇO ORGAO E SECRATARIO -----------################################## 
     /* UTILIZADA NA TELA DE CADASTRAR ....
      * QUANDO O USUARIO CLICAR EM ORGÃO GESTOR(COMBO BOX) AUTOMATICAMENTE CARREGA OS CAMPOS DO ENDEREÇO E DO SECRETARIO DO ORGÃO GESTOR
      */
 
-    function buscarSecretarioOrgaoGestor() {        
+    function buscarSecretarioOrgaoGestor() {
         //Função que o Secretario do Orgão Gestor e Carrega no campo desabilitado o tpl
         return $this->repositorio->buscarSecretarioOrgaoGestor($this);
     }
@@ -93,6 +102,15 @@ class contratoVO extends VO {
     function buscarEnderecoOrgaoGestor() {
         //Função que pega o Enredereço do orgão gestor 
         return $this->repositorio->buscarEnderecoOrgaoGestor($this);
+    }
+
+    function buscarDocuments() {
+        //Função que pega o Enredereço do orgão gestor 
+        return $this->repositorio->buscarDocuments($this);
+    }
+    function buscarCargoSupervisor() {
+        //Função que pega O CARGO DO SUPERVISOR
+        return $this->repositorio->buscarCargoSupervisor($this);
     }
 
     // ###########################---------------- FIM BUSCA ENDEREÇO ORGAO E SECRATARIO -----------################################## 

@@ -22,7 +22,7 @@ function gerarTabela($param = '') {
     $VO->TX_TCE = $_REQUEST['TX_TCE'];
     $VO->TX_NOME = $_REQUEST['TX_NOME'];
     $VO->NB_CPF = $_REQUEST['NB_CPF'];
-    
+
     $page = $_REQUEST['PAGE'];
 
 
@@ -116,12 +116,13 @@ else if ($_REQUEST['identifier'] == "codSelecao") {
 
     if ($total) {
         $dados = $VO->getVetor();
-         echo '<option value="">Escolha...</option>';
+        echo '<option value="">Escolha...</option>';
         for ($i = 0; $i < $total; $i++) {
             echo '<option value="' . $dados['CODIGO'][$i] . '">' . $dados['TX_COD_SELECAO'][$i] . '</option>';
         }
     }
 }
+// trazer todas as lotações de um orgão solicitante
 else if ($_REQUEST['identifier'] == "lotacao") {
 
     $VO->NB_COD_UNIDADE = $_REQUEST['NB_COD_UNIDADE'];
@@ -132,10 +133,11 @@ else if ($_REQUEST['identifier'] == "lotacao") {
         $dados = $VO->getVetor();
         echo '<option value="">Escolha...</option>';
         for ($i = 0; $i < $total; $i++) {
-                echo '<option value="' . $dados['CODIGO'][$i] . '">' . $dados['ORGAO'][$i] . '</option>';
+            echo '<option value="' . $dados['CODIGO'][$i] . '">' . $dados['ORGAO'][$i] . '</option>';
         }
     }
 }
+// Trazer todos os candidatos de uma seleção
 else if ($_REQUEST['identifier'] == "candidato") {
 
     $VO->ID_SELECAO_ESTAGIO = $_REQUEST['ID_SELECAO_ESTAGIO'];
@@ -146,7 +148,7 @@ else if ($_REQUEST['identifier'] == "candidato") {
         $dados = $VO->getVetor();
         echo '<option value="">Escolha...</option>';
         for ($i = 0; $i < $total; $i++) {
-                echo '<option value="' . $dados['CODIGO'][$i] . '">' . $dados['TX_NOME'][$i] . '</option>';
+            echo '<option value="' . $dados['CODIGO'][$i] . '">' . $dados['TX_NOME'][$i] . '</option>';
         }
     }
 }
@@ -157,7 +159,7 @@ else if ($_REQUEST['identifier'] == "buscarEndereco") {
 
     $VO->buscarEnderecoOrgaoGestor();
     $dados = $VO->getVetor();
-    
+
     echo $dados['TX_ENDERECO'][0];
 }
 //busca de Nome do Secretario do Orgão Gestor
@@ -167,7 +169,28 @@ else if ($_REQUEST['identifier'] == "buscarNome") {
 
     $VO->buscarSecretarioOrgaoGestor();
     $dados = $VO->getVetor();
-    
+
     echo $dados['TX_FUNCIONARIO'][0];
+}
+else if ($_REQUEST['identifier'] == "cargoSupervisor") {
+
+    $VO->ID_PESSOA_SUPERVISOR = $_REQUEST['ID_PESSOA_SUPERVISOR'];
+
+    $VO->buscarCargoSupervisor();
+    $dados = $VO->getVetor();
+
+        
+    echo $dados['TX_CARGO'][0];
+}
+// buscar todos os documentos(CPF & RG) do candidato
+else if ($_REQUEST['identifier'] == "buscarDocuments") {
+
+    $VO->ID_PESSOA_ESTAGIARIO = $_REQUEST['ID_PESSOA_ESTAGIARIO'];
+
+    $VO->buscarDocuments();
+    $dados = $VO->getVetor();
+//    $dados= $VO->buscarDocuments();
+
+    echo json_encode($dados);
 }
 ?>

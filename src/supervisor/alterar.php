@@ -15,31 +15,32 @@ require_once "../autenticacao/validaPermissao.php";
 // Iniciando Instância
 $VO = new supervisorVO();
  
-if ($_SESSION['TX_AGENCIA_ESTAGIO']){
+if ($_SESSION['ID_PESSOA_FUNCIONARIO']){
     
-    $VO->TX_AGENCIA_ESTAGIO = $_SESSION['TX_AGENCIA_ESTAGIO'];
+    $VO->ID_PESSOA_FUNCIONARIO = $_SESSION['ID_PESSOA_FUNCIONARIO'];
 
     $VO->pesquisar();
     $VO->preencherVOBD($VO->getVetor());
     
-    if($_POST){
-        $VO->configuracao();
-        $VO->setCaracteristica('TX_AGENCIA_ESTAGIO,TX_SIGLA,TX_CNPJ','obrigatorios');
-                
-	$validar = $VO->preencher($_POST);
-
-        if (!$validar){
-            $VO->alterar();
-			$_SESSION['TX_AGENCIA_ESTAGIO'] = $VO->TX_AGENCIA_ESTAGIO;
-                        $_SESSION['TX_SIGLA'] = $VO->TX_SIGLA;
-                        $_SESSION['TX_CNPJ'] = $VO->TX_CNPJ;
-			$_SESSION['STATUS'] = '*Registro alterado com sucesso!';
-			$_SESSION['PAGE'] = '1';
-            header("Location: ".$url."src/".$pasta."/index.php");
-        }
+   if($_POST){
+    $VO->configuracao();
+    $VO->setCaracteristica('NB_FUNCIONARIO,TX_CARGO,TX_FORMACAO,ID_CONSELHO,NB_INSCRICAO_CONSELHO,TX_CURRICULO','obrigatorios');
+    $VO->setCaracteristica('NB_INSCRICAO_CONSELHO','numeros');
+    
+    $validar = $VO->preencher($_POST);
+    
+    if (!$validar) {
+        $VO->alterar();
+        
+        $_SESSION['NB_FUNCIONARIO'] = $VO->ID_PESSOA_FUNCIONARIO.'_'.$VO->NB_FUNCIONARIO; 
+        $_SESSION['TX_CARGO'] = $VO->TX_CARGO; 
+        $_SESSION['STATUS'] = '*Registro alterado com sucesso!';
+        $_SESSION['PAGE'] = '1';
+        
+     header("Location: ".$url."src/".$pasta."/index.php");
     }
-}else header("Location: ".$url."src/".$pasta."/index.php");
-
+}
+}
 
 $smarty->assign("current"       , $current);
 $smarty->assign("pasta"         , $pasta);
