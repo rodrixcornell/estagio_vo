@@ -7,15 +7,128 @@ class RepositorioContrato extends Repositorio {
     // ########################### ------------------  Repositorio do Master ---------- #################################
 
     function pesquisar($VO) {
-        $query = "";
+        
+        $codigoOrgaoSolicitante = explode('_', $VO->ID_ORGAO_ESTAGIO);
+
+        $codigoOrgaoGestor = explode('_', $VO->ID_ORGAO_GESTOR_ESTAGIO);
+        $query = "SELECT 
+  
+                        A.ID_CONTRATO CODIGO,
+                        A.ID_CONTRATO,
+                        A.TX_CODIGO,
+                        E.TX_AGENCIA_ESTAGIO,
+                        C.TX_ORGAO_ESTAGIO,
+                        B.TX_ORGAO_GESTOR_ESTAGIO,
+                        D.TX_NOME,
+                        D.NB_CPF
+                  FROM 
+                        CONTRATO_ESTAGIO A,
+                        ORGAO_GESTOR_ESTAGIO B,
+                        ORGAO_ESTAGIO C,
+                        V_ESTAGIARIO D,
+                        AGENCIA_ESTAGIO E ,
+                        SELECAO_ESTAGIO F
+
+                  WHERE 
+                        A.ID_AGENCIA_ESTAGIO=E.ID_AGENCIA_ESTAGIO
+                        AND B.ID_ORGAO_GESTOR_ESTAGIO=A.ID_ORGAO_GESTOR_ESTAGIO
+                        AND A.ID_ORGAO_ESTAGIO =C.ID_ORGAO_ESTAGIO
+                        AND A.ID_PESSOA_ESTAGIARIO = D.ID_PESSOA_ESTAGIARIO
+                        and F.ID_SELECAO_ESTAGIO = A.ID_SELECAO_ESTAGIO
+                        ";
+          $VO->ID_ORGAO_ESTAGIO ? $query .= " And A.ID_ORGAO_ESTAGIO = " . $codigoOrgaoSolicitante[0] . " " : false;
+          $VO->ID_ORGAO_GESTOR_ESTAGIO ? $query .= " And A.ID_ORGAO_GESTOR_ESTAGIO = " . $codigoOrgaoGestor[0]. " " : false;
+          $VO->ID_SELECAO_ESTAGIO ? $query .= " And A.ID_SELECAO_ESTAGIO = " . $VO->ID_SELECAO_ESTAGIO . " " : false;
+        
         return $this->sqlVetor($query);
     }
 
     function inserir($VO) {
-        $query = "insert into 
-                   contrato_estagio()
-                    values ()";
-        return $this->sql($query);
+
+        $codigoOrgaoSolicitante = explode('_', $VO->ID_ORGAO_ESTAGIO);
+
+        $codigoOrgaoGestor = explode('_', $VO->ID_ORGAO_GESTOR_ESTAGIO);
+
+        $codigoCandidato = explode('_', $VO->ID_PESSOA_ESTAGIARIO);
+
+        $queryPK = "select SEMAD. F_G_PK_Contrato_Estagio as ID_CONTRATO_ESTAGIO from DUAL";
+        $this->sqlVetor($queryPK);
+        $CodigoPK = $this->getVetor();
+
+        $query = "INSERT INTO 
+                  CONTRATO_ESTAGIO
+                    (
+                        ID_PESSOA_ESTAGIARIO,
+                        ID_CONTRATO,
+                        ID_ORGAO_GESTOR_ESTAGIO,
+                        ID_ORGAO_ESTAGIO,
+                        ID_QUADRO_VAGAS_ESTAGIO,
+                        ID_CURSO_ESTAGIO,
+                        ID_PESSOA_SUPERVISOR,
+                        ID_INSTITUICAO_ENSINO,
+                        ID_BOLSA_ESTAGIO,
+                        DT_CADASTRO,
+                        DT_ATUALIZACAO,
+                        DT_INICIO_VIGENCIA,
+                        
+                        DT_FIM_VIGENCIA,
+                        NB_INICIO_HORARIO,
+                        NB_FIM_HORARIO,
+                        TX_PLANO_ATIVIDADE,
+                        CS_TIPO,
+                        TX_TCE,
+                        ID_UNIDADE_ORG,
+                        ID_SELECAO_ESTAGIO,
+                        ID_RECRUTAMENTO_ESTAGIO,
+                        NB_VAGAS_RECRUTAMENTO,
+                        NB_CANDIDATO,
+                        CS_TIPO_VAGA_ESTAGIO,
+                        CS_PERIODO,
+                        CS_HORARIO_CURSO,
+                        ID_AGENCIA_ESTAGIO,
+                        TX_EMAIL,
+                        TX_TELEFONE,
+                        TX_ENDERECO,
+                        TX_CODIGO
+                    )
+                    VALUES
+                    (
+                        '" . $codigoCandidato[0] . "',
+                        '" . $CodigoPK['ID_CONTRATO_ESTAGIO'][0] . "',                      
+                        '" . $codigoOrgaoGestor[0] . "',
+                        '" . $codigoOrgaoSolicitante[0] . "',
+                        '" . $VO->ID_QUADRO_VAGAS_ESTAGIO . "',
+                        '" . $VO->ID_CURSO_ESTAGIO . "',
+                        '" . $VO->ID_PESSOA_SUPERVISOR . "',
+                        '" . $VO->ID_INSTITUICAO_ENSINO . "',
+                        '" . $VO->ID_BOLSA_ESTAGIO . "',
+                        sysdate,
+                        sysdate,
+                        to_date('" . $VO->DT_INICIO_VIGENCIA . "','dd/mm/yyyy'),    
+                        to_date('" . $VO->DT_FIM_VIGENCIA . "','dd/mm/yyyy'),
+                        '" . $VO->NB_INICIO_HORARIO . "',
+                        '" . $VO->NB_FIM_HORARIO . "',
+                        '" . $VO->TX_PLANO_ATIVIDADE . "',
+                        '" . $VO->CS_TIPO . "',
+                        '" . $VO->TX_TCE . "',
+                        '" . $VO->ID_LOTACAO . "',
+                        '" . $VO->ID_SELECAO_ESTAGIO . "',
+                        '" . $codigoCandidato[3] . "',
+                        '" . $codigoCandidato[2] . "',
+                        '" . $codigoCandidato[1] . "',
+                        '" . $VO->CS_TIPO_VAGA_ESTAGIO . "',
+                        '" . $VO->CS_PERIODO . "',
+                        '" . $VO->CS_HORARIO_CURSO . "',
+                        '" . $VO->ID_AGENCIA_ESTAGIO . "',
+                        '" . $VO->TX_EMAIL . "',
+                        '" . $VO->TX_TELEFONE . "',
+                        '" . $VO->TX_ENDERECO . "',
+                        semad.f_g_cod_contrato_estagio()
+                    )
+                    ";
+
+        $retorno = $this->sql($query);
+        return $retorno ? '' : $CodigoPK['ID_CONTRATO_ESTAGIO'][0];
     }
 
     function alterar($VO) {
@@ -24,7 +137,8 @@ class RepositorioContrato extends Repositorio {
     }
 
     function excluir($VO) {
-        $query = "";
+        $query = "delete from contrato_estagio
+                  where id_contrato_estagio =".$VO->ID_CONTRATO_ESTAGIO;
         return $this->sql($query);
     }
 
@@ -48,16 +162,18 @@ class RepositorioContrato extends Repositorio {
      *               buscarBolsa($VO);
      * 
      *  */
-    
-    function  buscarBolsa($VO){
-        $query ="SELECT 
+
+    function buscarBolsa($VO) {
+        $query = "SELECT 
                     ID_BOLSA_ESTAGIO CODIGO,
                     ID_BOLSA_ESTAGIO,
                     TX_BOLSA_ESTAGIO,
-                NB_VALOR
-                    FROM BOLSA_ESTAGIO";
+                    NB_VALOR
+                 FROM 
+                    BOLSA_ESTAGIO";
+        $VO->ID_BOLSA_ESTAGIO ? $query .= " WHERE ID_BOLSA_ESTAGIO = " . $VO->ID_BOLSA_ESTAGIO . " " : false;
+
         return $this->sqlVetor($query);
-        
     }
 
     function buscarSupervisor($VO) {
@@ -83,16 +199,18 @@ class RepositorioContrato extends Repositorio {
         // função utilizada para trazer do banco todos os candidatos de uma seleção
         // Utilizada no arquivo acoes.php
         $query = "SELECT 
-                    D.ID_PESSOA_ESTAGIARIO CODIGO,
+                    D.ID_PESSOA_ESTAGIARIO||'_'|| C.NB_CANDIDATO ||'_'||   C.NB_VAGAS_RECRUTAMENTO||'_'||  C.ID_RECRUTAMENTO_ESTAGIO CODIGO,
                     D.ID_PESSOA_ESTAGIARIO,
                     D.TX_NOME,
-                    C.NB_CANDIDATO
-                FROM 
+                    C.NB_CANDIDATO,
+                    C.NB_VAGAS_RECRUTAMENTO,
+                    C.ID_RECRUTAMENTO_ESTAGIO
+                  FROM 
                     SELECAO_ESTAGIO A  ,
                     ESTAGIARIO_SELECAO B ,
                     ESTAGIARIO_VAGA C , 
                     V_ESTAGIARIO D
-                WHERE 
+                  WHERE 
                     A.ID_SELECAO_ESTAGIO = B.ID_SELECAO_ESTAGIO
                     AND B.ID_RECRUTAMENTO_ESTAGIO = C.ID_RECRUTAMENTO_ESTAGIO
                     AND C.ID_PESSOA_ESTAGIARIO = D.ID_PESSOA_ESTAGIARIO
@@ -248,21 +366,19 @@ class RepositorioContrato extends Repositorio {
      * QUANDO O USUARIO CLICAR EM ORGÃO GESTOR(COMBO BOX) AUTOMATICAMENTE CARREGA OS CAMPOS DO ENDEREÇO E DO SECRETARIO DO ORGÃO GESTOR
      */
 
-    function  buscarCargoSupervisor($VO){
-        
-        $query="
+    function buscarCargoSupervisor($VO) {
+
+        $query = "
             select 
                 id_pessoa_supervisor CODIGO,
                 id_pessoa_supervisor,
                 TX_Cargo
             from 
               SUPERVISOR_ESTAGIO
-            where id_pessoa_supervisor =".$VO->ID_PESSOA_SUPERVISOR;
-        
-        return $this->sqlVetor($query);
-        
-    }
+            where id_pessoa_supervisor =" . $VO->ID_PESSOA_SUPERVISOR;
 
+        return $this->sqlVetor($query);
+    }
 
     function buscarEnderecoOrgaoGestor($VO) {
 

@@ -46,7 +46,7 @@
 			pmNames: ['PM', 'P'],
 			timeFormat: 'HH:mm',
 			timeSuffix: '',
-			timeOnlyTitle: 'Choose Time',
+			timeOnlyTitle: 'Escolha a Hora',
 			timeText: 'Horário:',
 			hourText: 'Hora',
 			minuteText: 'Minuto',

@@ -48,6 +48,7 @@ function gerarTabela($param = '') {
                 <tr>
                     <th>Código do Contrato</th>
                     <th>Órgão Gestor</th>
+                    <th>Agente de Integração</th>
                     <th>Agente Solicitante</th>
                     <th>Estagiário</th>
                     <th>CPF</th>';
@@ -60,11 +61,12 @@ function gerarTabela($param = '') {
             ($bgcolor == '#E6E6E6') ? $bgcolor = '#F0EFEF' : $bgcolor = '#E6E6E6';
 
             echo '<tr bgcolor="' . $bgcolor . '">
-                    <td align="center">' . $dados[''][$i] . '</td>
-                    <td align="center">' . $dados[''][$i] . '</td>
-                    <td align="center">' . $dados[''][$i] . '</td>
-                    <td align="center">' . $dados[''][$i] . '</td>
-                    <td align="center">' . $dados[''][$i] . '</td>';
+                    <td align="center">' . $dados['TX_CODIGO'][$i] . '</td>
+                    <td align="center">' . $dados['TX_ORGAO_GESTOR_ESTAGIO'][$i] . '</td>
+                    <td align="center">' . $dados['TX_ORGAO_ESTAGIO'][$i] . '</td>
+                    <td align="center">' . $dados['TX_AGENCIA_ESTAGIO'][$i] . '</td>
+                    <td align="center">' . $dados['TX_NOME'][$i] . '</td>
+                    <td align="center">' . $dados['NB_CPF'][$i] . '</td>';
 
 
             //Somente ver a coluna de alterar se tiver acesso completo a tela					
@@ -181,6 +183,16 @@ else if ($_REQUEST['identifier'] == "cargoSupervisor") {
 
         
     echo $dados['TX_CARGO'][0];
+}
+else if ($_REQUEST['identifier'] == "buscarValor") {
+
+    $VO->ID_BOLSA_ESTAGIO = $_REQUEST['ID_BOLSA_ESTAGIO'];
+
+    $VO->buscarBolsa();
+    $dados = $VO->getVetor();
+
+        
+    echo $dados['NB_VALOR'][0];
 }
 // buscar todos os documentos(CPF & RG) do candidato
 else if ($_REQUEST['identifier'] == "buscarDocuments") {
