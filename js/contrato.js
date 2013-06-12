@@ -5,6 +5,28 @@ $(document).ready(function(){
     function hideLoader(){
         $('.fundo_pag').fadeOut(200);
     };
+    $('#NB_VALOR').maskMoney({
+        showSymbol:false, 
+        symbol:"R$", 
+        decimal:",", 
+        thousands:".", 
+        allowZero:false, 
+        allowNegative:false, 
+        defaultZero:false
+    });
+    $('#NB_INICIO_HORARIO,#NB_FIM_HORARIO').timepicker();
+   
+    $('#NB_INICIO_HORARIO,#NB_FIM_HORARIO').setMask({
+        mask:'99:99'
+    });
+    $('#DT_INICIO_VIGENCIA,#DT_FIM_VIGENCIA').setMask({
+        mask:'99/99/9999'
+    });
+    //minicalendario
+    $('#DT_INICIO_VIGENCIA,#DT_FIM_VIGENCIA').datepicker({
+        changeMonth: true,
+        changeYear: true
+    });
     
     //    change do  orgão solicitante -
     //     quando o Usuario carregar clicar no combo carrega automaticamente o campo de codigo de seleção
@@ -49,6 +71,24 @@ $(document).ready(function(){
             $('#ID_PESSOA_ESTAGIARIO').html('');
         }
     });  
+    // JQuery para carregar o valor da  bolsa
+    // Quando selecionar a seleção será carregado no campo tx_bolsa_estagio o valor
+    $("#ID_BOLSA_ESTAGIO").change(function(){
+        if ($("#ID_BOLSA_ESTAGIO").val() != 0){  
+     
+            $("#NB_VALOR").val('');
+            $.post("acoes.php",{
+                ID_BOLSA_ESTAGIO: $("#ID_BOLSA_ESTAGIO").val(), 
+                identifier:'buscarValor'
+            },
+            function(valor){
+                $('#NB_VALOR').val(valor);
+            });
+            
+        }else{
+            $('#NB_VALOR').html('');
+        }
+    });  
     // JQuery para carregar o cargo do supervisor
     // Quando selecionar o supervisor o cargo será carregado automaticamente
     $("#ID_PESSOA_SUPERVISOR").change(function(){
@@ -76,7 +116,7 @@ $(document).ready(function(){
         
         if ($("#ID_ORGAO_GESTOR_ESTAGIO").val() != 0){
             var valor = $("#ID_ORGAO_GESTOR_ESTAGIO").val().split('_');
-            $("#TX_FUNCIONARIO,#TX_ENDERECO").val('');
+            $("#TX_FUNCIONARIO,#TX_ENDERECO_SEC").val('');
             $.post("acoes.php",{
                 ID_UNIDADE_ORG:valor[1], 
                 identifier:'buscarNome'
@@ -92,12 +132,12 @@ $(document).ready(function(){
                 identifier:'buscarEndereco'
             },
             function(valor){
-                $("#TX_ENDERECO").val(valor);
+                $("#TX_ENDERECO_SEC").val(valor);
             }
             );
 			
         }else{
-            $("#TX_FUNCIONARIO,#TX_ENDERECO").val('');
+            $("#TX_FUNCIONARIO,#TX_ENDERECO_SEC").val('');
         }
     });
     
@@ -105,10 +145,10 @@ $(document).ready(function(){
     $("#ID_PESSOA_ESTAGIARIO").change(function(){
         
         if ($("#ID_PESSOA_ESTAGIARIO").val() != 0){
-            var valor = $("#ID_PESSOA_ESTAGIARIO").val();
+            var valor = $("#ID_PESSOA_ESTAGIARIO").val().split('_');
             $("#NB_CPF,#NB_RG").val('');
             $.getJSON("acoes.php",{
-                ID_PESSOA_ESTAGIARIO:valor, 
+                ID_PESSOA_ESTAGIARIO:valor[0], 
                 identifier:'buscarDocuments'
             },
             function(valor){
@@ -153,5 +193,11 @@ $(document).ready(function(){
         return false;
     });
 	
+        
+    $("#alterar").live('click', function(){
+        var href = $(this).attr('href');
+        $(window.document.location).attr('href','validacao.php?ID='+href);
+        return false;
+    });
         
 });

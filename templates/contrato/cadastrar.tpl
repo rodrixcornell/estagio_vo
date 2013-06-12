@@ -28,9 +28,9 @@
                 <br />              
 
                 <div id="camada" style="font-family:Verdana, Geneva, sans-serif; width:920px;" >Endereço do Órgão Gestor
-                    <input type="text" name="TX_ENDERECO" id="TX_ENDERECO" value="{$VO->TX_ENDERECO}"  style="width:910px;" class="leitura" readonly="readonly" />
+                    <input type="text" name="TX_ENDERECO_SEC" id="TX_ENDERECO_SEC" value="{$VO->TX_ENDERECO_SEC}"  style="width:910px;" class="leitura" readonly="readonly" />
                 </div>
-                <br /> 
+                <br />
                 <div id="camada" style="font-family:Verdana, Geneva, sans-serif; width:180px;" > <font color="#FF0000">*</font>Quadro de Vagas:<font color="#FF0000">{$validar.ID_QUADRO_VAGAS_ESTAGIO}</font><br />
                     <select name="ID_QUADRO_VAGAS_ESTAGIO" id="ID_QUADRO_VAGAS_ESTAGIO" style="width:170px;">
                         {html_options options=$arrayQuadroVagas selected=$VO->ID_QUADRO_VAGAS_ESTAGIO}
@@ -65,19 +65,15 @@
                     <select name="ID_PESSOA_ESTAGIARIO" id="ID_PESSOA_ESTAGIARIO" style="width:290px;">
                         {html_options options=$arrayPessoaEstagiario selected=$VO->ID_PESSOA_ESTAGIARIO}
                     </select>
-                </div>    
-
-                <div id="camada" style="font-family:Verdana, Geneva, sans-serif; width:70px;" > <font color="#FF0000">*</font>Codigo<font color="#FF0000"><br />{$validar.TX_CODIGO}</font><br />
-                    <input type="text" name="TX_CODIGO" id="TX_CODIGO" value="{$VO->TX_CODIGO}"  style="width:60px;" />
-                </div>  
+                </div>                 
                 <div id="camada" style="font-family:Verdana, Geneva, sans-serif; width:160px;" >CPF
                     <input type="text" name="NB_CPF" id="NB_CPF" value="{$VO->NB_CPF}"  style="width:150px;" class="leitura" readonly="readonly" />
                 </div>  
                 <div id="camada" style="font-family:Verdana, Geneva, sans-serif; width:160px;" > <font color="#FF0000">*</font>Fone<font color="#FF0000">{$validar.TX_TELEFONE}</font><br />
                     <input type="text" name="TX_TELEFONE" id="TX_TELEFONE" value="{$VO->TX_TELEFONE}"  style="width:150px;" />
                 </div>  
-                <div id="camada" style="font-family:Verdana, Geneva, sans-serif; width:200px;" >Email
-                    <input type="text" name="TX_EMAIL" id="TX_EMAIL" value="{$VO->TX_EMAIL}"  style="width:195px;" />
+                <div id="camada" style="font-family:Verdana, Geneva, sans-serif; width:270px;" >Email
+                    <input type="text" name="TX_EMAIL" id="TX_EMAIL" value="{$VO->TX_EMAIL}"  style="width:260px;" />
                 </div>  
                 <!-- fim Primeira linha do cadastro                -->
                 <br />
@@ -86,8 +82,8 @@
                 <div id="camada" style="font-family:Verdana, Geneva, sans-serif; width:210px;" >RG
                     <input type="text" name="NB_RG" id="NB_RG" value="{$VO->NB_RG}"  style="width:200px;" class="leitura" readonly="readonly" />
                 </div>  
-                <div id="camada" style="font-family:Verdana, Geneva, sans-serif; width:695px;" > <font color="#FF0000">*</font>Endereço do Estagiario<font color="#FF0000">{$validar.TX_ENDERECO}</font><br />
-                    <input type="text" name="TX_ENDERECO" id="TX_ENDERECO" value="{$VO->TX_ENDERECO}"  style="width:685px;" />
+                <div id="camada" style="font-family:Verdana, Geneva, sans-serif; width:690px;" > <font color="#FF0000">*</font>Endereço do Estagiario<font color="#FF0000">{$validar.TX_ENDERECO}</font><br />
+                    <input type="text" name="TX_ENDERECO" id="TX_ENDERECO" value="{$VO->TX_ENDERECO}"  style="width:680px;" />
                 </div>  
                 <!-- fim Segunda linha do cadastro        -->
                 <br />
@@ -172,7 +168,7 @@
                 </div>     
 
                 <div id="camada" style="font-family:Verdana, Geneva, sans-serif; width:160px;" >Valor
-                    <input type="text" name="TX_BOLSA_ESTAGIO" id="TX_BOLSA_ESTAGIO" value="{$VO->TX_BOLSA_ESTAGIO}"  style="width:150px;"  class="leitura" readonly="readonly"  />
+                    <input type="text" name="NB_VALOR" id="NB_VALOR" value="{$VO->NB_VALOR}"  style="width:150px;"  class="leitura" readonly="readonly"  />
                 </div>  
 
 
@@ -182,8 +178,8 @@
 
                 <!--     Setima linha   do cadastro        -->
 
-                <div id="camada" style="font-family:Verdana, Geneva, sans-serif; width:900px;"> <font color="#FF0000">*</font>Plano de Atividade <font color="#FF0000">{$validar.TX_OBSERVACAO}</font><br />
-                    <textarea name="" id="" style="width:890px; height:80px;">{$VO->TX_OBSERVACAO}</textarea></div><br />						  				
+                <div id="camada" style="font-family:Verdana, Geneva, sans-serif; width:900px;"> <font color="#FF0000">*</font>Plano de Atividade <font color="#FF0000">{$validar.TX_PLANO_ATIVIDADE}</font><br />
+                    <textarea name="TX_PLANO_ATIVIDADE" id="TX_PLANO_ATIVIDADE" style="width:890px; height:80px;">{$VO->TX_PLANO_ATIVIDADE}</textarea></div><br />						  				
 
                 <br /><br />
 
