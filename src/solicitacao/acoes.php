@@ -19,6 +19,8 @@ function gerarTabela($param = '') {
     $VO = new solicitacaoVO();
     $VO->ID_SOLICITACAO_ESTAGIO = $_SESSION['ID_SOLICITACAO_ESTAGIO'];
     $VO->ID_ORGAO_ESTAGIO = $_SESSION['ID_ORGAO_ESTAGIO'];
+    $VO->ID_QUADRO_VAGAS_ESTAGIO = $_SESSION['ID_QUADRO_VAGAS_ESTAGIO'];
+
     $page = $_REQUEST['PAGE'];
 
 
@@ -68,8 +70,8 @@ function gerarTabela($param = '') {
             if ($acesso)
                 echo '
                     <td align="center" class="icones">
-                        <a href="' . $dados['CODIGO'][$i] . '" id="alterar" ><img src="' . $urlimg . 'icones/alterarItem.png" title="Excluir Registro"/></a>
-                        <a href="' . $dados['CODIGO'][$i] . '" id="excluir" ><img src="' . $urlimg . 'icones/excluirItem.png" title="Excluir Registro"/></a></td>';
+                        <a href="' . $dados['CS_TIPO_VAGA_ESTAGIO'][$i] . '" id="alterar" ><img src="' . $urlimg . 'icones/alterarItem.png" title="Excluir Registro"/></a>
+                        <a href="' . $dados['CS_TIPO_VAGA_ESTAGIO'][$i] . '" id="excluir" ><img src="' . $urlimg . 'icones/excluirItem.png" title="Excluir Registro"/></a></td>';
             echo '</tr>';
         }
 
@@ -91,6 +93,144 @@ function gerarTabela($param = '') {
 
     if ($param)
         echo '<script>alert("' . $param . '")</script>';
+}
+
+//-----------------------------------------------------------------------------
+
+function gerarTabelaAlterar($param = '') {
+    include "../../php/define.php";
+    require_once $pathvo . "solicitacaoVO.php";
+    $acesso = $GLOBALS['acesso']; //Acessar a Variavel global;
+
+    $VO = new solicitacaoVO();
+    $VO->ID_SOLICITACAO_ESTAGIO = $_SESSION['ID_SOLICITACAO_ESTAGIO'];
+    $VO->ID_ORGAO_ESTAGIO = $_SESSION['ID_ORGAO_ESTAGIO'];
+    $VO->ID_QUADRO_VAGAS_ESTAGIO = $_SESSION['ID_QUADRO_VAGAS_ESTAGIO'];
+
+    $VO->ID_ITEM_PATRIMONIO = $_REQUEST['ID_ITEM_PATRIMONIO'];
+
+    $VO->pesquisarItemAdquirido();
+    $dados = $VO->getVetor();
+
+    $arrayEstadoConserv = array(0 => 'Escolha...', 1 => 'ÓTIMO', 2 => 'BOM', 3 => 'REGULAR', 4 => 'INSERVÍVEL');
+    foreach ($arrayEstadoConserv as $key => $value) {
+        (trim($dados['CS_ESTADO_CONSERVACAO'][0]) == $key) ? $selected = 'selected' : $selected = '';
+        $arrayEstadoConservAlt .= '<option value="' . $key . '" ' . $selected . '>' . $value . '</option> ';
+    }
+
+    $VO->pesquisarNumFatura();
+    $arrayNumFatura = $VO->getArray("NB_NF");
+    foreach ($arrayNumFatura as $key => $value) {
+        ($dados['NB_FATURA'][0] == $key) ? $selected = 'selected' : $selected = '';
+        $arrayNumFaturaAlt .= '<option value="' . $key . '" ' . $selected . '>' . $value . '</option> ';
+    }
+
+    $VO->pesquisarSemDocumento();
+    $arraySemDocumento = $VO->getArray("NB_SEM_DOC");
+    foreach ($arraySemDocumento as $key => $value) {
+        ($dados['NB_SEM_DOC'][0] == $key) ? $selected = 'selected' : $selected = '';
+        $arraySemDocumentoAlt .= '<option value="' . $key . '" ' . $selected . '>' . $value . '</option> ';
+    }
+
+    $VO->pesquisarDocumento();
+    $arrayDocumento = $VO->getArray("NB_DOCUMENTO");
+    foreach ($arrayDocumento as $key => $value) {
+        ($dados['NB_DOCUMENTO'][0] == $key) ? $selected = 'selected' : $selected = '';
+        $arrayDocumentoAlt .= '<option value="' . $key . '" ' . $selected . '>' . $value . '</option> ';
+    }
+
+    $VO->pesquisarEmpenho();
+    $arrayEmpenho = $VO->getArray("NB_EMPENHO");
+    foreach ($arrayEmpenho as $key => $value) {
+        ($dados['NB_EMPENHO'][0] == $key) ? $selected = 'selected' : $selected = '';
+        $arrayEmpenhoAlt .= '<option value="' . $key . '" ' . $selected . '>' . $value . '</option> ';
+    }
+
+    echo "
+            <script>
+                $(document).ready(function(){
+                    $('#NB_QUANTIDADE_ALT').setMask({ mask:'999999' });
+                    $('#NB_VALOR_ALT').maskMoney({showSymbol:false, symbol:'R$', decimal:',', thousands:'.', allowZero:true, allowNegative:false, defaultZero:false});
+                    $('#DT_ATESTO_FATURA_ALT').setMask({ mask:'99/99/9999' });
+                    $('#DT_ATESTO_FATURA_ALT').datepicker({changeMonth: true, changeYear: true});
+                    $('#DT_LIQUIDACAO_EMP_ALT').setMask({ mask:'99/99/9999' });
+                    $('#DT_LIQUIDACAO_EMP_ALT').datepicker({changeMonth: true, changeYear: true});
+                })
+            </script>
+        ";
+    echo '
+            <table width="100%" class="dataGrid" >
+                <tr bgcolor="#E0E0E0">
+                    <td style="width:110px;"><strong>Grupo de Patrimônio</strong></td>
+                    <td style="width:370px;">' . $dados['TX_GRUPO_PATRIMONIO_PAI'][0] . '</td>
+                </tr>
+                <tr bgcolor="#F0EFEF">
+                    <td><strong>Subgrupo de Patrimônio</strong></td>
+                    <td>' . $dados['TX_GRUPO_PATRIMONIO'][0] . '</td>
+                </tr>
+                <tr bgcolor="#E0E0E0">
+                    <td><strong>Item de Patrimônio</strong></td>
+                    <td>' . $dados['TX_DESCRICAO'][0] . '</td>
+                </tr>
+            </table><br />
+        ';
+    echo '
+            <fieldset>
+                <legend>Cadastrar Item Adquirido</legend>
+
+                <div id="camada" style="width:130px;"><font color="#FF0000">*</font>Valor Unitário
+                    <input type="text" name="NB_VALOR_ALT" id="NB_VALOR_ALT" value="' . number_format($dados['NB_VALOR'][0], 2, ',', '.') . '" style="width:120px; text-align:center;" /></div>
+
+                <div id="camada" style="width:130px;"><font color="#FF0000">*</font>Quantidade
+                    <input type="text" name="NB_QUANTIDADE_ALT" id="NB_QUANTIDADE_ALT" value="' . $dados['NB_QUANTIDADE'][0] . '" style="width:120px; text-align:center;" /></div>
+
+                <div id="camada" style="width:130px;">Marca
+                    <input type="text" name="TX_MARCA_ALT" id="TX_MARCA_ALT" value="' . $dados['TX_MARCA'][0] . '" style="width:120px;" /></div>
+
+                <div id="camada" style="width:130px;">Modelo
+                    <input type="text" name="TX_MODELO_ALT" id="TX_MODELO_ALT" value="' . $dados['TX_MODELO'][0] . '" style="width:120px;" /></div>
+
+                <div id="camada" style="width:130px;">Nº do Empenho
+                    <select name="NB_EMPENHO_ALT" id="NB_EMPENHO_ALT" style="width:120px;">' . $arrayEmpenhoAlt . '</select></div>
+
+                <div id="camada" style="width:130px;">Dt. Empenho
+                    <input type="text" name="DT_EMPENHO_ALT" id="DT_EMPENHO_ALT" value="' . $dados['DT_EMPENHO'][0] . '" style="width:120px;" readonly="readonly" class="leitura"/></div>
+
+                <div id="camada" style="width:130px;">Dt. Liquida Empenho
+                    <input type="text" name="DT_LIQUIDACAO_EMP_ALT" id="DT_LIQUIDACAO_EMP_ALT" value="' . $dados['DT_LIQUIDACAO_EMP'][0] . '" style="width:120px;" /></div>
+
+                <div id="camada" style="width:130px;">Nº Documento
+                    <select name="NB_DOCUMENTO_ALT" id="NB_DOCUMENTO_ALT" style="width:120px;">' . $arrayDocumentoAlt . '</select></div>
+
+                <div id="camada" style="width:130px;">Sem Doc.
+                    <select name="NB_SEM_DOC_ALT" id="NB_SEM_DOC_ALT" style="width:120px;">' . $arraySemDocumentoAlt . '</select></div>
+
+                <div id="camada" style="width:130px;">Nº da Fatura
+                    <select name="NB_FATURA_ALT" id="NB_FATURA_ALT" style="width:120px;">' . $arrayNumFaturaAlt . '</select></div>
+
+                <div id="camada" style="width:130px;">Dt. Fatura
+                    <input type="text" name="DT_FATURA_ALT" id="DT_FATURA_ALT" value="' . $dados['DT_FATURA'][0] . '" style="width:120px;" readonly="readonly" class="leitura"/></div>
+
+                <div id="camada" style="width:130px;">Dt. Atesto Fatura
+                    <input type="text" name="DT_ATESTO_FATURA_ALT" id="DT_ATESTO_FATURA_ALT" value="' . $dados['DT_ATESTO_FATURA'][0] . '" style="width:120px;" /></div>
+
+                <div id="camada" style="width:130px;">Tombamento Inicial
+                    <input type="text" name="ID_TOMB_INICIAL_ALT" id="ID_TOMB_INICIAL_ALT" value="' . $dados['ID_TOMB_INICIAL'][0] . '" style="width:120px;" readonly="readonly" class="leitura"/></div>
+
+                <div id="camada" style="width:130px;">Tombamento Final
+                    <input type="text" name="ID_TOMB_FINAL_ALT" id="ID_TOMB_FINAL_ALT" value="' . $dados['ID_TOMB_FINAL'][0] . '" style="width:120px;" readonly="readonly" class="leitura"/></div>
+
+                <div id="camada" style="width:130px;"><font color="#FF0000">*</font>Estado Conservação
+                    <select name="CS_ESTADO_CONSERVACAO_ALT" id="CS_ESTADO_CONSERVACAO_ALT" style="width:120px;">' . $arrayEstadoConservAlt . '</select></div>
+
+                <input type="hidden" name="ID_ITEM_PATRIMONIO_ALT" id="ID_ITEM_PATRIMONIO_ALT" value="' . $dados['ID_ITEM_PATRIMONIO'][0] . '" />
+                <input type="hidden" name="NB_QUANTIDADE_RECIBO_PLAQUETA" id="NB_QUANTIDADE_RECIBO_PLAQUETA" value="' . $_SESSION['NB_QUANTIDADE_RECIBO_PLAQUETA'] . '" />
+            </fieldset>
+        ';
+
+    if ($param) {
+        echo '<script>alert("' . $param . '");</script>';
+    }
 }
 
 $VO = new solicitacaoVO();
@@ -148,7 +288,7 @@ if ($_REQUEST['identifier'] == "tabela") {
             //if ($acesso)
             echo '
                 <td align="center">
-                    <a href="' . $dados['ID_SOLICITACAO_ESTAGIO'][$i] . '" id="alterar"><img src="' . $urlimg . 'icones/editar.png" alt="itens" title="Alterar"/></a></td>';
+                    <a href="' . $dados['ID_SOLICITACAO_ESTAGIO'][$i] . '_' . $dados['ID_ORGAO_ESTAGIO'][$i] . '" id="alterar"><img src="' . $urlimg . 'icones/editar.png" alt="itens" title="Alterar"/></a></td>';
             echo '</tr>';
         }
 
@@ -168,25 +308,30 @@ if ($_REQUEST['identifier'] == "tabela") {
     }else {
         echo '<div id="nao_encontrado">Nenhum registro encontrado.</div>';
     }
-} else if ($_REQUEST['identifier'] == "pesquisarQuadroVagasEstagio") {
+} else if ($_REQUEST['identifier'] == "pesquisarTipoVaga") {
 
-    $VO->ID_ORGAO_GESTOR_ESTAGIO = $_REQUEST['ID_ORGAO_GESTOR_ESTAGIO'];
-    $VO->ID_AGENCIA_ESTAGIO = $_REQUEST['ID_AGENCIA_ESTAGIO'];
+    $VO->ID_SOLICITACAO_ESTAGIO = $_SESSION['ID_SOLICITACAO_ESTAGIO'];
+    $VO->ID_ORGAO_ESTAGIO = $_SESSION['ID_ORGAO_ESTAGIO'];
+    $VO->ID_AGENCIA_ESTAGIO = $_SESSION['ID_AGENCIA_ESTAGIO'];
+    $VO->ID_QUADRO_VAGAS_ESTAGIO = $_SESSION['ID_QUADRO_VAGAS_ESTAGIO'];
 
-    $total = $VO->pesquisarQuadroVagasEstagio();
+    $total = $VO->pesquisarTipoVaga();
 
     if ($total) {
         $dados = $VO->getVetor();
         echo '<option value="">Escolha...</option>';
         for ($i = 0; $i < $total; $i++) {
-            echo '<option value="' . $dados['CODIGO'][$i] . '">' . $dados['TX_CODIGO'][$i] . '</option>';
+            echo '<option value="' . $dados['CODIGO'][$i] . '">' . $dados['TX_TIPO_VAGA_ESTAGIO'][$i] . '</option>';
         }
-    }
+    } else
+        echo '<option value="">Nenhum registro encontrado</option>';
 } else if ($_REQUEST['identifier'] == "buscarQuantidade") {
 
     $VO->ID_ORGAO_ESTAGIO = $_SESSION['ID_ORGAO_ESTAGIO'];
-    $VO->ID_QUADRO_VAGAS_ESTAGIO = $_REQUEST['ID_QUADRO_VAGAS_ESTAGIO'];
+    $VO->ID_QUADRO_VAGAS_ESTAGIO = $_SESSION['ID_QUADRO_VAGAS_ESTAGIO'];
     $VO->CS_TIPO_VAGA_ESTAGIO = $_REQUEST['CS_TIPO_VAGA_ESTAGIO'];
+    $VO->ID_CURSO_ESTAGIO = $_REQUEST['ID_CURSO_ESTAGIO'];
+    $VO->NB_QUANTIDADE = $_REQUEST['NB_QUANTIDADE'];
 
     $VO->buscarQuantidade();
 
@@ -208,17 +353,16 @@ if ($_REQUEST['identifier'] == "tabela") {
 
     $VO->ID_SOLICITACAO_ESTAGIO = $_SESSION['ID_SOLICITACAO_ESTAGIO'];
     $VO->ID_ORGAO_ESTAGIO = $_SESSION['ID_ORGAO_ESTAGIO'];
+    $VO->ID_QUADRO_VAGAS_ESTAGIO = $_SESSION['ID_QUADRO_VAGAS_ESTAGIO'];
 
     $valor = explode('_', $_REQUEST['ID_CS_CODIGO']);
-    $VO->ID_QUADRO_VAGAS_ESTAGIO = $valor[0];
-    $VO->CS_TIPO_VAGA_ESTAGIO = $valor[1];
-    $VO->ID_CURSO_ESTAGIO = $valor[2];
+    $VO->CS_TIPO_VAGA_ESTAGIO = $valor[0];
 
     $VO->NB_QUANTIDADE = $_REQUEST['NB_QUANTIDADE'];
     $VO->ID_CURSO_ESTAGIO = $_REQUEST['ID_CURSO_ESTAGIO'];
 
     if ($acesso) {
-        if ($VO->ID_QUADRO_VAGAS_ESTAGIO && $VO->CS_TIPO_VAGA_ESTAGIO && $VO->ID_CURSO_ESTAGIO && $VO->NB_QUANTIDADE) {
+        if ($VO->ID_SOLICITACAO_ESTAGIO && $VO->ID_ORGAO_ESTAGIO && $VO->ID_QUADRO_VAGAS_ESTAGIO && $VO->CS_TIPO_VAGA_ESTAGIO && $VO->NB_QUANTIDADE) {
             $retorno = $VO->inserirVagasSolicitadas();
 
             if ($retorno) {
@@ -230,15 +374,34 @@ if ($_REQUEST['identifier'] == "tabela") {
         $erro = "Você não tem permissão para realizar esta ação.";
 
     gerarTabela($erro);
-}else if ($_REQUEST['identifier'] == 'atualizarInf') {
+} else if ($_REQUEST['identifier'] == "excluirVagasSolicitadas") {
 
-    $VO->ID_RESP_UNID_IRP = $_SESSION['ID_RESP_UNID_IRP'];
-    ;
+    $VO->ID_SOLICITACAO_ESTAGIO = $_SESSION['ID_SOLICITACAO_ESTAGIO'];
+    $VO->ID_ORGAO_ESTAGIO = $_SESSION['ID_ORGAO_ESTAGIO'];
+    $VO->ID_QUADRO_VAGAS_ESTAGIO = $_SESSION['ID_QUADRO_VAGAS_ESTAGIO'];
+
+    $VO->CS_TIPO_VAGA_ESTAGIO = $_REQUEST['CS_TIPO_VAGA_ESTAGIO'];
+
+    if ($acesso) {
+        $retorno = $VO->excluirVagasSolicitadas();
+
+        if (is_array($retorno)) {
+            $erro = 'Este registro não pode ser excluído pois possui dependentes.';
+        }
+    }else
+        $erro = "Você não tem permissão para realizar esta ação.";
+
+    gerarTabela($erro);
+} else if ($_REQUEST['identifier'] == "tabelaAlterarVagasSolicitadas") {
+    gerarTabelaAlterar();
+} else if ($_REQUEST['identifier'] == 'atualizarInf') {
+
+    $VO->ID_SOLICITACAO_ESTAGIO = $_SESSION['ID_SOLICITACAO_ESTAGIO'];
 
     $dados = $VO->atualizarInf();
 
     echo json_encode($dados);
-}/* else if ($_REQUEST['identifier'] == "inserirTodas"){
+} /* else if ($_REQUEST['identifier'] == "inserirTodas"){
 
   $VO->ID_USUARIO 			= $_SESSION['ID_USUARIO_ACESSO'];
 
@@ -246,20 +409,5 @@ if ($_REQUEST['identifier'] == "tabela") {
 
   gerarTabela();
 
-  } */ else if ($_REQUEST['identifier'] == 'excluirUnidade') {
-
-    $VO->ID_RESP_UNID_IRP = $_SESSION['ID_RESP_UNID_IRP'];
-    $VO->ID_UNIDADE_IRP = $_REQUEST['ID_UNIDADE_IRP'];
-
-    if ($acesso) {
-
-        $retorno = $VO->excluirUnidade();
-
-        if (is_array($retorno))
-            $erro = 'Este registro não pode ser excluído pois possui dependentes.';
-    }else
-        $erro = "Você não tem permissão para realizar esta ação.";
-
-    gerarTabela($erro);
-}
+  } */
 ?>

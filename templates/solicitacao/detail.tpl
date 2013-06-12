@@ -20,7 +20,7 @@
                         <td><strong>Órgão Solicitante</strong></td>
                         <td>{$dados.TX_ORGAO_ESTAGIO[0]}</td>
                         <td><strong>Cód. da Solicitação</strong></td>
-                        <td><div id="atualizacao">{$dados.TX_COD_SOLICITACAO[0]}</div></td>
+                        <td>{$dados.TX_COD_SOLICITACAO[0]}</td>
                     </tr>
                     <tr bgcolor="#E0E0E0">
                         <td><strong>Quadro de Vagas de Estágio</strong></td>
@@ -40,7 +40,7 @@
                     </tr>
                     <tr bgcolor="#F0EFEF">
                         <td><strong>Alterado por</strong></td>
-                        <td>{$dados.TX_FUNCIONARIO_ATUAL[0]}</td>
+                        <td><div id="funcionario">{$dados.TX_FUNCIONARIO_ATUAL[0]}</div></td>
                         <td><strong>Data de Atualização</strong></td>
                         <td style="text-align:right;"><div id="atualizacao">{$dados.DT_ATUALIZACAO[0]}</div></td>
                     </tr>
@@ -61,15 +61,15 @@
             <fieldset>
                 <legend>Cadastrar Vagas de Estátgio</legend>
 
-                <div id="camada" style="width:210px;">
-                    <strong><font color="#FF0000">*</font>Tipo</strong><br />
-                    <select name="ID_CS_CODIGO" id="ID_CS_CODIGO" style="width:200px;">
-                        {html_options options=$arrayTipoVaga selected=$VO->ID_CS_CODIGO}
+                <div id="camada" style="width:240px;">
+                    <strong><font color="#FF0000">*</font>Tipo Vaga</strong><br />
+                    <select name="ID_CS_CODIGO" id="ID_CS_CODIGO" style="width:230px;">
+                        {*html_options options=$arrayTipoVaga selected=$VO->ID_CS_CODIGO*}
                     </select></div>
 
-                <div id="camada" style="width:110px;" >
+                <div id="camada" style="width:90px;" >
                     <strong><font color="#FF0000">*</font>Quantidade</strong><br />
-                    <input type="text" name="NB_QUANTIDADE" id="NB_QUANTIDADE" value="{$VO->NB_QUANTIDADE}" style="width:100px;" /></div>
+                    <input type="text" name="NB_QUANTIDADE" id="NB_QUANTIDADE" value="{$VO->NB_QUANTIDADE}" style="width:80px;" /></div>
 
                 <div id="camada" style="width:210px;">
                     <strong>Curso</strong><br />
@@ -84,6 +84,12 @@
 
         <div id="tabelaVagasSolicitadas"></div>
 
+        <div id="dialog" title="Alterar Vagas de Estátgio">
+            <div id="tabelaAlterarVagasSolicitadas" style="text-align:left;"></div>
+            <div class="fundoForm">
+                <img src="{$urlimg}icones/loader3.gif" >
+            </div>
+        </div>
 
         <div id="botoesInferiores">
             <a href="{$url}src/{$pasta}/index.php"><img src="{$urlimg}icones/voltar.png" alt="Voltar" title="Voltar" class="voltar" /></a>

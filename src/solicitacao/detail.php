@@ -24,13 +24,14 @@ if ($_SESSION['ID_SOLICITACAO_ESTAGIO']) {
     if ($total) {
         $dados = $VO->getVetor();
 
-        $VO->ID_ORGAO_ESTAGIO = $_SESSION['ID_ORGAO_ESTAGIO'] = $dados['ID_ORGAO_ESTAGIO'][0];
-        $VO->ID_AGENCIA_ESTAGIO = $_SESSION['ID_AGENCIA_ESTAGIO'] = $dados['ID_AGENCIA_ESTAGIO'][0];
-        $VO->CS_SITUACAO = $_SESSION['CS_SITUACAO'] = $dados['CS_SITUACAO'][0];
-        $VO->TX_COD_SOLICITACAO = $_SESSION['TX_COD_SOLICITACAO'] = $dados['TX_COD_SOLICITACAO'][0];
+        $_SESSION['ID_ORGAO_ESTAGIO'] = $dados['ID_ORGAO_ESTAGIO'][0];
+        $_SESSION['ID_AGENCIA_ESTAGIO'] = $dados['ID_AGENCIA_ESTAGIO'][0];
+//        $VO->CS_SITUACAO = $_SESSION['CS_SITUACAO'] = $dados['CS_SITUACAO'][0];
+//        $VO->TX_COD_SOLICITACAO = $_SESSION['TX_COD_SOLICITACAO'] = $dados['TX_COD_SOLICITACAO'][0];
+        $_SESSION['ID_QUADRO_VAGAS_ESTAGIO'] = $dados['ID_QUADRO_VAGAS_ESTAGIO'][0];
 
-        $VO->pesquisarTipoVaga();
-        $smarty->assign("arrayTipoVaga", $VO->getArray("TX_TIPO_VAGA_ESTAGIO"));
+//        $VO->pesquisarTipoVaga();
+//        $smarty->assign("arrayTipoVaga", $VO->getArray("TX_TIPO_VAGA_ESTAGIO"));
     }
 }else
     header("Location: " . $url . "src/" . $pasta . "/index.php");

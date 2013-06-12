@@ -44,5 +44,13 @@ class solicitacaoVO extends VO{
     function inserirVagasSolicitadas(){
         return $this->repositorio->inserirVagasSolicitadas($this);
     }
+
+    function excluirVagasSolicitadas(){
+        return $this->repositorio->excluirVagasSolicitadas($this);
+    }
+
+    function atualizarInf(){
+        return $this->repositorio->atualizarInf($this);
+    }
 }
 ?>

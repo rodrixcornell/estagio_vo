@@ -102,6 +102,8 @@ class RepositorioSolicitacao extends Repositorio {
         $this->sqlVetor($queryPK);
         $CodigoPK = $this->getVetor();
 
+        //SEMAD.F_G_COD_SOLICITACAO_ESTAGIO()
+
         $query = "
             INSERT
                 INTO SOLICITACAO_ESTAGIO
@@ -131,8 +133,8 @@ class RepositorioSolicitacao extends Repositorio {
         $query = "
             select se.ID_SOLICITACAO_ESTAGIO, se.ID_ORGAO_GESTOR_ESTAGIO, se.ID_AGENCIA_ESTAGIO, se.ID_ORGAO_ESTAGIO, se.CS_SITUACAO, se.ID_QUADRO_VAGAS_ESTAGIO,
                     se.TX_COD_SOLICITACAO, se.TX_JUSTIFICATIVA,
-                    to_char(se.DT_CADASTRO, 'dd/mm/yyyy') DT_CADASTRO,
-                    to_char(se.DT_ATUALIZACAO, 'dd/mm/yyyy') DT_ATUALIZACAO,
+                    to_char(se.DT_CADASTRO, 'dd/mm/yyyy hh24:mi:ss') DT_CADASTRO,
+                    to_char(se.DT_ATUALIZACAO, 'dd/mm/yyyy hh24:mi:ss') DT_ATUALIZACAO,
                     se.ID_USUARIO_CADASTRO, se.ID_USUARIO_ATUALIZACAO,
                     oge.TX_ORGAO_GESTOR_ESTAGIO, ae.TX_AGENCIA_ESTAGIO, oe.TX_ORGAO_ESTAGIO, qve.TX_CODIGO,
                     vft_cad.TX_FUNCIONARIO TX_FUNCIONARIO_CAD, vft_atual.TX_FUNCIONARIO TX_FUNCIONARIO_ATUAL
@@ -185,7 +187,7 @@ class RepositorioSolicitacao extends Repositorio {
 
     function pesquisarTipoVaga($VO) {
         $query = "
-            select (ve.ID_QUADRO_VAGAS_ESTAGIO ||'_'|| ve.CS_TIPO_VAGA_ESTAGIO ||'_'|| ve.ID_CURSO_ESTAGIO) CODIGO, tve.TX_TIPO_VAGA_ESTAGIO
+            select (ve.CS_TIPO_VAGA_ESTAGIO ||'_'|| ve.ID_CURSO_ESTAGIO ||'_'|| ve.NB_QUANTIDADE) CODIGO, tve.TX_TIPO_VAGA_ESTAGIO
                from QUADRO_VAGAS_ESTAGIO qve,
                     VAGAS_ESTAGIO ve,
                     TIPO_VAGA_ESTAGIO tve
@@ -193,6 +195,12 @@ class RepositorioSolicitacao extends Repositorio {
                 and (ve.CS_TIPO_VAGA_ESTAGIO = tve.CS_TIPO_VAGA_ESTAGIO)
                 and (ve.ID_ORGAO_ESTAGIO = " . $VO->ID_ORGAO_ESTAGIO . ")
                 and (qve.ID_AGENCIA_ESTAGIO = " . $VO->ID_AGENCIA_ESTAGIO . ")
+                and (qve.ID_QUADRO_VAGAS_ESTAGIO = " . $VO->ID_QUADRO_VAGAS_ESTAGIO . ")
+                and (ve.CS_TIPO_VAGA_ESTAGIO
+                    not in (select CS_TIPO_VAGA_ESTAGIO
+                            from VAGAS_SOLICITACAO
+                            where (ID_ORGAO_ESTAGIO = " . $VO->ID_ORGAO_ESTAGIO . ")
+                                and (ID_QUADRO_VAGAS_ESTAGIO = " . $VO->ID_QUADRO_VAGAS_ESTAGIO . ")))
               order by tve.TX_TIPO_VAGA_ESTAGIO";
 
         return $this->sqlVetor($query);
@@ -222,8 +230,10 @@ class RepositorioSolicitacao extends Repositorio {
 
     function pesquisarVagasSolicitadas($VO) {
         $query = "
-            select vs.ID_SOLICITACAO_ESTAGIO, vs.ID_ORGAO_ESTAGIO,
-                    (vs.ID_QUADRO_VAGAS_ESTAGIO ||'_'|| vs.CS_TIPO_VAGA_ESTAGIO) CODIGO,
+            select vs.ID_SOLICITACAO_ESTAGIO,
+                    vs.ID_ORGAO_ESTAGIO,
+                    vs.ID_QUADRO_VAGAS_ESTAGIO,
+                    vs.CS_TIPO_VAGA_ESTAGIO,
                     vs.ID_CURSO_ESTAGIO,
                     vs.NB_QUANTIDADE,
                     oe.TX_ORGAO_ESTAGIO,
@@ -237,12 +247,13 @@ class RepositorioSolicitacao extends Repositorio {
                     TIPO_VAGA_ESTAGIO tve,
                     CURSO_ESTAGIO ce
               where (vs.ID_ORGAO_ESTAGIO = oe.ID_ORGAO_ESTAGIO)
-                and (vs.ID_QUADRO_VAGAS_ESTAGIO = qve.ID_QUADRO_VAGAS_ESTAGIO(+))
-                and (qve.ID_AGENCIA_ESTAGIO = ae.ID_AGENCIA_ESTAGIO(+))
-                and (vs.CS_TIPO_VAGA_ESTAGIO = tve.CS_TIPO_VAGA_ESTAGIO)
-                and (vs.ID_CURSO_ESTAGIO = ce.ID_CURSO_ESTAGIO)
-                and vs.ID_SOLICITACAO_ESTAGIO = " . $VO->ID_SOLICITACAO_ESTAGIO . "
-                and vs.ID_ORGAO_ESTAGIO = " . $VO->ID_ORGAO_ESTAGIO . "
+                    and (vs.ID_QUADRO_VAGAS_ESTAGIO = qve.ID_QUADRO_VAGAS_ESTAGIO(+))
+                    and (qve.ID_AGENCIA_ESTAGIO = ae.ID_AGENCIA_ESTAGIO(+))
+                    and (vs.CS_TIPO_VAGA_ESTAGIO = tve.CS_TIPO_VAGA_ESTAGIO)
+                    and (vs.ID_CURSO_ESTAGIO = ce.ID_CURSO_ESTAGIO)
+                    and (vs.ID_SOLICITACAO_ESTAGIO = " . $VO->ID_SOLICITACAO_ESTAGIO . ")
+                    and (vs.ID_ORGAO_ESTAGIO = " . $VO->ID_ORGAO_ESTAGIO . ")
+                    and (vs.ID_QUADRO_VAGAS_ESTAGIO = " . $VO->ID_QUADRO_VAGAS_ESTAGIO . ")
               order by oe.TX_ORGAO_ESTAGIO,
                     ae.TX_AGENCIA_ESTAGIO
         ";
@@ -273,10 +284,45 @@ class RepositorioSolicitacao extends Repositorio {
                  " . $_SESSION['ID_USUARIO'] . ",
                  " . $_SESSION['ID_USUARIO'] . ")
         ";
-        print_r($query);
+
         return $this->sql($query);
     }
 
+    function excluirVagasSolicitadas($VO) {
+        $query = "
+            delete
+               from VAGAS_SOLICITACAO
+              where (ID_SOLICITACAO_ESTAGIO = " . $VO->ID_SOLICITACAO_ESTAGIO.")
+                and (ID_ORGAO_ESTAGIO = " . $VO->ID_ORGAO_ESTAGIO . ")
+                and (ID_QUADRO_VAGAS_ESTAGIO = " . $VO->ID_QUADRO_VAGAS_ESTAGIO . ")
+                and (CS_TIPO_VAGA_ESTAGIO = " . $VO->CS_TIPO_VAGA_ESTAGIO . ")";
+
+        return $this->sql($query);
+    }
+
+    function atualizarInf($VO) {
+
+        $query = "
+            update SOLICITACAO_ESTAGIO
+                set DT_ATUALIZACAO = sysdate,
+                    ID_USUARIO_ATUALIZACAO = " . $_SESSION['ID_USUARIO'] . "
+              where ID_SOLICITACAO_ESTAGIO = " . $VO->ID_SOLICITACAO_ESTAGIO;
+
+        $this->sql($query);
+
+        $data = "
+            select TO_CHAR(a.DT_ATUALIZACAO, 'DD/MM/YYYY hh24:mi:ss') DT_ATUALIZACAO, c.TX_FUNCIONARIO TX_FUNCIONARIO_ATUAL
+               from SOLICITACAO_ESTAGIO a, USUARIO b, V_FUNCIONARIO_USUARIO c
+              where a.ID_SOLICITACAO_ESTAGIO = '" . $VO->ID_SOLICITACAO_ESTAGIO . "'
+                and a.ID_USUARIO_ATUALIZACAO = b.ID_USUARIO
+                and b.ID_PESSOA_FUNCIONARIO = c.ID_PESSOA_FUNCIONARIO
+                and b.ID_UNIDADE_GESTORA = c.ID_UNIDADE_GESTORA";
+
+        $this->sqlVetor($data);
+        $datahora = $this->getVetor();
+
+        return $datahora;
+    }
     /*
       function pesquisarUsuario($VO){
 
