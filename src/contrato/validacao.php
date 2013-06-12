@@ -11,7 +11,7 @@ session_start();
 
 // Iniciando Instância
 
-$_SESSION[''] = $_REQUEST['ID'];
+$_SESSION['ID_CONTRATO'] = $_REQUEST['ID'];
 
 header("Location: ".$url."src/".$pasta."/detail.php");
 

@@ -14,7 +14,7 @@ $(document).ready(function(){
         allowNegative:false, 
         defaultZero:false
     });
-   $('#NB_INICIO_HORARIO,#NB_FIM_HORARIO').timepicker();
+    $('#NB_INICIO_HORARIO,#NB_FIM_HORARIO').timepicker();
    
     $('#NB_INICIO_HORARIO,#NB_FIM_HORARIO').setMask({
         mask:'99:99'
@@ -193,5 +193,11 @@ $(document).ready(function(){
         return false;
     });
 	
+        
+    $("#alterar").live('click', function(){
+        var href = $(this).attr('href');
+        $(window.document.location).attr('href','validacao.php?ID='+href);
+        return false;
+    });
         
 });
