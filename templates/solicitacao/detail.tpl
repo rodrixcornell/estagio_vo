@@ -11,22 +11,22 @@
                 <legend>{$titulopage}</legend>
                 <table width="100%" class="dataGrid">
                     <tr bgcolor="#E0E0E0">
-                        <td style="width:210px;"><strong>Órgão Gestor</strong></td>
-                        <td style="width:500px;">{$dados.TX_ORGAO_GESTOR_ESTAGIO[0]}</td>
-                        <td style="width:150px;"><strong>Agencia de Estágio</strong></td>
-                        <td style="width:200px;">{$dados.TX_AGENCIA_ESTAGIO[0]}</td>
+                        <td style="width:210px;"><strong>Cód. da Solicitação</strong></td>
+                        <td style="width:450px;"><font color="#0000FF"><strong>{$dados.TX_COD_SOLICITACAO[0]}</strong></font></td>
+                        <td style="width:210px;"><strong>Quadro de Vagas de Estágio</strong></td>
+                        <td style="width:200px; text-align:right;">{$dados.TX_CODIGO[0]}</td>
                     </tr>
                     <tr bgcolor="#F0EFEF">
-                        <td><strong>Órgão Solicitante</strong></td>
-                        <td>{$dados.TX_ORGAO_ESTAGIO[0]}</td>
-                        <td><strong>Cód. da Solicitação</strong></td>
-                        <td>{$dados.TX_COD_SOLICITACAO[0]}</td>
+                        <td><strong>Órgão Gestor</strong></td>
+                        <td>{$dados.TX_ORGAO_GESTOR_ESTAGIO[0]}</td>
+                        <td><strong>Agencia de Estágio</strong></td>
+                        <td style="text-align:right;">{$dados.TX_AGENCIA_ESTAGIO[0]}</td>
                     </tr>
                     <tr bgcolor="#E0E0E0">
-                        <td><strong>Quadro de Vagas de Estágio</strong></td>
-                        <td>{$dados.TX_CODIGO[0]}</td>
+                        <td><strong>Órgão Solicitante</strong></td>
+                        <td>{$dados.TX_ORGAO_ESTAGIO[0]}</td>
                         <td><strong>Situação</strong></td>
-                        <td>{$arraySituacao[$dados.CS_SITUACAO[0]]}</td>
+                        <td style="text-align:right;">{$arraySituacao[$dados.CS_SITUACAO[0]]}</td>
                     </tr>
                     <tr bgcolor="#F0EFEF">
                         <td style="vertical-align:baseline; padding-top:4px;"><strong>Motivo / Justificativa</strong></td>

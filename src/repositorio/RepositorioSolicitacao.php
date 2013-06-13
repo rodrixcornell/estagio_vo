@@ -98,11 +98,13 @@ class RepositorioSolicitacao extends Repositorio {
     }
 
     function inserir($VO) {
-        $queryPK = "select SEMAD.F_G_PK_SOLICITACAO_ESTAGIO as ID_SOLICITACAO_ESTAGIO from DUAL";
+        $queryPK = "select SEMAD.F_G_PK_SOLICITACAO_ESTAGIO as ID_SOLICITACAO_ESTAGIO from dual";
         $this->sqlVetor($queryPK);
         $CodigoPK = $this->getVetor();
 
-        //SEMAD.F_G_COD_SOLICITACAO_ESTAGIO()
+        $queryCodigo = "select SEMAD.F_G_COD_SOLICITACAO_ESTAGIO as TX_COD_SOLICITACAO from dual";
+        $this->sqlVetor($queryCodigo);
+        $Codigo = $this->getVetor();
 
         $query = "
             INSERT
@@ -113,7 +115,7 @@ class RepositorioSolicitacao extends Repositorio {
                 (" . $CodigoPK['ID_SOLICITACAO_ESTAGIO'][0] . ",
                  SYSDATE,
                  SYSDATE,
-                 '" . $VO->TX_COD_SOLICITACAO . "',
+                 '" . $Codigo['TX_COD_SOLICITACAO'][0] . "',
                  " . $_SESSION['ID_USUARIO'] . ",
                  " . $_SESSION['ID_USUARIO'] . ",
                  " . $VO->ID_ORGAO_ESTAGIO . ",
@@ -292,7 +294,61 @@ class RepositorioSolicitacao extends Repositorio {
         $query = "
             delete
                from VAGAS_SOLICITACAO
-              where (ID_SOLICITACAO_ESTAGIO = " . $VO->ID_SOLICITACAO_ESTAGIO.")
+              where (ID_SOLICITACAO_ESTAGIO = " . $VO->ID_SOLICITACAO_ESTAGIO . ")
+                and (ID_ORGAO_ESTAGIO = " . $VO->ID_ORGAO_ESTAGIO . ")
+                and (ID_QUADRO_VAGAS_ESTAGIO = " . $VO->ID_QUADRO_VAGAS_ESTAGIO . ")
+                and (CS_TIPO_VAGA_ESTAGIO = " . $VO->CS_TIPO_VAGA_ESTAGIO . ")";
+
+        return $this->sql($query);
+    }
+
+    function buscarVagasSolicitadas($VO) {
+        $query = "
+            select vs.ID_SOLICITACAO_ESTAGIO,
+                    vs.ID_ORGAO_ESTAGIO,
+                    vs.ID_QUADRO_VAGAS_ESTAGIO,
+                    vs.CS_TIPO_VAGA_ESTAGIO,
+                    vs.ID_CURSO_ESTAGIO,
+                    vs.NB_QUANTIDADE,
+                    tve.TX_TIPO_VAGA_ESTAGIO,
+                    ce.TX_CURSO_ESTAGIO,
+                    to_char(vs.DT_CADASTRO, 'dd/mm/yyyy hh24:mi:ss') DT_CADASTRO,
+                    to_char(vs.DT_ATUALIZACAO, 'dd/mm/yyyy hh24:mi:ss') DT_ATUALIZACAO,
+                    vs.ID_USUARIO_CADASTRO,
+                    vs.ID_USUARIO_ATUALIZACAO,
+                    vft_cad.TX_FUNCIONARIO TX_FUNCIONARIO_CAD,
+                    vft_atual.TX_FUNCIONARIO TX_FUNCIONARIO_ATUAL
+               from VAGAS_SOLICITACAO vs,
+                    TIPO_VAGA_ESTAGIO tve,
+                    CURSO_ESTAGIO ce,
+                    USUARIO u_cad,
+                    USUARIO u_atual,
+                    V_FUNCIONARIO_TOTAL vft_cad,
+                    V_FUNCIONARIO_TOTAL vft_atual
+              where (vs.CS_TIPO_VAGA_ESTAGIO = tve.CS_TIPO_VAGA_ESTAGIO)
+                    and (vs.ID_CURSO_ESTAGIO = ce.ID_CURSO_ESTAGIO)
+                    and (vs.ID_USUARIO_CADASTRO = u_cad.ID_USUARIO)
+                    and (vs.ID_USUARIO_ATUALIZACAO = u_atual.ID_USUARIO)
+                    and (u_cad.ID_PESSOA_FUNCIONARIO = vft_cad.ID_PESSOA_FUNCIONARIO)
+                    and (u_cad.ID_UNIDADE_GESTORA = vft_cad.ID_UNIDADE_GESTORA)
+                    and (u_atual.ID_PESSOA_FUNCIONARIO = vft_atual.ID_PESSOA_FUNCIONARIO)
+                    and (u_atual.ID_UNIDADE_GESTORA = vft_atual.ID_UNIDADE_GESTORA)
+                    and (vs.ID_SOLICITACAO_ESTAGIO = " . $VO->ID_SOLICITACAO_ESTAGIO . ")
+                    and (vs.ID_ORGAO_ESTAGIO = " . $VO->ID_ORGAO_ESTAGIO . ")
+                    and (vs.ID_QUADRO_VAGAS_ESTAGIO = " . $VO->ID_QUADRO_VAGAS_ESTAGIO . ")
+                    and (vs.CS_TIPO_VAGA_ESTAGIO = " . $VO->CS_TIPO_VAGA_ESTAGIO . ")";
+
+        return $this->sqlVetor($query);
+    }
+
+    function alterarVagasSolicitadas($VO) {
+        $query = "
+            update VAGAS_SOLICITACAO
+                set DT_ATUALIZACAO = sysdate,
+                    ID_USUARIO_ATUALIZACAO = " . $_SESSION['ID_USUARIO'] . ",
+                    NB_QUANTIDADE = " . $VO->NB_QUANTIDADE . ",
+                    ID_CURSO_ESTAGIO = " . $VO->ID_CURSO_ESTAGIO . "
+              where (ID_SOLICITACAO_ESTAGIO = " . $VO->ID_SOLICITACAO_ESTAGIO . ")
                 and (ID_ORGAO_ESTAGIO = " . $VO->ID_ORGAO_ESTAGIO . ")
                 and (ID_QUADRO_VAGAS_ESTAGIO = " . $VO->ID_QUADRO_VAGAS_ESTAGIO . ")
                 and (CS_TIPO_VAGA_ESTAGIO = " . $VO->CS_TIPO_VAGA_ESTAGIO . ")";
@@ -323,6 +379,7 @@ class RepositorioSolicitacao extends Repositorio {
 
         return $datahora;
     }
+
     /*
       function pesquisarUsuario($VO){
 

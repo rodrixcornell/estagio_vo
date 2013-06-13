@@ -140,34 +140,30 @@ $(document).ready(function(){
 
     $("#dialog").dialog({
         autoOpen: false,
-        height: 450,
-        width: 900,
+        height: 400,
+        width: 420,
         modal: true,
         buttons:{
             "Salvar": function() {
-                if (!$('#ID_CS_CODIGO_ALT').val()){
-                    alert('Para inserir escolha um Tipo.');
-                    $('#ID_CS_CODIGO_ALT').focus();
-                }else if (!$('#NB_QUANTIDADE_ALT').val()){
+                if (!$('#NB_QUANTIDADE_ALT').val()){
                     alert('Para inserir escolha uma Quantidade.');
                     $('#NB_QUANTIDADE_ALT').focus();
                 }else{
+                    console.log();
                     showLoader();
                     $("#tabelaVagasSolicitadas").load('acoes.php',
                     {
-                        ID_CS_CODIGO:$('#ID_CS_CODIGO_ALT').val(),
+                        CS_TIPO_VAGA_ESTAGIO:$('#CS_TIPO_VAGA_ESTAGIO_ALT').val(),
                         NB_QUANTIDADE:$('#NB_QUANTIDADE_ALT').val(),
                         ID_CURSO_ESTAGIO:$('#ID_CURSO_ESTAGIO_ALT').val(),
                         identifier:'alterarVagasSolicitadas',
                         PAGE:$('.selecionado').text()
                     }, emptyHideLoader);
                     $( this ).dialog("close");
-                }
+                };
             },
             "Cancelar": function() {
                 $('#tabelaAlterarVagasSolicitadas').html('');
-                showLoader();
-                $("#tabelaVagasSolicitadas").load('acoes.php?identifier=tabelaVagasSolicitadas', emptyHideLoader);
                 $( this ).dialog( "close" );
             }
         }

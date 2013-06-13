@@ -1,5 +1,4 @@
 <?php
-
 include "../../php/define.php";
 require_once $path . "src/solicitacao/arrays.php";
 require_once $pathvo . "solicitacaoVO.php";
@@ -107,127 +106,66 @@ function gerarTabelaAlterar($param = '') {
     $VO->ID_ORGAO_ESTAGIO = $_SESSION['ID_ORGAO_ESTAGIO'];
     $VO->ID_QUADRO_VAGAS_ESTAGIO = $_SESSION['ID_QUADRO_VAGAS_ESTAGIO'];
 
-    $VO->ID_ITEM_PATRIMONIO = $_REQUEST['ID_ITEM_PATRIMONIO'];
+    $VO->CS_TIPO_VAGA_ESTAGIO = $_REQUEST['CS_TIPO_VAGA_ESTAGIO'];
 
-    $VO->pesquisarItemAdquirido();
+    $VO->buscarVagasSolicitadas();
     $dados = $VO->getVetor();
 
-    $arrayEstadoConserv = array(0 => 'Escolha...', 1 => 'ÓTIMO', 2 => 'BOM', 3 => 'REGULAR', 4 => 'INSERVÍVEL');
-    foreach ($arrayEstadoConserv as $key => $value) {
-        (trim($dados['CS_ESTADO_CONSERVACAO'][0]) == $key) ? $selected = 'selected' : $selected = '';
-        $arrayEstadoConservAlt .= '<option value="' . $key . '" ' . $selected . '>' . $value . '</option> ';
+    $VO->buscarCursos();
+    $arrayCursos = $VO->getArray("TX_CURSO_ESTAGIO");
+    foreach ($arrayCursos as $key => $value) {
+        ($dados['ID_CURSO_ESTAGIO'][0] == $key) ? $selected = 'selected' : $selected = '';
+        $arrayCursosAlt .= '<option value="' . $key . '" ' . $selected . '>' . $value . '</option> ';
     }
+    ?>
 
-    $VO->pesquisarNumFatura();
-    $arrayNumFatura = $VO->getArray("NB_NF");
-    foreach ($arrayNumFatura as $key => $value) {
-        ($dados['NB_FATURA'][0] == $key) ? $selected = 'selected' : $selected = '';
-        $arrayNumFaturaAlt .= '<option value="' . $key . '" ' . $selected . '>' . $value . '</option> ';
-    }
+    <script>
+        $(document).ready(function(){
+            $('#NB_QUANTIDADE_ALT').setMask({ mask:'999999' });
+        })
+    </script>
+    <table width="100%" class="dataGrid" >
+        <tr bgcolor="#E0E0E0">
+            <td style="width:150px;"><strong>Tipo Vaga Estágio</strong></td>
+            <td><? echo $dados['TX_TIPO_VAGA_ESTAGIO'][0] ?></td>
+        </tr>
+    </table>
+    <br />
 
-    $VO->pesquisarSemDocumento();
-    $arraySemDocumento = $VO->getArray("NB_SEM_DOC");
-    foreach ($arraySemDocumento as $key => $value) {
-        ($dados['NB_SEM_DOC'][0] == $key) ? $selected = 'selected' : $selected = '';
-        $arraySemDocumentoAlt .= '<option value="' . $key . '" ' . $selected . '>' . $value . '</option> ';
-    }
+    <fieldset>
+        <legend>Cadastrar Item Adquirido</legend>
 
-    $VO->pesquisarDocumento();
-    $arrayDocumento = $VO->getArray("NB_DOCUMENTO");
-    foreach ($arrayDocumento as $key => $value) {
-        ($dados['NB_DOCUMENTO'][0] == $key) ? $selected = 'selected' : $selected = '';
-        $arrayDocumentoAlt .= '<option value="' . $key . '" ' . $selected . '>' . $value . '</option> ';
-    }
+        <div id="camada" style="width:90px;" >
+            <strong><font color="#FF0000">*</font>Quantidade</strong><br />
+            <input type="text" name="NB_QUANTIDADE_ALT" id="NB_QUANTIDADE_ALT" value="<?php echo $dados['NB_QUANTIDADE'][0]; ?>" style="width:80px;" /></div>
 
-    $VO->pesquisarEmpenho();
-    $arrayEmpenho = $VO->getArray("NB_EMPENHO");
-    foreach ($arrayEmpenho as $key => $value) {
-        ($dados['NB_EMPENHO'][0] == $key) ? $selected = 'selected' : $selected = '';
-        $arrayEmpenhoAlt .= '<option value="' . $key . '" ' . $selected . '>' . $value . '</option> ';
-    }
+        <div id="camada" style="width:210px;">
+            <strong>Curso</strong><br />
+            <select name="ID_CURSO_ESTAGIO_ALT" id="ID_CURSO_ESTAGIO_ALT" style="width:200px;"><?php echo $arrayCursosAlt; ?></select></div>
 
-    echo "
-            <script>
-                $(document).ready(function(){
-                    $('#NB_QUANTIDADE_ALT').setMask({ mask:'999999' });
-                    $('#NB_VALOR_ALT').maskMoney({showSymbol:false, symbol:'R$', decimal:',', thousands:'.', allowZero:true, allowNegative:false, defaultZero:false});
-                    $('#DT_ATESTO_FATURA_ALT').setMask({ mask:'99/99/9999' });
-                    $('#DT_ATESTO_FATURA_ALT').datepicker({changeMonth: true, changeYear: true});
-                    $('#DT_LIQUIDACAO_EMP_ALT').setMask({ mask:'99/99/9999' });
-                    $('#DT_LIQUIDACAO_EMP_ALT').datepicker({changeMonth: true, changeYear: true});
-                })
-            </script>
-        ";
-    echo '
-            <table width="100%" class="dataGrid" >
-                <tr bgcolor="#E0E0E0">
-                    <td style="width:110px;"><strong>Grupo de Patrimônio</strong></td>
-                    <td style="width:370px;">' . $dados['TX_GRUPO_PATRIMONIO_PAI'][0] . '</td>
-                </tr>
-                <tr bgcolor="#F0EFEF">
-                    <td><strong>Subgrupo de Patrimônio</strong></td>
-                    <td>' . $dados['TX_GRUPO_PATRIMONIO'][0] . '</td>
-                </tr>
-                <tr bgcolor="#E0E0E0">
-                    <td><strong>Item de Patrimônio</strong></td>
-                    <td>' . $dados['TX_DESCRICAO'][0] . '</td>
-                </tr>
-            </table><br />
-        ';
-    echo '
-            <fieldset>
-                <legend>Cadastrar Item Adquirido</legend>
+        <br />
+        <div id="camada" style="font-family:Verdana, Geneva, sans-serif; width:360px;" >
+            Usuário do Cadastro:
+            <input type="text" name="TX_FUNCIONARIO_CAD_ALT" id="TX_FUNCIONARIO_CAD_ALT" value="<?php echo $dados['TX_FUNCIONARIO_CAD'][0]; ?>"  style="width:350px;" readonly="readonly" class="leitura"/></div>
 
-                <div id="camada" style="width:130px;"><font color="#FF0000">*</font>Valor Unitário
-                    <input type="text" name="NB_VALOR_ALT" id="NB_VALOR_ALT" value="' . number_format($dados['NB_VALOR'][0], 2, ',', '.') . '" style="width:120px; text-align:center;" /></div>
+        <div id="camada" style="font-family:Verdana, Geneva, sans-serif; width:210px;" >
+            Data do Cadastro:
+            <input type="text" name="DT_CADASTRO_ALT" id="DT_CADASTRO_ALT" value="<?php echo $dados['DT_CADASTRO'][0]; ?>"  style="width:200px;" readonly="readonly" class="leitura"/></div>
 
-                <div id="camada" style="width:130px;"><font color="#FF0000">*</font>Quantidade
-                    <input type="text" name="NB_QUANTIDADE_ALT" id="NB_QUANTIDADE_ALT" value="' . $dados['NB_QUANTIDADE'][0] . '" style="width:120px; text-align:center;" /></div>
+        <br />
+        <div id="camada" style="font-family:Verdana, Geneva, sans-serif; width:360px;" >
+            Usuário da Atualização:
+            <input type="text" name="TX_FUNCIONARIO_ATUAL_ALT" id="TX_FUNCIONARIO_ATUAL_ALT" value="<?php echo $dados['TX_FUNCIONARIO_ATUAL'][0]; ?>"  style="width:350px;" readonly="readonly" class="leitura"/></div>
 
-                <div id="camada" style="width:130px;">Marca
-                    <input type="text" name="TX_MARCA_ALT" id="TX_MARCA_ALT" value="' . $dados['TX_MARCA'][0] . '" style="width:120px;" /></div>
+        <div id="camada" style="font-family:Verdana, Geneva, sans-serif; width:210px;" >
+            Data da Atualização:
+            <input type="text" name="DT_ATUALIZACAO_ALT" id="DT_ATUALIZACAO_ALT" value="<?php echo $dados['DT_ATUALIZACAO'][0]; ?>"  style="width:200px;" readonly="readonly" class="leitura"/></div>
 
-                <div id="camada" style="width:130px;">Modelo
-                    <input type="text" name="TX_MODELO_ALT" id="TX_MODELO_ALT" value="' . $dados['TX_MODELO'][0] . '" style="width:120px;" /></div>
+        <br /><br />
+        <input type="hidden" name="CS_TIPO_VAGA_ESTAGIO_ALT" id="CS_TIPO_VAGA_ESTAGIO_ALT" value="<?php echo $dados['CS_TIPO_VAGA_ESTAGIO'][0]; ?>" />
+    </fieldset>
 
-                <div id="camada" style="width:130px;">Nº do Empenho
-                    <select name="NB_EMPENHO_ALT" id="NB_EMPENHO_ALT" style="width:120px;">' . $arrayEmpenhoAlt . '</select></div>
-
-                <div id="camada" style="width:130px;">Dt. Empenho
-                    <input type="text" name="DT_EMPENHO_ALT" id="DT_EMPENHO_ALT" value="' . $dados['DT_EMPENHO'][0] . '" style="width:120px;" readonly="readonly" class="leitura"/></div>
-
-                <div id="camada" style="width:130px;">Dt. Liquida Empenho
-                    <input type="text" name="DT_LIQUIDACAO_EMP_ALT" id="DT_LIQUIDACAO_EMP_ALT" value="' . $dados['DT_LIQUIDACAO_EMP'][0] . '" style="width:120px;" /></div>
-
-                <div id="camada" style="width:130px;">Nº Documento
-                    <select name="NB_DOCUMENTO_ALT" id="NB_DOCUMENTO_ALT" style="width:120px;">' . $arrayDocumentoAlt . '</select></div>
-
-                <div id="camada" style="width:130px;">Sem Doc.
-                    <select name="NB_SEM_DOC_ALT" id="NB_SEM_DOC_ALT" style="width:120px;">' . $arraySemDocumentoAlt . '</select></div>
-
-                <div id="camada" style="width:130px;">Nº da Fatura
-                    <select name="NB_FATURA_ALT" id="NB_FATURA_ALT" style="width:120px;">' . $arrayNumFaturaAlt . '</select></div>
-
-                <div id="camada" style="width:130px;">Dt. Fatura
-                    <input type="text" name="DT_FATURA_ALT" id="DT_FATURA_ALT" value="' . $dados['DT_FATURA'][0] . '" style="width:120px;" readonly="readonly" class="leitura"/></div>
-
-                <div id="camada" style="width:130px;">Dt. Atesto Fatura
-                    <input type="text" name="DT_ATESTO_FATURA_ALT" id="DT_ATESTO_FATURA_ALT" value="' . $dados['DT_ATESTO_FATURA'][0] . '" style="width:120px;" /></div>
-
-                <div id="camada" style="width:130px;">Tombamento Inicial
-                    <input type="text" name="ID_TOMB_INICIAL_ALT" id="ID_TOMB_INICIAL_ALT" value="' . $dados['ID_TOMB_INICIAL'][0] . '" style="width:120px;" readonly="readonly" class="leitura"/></div>
-
-                <div id="camada" style="width:130px;">Tombamento Final
-                    <input type="text" name="ID_TOMB_FINAL_ALT" id="ID_TOMB_FINAL_ALT" value="' . $dados['ID_TOMB_FINAL'][0] . '" style="width:120px;" readonly="readonly" class="leitura"/></div>
-
-                <div id="camada" style="width:130px;"><font color="#FF0000">*</font>Estado Conservação
-                    <select name="CS_ESTADO_CONSERVACAO_ALT" id="CS_ESTADO_CONSERVACAO_ALT" style="width:120px;">' . $arrayEstadoConservAlt . '</select></div>
-
-                <input type="hidden" name="ID_ITEM_PATRIMONIO_ALT" id="ID_ITEM_PATRIMONIO_ALT" value="' . $dados['ID_ITEM_PATRIMONIO'][0] . '" />
-                <input type="hidden" name="NB_QUANTIDADE_RECIBO_PLAQUETA" id="NB_QUANTIDADE_RECIBO_PLAQUETA" value="' . $_SESSION['NB_QUANTIDADE_RECIBO_PLAQUETA'] . '" />
-            </fieldset>
-        ';
-
+    <?php
     if ($param) {
         echo '<script>alert("' . $param . '");</script>';
     }
@@ -394,6 +332,30 @@ if ($_REQUEST['identifier'] == "tabela") {
     gerarTabela($erro);
 } else if ($_REQUEST['identifier'] == "tabelaAlterarVagasSolicitadas") {
     gerarTabelaAlterar();
+} else if ($_REQUEST['identifier'] == "alterarVagasSolicitadas") {
+
+    $VO->ID_SOLICITACAO_ESTAGIO = $_SESSION['ID_SOLICITACAO_ESTAGIO'];
+    $VO->ID_ORGAO_ESTAGIO = $_SESSION['ID_ORGAO_ESTAGIO'];
+    $VO->ID_QUADRO_VAGAS_ESTAGIO = $_SESSION['ID_QUADRO_VAGAS_ESTAGIO'];
+
+    $VO->CS_TIPO_VAGA_ESTAGIO = $_REQUEST['CS_TIPO_VAGA_ESTAGIO'];
+    $VO->NB_QUANTIDADE = $_REQUEST['NB_QUANTIDADE'];
+    $VO->ID_CURSO_ESTAGIO = $_REQUEST['ID_CURSO_ESTAGIO'];
+
+    if ($acesso) {
+        if ($VO->ID_SOLICITACAO_ESTAGIO && $VO->ID_ORGAO_ESTAGIO && $VO->ID_QUADRO_VAGAS_ESTAGIO && $VO->CS_TIPO_VAGA_ESTAGIO && $VO->NB_QUANTIDADE) {
+            $retorno = $VO->alterarVagasSolicitadas();
+
+            if ($retorno['code'] == '1')
+                $erro = 'Registro já existe.';
+            else
+                $erro = $retorno['message'];
+        }else
+            $erro = 'Para Alterar escolha uma Quantidade.';
+    }else
+        $erro = "Você não tem permissão para realizar esta ação.";
+
+    gerarTabela($erro);
 } else if ($_REQUEST['identifier'] == 'atualizarInf') {
 
     $VO->ID_SOLICITACAO_ESTAGIO = $_SESSION['ID_SOLICITACAO_ESTAGIO'];
