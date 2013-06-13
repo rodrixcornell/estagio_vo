@@ -3,7 +3,7 @@ include "../../php/define.php";
 require_once $pathvo."supervisorVO.php";
 
 $modulo = 78;
-$programa = 1;
+$programa = 8;
 
 require_once "../autenticacao/validaPermissao.php";
 
@@ -16,16 +16,13 @@ function gerarTabela($param=''){
      
 	$VO = new supervisorVO(); 
         
-	$codigo                         = explode('_', $_REQUEST['NB_FUNCIONARIO']);
-        $VO->ID_PESSOA_FUNCIONARIO      = $codigo[0];
-        $VO->NB_FUNCIONARIO             = $codigo[1];
+	$VO->TX_NOME                    = $_REQUEST['TX_NOME']; 
 	$VO->TX_CARGO                   = $_REQUEST['TX_CARGO']; 
-        $VO->TX_FORMACAO                = $_REQUEST['TX_FORMACAO']; 
-	$page                           = $_REQUEST['PAGE'];
+   	$page                           = $_REQUEST['PAGE'];
 	 
 	$VO->preencherSessionPesquisar($_REQUEST);
 	
-	$qtd = 5;
+	$qtd = 15;
 	!$page ? $page = 1: false;
 	$primeiro = ($page*$qtd)-$qtd;
 	
@@ -41,10 +38,10 @@ function gerarTabela($param=''){
 		$dados = $VO->getVetor();
 		echo '<div id="status">'.$_SESSION['STATUS'].'</div>
 		<table width="100%" class="dataGrid">
-                            <tr>
-                                <th>Nome</th>
-								<th>Cargo</th>
-                                                                <th>Formação</th>
+                <tr>
+                   <th>Nome</th>
+				   <th>Cargo</th>
+                   <th>Formação</th>
 								';
 			//Somente ver a coluna de alterar se tiver acesso completo a tela					
 			if ($acesso) 
@@ -58,13 +55,13 @@ function gerarTabela($param=''){
                             <td align="center">'.$dados['TX_NOME'][$i].'</td>
 							<td align="center">'.$dados['TX_CARGO'][$i].'</td>
 							<td align="center">'.$dados['TX_FORMACAO'][$i].'</td>
-                                                        ';
+                          ';
 							
 		//Somente ver a coluna de alterar se tiver acesso completo a tela					
            if ($acesso) 
 		 			echo '<td align="center"> 
-								<a href="'.$dados['ID_PESSOA_FUNCIONARIO'][$i].'" id="alterar"><img src="'.$urlimg.'icones/editar.png" alt="itens" title="Alterar"/></a>
-								<a href="'.$dados['ID_PESSOA_FUNCIONARIO'][$i].'" id="excluir"><img src="'.$urlimg.'icones/excluirItem.png" alt="itens" title="Excluir"/></a></td>';
+								<a href="'.$dados['ID_PESSOA_SUPERVISOR'][$i].'" id="alterar"><img src="'.$urlimg.'icones/editar.png" alt="itens" title="Alterar"/></a>
+								<a href="'.$dados['ID_PESSOA_SUPERVISOR'][$i].'" id="excluir"><img src="'.$urlimg.'icones/excluirItem.png" alt="itens" title="Excluir"/></a></td>';
 					echo '</tr>';
 		}
 		
@@ -100,20 +97,15 @@ if ($_REQUEST['identifier'] == "tabela"){
     gerarTabela();		
     
 }else if ($_REQUEST['identifier'] == 'excluir'){
-          $codigo             = explode('_', $_REQUEST['ID']);
-          $VO->ID_PESSOA_FUNCIONARIO   = $codigo[0];
-          $VO->NB_FUNCIONARIO          = $codigo[1];
-        
-	
+    $VO->ID_PESSOA_SUPERVISOR             = $_REQUEST['ID'];
+       	
 	if ($acesso){
-		
 		$retorno = $VO->excluir();
 		
 		if (is_array($retorno))
 				$erro = 'Este registro não pode ser excluído pois possui dependentes.';
 		else
 		 	$_SESSION['STATUS']	= '*Registro excluído com sucesso!';
-		
 			
 	}else
 		$erro = "Você não tem permissão para realizar esta ação.";
