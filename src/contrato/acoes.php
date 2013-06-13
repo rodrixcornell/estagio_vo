@@ -22,9 +22,10 @@ function gerarTabela($param = '') {
     $VO->TX_TCE = $_REQUEST['TX_TCE'];
     $VO->TX_NOME = $_REQUEST['TX_NOME'];
     $VO->NB_CPF = $_REQUEST['NB_CPF'];
+
     $page = $_REQUEST['PAGE'];
 
-    print_r($_REQUEST);
+
 
     $VO->preencherSessionPesquisar($_REQUEST);
 
@@ -44,12 +45,13 @@ function gerarTabela($param = '') {
         $dados = $VO->getVetor();
         echo '<div id="status">' . $_SESSION['STATUS'] . '</div>
 		<table width="100%" class="dataGrid">
-                            <tr>
-                                <th>Código do Contrato</th>
-                                <th>Órgão Gestor</th>
-                                <th>Agente Solicitante</th>
-                                <th>Estagiário</th>
-                                <th>CPF</th>';
+                <tr>
+                    <th>Código do Contrato</th>
+                    <th>Órgão Gestor</th>
+                    <th>Agente de Integração</th>
+                    <th>Agente Solicitante</th>
+                    <th>Estagiário</th>
+                    <th>CPF</th>';
         //Somente ver a coluna de alterar se tiver acesso completo a tela					
         if ($acesso)
             echo '<th style="width:50px;"></th>';
@@ -59,17 +61,18 @@ function gerarTabela($param = '') {
             ($bgcolor == '#E6E6E6') ? $bgcolor = '#F0EFEF' : $bgcolor = '#E6E6E6';
 
             echo '<tr bgcolor="' . $bgcolor . '">
-                            <td align="center">' . $dados[''][$i] . '</td>
-                            <td align="center">' . $dados[''][$i] . '</td>
-                            <td align="center">' . $dados[''][$i] . '</td>
-                            <td align="center">' . $dados[''][$i] . '</td>
-                            <td align="center">' . $dados[''][$i] . '</td>';
+                    <td align="center">' . $dados['TX_CODIGO'][$i] . '</td>
+                    <td align="center">' . $dados['TX_ORGAO_GESTOR_ESTAGIO'][$i] . '</td>
+                    <td align="center">' . $dados['TX_ORGAO_ESTAGIO'][$i] . '</td>
+                    <td align="center">' . $dados['TX_AGENCIA_ESTAGIO'][$i] . '</td>
+                    <td align="center">' . $dados['TX_NOME'][$i] . '</td>
+                    <td align="center">' . $dados['NB_CPF'][$i] . '</td>';
 
 
             //Somente ver a coluna de alterar se tiver acesso completo a tela					
             if ($acesso)
                 echo '<td align="center"> 
-                    <a href="' . $dados['ID_CONTRATO'][$i] . '" id="alterar"><img src="' . $urlimg . 'icones/editar.png" alt="itens" title="Alterar"/></a></td>';
+                       <a href="' . $dados['ID_CONTRATO'][$i] . '" id="alterar"><img src="' . $urlimg . 'icones/editar.png" alt="itens" title="Alterar"/></a></td>';
             echo '</tr>';
         }
 
@@ -90,7 +93,7 @@ function gerarTabela($param = '') {
         }
     }else {
         echo '<div id="status">' . $_SESSION['STATUS'] . '</div>
-				<div id="nao_encontrado">Nenhum registro encontrado.</div>';
+	      <div id="nao_encontrado">Nenhum registro encontrado.</div>';
     }
 
     if ($param)
@@ -99,17 +102,12 @@ function gerarTabela($param = '') {
     unset($_SESSION['STATUS']);
 }
 
-
 //Instancia da classe contratoVO();
 $VO = new contratoVO();
 
-
-
 // Tabela do master
 if ($_REQUEST['identifier'] == "tabela") {
-   
-     gerarTabela($erro);  
-    
+    gerarTabela($erro);
 }
 //Buscar ComboBox de Codigo de seleção 
 else if ($_REQUEST['identifier'] == "codSelecao") {
@@ -117,7 +115,7 @@ else if ($_REQUEST['identifier'] == "codSelecao") {
     $VO->ID_ORGAO_ESTAGIO = $_REQUEST['ID_ORGAO_ESTAGIO'];
 
     $total = $VO->buscarCodSelecao();
-    
+
     if ($total) {
         $dados = $VO->getVetor();
         echo '<option value="">Escolha...</option>';
@@ -125,5 +123,86 @@ else if ($_REQUEST['identifier'] == "codSelecao") {
             echo '<option value="' . $dados['CODIGO'][$i] . '">' . $dados['TX_COD_SELECAO'][$i] . '</option>';
         }
     }
+}
+// trazer todas as lotações de um orgão solicitante
+else if ($_REQUEST['identifier'] == "lotacao") {
+
+    $VO->NB_COD_UNIDADE = $_REQUEST['NB_COD_UNIDADE'];
+
+    $total = $VO->buscarLotacao();
+
+    if ($total) {
+        $dados = $VO->getVetor();
+        echo '<option value="">Escolha...</option>';
+        for ($i = 0; $i < $total; $i++) {
+            echo '<option value="' . $dados['CODIGO'][$i] . '">' . $dados['ORGAO'][$i] . '</option>';
+        }
+    }
+}
+// Trazer todos os candidatos de uma seleção
+else if ($_REQUEST['identifier'] == "candidato") {
+
+    $VO->ID_SELECAO_ESTAGIO = $_REQUEST['ID_SELECAO_ESTAGIO'];
+
+    $total = $VO->buscarCandidato();
+
+    if ($total) {
+        $dados = $VO->getVetor();
+        echo '<option value="">Escolha...</option>';
+        for ($i = 0; $i < $total; $i++) {
+            echo '<option value="' . $dados['CODIGO'][$i] . '">' . $dados['TX_NOME'][$i] . '</option>';
+        }
+    }
+}
+// Busca de E/ndereço do Orgão gestor
+else if ($_REQUEST['identifier'] == "buscarEndereco") {
+
+    $VO->ID_UNIDADE_ORG = $_REQUEST['ID_UNIDADE_ORG'];
+
+    $VO->buscarEnderecoOrgaoGestor();
+    $dados = $VO->getVetor();
+
+    echo $dados['TX_ENDERECO'][0];
+}
+//busca de Nome do Secretario do Orgão Gestor
+else if ($_REQUEST['identifier'] == "buscarNome") {
+
+    $VO->ID_UNIDADE_ORG = $_REQUEST['ID_UNIDADE_ORG'];
+
+    $VO->buscarSecretarioOrgaoGestor();
+    $dados = $VO->getVetor();
+
+    echo $dados['TX_FUNCIONARIO'][0];
+}
+else if ($_REQUEST['identifier'] == "cargoSupervisor") {
+
+    $VO->ID_PESSOA_SUPERVISOR = $_REQUEST['ID_PESSOA_SUPERVISOR'];
+
+    $VO->buscarCargoSupervisor();
+    $dados = $VO->getVetor();
+
+        
+    echo $dados['TX_CARGO'][0];
+}
+else if ($_REQUEST['identifier'] == "buscarValor") {
+
+    $VO->ID_BOLSA_ESTAGIO = $_REQUEST['ID_BOLSA_ESTAGIO'];
+
+    $VO->buscarBolsa();
+    $dados = $VO->getVetor();
+
+        
+    echo $dados['NB_VALOR'][0];
+}
+// buscar todos os documentos(CPF & RG) do candidato
+else if ($_REQUEST['identifier'] == "buscarDocuments") {
+
+    $VO->ID_PESSOA_ESTAGIARIO = $_REQUEST['ID_PESSOA_ESTAGIARIO'];
+
+    $VO->buscarDocuments();
+    $dados = $VO->getVetor();
+//    $dados= $VO->buscarDocuments();
+
+    echo json_encode($dados);
 }
 ?>

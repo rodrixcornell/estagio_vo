@@ -3,7 +3,7 @@ include "../../php/define.php";
 require_once $pathvo."supervisorVO.php";
 
 $modulo = 78;
-$programa = 1;
+$programa = 8;
 
 require_once "../autenticacao/validaPermissao.php";
 
@@ -14,20 +14,15 @@ function gerarTabela($param=''){
 	require_once $pathvo."supervisorVO.php";
 	$acesso = $GLOBALS['acesso']; //Acessar a Variavel global;
      
-	$VO = new supervisorVO();
-	$VO->NB_FUNCIONARIO             = $_REQUEST['NB_FUNCIONARIO'];
-	$VO->TX_CARGO                   = $_REQUEST['TX_CARGO'];
-        $VO->TX_FORMACAO 	        = $_REQUEST['TX_FORMACAO'];
-        $VO->ID_CONSELHO 	        = $_REQUEST['ID_CONSELHO'];
-        $VO->NB_INSCRICAO_CONSELHO 	= $_REQUEST['NB_INSCRICAO_CONSELHO'];
-        $VO->TX_CURRICULO 	        = $_REQUEST['TX_CURRICULO'];
-        $VO->ID_PESSOA_SUPERVISOR       = $_REQUEST['ID_PESSOA_SUPERVISOR'];
-        $VO->ID_PESSOA_FUNCIONARIO 	= $_REQUEST['ID_PESSOA_FUNCIONARIO'];
-	$page                           = $_REQUEST['PAGE'];
-	
+	$VO = new supervisorVO(); 
+        
+	$VO->TX_NOME                    = $_REQUEST['TX_NOME']; 
+	$VO->TX_CARGO                   = $_REQUEST['TX_CARGO']; 
+   	$page                           = $_REQUEST['PAGE'];
+	 
 	$VO->preencherSessionPesquisar($_REQUEST);
 	
-	$qtd = 5;
+	$qtd = 15;
 	!$page ? $page = 1: false;
 	$primeiro = ($page*$qtd)-$qtd;
 	
@@ -38,14 +33,15 @@ function gerarTabela($param=''){
 	$VO->Reg_inicio = $primeiro;
 	$VO->Reg_quantidade = $qtd;
 	$tot_da_pagina = $VO->pesquisar();
+        
 	if ($tot_da_pagina){
 		$dados = $VO->getVetor();
 		echo '<div id="status">'.$_SESSION['STATUS'].'</div>
 		<table width="100%" class="dataGrid">
-                            <tr>
-                                <th>Nome</th>
-								<th>Cargo</th>
-                                                                <th>Formação</th>
+                <tr>
+                   <th>Nome</th>
+				   <th>Cargo</th>
+                   <th>Formação</th>
 								';
 			//Somente ver a coluna de alterar se tiver acesso completo a tela					
 			if ($acesso) 
@@ -56,16 +52,16 @@ function gerarTabela($param=''){
                     ($bgcolor == '#E6E6E6') ? $bgcolor = '#F0EFEF' : $bgcolor = '#E6E6E6';
 
                     echo '<tr bgcolor="'.$bgcolor.'">
-                            <td align="center">'.$dados['NB_FUNCIONARIO'][$i].'</td>
+                            <td align="center">'.$dados['TX_NOME'][$i].'</td>
 							<td align="center">'.$dados['TX_CARGO'][$i].'</td>
 							<td align="center">'.$dados['TX_FORMACAO'][$i].'</td>
-                                                        ';
+                          ';
 							
 		//Somente ver a coluna de alterar se tiver acesso completo a tela					
            if ($acesso) 
 		 			echo '<td align="center"> 
-								<a href="'.$dados['ID_PESSOA_FUNCIONARIO'][$i].'" id="alterar"><img src="'.$urlimg.'icones/editar.png" alt="itens" title="Alterar"/></a>
-								<a href="'.$dados['ID_PESSOA_FUNCIONARIO'][$i].'" id="excluir"><img src="'.$urlimg.'icones/excluirItem.png" alt="itens" title="Excluir"/></a></td>';
+								<a href="'.$dados['ID_PESSOA_SUPERVISOR'][$i].'" id="alterar"><img src="'.$urlimg.'icones/editar.png" alt="itens" title="Alterar"/></a>
+								<a href="'.$dados['ID_PESSOA_SUPERVISOR'][$i].'" id="excluir"><img src="'.$urlimg.'icones/excluirItem.png" alt="itens" title="Excluir"/></a></td>';
 					echo '</tr>';
 		}
 		
@@ -98,20 +94,18 @@ function gerarTabela($param=''){
 $VO = new supervisorVO();
 
 if ($_REQUEST['identifier'] == "tabela"){
-	gerarTabela($erro);
+    gerarTabela();		
+    
 }else if ($_REQUEST['identifier'] == 'excluir'){
-	
-	$VO->ID_PESSOA_FUNCIONARIO 		= $_REQUEST['ID'];
-	
+    $VO->ID_PESSOA_SUPERVISOR             = $_REQUEST['ID'];
+       	
 	if ($acesso){
-		
 		$retorno = $VO->excluir();
 		
 		if (is_array($retorno))
 				$erro = 'Este registro não pode ser excluído pois possui dependentes.';
 		else
 		 	$_SESSION['STATUS']	= '*Registro excluído com sucesso!';
-		
 			
 	}else
 		$erro = "Você não tem permissão para realizar esta ação.";
