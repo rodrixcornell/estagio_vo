@@ -1,12 +1,11 @@
 <?php
 require_once "../../php/define.php";
-require_once $path."src/supervisor/arrays.php";
 require_once $pathvo."supervisorVO.php";
 
 $modulo = 78;
-$programa = 1;
+$programa = 8;
 $pasta = 'supervisor';
-$current = 8;
+$current = 1;
 $titulopage = 'Supervisor de Estágio';
 
 require_once "../autenticacao/validaPermissao.php";

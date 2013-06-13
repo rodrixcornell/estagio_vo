@@ -12,5 +12,4 @@ $VO->pesquisarConselho();
 	
 $smarty->assign("arrayFuncionario"    	, $arrayFuncionario);
 $smarty->assign("arrayConselho"    	, $arrayConselho);
-//$smarty->assign("arrayUnidadeDetail", $arrayUnidadeDetail);
 ?>
