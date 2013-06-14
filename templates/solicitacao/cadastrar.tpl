@@ -32,7 +32,7 @@
                 <input type="text" name="TX_COD_SOLICITACAO" id="TX_COD_SOLICITACAO" value="{$VO->TX_COD_SOLICITACAO}"  style="width:200px;" /></div>
 
             <br />
-            <div id="camada" style="font-family:Verdana, Geneva, sans-serif; width:410px;" >
+            <div id="camada" style="font-family:Verdana, Geneva, sans-serif; width:310px;" >
                 <font color="#FF0000">*</font>Quadro de Vagas de Estágio: <font color="#FF0000">{$validar.ID_QUADRO_VAGAS_ESTAGIO}</font>
                 <select name="ID_QUADRO_VAGAS_ESTAGIO" id="ID_QUADRO_VAGAS_ESTAGIO" style="width:300px;">
                     {html_options options=$arrayQuadroVagasEstagio selected=$VO->ID_QUADRO_VAGAS_ESTAGIO}

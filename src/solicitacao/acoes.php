@@ -1,5 +1,4 @@
 <?php
-
 include "../../php/define.php";
 require_once $path . "src/solicitacao/arrays.php";
 require_once $pathvo . "solicitacaoVO.php";
@@ -19,6 +18,8 @@ function gerarTabela($param = '') {
     $VO = new solicitacaoVO();
     $VO->ID_SOLICITACAO_ESTAGIO = $_SESSION['ID_SOLICITACAO_ESTAGIO'];
     $VO->ID_ORGAO_ESTAGIO = $_SESSION['ID_ORGAO_ESTAGIO'];
+    $VO->ID_QUADRO_VAGAS_ESTAGIO = $_SESSION['ID_QUADRO_VAGAS_ESTAGIO'];
+
     $page = $_REQUEST['PAGE'];
 
 
@@ -68,8 +69,8 @@ function gerarTabela($param = '') {
             if ($acesso)
                 echo '
                     <td align="center" class="icones">
-                        <a href="' . $dados['CODIGO'][$i] . '" id="alterar" ><img src="' . $urlimg . 'icones/alterarItem.png" title="Excluir Registro"/></a>
-                        <a href="' . $dados['CODIGO'][$i] . '" id="excluir" ><img src="' . $urlimg . 'icones/excluirItem.png" title="Excluir Registro"/></a></td>';
+                        <a href="' . $dados['CS_TIPO_VAGA_ESTAGIO'][$i] . '" id="alterar" ><img src="' . $urlimg . 'icones/alterarItem.png" title="Excluir Registro"/></a>
+                        <a href="' . $dados['CS_TIPO_VAGA_ESTAGIO'][$i] . '" id="excluir" ><img src="' . $urlimg . 'icones/excluirItem.png" title="Excluir Registro"/></a></td>';
             echo '</tr>';
         }
 
@@ -91,6 +92,83 @@ function gerarTabela($param = '') {
 
     if ($param)
         echo '<script>alert("' . $param . '")</script>';
+}
+
+//-----------------------------------------------------------------------------
+
+function gerarTabelaAlterar($param = '') {
+    include "../../php/define.php";
+    require_once $pathvo . "solicitacaoVO.php";
+    $acesso = $GLOBALS['acesso']; //Acessar a Variavel global;
+
+    $VO = new solicitacaoVO();
+    $VO->ID_SOLICITACAO_ESTAGIO = $_SESSION['ID_SOLICITACAO_ESTAGIO'];
+    $VO->ID_ORGAO_ESTAGIO = $_SESSION['ID_ORGAO_ESTAGIO'];
+    $VO->ID_QUADRO_VAGAS_ESTAGIO = $_SESSION['ID_QUADRO_VAGAS_ESTAGIO'];
+
+    $VO->CS_TIPO_VAGA_ESTAGIO = $_REQUEST['CS_TIPO_VAGA_ESTAGIO'];
+
+    $VO->buscarVagasSolicitadas();
+    $dados = $VO->getVetor();
+
+    $VO->buscarCursos();
+    $arrayCursos = $VO->getArray("TX_CURSO_ESTAGIO");
+    foreach ($arrayCursos as $key => $value) {
+        ($dados['ID_CURSO_ESTAGIO'][0] == $key) ? $selected = 'selected' : $selected = '';
+        $arrayCursosAlt .= '<option value="' . $key . '" ' . $selected . '>' . $value . '</option> ';
+    }
+    ?>
+
+    <script>
+        $(document).ready(function(){
+            $('#NB_QUANTIDADE_ALT').setMask({ mask:'999999' });
+        })
+    </script>
+    <table width="100%" class="dataGrid" >
+        <tr bgcolor="#E0E0E0">
+            <td style="width:150px;"><strong>Tipo Vaga Estágio</strong></td>
+            <td><? echo $dados['TX_TIPO_VAGA_ESTAGIO'][0] ?></td>
+        </tr>
+    </table>
+    <br />
+
+    <fieldset>
+        <legend>Cadastrar Item Adquirido</legend>
+
+        <div id="camada" style="width:90px;" >
+            <strong><font color="#FF0000">*</font>Quantidade</strong><br />
+            <input type="text" name="NB_QUANTIDADE_ALT" id="NB_QUANTIDADE_ALT" value="<?php echo $dados['NB_QUANTIDADE'][0]; ?>" style="width:80px;" /></div>
+
+        <div id="camada" style="width:210px;">
+            <strong>Curso</strong><br />
+            <select name="ID_CURSO_ESTAGIO_ALT" id="ID_CURSO_ESTAGIO_ALT" style="width:200px;"><?php echo $arrayCursosAlt; ?></select></div>
+
+        <br />
+        <div id="camada" style="font-family:Verdana, Geneva, sans-serif; width:360px;" >
+            Usuário do Cadastro:
+            <input type="text" name="TX_FUNCIONARIO_CAD_ALT" id="TX_FUNCIONARIO_CAD_ALT" value="<?php echo $dados['TX_FUNCIONARIO_CAD'][0]; ?>"  style="width:350px;" readonly="readonly" class="leitura"/></div>
+
+        <div id="camada" style="font-family:Verdana, Geneva, sans-serif; width:210px;" >
+            Data do Cadastro:
+            <input type="text" name="DT_CADASTRO_ALT" id="DT_CADASTRO_ALT" value="<?php echo $dados['DT_CADASTRO'][0]; ?>"  style="width:200px;" readonly="readonly" class="leitura"/></div>
+
+        <br />
+        <div id="camada" style="font-family:Verdana, Geneva, sans-serif; width:360px;" >
+            Usuário da Atualização:
+            <input type="text" name="TX_FUNCIONARIO_ATUAL_ALT" id="TX_FUNCIONARIO_ATUAL_ALT" value="<?php echo $dados['TX_FUNCIONARIO_ATUAL'][0]; ?>"  style="width:350px;" readonly="readonly" class="leitura"/></div>
+
+        <div id="camada" style="font-family:Verdana, Geneva, sans-serif; width:210px;" >
+            Data da Atualização:
+            <input type="text" name="DT_ATUALIZACAO_ALT" id="DT_ATUALIZACAO_ALT" value="<?php echo $dados['DT_ATUALIZACAO'][0]; ?>"  style="width:200px;" readonly="readonly" class="leitura"/></div>
+
+        <br /><br />
+        <input type="hidden" name="CS_TIPO_VAGA_ESTAGIO_ALT" id="CS_TIPO_VAGA_ESTAGIO_ALT" value="<?php echo $dados['CS_TIPO_VAGA_ESTAGIO'][0]; ?>" />
+    </fieldset>
+
+    <?php
+    if ($param) {
+        echo '<script>alert("' . $param . '");</script>';
+    }
 }
 
 $VO = new solicitacaoVO();
@@ -148,7 +226,7 @@ if ($_REQUEST['identifier'] == "tabela") {
             //if ($acesso)
             echo '
                 <td align="center">
-                    <a href="' . $dados['ID_SOLICITACAO_ESTAGIO'][$i] . '" id="alterar"><img src="' . $urlimg . 'icones/editar.png" alt="itens" title="Alterar"/></a></td>';
+                    <a href="' . $dados['ID_SOLICITACAO_ESTAGIO'][$i] . '_' . $dados['ID_ORGAO_ESTAGIO'][$i] . '" id="alterar"><img src="' . $urlimg . 'icones/editar.png" alt="itens" title="Alterar"/></a></td>';
             echo '</tr>';
         }
 
@@ -168,25 +246,30 @@ if ($_REQUEST['identifier'] == "tabela") {
     }else {
         echo '<div id="nao_encontrado">Nenhum registro encontrado.</div>';
     }
-} else if ($_REQUEST['identifier'] == "pesquisarQuadroVagasEstagio") {
+} else if ($_REQUEST['identifier'] == "pesquisarTipoVaga") {
 
-    $VO->ID_ORGAO_GESTOR_ESTAGIO = $_REQUEST['ID_ORGAO_GESTOR_ESTAGIO'];
-    $VO->ID_AGENCIA_ESTAGIO = $_REQUEST['ID_AGENCIA_ESTAGIO'];
+    $VO->ID_SOLICITACAO_ESTAGIO = $_SESSION['ID_SOLICITACAO_ESTAGIO'];
+    $VO->ID_ORGAO_ESTAGIO = $_SESSION['ID_ORGAO_ESTAGIO'];
+    $VO->ID_AGENCIA_ESTAGIO = $_SESSION['ID_AGENCIA_ESTAGIO'];
+    $VO->ID_QUADRO_VAGAS_ESTAGIO = $_SESSION['ID_QUADRO_VAGAS_ESTAGIO'];
 
-    $total = $VO->pesquisarQuadroVagasEstagio();
+    $total = $VO->pesquisarTipoVaga();
 
     if ($total) {
         $dados = $VO->getVetor();
         echo '<option value="">Escolha...</option>';
         for ($i = 0; $i < $total; $i++) {
-            echo '<option value="' . $dados['CODIGO'][$i] . '">' . $dados['TX_CODIGO'][$i] . '</option>';
+            echo '<option value="' . $dados['CODIGO'][$i] . '">' . $dados['TX_TIPO_VAGA_ESTAGIO'][$i] . '</option>';
         }
-    }
+    } else
+        echo '<option value="">Nenhum registro encontrado</option>';
 } else if ($_REQUEST['identifier'] == "buscarQuantidade") {
 
     $VO->ID_ORGAO_ESTAGIO = $_SESSION['ID_ORGAO_ESTAGIO'];
-    $VO->ID_QUADRO_VAGAS_ESTAGIO = $_REQUEST['ID_QUADRO_VAGAS_ESTAGIO'];
+    $VO->ID_QUADRO_VAGAS_ESTAGIO = $_SESSION['ID_QUADRO_VAGAS_ESTAGIO'];
     $VO->CS_TIPO_VAGA_ESTAGIO = $_REQUEST['CS_TIPO_VAGA_ESTAGIO'];
+    $VO->ID_CURSO_ESTAGIO = $_REQUEST['ID_CURSO_ESTAGIO'];
+    $VO->NB_QUANTIDADE = $_REQUEST['NB_QUANTIDADE'];
 
     $VO->buscarQuantidade();
 
@@ -208,17 +291,16 @@ if ($_REQUEST['identifier'] == "tabela") {
 
     $VO->ID_SOLICITACAO_ESTAGIO = $_SESSION['ID_SOLICITACAO_ESTAGIO'];
     $VO->ID_ORGAO_ESTAGIO = $_SESSION['ID_ORGAO_ESTAGIO'];
+    $VO->ID_QUADRO_VAGAS_ESTAGIO = $_SESSION['ID_QUADRO_VAGAS_ESTAGIO'];
 
     $valor = explode('_', $_REQUEST['ID_CS_CODIGO']);
-    $VO->ID_QUADRO_VAGAS_ESTAGIO = $valor[0];
-    $VO->CS_TIPO_VAGA_ESTAGIO = $valor[1];
-    $VO->ID_CURSO_ESTAGIO = $valor[2];
+    $VO->CS_TIPO_VAGA_ESTAGIO = $valor[0];
 
     $VO->NB_QUANTIDADE = $_REQUEST['NB_QUANTIDADE'];
     $VO->ID_CURSO_ESTAGIO = $_REQUEST['ID_CURSO_ESTAGIO'];
 
     if ($acesso) {
-        if ($VO->ID_QUADRO_VAGAS_ESTAGIO && $VO->CS_TIPO_VAGA_ESTAGIO && $VO->ID_CURSO_ESTAGIO && $VO->NB_QUANTIDADE) {
+        if ($VO->ID_SOLICITACAO_ESTAGIO && $VO->ID_ORGAO_ESTAGIO && $VO->ID_QUADRO_VAGAS_ESTAGIO && $VO->CS_TIPO_VAGA_ESTAGIO && $VO->NB_QUANTIDADE) {
             $retorno = $VO->inserirVagasSolicitadas();
 
             if ($retorno) {
@@ -230,15 +312,58 @@ if ($_REQUEST['identifier'] == "tabela") {
         $erro = "Você não tem permissão para realizar esta ação.";
 
     gerarTabela($erro);
-}else if ($_REQUEST['identifier'] == 'atualizarInf') {
+} else if ($_REQUEST['identifier'] == "excluirVagasSolicitadas") {
 
-    $VO->ID_RESP_UNID_IRP = $_SESSION['ID_RESP_UNID_IRP'];
-    ;
+    $VO->ID_SOLICITACAO_ESTAGIO = $_SESSION['ID_SOLICITACAO_ESTAGIO'];
+    $VO->ID_ORGAO_ESTAGIO = $_SESSION['ID_ORGAO_ESTAGIO'];
+    $VO->ID_QUADRO_VAGAS_ESTAGIO = $_SESSION['ID_QUADRO_VAGAS_ESTAGIO'];
+
+    $VO->CS_TIPO_VAGA_ESTAGIO = $_REQUEST['CS_TIPO_VAGA_ESTAGIO'];
+
+    if ($acesso) {
+        $retorno = $VO->excluirVagasSolicitadas();
+
+        if (is_array($retorno)) {
+            $erro = 'Este registro não pode ser excluído pois possui dependentes.';
+        }
+    }else
+        $erro = "Você não tem permissão para realizar esta ação.";
+
+    gerarTabela($erro);
+} else if ($_REQUEST['identifier'] == "tabelaAlterarVagasSolicitadas") {
+    gerarTabelaAlterar();
+} else if ($_REQUEST['identifier'] == "alterarVagasSolicitadas") {
+
+    $VO->ID_SOLICITACAO_ESTAGIO = $_SESSION['ID_SOLICITACAO_ESTAGIO'];
+    $VO->ID_ORGAO_ESTAGIO = $_SESSION['ID_ORGAO_ESTAGIO'];
+    $VO->ID_QUADRO_VAGAS_ESTAGIO = $_SESSION['ID_QUADRO_VAGAS_ESTAGIO'];
+
+    $VO->CS_TIPO_VAGA_ESTAGIO = $_REQUEST['CS_TIPO_VAGA_ESTAGIO'];
+    $VO->NB_QUANTIDADE = $_REQUEST['NB_QUANTIDADE'];
+    $VO->ID_CURSO_ESTAGIO = $_REQUEST['ID_CURSO_ESTAGIO'];
+
+    if ($acesso) {
+        if ($VO->ID_SOLICITACAO_ESTAGIO && $VO->ID_ORGAO_ESTAGIO && $VO->ID_QUADRO_VAGAS_ESTAGIO && $VO->CS_TIPO_VAGA_ESTAGIO && $VO->NB_QUANTIDADE) {
+            $retorno = $VO->alterarVagasSolicitadas();
+
+            if ($retorno['code'] == '1')
+                $erro = 'Registro já existe.';
+            else
+                $erro = $retorno['message'];
+        }else
+            $erro = 'Para Alterar escolha uma Quantidade.';
+    }else
+        $erro = "Você não tem permissão para realizar esta ação.";
+
+    gerarTabela($erro);
+} else if ($_REQUEST['identifier'] == 'atualizarInf') {
+
+    $VO->ID_SOLICITACAO_ESTAGIO = $_SESSION['ID_SOLICITACAO_ESTAGIO'];
 
     $dados = $VO->atualizarInf();
 
     echo json_encode($dados);
-}/* else if ($_REQUEST['identifier'] == "inserirTodas"){
+} /* else if ($_REQUEST['identifier'] == "inserirTodas"){
 
   $VO->ID_USUARIO 			= $_SESSION['ID_USUARIO_ACESSO'];
 
@@ -246,20 +371,5 @@ if ($_REQUEST['identifier'] == "tabela") {
 
   gerarTabela();
 
-  } */ else if ($_REQUEST['identifier'] == 'excluirUnidade') {
-
-    $VO->ID_RESP_UNID_IRP = $_SESSION['ID_RESP_UNID_IRP'];
-    $VO->ID_UNIDADE_IRP = $_REQUEST['ID_UNIDADE_IRP'];
-
-    if ($acesso) {
-
-        $retorno = $VO->excluirUnidade();
-
-        if (is_array($retorno))
-            $erro = 'Este registro não pode ser excluído pois possui dependentes.';
-    }else
-        $erro = "Você não tem permissão para realizar esta ação.";
-
-    gerarTabela($erro);
-}
+  } */
 ?>
