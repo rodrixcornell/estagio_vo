@@ -23,14 +23,15 @@ $VO = new solicitacaoVO();
 if ($_POST) {
     $VO->configuracao();
     //ID_ORGAO_GESTOR_ESTAGIO, ID_AGENCIA_ESTAGIO, ID_ORGAO_ESTAGIO, TX_COD_SOLICITACAO, CS_SITUACAO, TX_JUSTIFICATIVA, ID_SOLICITACAO_ESTAGIO, ID_QUADRO_VAGAS_ESTAGIO
-    $VO->setCaracteristica('ID_ORGAO_GESTOR_ESTAGIO,ID_AGENCIA_ESTAGIO,ID_ORGAO_ESTAGIO,TX_COD_SOLICITACAO,ID_QUADRO_VAGAS_ESTAGIO', 'obrigatorios');
+    $VO->setCaracteristica('ID_ORGAO_GESTOR_ESTAGIO,ID_ORGAO_ESTAGIO,ID_QUADRO_VAGAS_ESTAGIO', 'obrigatorios');
     $validar = $VO->preencher($_POST);
 
-    $tamanho_cod = strlen($_POST['TX_COD_SOLICITACAO']);
+    //$tamanho_cod = strlen($_POST['TX_COD_SOLICITACAO']);
     $tamanho_just = strlen($_POST['TX_JUSTIFICATIVA']);
-    if ($tamanho_cod > 20) {
-        $validar['TX_COD_SOLICITACAO'] = 'Valor máximo de 20, atual de: ' . $tamanho_cod;
-    } else if ($tamanho_just > 255) {
+//    if ($tamanho_cod > 20) {
+//        $validar['TX_COD_SOLICITACAO'] = 'Valor máximo de 20, atual de: ' . $tamanho_cod;
+//    } else
+    if ($tamanho_just > 255) {
         $validar['TX_JUSTIFICATIVA'] = 'Valor máximo de 255, atual de: ' . $tamanho_just;
     } else if (!$validar) {
         $id_pk = $VO->inserir();
@@ -45,7 +46,7 @@ if ($_POST) {
         }
     }
 
-    if ($VO->ID_ORGAO_ESTAGIO && $VO->ID_AGENCIA_ESTAGIO) {
+    if ($VO->ID_ORGAO_GESTOR_ESTAGIO && $VO->ID_ORGAO_ESTAGIO) {
         $VO->pesquisarQuadroVagasEstagio();
         $smarty->assign("arrayQuadroVagasEstagio", $VO->getArray("TX_CODIGO"));
     }
