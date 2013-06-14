@@ -214,8 +214,8 @@ class RepositorioContrato extends Repositorio {
                     A.ID_SELECAO_ESTAGIO = B.ID_SELECAO_ESTAGIO
                     AND B.ID_RECRUTAMENTO_ESTAGIO = C.ID_RECRUTAMENTO_ESTAGIO
                     AND C.ID_PESSOA_ESTAGIARIO = D.ID_PESSOA_ESTAGIARIO
-                    AND A.CS_SITUACAO =1 
-                    AND B.CS_SITUACAO =1
+                    --AND A.CS_SITUACAO =2 
+                    --AND B.CS_SITUACAO =2
                     AND C.CS_SITUACAO =1 
                     AND B.ID_SELECAO_ESTAGIO =" . $VO->ID_SELECAO_ESTAGIO;
         return $this->sqlVetor($query);
@@ -427,8 +427,8 @@ class RepositorioContrato extends Repositorio {
                         A.ID_SELECAO_ESTAGIO    = B.ID_SELECAO_ESTAGIO
                         AND B.ID_RECRUTAMENTO_ESTAGIO = C.ID_RECRUTAMENTO_ESTAGIO
                         AND C.ID_PESSOA_ESTAGIARIO    = D.ID_PESSOA_ESTAGIARIO
-                        AND A.CS_SITUACAO             =1
-                        AND B.CS_SITUACAO             =1
+                        --AND A.CS_SITUACAO             =2
+                        --AND B.CS_SITUACAO             =2
                         AND C.CS_SITUACAO             =1 
                         AND D.ID_PESSOA_ESTAGIARIO  =" . $VO->ID_PESSOA_ESTAGIARIO;
         return $this->sqlVetor($query);
