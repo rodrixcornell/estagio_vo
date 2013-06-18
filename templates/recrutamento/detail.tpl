@@ -84,9 +84,23 @@
         <div id="tabelaVagas"></div>
  	
         
+        <div id="dialog-tabela" title="Candidatos do Recrutamento">
+        
+            <div id="tabelaCand"></div>
+              <div class="fundoForm">
+                <img src="{$urlimg}icones/loader3.gif" >
+            </div>
+                
+        
+        </div>
+
+	        
         <div id="botoesInferiores">
             <a href="{$url}src/{$pasta}/index.php"><img src="{$urlimg}icones/voltar.png" alt="Voltar" title="Voltar" class="voltar" /></a>
             <a href="{$url}src/{$pasta}/index.php"><img src="{$urlimg}icones/finalizar.png" alt="Finalizar" title="Finalizar" class="finalizar"/></a>
         </div>
+        
+         
+                
     </div>
 </div>

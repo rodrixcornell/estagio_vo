@@ -123,3 +123,22 @@ div.simpleTabsContent.currentTab { display:block; }
 #botoesInferiores .voltar{
 	float:left;
 }
+
+.fundoForm{
+	display: none;
+	height:140px;
+	position: absolute;
+	padding-top:90px;
+	text-align: center;
+	text-decoration: none;
+	width: 500px;
+}
+
+#addCand{
+	cursor:pointer;	
+}
+#tabelaCand{
+	font-family:Verdana, Geneva, sans-serif;
+	font-size:12px;
+	text-align:left;
+}

@@ -45,7 +45,7 @@ function gerarTabela($param = '') {
 
     //Somente ver a coluna de alterar se tiver acesso completo a tela	
     if ($acesso)
-        echo '<th style="width:50px;"></th>';
+        echo '<th style="width:80px;"></th>';
 
     echo '</tr>';
 
@@ -56,7 +56,7 @@ function gerarTabela($param = '') {
 
             ($bgcolor == '#F0F0F0') ? $bgcolor = '#DDDDDD' : $bgcolor = '#F0F0F0';
 
-            echo '<tr bgcolor="' . $bgcolor . '" onmouseover="mudarCor(this);" onmouseout="mudarCor(this);">
+          echo '<tr bgcolor="'.$bgcolor.'" onmouseover="mudarCor(this);" onmouseout="mudarCor(this)" align="center" id="addCand" rel="'.$dados['NB_VAGAS_RECRUTAMENTO'][$i].'">
                 <td align="center">' . $dados['TX_ORGAO_GESTOR'][$i] . '</td>
                 <td align="center">' . $dados['TX_ORGAO_SOLICITANTE'][$i] . '</td>
                 <td align="center">' . $dados['TX_QUADRO_VAGAS'][$i] . '</td>
@@ -66,6 +66,7 @@ function gerarTabela($param = '') {
             //Somente ver a coluna de alterar se tiver acesso completo a tela					
             if ($acesso)
         echo '<td align="center" class="icones">
+		<a href="' . $dados['NB_VAGAS_RECRUTAMENTO'][$i] . '" id="candidato" ><img src="' . $urlimg . 'icones/editar.png" title="Adicionar Candidatos"/></a>
 		<a href="' . $dados['NB_VAGAS_RECRUTAMENTO'][$i] . '" id="alterar" ><img src="' . $urlimg . 'icones/alterarItem.png" title="Alterar Registro"/></a>
 		<a href="' . $dados['NB_VAGAS_RECRUTAMENTO'][$i] . '" id="excluir" ><img src="' . $urlimg . 'icones/excluirItem.png" title="Excluir Registro"/></a></td>';
          echo '</tr>';
@@ -92,6 +93,224 @@ function gerarTabela($param = '') {
     if ($param)
         echo '<script>alert("' . $param . '")</script>';
 }
+
+function gerarTabelaCand($param=''){
+	include "../../php/define.php";
+	require_once $pathvo."recrutamentoVO.php";
+
+	$VO = new recrutamentoVO();
+	$VO->ID_RECRUTAMENTO_ESTAGIO    = $_SESSION['ID_RECRUTAMENTO_ESTAGIO'];
+	$VO->NB_VAGAS_RECRUTAMENTO      = $_REQUEST['CODIGO'];
+
+	//$total = $VO->buscarTombamento();
+	$VO->pesquisarEstagiario();
+	$dadoscpf = $VO->getArray("NB_CPF");
+	foreach ($dadoscpf as $key => $value) {
+		$arrayCPF .= '<option value="'.$key.'">'.$value.'</option> ';
+	}
+	echo '
+	
+	
+	<script>
+	
+	
+$.widget( "ui.combobox", {
+            _create: function() {
+                var input,
+                    that = this,
+                    select = this.element.hide(),
+                    selected = select.children( ":selected" ),
+                    value = selected.val() ? selected.text() : "",
+                    wrapper = this.wrapper = $( "<span>" )
+                        .addClass( "ui-combobox" )
+                        .insertAfter( select );
+ 
+                function removeIfInvalid(element) {
+                    var value = $( element ).val(),
+                        matcher = new RegExp( "^" + $.ui.autocomplete.escapeRegex( value ) + "$", "i" ),
+                        valid = false;
+                    select.children( "option" ).each(function() {
+                        if ( $( this ).text().match( matcher ) ) {
+                            this.selected = valid = true;
+                            return false;
+                        }
+                    });
+                    if ( !valid ) {
+                        $( element )
+                            .val( "" )
+                            .attr( "title", value + " não encontrado" )
+                            .tooltip( "open" );
+                        select.val( "" );
+                        setTimeout(function() {
+                            input.tooltip( "close" ).attr( "title", "" );
+                        }, 2500 );
+                        input.data( "autocomplete" ).term = "";
+                        return false;
+                    }
+                }
+ 
+                input = $( "<input>" )
+                    .appendTo( wrapper )
+                    .val( value )
+                    .attr( "title", "" )
+                    .addClass( "" )
+                    .autocomplete({
+                        delay: 0,
+                        minLength: 3,
+                        source: function( request, response ) {
+                            var matcher = new RegExp( $.ui.autocomplete.escapeRegex(request.term), "i" );
+                            response( select.children( "option" ).map(function() {
+                                var text = $( this ).text();
+                                if ( this.value && ( !request.term || matcher.test(text) ) )
+                                    return {
+                                        label: text.replace(
+                                            new RegExp(
+                                                "(?![^&;]+;)(?!<[^<>]*)(" +
+                                                $.ui.autocomplete.escapeRegex(request.term) +
+                                                ")(?![^<>]*>)(?![^&;]+;)", "gi"
+                                            ), "<strong>$1</strong>" ),
+                                        value: text,
+                                        option: this
+                                    };
+                            }) );
+                        },
+                        select: function( event, ui ) {
+                            ui.item.option.selected = true;
+                            that._trigger( "selected", event, {
+                                item: ui.item.option
+								
+                            });
+							
+							
+                          	if ( ui.item ){
+								$("#TX_NOME").val("");
+								$.getJSON("acoes.php?identifier=mostrarNome&NB_CPF="+ui.item.option.value, function preencherNome(dados){
+									
+
+									$("#TX_NOME").val(dados["TX_NOME"][0]);
+	
+								});
+							}							
+							
+							
+                        },
+                        change: function( event, ui ) {
+                            if ( !ui.item )
+                                return removeIfInvalid( this );
+							
+						}
+                    	})
+                    	.addClass( "ui-widget ui-widget-content" );
+ 
+                input.data( "autocomplete" )._renderItem = function( ul, item ) {
+                    return $( "<li>" )
+                        .data( "item.autocomplete", item )
+                        .append( "<a>" + item.label + "</a>" )
+                        .appendTo( ul );
+                };
+ 
+                $( "<a>" )
+                    .attr( "tabIndex", -1 )
+                    .attr( "title", "Mostrar Todos Itens" )
+                    .tooltip()
+                    .appendTo( wrapper )
+                    .button({
+                        icons: {
+                            primary: "ui-icon-triangle-1-s"
+                        },
+                        text: false
+                    })
+                    
+                    
+                    .click(function() {
+                        // close if already visible
+						input.autocomplete({ minLength: 0 });
+                        if ( input.autocomplete( "widget" ).is( ":visible" ) ) {
+                            input.autocomplete( "close" );
+                            removeIfInvalid( input );
+                            return;
+                        }
+ 
+                        // work around a bug (likely same cause as #5265)
+                        $( this ).blur();
+ 
+                        // pass empty string as value to search for, displaying all results
+                        input.autocomplete( "search", "" );
+                        input.focus();
+                    });
+ 
+                    input
+                        .tooltip({
+                            position: {
+                                of: this.button
+                            },
+                            tooltipClass: "ui-state-highlight"
+                        });
+            },
+ 
+            destroy: function() {
+                this.wrapper.remove();
+                this.element.show();
+                $.Widget.prototype.destroy.call( this );
+            }
+    });	
+	
+	
+ 	$("#NB_CPF").combobox();	
+	</script>
+	<fieldset>
+        <legend>Cadastrar Candidatos do Recrutamento</legend>
+
+            <input type="hidden" name="NB_VAGAS_RECRUTAMENTO" id="NB_VAGAS_RECRUTAMENTO" value="'.$VO->NB_VAGAS_RECRUTAMENTO.'"/>
+            <div id="camada" style="width:180px;"><strong>CPF </strong>
+			
+            <select name="NB_CPF" id="NB_CPF" style="width:150px;" >'.$arrayCPF.'</select></div>
+
+            <div id="camada" style="width:230px;"><strong>Nome do Candidato </strong>
+                <input type="text" name="TX_NOME" id="TX_NOME" style="width:220px;" /></div>
+
+            <input type="button" name="inserirCand" id="inserir" value="Inserir" />
+		</fieldset>';
+		
+		
+	$total = $VO->buscarCandidato();
+	
+	echo '<table id="tabelaItens" width="100%">
+				<tr>
+					<th>CPF</th>
+					<th>Nome</th>
+					<th>Situação</th>
+					<th>Motivo</th>
+					<th style="width:25px;"></th>
+				</tr>';
+	if ($total){
+		$dados = $VO->getVetor();
+		
+		for ($i=0; $i<$total; $i++){
+			
+			($bgcolor == '#F0F0F0') ? $bgcolor = '#DDDDDD' : $bgcolor = '#F0F0F0';
+			
+			echo '<tr bgcolor="'.$bgcolor.'" onmouseover="mudarCor(this);" onmouseout="mudarCor(this)" align="center" >
+					<td align="left">'.$dados['NB_CPF'][$i].'</td>
+					<td align="left">'.$dados['TX_NOME'][$i].' </td>
+					<td align="left">'.$dados['TX_SITUACAO'][$i].'</td>
+					<td align="center">'.$dados['TX_MOTIVO_SITUACAO'][$i].'</td>
+					<td align="center" class="icones">
+					<a href="'.$dados['NB_VAGAS_RECRUTAMENTO'][$i].'_'.$dados['NB_CANDIDATO'][$i].'" id="excluirCand"><img src="'.$urlimg.'icones/excluirItem.png" title="Excluir Registro"/></a></td>
+                  </tr>';
+		}
+	}else
+		echo '<tr><td colspan="5">Nenhum registro encontrado.</td></tr>';
+	
+	echo '</table>';
+	
+
+	if ($param){
+		echo '<script>alert("'.$param.'");</script>';
+	}	
+}
+
+
 
 $VO = new recrutamentoVO();
 
@@ -186,6 +405,8 @@ if ($_REQUEST['identifier'] == "tabela") {
     echo $dados['TX_FUNCIONARIO'][0];
 } else if ($_REQUEST['identifier'] == "tabelaVagas") {
     gerarTabela();
+}else if ($_REQUEST['identifier'] == 'tabelaCand'){
+	gerarTabelaCand();	
 } else if ($_REQUEST['identifier'] == "inserirVaga") {
 
     $VO->ID_RECRUTAMENTO_ESTAGIO = $_SESSION['ID_RECRUTAMENTO_ESTAGIO'];
@@ -205,6 +426,24 @@ if ($_REQUEST['identifier'] == "tabela") {
         $erro = "Você não tem permissão para realizar esta ação.";
 
     gerarTabela($erro);
+} else if ($_REQUEST['identifier'] == "inserirCand") {
+
+    $VO->ID_RECRUTAMENTO_ESTAGIO = $_SESSION['ID_RECRUTAMENTO_ESTAGIO'];
+    $VO->NB_CPF                  = $_REQUEST['NB_CPF'];
+    $VO->NB_VAGAS_RECRUTAMENTO   = $_REQUEST['NB_VAGAS_RECRUTAMENTO'];
+    if ($acesso) {
+        if ( ($VO->ID_RECRUTAMENTO_ESTAGIO) || ($VO->NB_VAGAS_RECRUTAMENTO) ){
+            $retorno = $VO->inserirCandidato();
+            if ($retorno) {
+                $erro = 'Registro já existe.';
+            }
+        }else
+            $erro = 'Para inserir escolha um Candidato.';
+    }else
+        $erro = "Você não tem permissão para realizar esta ação.";
+
+    gerarTabelaCand($erro);
+
 }else if ($_REQUEST['identifier'] == 'atualizarInf') {
 
     $VO->ID_RECRUTAMENTO_ESTAGIO = $_SESSION['ID_RECRUTAMENTO_ESTAGIO'];
@@ -228,6 +467,35 @@ if ($_REQUEST['identifier'] == "tabela") {
         $erro = "Você não tem permissão para realizar esta ação.";
 
     gerarTabela($erro);
+	
+} else if ($_REQUEST['identifier'] == 'excluirCand') {
+
+    $VO->ID_RECRUTAMENTO_ESTAGIO = $_SESSION['ID_RECRUTAMENTO_ESTAGIO'];
+//    $cod   = explode('_',$_REQUEST['CODIGO']);
+    $VO->NB_VAGAS_RECRUTAMENTO   =  $_REQUEST['CODIGO'];
+    $VO->NB_CANDIDATO            =  $_REQUEST['CODIGO2'];
+
+    if ($acesso) {
+
+        $retorno = $VO->excluirCandidato();
+
+        if (is_array($retorno))
+            $erro = 'Este registro não pode ser excluído pois possui dependentes.';
+    }else
+        $erro = "Você não tem permissão para realizar esta ação.";
+
+    gerarTabelaCand($erro);
+	
+	
+}else if ($_REQUEST['identifier'] == "mostrarNome"){
+	
+	$VO->NB_CPF 	= $_REQUEST['NB_CPF'];
+	
+	$total = $VO->pesquisarEstagiario();
+	
+    $dados = $VO->getVetor();
+		
+	echo json_encode($dados);	
 
 }else if ($_REQUEST['identifier'] == 'alterarVaga'){
     

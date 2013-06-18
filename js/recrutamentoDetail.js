@@ -1,10 +1,21 @@
 $(document).ready(function(){
     
+  	
+	
     function showLoader(){
         $('.fundo_pag').fadeIn(200);
     }
     function hideLoader(){
         $('.fundo_pag').fadeOut(200);
+    };
+
+
+	function showLoaderForm(){
+        $('.fundoForm').fadeIn(200);
+    };
+	
+	function hideLoaderForm(){
+        $('.fundoForm').fadeOut(200);
     };
 	
 	function emptyHideLoader(){
@@ -18,7 +29,15 @@ $(document).ready(function(){
 			}     */
 		
     };
-	
+
+	function emptyHideLoaderForm(){
+        $('.fundo_pag').fadeOut(200);
+        $('.fundoForm').fadeOut(200);
+        $('#NB_CPF').val(''); 
+		$('#TX_NOME').val('');
+		
+    };
+
 	$("#paginacao li").live('click', function(){
         showLoader();
         $("#tabelaVagas").load('acoes.php?identifier=tabelaVagas&PAGE='+this.id, hideLoader);
@@ -37,6 +56,18 @@ $(document).ready(function(){
         }else{
             showLoader();
             $("#tabelaVagas").load('acoes.php?identifier=inserirVaga&CS_TIPO_VAGA_ESTAGIO='+$('#CS_TIPO_VAGA_ESTAGIO').val()+'&NB_QUANTIDADE='+$('#NB_QUANTIDADE').val()+'&PAGE='+$('.selecionado').text(), emptyHideLoader);
+        }
+        return false;
+    });
+	
+	 // Inserção de Acesso
+    $('input[name=inserirCand]').live('click', function(){
+        if (!$('#NB_CPF').val()){
+            alert('Para inserir escolha um CPF.');
+            $('#NB_CPF').focus();
+        }else{
+            showLoaderForm();
+            $("#tabelaCand").load('acoes.php?identifier=inserirCand&NB_CPF='+$('#NB_CPF').val()+'&NB_VAGAS_RECRUTAMENTO='+$('#NB_VAGAS_RECRUTAMENTO').val()+'&CODIGO='+$('#NB_VAGAS_RECRUTAMENTO').val()+'&PAGE='+$('.selecionado').text(), emptyHideLoaderForm);
         }
         return false;
     });
@@ -59,6 +90,19 @@ $(document).ready(function(){
         return false;
     });
 	
+    //Exclusão de Acesso
+    $('#excluirCand').live('click', function(){
+        var cod = $(this).attr('href').split('_');
+		
+		
+
+        resp = window.confirm('Tem certeza que deseja excluir este Registro?');
+        if (resp){
+            showLoaderForm();
+            $("#tabelaCand").load('acoes.php?identifier=excluirCand&PAGE='+$('.selecionado').text()+'&CODIGO='+cod[0]+'&CODIGO2='+cod[1], emptyHideLoaderForm);
+        }
+        return false;
+    });
 	
 	//Excluir Master
 	$('#excluirMaster').click(function(){
@@ -127,4 +171,45 @@ $(document).ready(function(){
 	
 	showLoader();
     $("#tabelaVagas").load('acoes.php?identifier=tabelaVagas', hideLoader);
+
+
+	$( "#dialog-tabela" ).dialog({
+		  autoOpen: false,
+            height: 340,
+            width: 882,
+            modal: true
+			/* buttons:{
+				"Salvar": function() {
+					
+					if ($('#CS_SITUACAO').val() != 0){
+						showLoader();
+						$('#tabela').load('acoes.php?identifier=inserirCand',{ID_RECRUTAMENTO_ESTAGIO:$('#ID_RECRUTAMENTO_ESTAGIO').val(), NB_VAGAS_RECRUTAMENTO:$('#NB_VAGAS_RECRUTAMENTO').val(), NB_CANDIDATO:$('#NB_CANDIDATO').val(), CS_SITUACAO:$('#CS_SITUACAO').val(), TX_MOTIVO_SITUACAO:$('#TX_MOTIVO_SITUACAO').val() }, hideLoader);
+						$( this ).dialog( "close" );
+					}else{
+						alert('Escolha o campo Situação.');
+						$('#CS_SITUACAO').focus();	
+					}
+						
+				},
+				"Cancelar": function() {
+					$('#form_tramite').html('');
+                    $( this ).dialog( "close" );
+                },
+			} */
+	});
+	
+
+
+
+
+$('#candidato').live('click', function(){
+		 $( "#dialog-tabela" ).dialog( "open" );
+		 $('#tabelaCand').html('');
+		 showLoaderForm();
+		 $('#tabelaCand').load('acoes.php?identifier=tabelaCand&CODIGO='+$(this).attr('href'), hideLoaderForm);
+		 return false;
+    });
+
+
+
 });

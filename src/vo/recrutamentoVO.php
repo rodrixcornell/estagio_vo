@@ -11,6 +11,12 @@ class recrutamentoVO extends VO{
         
     }
 
+
+    function inserirCandidato(){   
+        return $this->repositorio->inserirCandidato($this);
+    }
+
+
     function  pesquisarQuadroVagas(){    
         return $this->repositorio->pesquisarQuadroVagas($this);
     }
@@ -35,8 +41,16 @@ class recrutamentoVO extends VO{
     function  buscarVaga(){    
         return $this->repositorio->buscarVaga($this);
     }
-	
-	function  pesquisarRecrutamento(){    
+
+    function  buscarCandidato(){    
+        return $this->repositorio->buscarCandidato($this);
+    }
+
+    function  pesquisarEstagiario(){    
+        return $this->repositorio->pesquisarEstagiario($this);
+    }
+
+   function  pesquisarRecrutamento(){    
         return $this->repositorio->pesquisarRecrutamento($this);
     }
 //	
@@ -51,12 +65,16 @@ class recrutamentoVO extends VO{
 	function  excluirVaga(){    
         return $this->repositorio->excluirVaga($this);
     }
-	function  alterarVaga(){    
+
+	function  excluirCandidato(){    
+        return $this->repositorio->excluirCandidato($this);
+    }
+
+    function  alterarVaga(){    
         return $this->repositorio->alterarVaga($this);
     }
 	function  efetivar(){    
         return $this->repositorio->efetivar($this);
     }
-	
 }
 ?>
