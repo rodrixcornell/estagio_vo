@@ -13,12 +13,12 @@
                 <legend>Unidade Concedente</legend>
 
                 <div id="camada" style="font-family:Verdana, Geneva, sans-serif; width:300px;" > <font color="#FF0000">*</font>Órgão Gestor<font color="#FF0000">{$validar.ID_ORGAO_GESTOR_ESTAGIO}</font><br />
-                    <select name="ID_ORGAO_GESTOR_ESTAGIO" id="ID_ORGAO_GESTOR_ESTAGIO" style="width:290px;">
+                    <select name="ID_ORGAO_GESTOR_ESTAGIO" id="ID_ORGAO_GESTOR_ESTAGIO" disabled="disabled" style="width:290px;">
                         {html_options options=$arrayOrgaoGestor selected=$VO->ID_ORGAO_GESTOR_ESTAGIO}
                     </select>
                 </div>
                 <div id="camada" style="font-family:Verdana, Geneva, sans-serif; width:300px;" > <font color="#FF0000">*</font>Órgão Solicitante<font color="#FF0000">{$validar.ID_ORGAO_ESTAGIO}</font><br />
-                    <select name="ID_ORGAO_ESTAGIO" id="ID_ORGAO_ESTAGIO" style="width:290px;">
+                    <select name="ID_ORGAO_ESTAGIO" id="ID_ORGAO_ESTAGIO" disabled="disabled" style="width:290px;">
                         {html_options options=$arrayOrgaoSolicitante selected=$VO->ID_ORGAO_ESTAGIO}
                     </select>
                 </div>
@@ -42,7 +42,7 @@
                     </select>
                 </div>
                 <div id="camada" style="font-family:Verdana, Geneva, sans-serif; width:180px;" > <font color="#FF0000">*</font>Código da seleção:<font color="#FF0000">{$validar.ID_SELECAO_ESTAGIO}</font><br />
-                    <select name="ID_SELECAO_ESTAGIO" id="ID_SELECAO_ESTAGIO" style="width:170px;">
+                    <select name="ID_SELECAO_ESTAGIO" id="ID_SELECAO_ESTAGIO" disabled="disabled" style="width:170px;">
                         {html_options options=$arrayCodSelecao selected=$VO->ID_SELECAO_ESTAGIO}
                     </select>
                 </div>

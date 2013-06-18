@@ -257,8 +257,8 @@ class RepositorioContrato extends Repositorio {
     }
 
     function excluir($VO) {
-        $query = "delete from contrato_estagio
-                  where id_contrato_estagio =".$VO->ID_CONTRATO_ESTAGIO;
+        $query = "delete from semad.CONTRATO_ESTAGIO
+                  where ID_CONTRATO=".$VO->ID_CONTRATO;
         return $this->sql($query);
     }
 

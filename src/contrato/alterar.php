@@ -48,8 +48,7 @@ if ($_SESSION['ID_CONTRATO']) {
         $arrayPessoaEstagiario = $VO->getArray('TX_NOME');
         $smarty->assign("arrayPessoaEstagiario", $arrayPessoaEstagiario);
     }
-    print_r($VO);
-  
+
 }else
     header("Location: " . $url . "src/" . $pasta . "/index.php");
 
