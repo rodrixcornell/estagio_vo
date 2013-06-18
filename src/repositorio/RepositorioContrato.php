@@ -89,7 +89,9 @@ class RepositorioContrato extends Repositorio {
                         TX_EMAIL,
                         TX_TELEFONE,
                         TX_ENDERECO,
-                        TX_CODIGO
+                        TX_CODIGO,
+                        ID_USUARIO_CADASTRO,
+                        ID_USUARIO_ATUALIZACAO
                     )
                     VALUES
                     (
@@ -123,7 +125,9 @@ class RepositorioContrato extends Repositorio {
                         '" . $VO->TX_EMAIL . "',
                         '" . $VO->TX_TELEFONE . "',
                         '" . $VO->TX_ENDERECO . "',
-                        semad.f_g_cod_contrato_estagio()
+                        semad.f_g_cod_contrato_estagio(),
+                        '".$_SESSION['ID_USUARIO']."',
+                        '".$_SESSION['ID_USUARIO']."'
                     )
                     ";
 
@@ -138,7 +142,9 @@ class RepositorioContrato extends Repositorio {
                         USUARIO_ATUALIZACAO_fun.TX_FUNCIONARIO FUNCIONARIO_CADASTRO,
                         USUARIO_CADASTRO_FUN.TX_FUNCIONARIO FUNCIONARIO_ATUALIZACAO,
                         FUNC.TX_FUNCIONARIO SECRETARIO,
+                        FUNC.TX_FUNCIONARIO TX_FUNCIONARIO,
                         V_END_UNID_ORG.TX_ENDERECO TX_ENDERECO_ORG_GESTOR,
+                        V_END_UNID_ORG.TX_ENDERECO TX_ENDERECO_SEC,
                         ORGAO_GESTOR_ESTAGIO.ID_ORGAO_GESTOR_ESTAGIO ||'_'||ORGAO_GESTOR_ESTAGIO.ID_UNIDADE_ORG ID_ORGAO_GESTOR_ESTAGIO,
                         ORGAO_ESTAGIO.ID_ORGAO_ESTAGIO ||'_'|| V_UNIDADE_ORG.NB_COD_UNIDADE  ID_ORGAO_ESTAGIO,
                         V_ESTAGIARIO.ID_PESSOA_ESTAGIARIO||'_'|| ESTAGIARIO_VAGA.NB_CANDIDATO ||'_'||   ESTAGIARIO_VAGA.NB_VAGAS_RECRUTAMENTO||'_'|| ESTAGIARIO_VAGA.ID_RECRUTAMENTO_ESTAGIO ID_PESSOA_ESTAGIARIO,
@@ -169,6 +175,7 @@ class RepositorioContrato extends Repositorio {
                         contrato_estagio.NB_INICIO_HORARIO,
                         contrato_estagio.NB_FIM_HORARIO,
                         CONTRATO_ESTAGIO.TX_EMAIL,
+                        CONTRATO_ESTAGIO.ID_UNIDADE_ORG ID_LOTACAO,
                         CONTRATO_ESTAGIO.TX_TELEFONE,
                         CONTRATO_ESTAGIO.TX_ENDERECO,
                         CONTRATO_ESTAGIO.TX_CODIGO ,
