@@ -18,7 +18,7 @@
                     </select>
                 </div>
                 <div id="camada" style="font-family:Verdana, Geneva, sans-serif; width:300px;" > <font color="#FF0000">*</font>Órgão Solicitante<font color="#FF0000">{$validar.ID_ORGAO_ESTAGIO}</font><br />
-                    <select name="ID_ORGAO_ESTAGIO" id="ID_ORGAO_ESTAGIO" disabled="disabled" style="width:290px;">
+                    <select name="ID_ORGAO_ESTAGIO" id="ID_ORGAO_ESTAGIO" disabled="disabled"  style="width:290px;">
                         {html_options options=$arrayOrgaoSolicitante selected=$VO->ID_ORGAO_ESTAGIO}
                     </select>
                 </div>
@@ -62,7 +62,7 @@
                 <!-- Primeira linha do cadastro                -->
 
                 <div id="camada" style="font-family:Verdana, Geneva, sans-serif; width:300px;" > <font color="#FF0000">*</font>Candidato<font color="#FF0000">{$validar.ID_PESSOA_ESTAGIARIO}</font><br />
-                    <select name="ID_PESSOA_ESTAGIARIO" id="ID_PESSOA_ESTAGIARIO" style="width:290px;">
+                    <select name="ID_PESSOA_ESTAGIARIO" id="ID_PESSOA_ESTAGIARIO" disabled="disabled" style="width:290px;">
                         {html_options options=$arrayPessoaEstagiario selected=$VO->ID_PESSOA_ESTAGIARIO}
                     </select>
                 </div>                 

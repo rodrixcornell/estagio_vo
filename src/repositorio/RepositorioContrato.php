@@ -69,8 +69,7 @@ class RepositorioContrato extends Repositorio {
                         ID_BOLSA_ESTAGIO,
                         DT_CADASTRO,
                         DT_ATUALIZACAO,
-                        DT_INICIO_VIGENCIA,
-                        
+                        DT_INICIO_VIGENCIA,                        
                         DT_FIM_VIGENCIA,
                         NB_INICIO_HORARIO,
                         NB_FIM_HORARIO,
@@ -252,7 +251,35 @@ class RepositorioContrato extends Repositorio {
     }
 
     function alterar($VO) {
-        $query = "";
+        $query = "Update 
+                        contrato_estagio
+                  set 
+                        ID_QUADRO_VAGAS_ESTAGIO = '".$VO->ID_QUADRO_VAGAS_ESTAGIO."',
+                        ID_CURSO_ESTAGIO = '".$VO->ID_CURSO_ESTAGIO."',
+                        ID_PESSOA_SUPERVISOR = '".$VO->ID_PESSOA_SUPERVISOR."',
+                        ID_INSTITUICAO_ENSINO = '".$VO->ID_INSTITUICAO_ENSINO."',
+                        ID_BOLSA_ESTAGIO = '".$VO->ID_BOLSA_ESTAGIO."',                        
+                        DT_ATUALIZACAO = sysdate ,
+                        DT_INICIO_VIGENCIA = to_date('" . $VO->DT_INICIO_VIGENCIA . "','dd/mm/yyyy'),                        
+                        DT_FIM_VIGENCIA = to_date('" . $VO->DT_FIM_VIGENCIA . "','dd/mm/yyyy')',
+                        DT_DESLIGAMENTO = to_date('" . $VO->DT_DESLIGAMENTO . "','dd/mm/yyyy')',
+                        NB_INICIO_HORARIO = '".$VO->NB_INICIO_HORARIO."',
+                        NB_FIM_HORARIO = '".$VO->NB_FIM_HORARIO."',
+                        TX_PLANO_ATIVIDADE = '".$VO->TX_PLANO_ATIVIDADE."',
+                        CS_TIPO = '".$VO->CS_TIPO."',
+                        TX_TCE = '".$VO->TX_TCE."',
+                        ID_UNIDADE_ORG = '".$VO->ID_LOTACAO."',
+                        CS_TIPO_VAGA_ESTAGIO = '".$VO->CS_TIPO_VAGA_ESTAGIO."',
+                        CS_PERIODO = '".$VO->CS_PERIODO."',
+                        CS_HORARIO_CURSO = '".$VO->CS_HORARIO_CURSO."',
+                        ID_AGENCIA_ESTAGIO = '".$VO->ID_AGENCIA_ESTAGIO."',
+                        TX_EMAIL = '".$VO->TX_EMAIL."',
+                        TX_TELEFONE = '".$VO->TX_TELEFONE."',
+                        TX_ENDERECO = '".$VO->TX_ENDERECO."',                      
+                        ID_USUARIO_ATUALIZACAO = '".$_SESSION['ID_USUARIO']."'
+                        
+                  where 
+                        ID_CONTRATO =".$VO->ID_CONTRATO;
         return $this->sql($query);
     }
 
