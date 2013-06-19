@@ -1,12 +1,12 @@
 <?php
 
 require_once "../../php/define.php";
-require_once $path . "src/solicitacao/arrays.php";
-require_once $pathvo . "solicitacaoVO.php";
+require_once $path . "src/transferencia/arrays.php";
+require_once $pathvo . "transferenciaVO.php";
 
 $modulo = 79;
 $programa = 3;
-$pasta = 'solicitacao';
+$pasta = 'transferencia';
 $current = 2;
 $titulopage = 'Solicitação de Estagiário';
 
@@ -14,7 +14,7 @@ session_start();
 require_once "../autenticacao/validaPermissao.php";
 
 // Iniciando Instância
-$VO = new solicitacaoVO();
+$VO = new transferenciaVO();
 
 if ($_SESSION['ID_SOLICITACAO_ESTAGIO']) {
 
@@ -22,7 +22,7 @@ if ($_SESSION['ID_SOLICITACAO_ESTAGIO']) {
     $VO->buscar();
     $VO->preencherVOBD($VO->getVetor());
 
-    if ($VO->ID_ORGAO_GESTOR_ESTAGIO && $VO->ID_ORGAO_ESTAGIO) {
+    if ($VO->ID_ORGAO_ESTAGIO && $VO->ID_AGENCIA_ESTAGIO) {
         $VO->pesquisarQuadroVagasEstagio();
         $smarty->assign("arrayQuadroVagasEstagio", $VO->getArray("TX_CODIGO"));
     }
@@ -30,7 +30,7 @@ if ($_SESSION['ID_SOLICITACAO_ESTAGIO']) {
     if ($_POST) {
         $VO->configuracao();
         //ID_ORGAO_GESTOR_ESTAGIO, ID_AGENCIA_ESTAGIO, ID_ORGAO_ESTAGIO, TX_COD_SOLICITACAO, CS_SITUACAO, TX_JUSTIFICATIVA, ID_SOLICITACAO_ESTAGIO
-        $VO->setCaracteristica('ID_ORGAO_GESTOR_ESTAGIO,ID_ORGAO_ESTAGIO,TX_COD_SOLICITACAO,ID_QUADRO_VAGAS_ESTAGIO', 'obrigatorios');
+        $VO->setCaracteristica('ID_ORGAO_GESTOR_ESTAGIO,ID_AGENCIA_ESTAGIO,ID_ORGAO_ESTAGIO,TX_COD_SOLICITACAO,ID_QUADRO_VAGAS_ESTAGIO', 'obrigatorios');
         $validar = $VO->preencher($_POST);
 
         $tamanho_cod = strlen($_POST['TX_COD_SOLICITACAO']);

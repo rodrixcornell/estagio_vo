@@ -246,11 +246,26 @@ if ($_REQUEST['identifier'] == "tabela") {
     }else {
         echo '<div id="nao_encontrado">Nenhum registro encontrado.</div>';
     }
+} else if ($_REQUEST['identifier'] == "pesquisarQuadroVagasEstagio") {
+
+    $VO->ID_ORGAO_GESTOR_ESTAGIO = $_REQUEST['ID_ORGAO_GESTOR_ESTAGIO'];
+    $VO->ID_ORGAO_ESTAGIO = $_REQUEST['ID_ORGAO_ESTAGIO'];
+
+    $total = $VO->pesquisarQuadroVagasEstagio();
+
+    if ($total) {
+        $dados = $VO->getVetor();
+        echo '<option value="">Escolha...</option>';
+        for ($i = 0; $i < $total; $i++) {
+            echo '<option value="' . $dados['CODIGO'][$i] . '">' . $dados['TX_CODIGO'][$i] . '</option>';
+        }
+    } else
+        echo '<option value="">Nenhum registro encontrado</option>';
 } else if ($_REQUEST['identifier'] == "pesquisarTipoVaga") {
 
     $VO->ID_SOLICITACAO_ESTAGIO = $_SESSION['ID_SOLICITACAO_ESTAGIO'];
     $VO->ID_ORGAO_ESTAGIO = $_SESSION['ID_ORGAO_ESTAGIO'];
-    $VO->ID_AGENCIA_ESTAGIO = $_SESSION['ID_AGENCIA_ESTAGIO'];
+
     $VO->ID_QUADRO_VAGAS_ESTAGIO = $_SESSION['ID_QUADRO_VAGAS_ESTAGIO'];
 
     $total = $VO->pesquisarTipoVaga();
