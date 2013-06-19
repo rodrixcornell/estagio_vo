@@ -46,7 +46,7 @@ function gerarTabela($param = '') {
         echo '<div id="status">' . $_SESSION['STATUS'] . '</div>
 		<table width="100%" class="dataGrid">
                 <tr>
-                    <th>Código do tr</th>
+                    <th>Código do Contrato</th>
                     <th>Órgão Gestor</th>
                     <th>Agente de Integração</th>
                     <th>Agente Solicitante</th>
@@ -72,7 +72,7 @@ function gerarTabela($param = '') {
             //Somente ver a coluna de alterar se tiver acesso completo a tela					
             if ($acesso)
                 echo '<td align="center"> 
-                       <a href="' . $dados['ID_tr'][$i] . '" id="alterar"><img src="' . $urlimg . 'icones/editar.png" alt="itens" title="Alterar"/></a></td>';
+                       <a href="' . $dados['ID_CONTRATO'][$i] . '" id="alterar"><img src="' . $urlimg . 'icones/editar.png" alt="itens" title="Alterar"/></a></td>';
             echo '</tr>';
         }
 

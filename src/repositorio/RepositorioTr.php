@@ -2,7 +2,7 @@
 
 require_once $path . "src/repositorio/Repositorio.php";
 
-class RepositorioContrato extends Repositorio {
+class RepositorioTr extends Repositorio {
 
     // ########################### ------------------  Repositorio do Master ---------- #################################
 
@@ -13,8 +13,8 @@ class RepositorioContrato extends Repositorio {
         $codigoOrgaoGestor = explode('_', $VO->ID_ORGAO_GESTOR_ESTAGIO);
         $query = "SELECT 
   
-                        A.ID_CONTRATO CODIGO,
-                        A.ID_CONTRATO,
+                        A.ID_Tr CODIGO,
+                        A.ID_Tr,
                         A.TX_CODIGO,
                         E.TX_AGENCIA_ESTAGIO,
                         C.TX_ORGAO_ESTAGIO,
@@ -22,7 +22,7 @@ class RepositorioContrato extends Repositorio {
                         D.TX_NOME,
                         D.NB_CPF
                   FROM 
-                        CONTRATO_ESTAGIO A,
+                        Tr_ESTAGIO A,
                         ORGAO_GESTOR_ESTAGIO B,
                         ORGAO_ESTAGIO C,
                         V_ESTAGIARIO D,
@@ -51,15 +51,15 @@ class RepositorioContrato extends Repositorio {
 
         $codigoCandidato = explode('_', $VO->ID_PESSOA_ESTAGIARIO);
 
-        $queryPK = "select SEMAD. F_G_PK_Contrato_Estagio as ID_CONTRATO_ESTAGIO from DUAL";
+        $queryPK = "select SEMAD. F_G_PK_Tr_Estagio as ID_Tr_ESTAGIO from DUAL";
         $this->sqlVetor($queryPK);
         $CodigoPK = $this->getVetor();
 
         $query = "INSERT INTO 
-                  CONTRATO_ESTAGIO
+                  Tr_ESTAGIO
                     (
                         ID_PESSOA_ESTAGIARIO,
-                        ID_CONTRATO,
+                        ID_Tr,
                         ID_ORGAO_GESTOR_ESTAGIO,
                         ID_ORGAO_ESTAGIO,
                         ID_QUADRO_VAGAS_ESTAGIO,
@@ -94,7 +94,7 @@ class RepositorioContrato extends Repositorio {
                     VALUES
                     (
                         '" . $codigoCandidato[0] . "',
-                        '" . $CodigoPK['ID_CONTRATO_ESTAGIO'][0] . "',                      
+                        '" . $CodigoPK['ID_Tr_ESTAGIO'][0] . "',                      
                         '" . $codigoOrgaoGestor[0] . "',
                         '" . $codigoOrgaoSolicitante[0] . "',
                         '" . $VO->ID_QUADRO_VAGAS_ESTAGIO . "',
@@ -123,12 +123,12 @@ class RepositorioContrato extends Repositorio {
                         '" . $VO->TX_EMAIL . "',
                         '" . $VO->TX_TELEFONE . "',
                         '" . $VO->TX_ENDERECO . "',
-                        semad.f_g_cod_contrato_estagio()
+                        semad.f_g_cod_Tr_estagio()
                     )
                     ";
 
         $retorno = $this->sql($query);
-        return $retorno ? '' : $CodigoPK['ID_CONTRATO_ESTAGIO'][0];
+        return $retorno ? '' : $CodigoPK['ID_Tr_ESTAGIO'][0];
     }
 
     function alterar($VO) {
@@ -137,8 +137,8 @@ class RepositorioContrato extends Repositorio {
     }
 
     function excluir($VO) {
-        $query = "delete from contrato_estagio
-                  where id_contrato_estagio =".$VO->ID_CONTRATO_ESTAGIO;
+        $query = "delete from Tr_estagio
+                  where id_Tr_estagio =".$VO->ID_Tr_ESTAGIO;
         return $this->sql($query);
     }
 
@@ -289,10 +289,8 @@ class RepositorioContrato extends Repositorio {
         return $this->sqlVetor($query);
     }
 
-    function buscarQuadroVaga($VO) {
+    function buscarContrato($VO) {
 
-        // Função uitlizadas para trazer todos os quadros de vagas
-        // função utilizada no arrays.php
         $query = "SELECT ID_CONTRATO, TX_CODIGO FROM CONTRATO_ESTAGIO ORDER BY TX_CODIGO";
         return $this->sqlVetor($query);
     }
@@ -372,22 +370,6 @@ class RepositorioContrato extends Repositorio {
               SUPERVISOR_ESTAGIO
             where id_pessoa_supervisor =" . $VO->ID_PESSOA_SUPERVISOR;
 
-        return $this->sqlVetor($query);
-    }
-
-    function buscarEnderecoOrgaoGestor($VO) {
-
-        // Função utilizada para trazer endereço do Orgão gestor
-        // Utilizada no acoes.php
-        $query = "SELECT 
-                    ID_ENDERECO,
-                    ID_ENDERECO CODIGO,
-                    ID_UNIDADE_ORG,
-                    TX_ENDERECO
-                  FROM 
-                    V_END_UNID_ORG END
-                  where
-                    end.id_unidade_org =" . $VO->ID_UNIDADE_ORG;
         return $this->sqlVetor($query);
     }
 
