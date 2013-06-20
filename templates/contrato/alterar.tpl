@@ -5,7 +5,7 @@
     <br /><br /><br /><hr />
 
     <div id="conteudo">
-        <form name="form" action="{$url}src/{$pasta}/cadastrar.php" method="post">
+        <form name="form" action="{$url}src/{$pasta}/alterar.php" method="post">
             Para alterar Contrato de Estágio preencha o formulário abaixo e clique em Avançar:<br /><br />
 
             <!-- FildSet da Unidade Solicitante -->
@@ -170,7 +170,9 @@
                 <div id="camada" style="font-family:Verdana, Geneva, sans-serif; width:160px;" >Valor
                     <input type="text" name="NB_VALOR" id="NB_VALOR" value="{$VO->NB_VALOR}"  style="width:150px;"  class="leitura" readonly="readonly"  />
                 </div>  
-
+                <div id="camada" style="font-family:Verdana, Geneva, sans-serif; width:150px;" >Data de Desligamento<br />
+                    <input type="text" name="DT_DESLIGAMENTO" id="DT_DESLIGAMENTO" value="{$VO->DT_DESLIGAMENTO}"  style="width:140px;" />
+                </div> 
 
                 <!--    fim  Sexta linha          -->
 

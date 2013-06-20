@@ -261,8 +261,8 @@ class RepositorioContrato extends Repositorio {
                         ID_BOLSA_ESTAGIO = '".$VO->ID_BOLSA_ESTAGIO."',                        
                         DT_ATUALIZACAO = sysdate ,
                         DT_INICIO_VIGENCIA = to_date('" . $VO->DT_INICIO_VIGENCIA . "','dd/mm/yyyy'),                        
-                        DT_FIM_VIGENCIA = to_date('" . $VO->DT_FIM_VIGENCIA . "','dd/mm/yyyy')',
-                        DT_DESLIGAMENTO = to_date('" . $VO->DT_DESLIGAMENTO . "','dd/mm/yyyy')',
+                        DT_FIM_VIGENCIA = to_date('" . $VO->DT_FIM_VIGENCIA . "','dd/mm/yyyy'),
+                        DT_DESLIGAMENTO = to_date('" . $VO->DT_DESLIGAMENTO . "','dd/mm/yyyy'),
                         NB_INICIO_HORARIO = '".$VO->NB_INICIO_HORARIO."',
                         NB_FIM_HORARIO = '".$VO->NB_FIM_HORARIO."',
                         TX_PLANO_ATIVIDADE = '".$VO->TX_PLANO_ATIVIDADE."',
@@ -280,6 +280,7 @@ class RepositorioContrato extends Repositorio {
                         
                   where 
                         ID_CONTRATO =".$VO->ID_CONTRATO;
+        print_r($query);
         return $this->sql($query);
     }
 
