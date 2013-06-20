@@ -16,9 +16,9 @@
                 </select></div>
 
             <div id="camada" style="font-family:Verdana, Geneva, sans-serif; width:310px;" >
-                <!--font color="#FF0000">*</font-->Agencia de Estágio: <!--font color="#FF0000">{$validar.ID_AGENCIA_ESTAGIO}</font-->
-                <select name="ID_AGENCIA_ESTAGIO" id="ID_AGENCIA_ESTAGIO" style="width:300px;" disabled="disabled">
-                    {html_options options=$arrayAgenciaEstagio selected=$VO->ID_AGENCIA_ESTAGIO}
+                <!--font color="#FF0000">*</font-->Quadro de Vagas de Estágio: <!--font color="#FF0000">{$validar.ID_QUADRO_VAGAS_ESTAGIO}</font-->
+                <select name="ID_QUADRO_VAGAS_ESTAGIO" id="ID_QUADRO_VAGAS_ESTAGIO" style="width:300px;" disabled="disabled">
+                    {html_options options=$arrayQuadroVagasEstagio selected=$VO->ID_QUADRO_VAGAS_ESTAGIO}
                 </select></div><br />
 
             <div id="camada" style="font-family:Verdana, Geneva, sans-serif; width:310px;" >
@@ -27,16 +27,15 @@
                     {html_options options=$arrayOrgaoSolicitante selected=$VO->ID_ORGAO_ESTAGIO}
                 </select></div>
 
+            <div id="camada" style="font-family:Verdana, Geneva, sans-serif; width:310px;" >
+                <!--font color="#FF0000">*</font-->Agencia de Estágio: <!--font color="#FF0000">{$validar.ID_AGENCIA_ESTAGIO}</font-->
+                <select name="ID_AGENCIA_ESTAGIO" id="ID_AGENCIA_ESTAGIO" style="width:300px;" disabled="disabled">
+                    {html_options options=$arrayAgenciaEstagio selected=$VO->ID_AGENCIA_ESTAGIO}
+                </select></div><br />
+
             <div id="camada" style="font-family:Verdana, Geneva, sans-serif; width:210px;" >
                 <!--font color="#FF0000">*</font-->Código da Solicitação: <!--font color="#FF0000">{$validar.TX_COD_SOLICITACAO}</font-->
                 <input type="text" name="TX_COD_SOLICITACAO" id="TX_COD_SOLICITACAO" value="{$VO->TX_COD_SOLICITACAO}"  style="width:200px;" readonly="readonly" class="leitura"/></div>
-
-            <br />
-            <div id="camada" style="font-family:Verdana, Geneva, sans-serif; width:310px;" >
-                <!--font color="#FF0000">*</font-->Quadro de Vagas de Estágio: <!--font color="#FF0000">{$validar.ID_QUADRO_VAGAS_ESTAGIO}</font-->
-                <select name="ID_QUADRO_VAGAS_ESTAGIO" id="ID_QUADRO_VAGAS_ESTAGIO" style="width:300px;" disabled="disabled">
-                    {html_options options=$arrayQuadroVagasEstagio selected=$VO->ID_QUADRO_VAGAS_ESTAGIO}
-                </select></div>
 
             <div id="camada" style="font-family:Verdana, Geneva, sans-serif; width:210px;" >
                 <font color="#FF0000">*</font>Situação: <font color="#FF0000">{$validar.CS_SITUACAO}</font>

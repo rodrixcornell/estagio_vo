@@ -12,7 +12,7 @@
                 <table width="100%" class="dataGrid">
                     <tr bgcolor="#E0E0E0">
                         <td style="width:210px;"><strong>Cód. da Solicitação</strong></td>
-                        <td style="width:450px;"><font color="#0000FF"><strong>{$dados.TX_COD_SOLICITACAO[0]}</strong></font></td>
+                        <td style="width:450px;"><font color="#0000FF" class="num_em"><strong>{$dados.TX_COD_SOLICITACAO[0]}</strong></font></td>
                         <td style="width:210px;"><strong>Quadro de Vagas de Estágio</strong></td>
                         <td style="width:200px; text-align:right;">{$dados.TX_CODIGO[0]}</td>
                     </tr>
