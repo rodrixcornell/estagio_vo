@@ -13,8 +13,6 @@ require_once "../autenticacao/validaPermissao.php";
 
 $VO = new contratoVO();
 
-
-
 // Se houver valor na sessão do ID_ORGAO_ESTAGIO ENTÃO IMPRIMA NO COMBO BOX O VALOR CORRETO
 $VO = new contratoVO();
 
