@@ -42,7 +42,6 @@
             <div id="camada" style="font-family:Verdana, Geneva, sans-serif; width:160px;">Data de Cadastro <font color="#FF0000">{$validar.DT_CADASTRO}</font><br />
                 <input type="text" name="DT_CADASTRO" id="DT_CADASTRO" value="{$VO->DT_CADASTRO}" style="width:150px;" class="leitura" readonly="readonly" /></div>
             <br />
-            <br />
 
             <div id="camada" style="font-family:Verdana, Geneva, sans-serif; width:410px;">Alterado por <font color="#FF0000">{$validar.TX_LOGIN}</font><br />
                 <input type="text" name="TX_LOGIN" id="TX_LOGIN" value="{$VO->TX_FUNCIONARIO_ATUALIZACAO}" style="width:400px;" class="leitura" readonly="readonly" /></div>
