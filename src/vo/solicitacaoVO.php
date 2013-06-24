@@ -16,13 +16,13 @@ class solicitacaoVO extends VO{
     function pesquisarOrgaoSolicitante(){
         return $this->repositorio->pesquisarOrgaoSolicitante($this);
     }
-
-    function pesquisarAgenciaEstagio(){
-        return $this->repositorio->pesquisarAgenciaEstagio($this);
+	
+	function buscarAgenciaEstagio(){
+        return $this->repositorio->buscarAgenciaEstagio($this);
     }
 
-    function pesquisarQuadroVagasEstagio(){
-        return $this->repositorio->pesquisarQuadroVagasEstagio($this);
+    function buscarQuadroVagasEstagio(){
+        return $this->repositorio->buscarQuadroVagasEstagio($this);
     }
 
     function pesquisarTipoVaga(){
@@ -60,5 +60,14 @@ class solicitacaoVO extends VO{
     function atualizarInf(){
         return $this->repositorio->atualizarInf($this);
     }
+	
+	function verificarRecrutamento(){
+        return $this->repositorio->verificarRecrutamento($this);
+    }
+	
+	function efetivarSolicitacao(){
+        return $this->repositorio->efetivarSolicitacao($this);
+    }
+
 }
 ?>

@@ -16,6 +16,13 @@ require_once "../autenticacao/validaPermissao.php";
 $VO = new solicitacaoVO();
 $VO->preencherVOSession($_SESSION);
 
+if($_SESSION['ID_ORGAO_ESTAGIO']){
+	$VO->ID_ORGAO_ESTAGIO = $_SESSION['ID_ORGAO_ESTAGIO'];
+	$VO->buscarAgenciaEstagio();
+	$arrayAgenciaEstagio =$VO->getArray('TX_AGENCIA_ESTAGIO');
+	$smarty->assign('arrayAgenciaEstagio',	$arrayAgenciaEstagio);
+}
+
 $smarty->assign("current", $current);
 $smarty->assign("pasta", $pasta);
 $smarty->assign("titulopage", $titulopage);

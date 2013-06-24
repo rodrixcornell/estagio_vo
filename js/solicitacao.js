@@ -8,8 +8,7 @@ $(document).ready(function(){
     };
 
     $('#pesquisar').click(function(){
-        if ($('#ID_ORGAO_GESTOR_ESTAGIO').val() && $('#ID_ORGAO_ESTAGIO').val() || ($('#ID_AGENCIA_ESTAGIO').val() || $('#CS_SITUACAO').val() || $.trim($('#TX_COD_SOLICITACAO').val()))){
-            //alert('ok: '+$('#ID_ORGAO_GESTOR_ESTAGIO').val()+', '+$('#ID_ORGAO_ESTAGIO').val()+', '+$('#ID_AGENCIA_ESTAGIO').val()+', '+$('#CS_SITUACAO').val()+', '+$('#TX_COD_SOLICITACAO').val()+'.');
+        if ($('#ID_ORGAO_GESTOR_ESTAGIO').val() && $('#ID_ORGAO_ESTAGIO').val()){
             showLoader();
             $("#tabela").load('acoes.php?identifier=tabela',
             {
@@ -46,26 +45,38 @@ $(document).ready(function(){
 
     //Tela Cadastrar
 
-//    $("#ID_ORGAO_GESTOR_ESTAGIO").live('change', function(){
-//        if (!$('#ID_ORGAO_ESTAGIO').val()){
-//            //alert('Para escolher Quadro de Vagas\n escolha um Órgão Solicitante.');
-//            $('#ID_ORGAO_ESTAGIO').focus();
-//        }else{
-//            $.post("acoes.php",
-//            {
-//                ID_ORGAO_GESTOR_ESTAGIO:$('#ID_ORGAO_GESTOR_ESTAGIO').val(),
-//                ID_ORGAO_ESTAGIO:$('#ID_ORGAO_ESTAGIO').val(),
-//                identifier:'pesquisarQuadroVagasEstagio'
-//            }, function(valor){
-//                //alert(valor);
-//                //console.log(valor);
-//                $("#ID_QUADRO_VAGAS_ESTAGIO").html(valor);
-//            });
-//        }
-//        return false;
-//    });
+    $("#ID_ORGAO_ESTAGIO").live('change', function(){
+		$("#ID_AGENCIA_ESTAGIO,#ID_QUADRO_VAGAS_ESTAGIO").html(''); 
+        if ($('#ID_ORGAO_ESTAGIO').val()){
+			$.post("acoes.php",{
+                				ID_ORGAO_ESTAGIO:$('#ID_ORGAO_ESTAGIO').val(),
+                				identifier:'buscarAgenciaEstagio'
+            					}, 
+			function(valor){
+                $("#ID_AGENCIA_ESTAGIO").html(valor);
+            });
+			 
+        }
+        return false;
+    });
+	
+	$("#ID_AGENCIA_ESTAGIO").live('change', function(){
+		$("#ID_QUADRO_VAGAS_ESTAGIO").html(''); 
+        if ($('#ID_AGENCIA_ESTAGIO').val()){
+			$.post("acoes.php",{
+								ID_ORGAO_ESTAGIO:$('#ID_ORGAO_ESTAGIO').val(),
+                				ID_AGENCIA_ESTAGIO:$('#ID_AGENCIA_ESTAGIO').val(),
+                				identifier:'buscarQuadroVagasEstagio'
+            					}, 
+			function(valor){
+                $("#ID_QUADRO_VAGAS_ESTAGIO").html(valor);
+            });
+			 
+        }
+        return false;
+    });
 
-    $("#ID_ORGAO_GESTOR_ESTAGIO,#ID_ORGAO_ESTAGIO").live('change', function(){
+   /* $("#ID_ORGAO_GESTOR_ESTAGIO,#ID_ORGAO_ESTAGIO").live('change', function(){
         if (!$('#ID_ORGAO_GESTOR_ESTAGIO').val()){
             //alert('Para escolher Quadro de Vagas\n escolha um Agencia de Estágio.');
             $('#ID_ORGAO_GESTOR_ESTAGIO').focus();
@@ -85,13 +96,13 @@ $(document).ready(function(){
         }
         return false;
     });
-
-    $("#ID_QUADRO_VAGAS_ESTAGIO").live('click', function(){
+*/
+  /*  $("#ID_QUADRO_VAGAS_ESTAGIO").live('click', function(){
         //alert("Key: " + event.which);
         if (!$('#ID_ORGAO_GESTOR_ESTAGIO').val()){
             alert('Para escolher Quadro de Vagas\n escolha um Órgão Gestor.');
             $('#ID_ORGAO_GESTOR_ESTAGIO').focus();
-        }/*else if (!$('#ID_AGENCIA_ESTAGIO').val()){
+        }else if (!$('#ID_AGENCIA_ESTAGIO').val()){
             alert('Para escolher Quadro de Vagas\n escolha um Agencia de Estágio.');
             $('#ID_AGENCIA_ESTAGIO').focus();
         }/*else{
@@ -109,8 +120,8 @@ $(document).ready(function(){
                 });
                 return false;
             });
-        }*/
+        }
         return false;
-    });
+    });*/
 
 });
