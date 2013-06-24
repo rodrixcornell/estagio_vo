@@ -1,29 +1,29 @@
 <?php
 require_once "../../php/define.php";
-require_once $path."src/contrato/arrays.php";
-require_once $pathvo."contratoVO.php";
+require_once $path."src/tr/arrays.php";
+require_once $pathvo."trVO.php";
 
 $modulo = 79;
-$programa = 7;
-$pasta = 'contrato';
+$programa = 8;
+$pasta = 'tr';
 $current = 2;
-$titulopage = 'Contrato de Estágio';
+$titulopage = 'Solicitação de TR';
 
 require_once "../autenticacao/validaPermissao.php";
 
-$VO = new contratoVO();
+$VO = new trVO();
 $VO->preencherVOSession($_SESSION);
 
 
 // Se houver valor na sessão do ID_ORGAO_ESTAGIO ENTÃO IMPRIMA NO COMBO BOX O VALOR CORRETO
 if($_SESSION['ID_ORGAO_ESTAGIO']){
-		$codigo = explode('_', $VO->ID_ORGAO_ESTAGIO);
-		$VO->ID_ORGAO_ESTAGIO = $codigo[0];
+
+        $VO->ID_ORGAO_ESTAGIO=$_SESSION['ID_ORGAO_ESTAGIO'];
 
         $VO->buscarCodSelecao();
         $arrayCodSelecao =$VO->getArray('TX_COD_SELECAO');
 
-		 $VO->ID_ORGAO_ESTAGIO = implode('_', $codigo);
+
         $smarty->assign('arrayCodSelecao',$arrayCodSelecao);
 }
 

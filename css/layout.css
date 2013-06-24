@@ -58,7 +58,7 @@ img{
 #logo_pmm{
     height: 84px;
     width: 960px;
-    background-color: #0067AC;
+    /*background-color: #0067AC;*/
     background-image: url("../img/topo/topo.png");
     background-position: left center;
     background-repeat: no-repeat;
@@ -104,7 +104,7 @@ img{
     width: 960px;
     height: 100px; /*Height of bottom frame div*/
     clear: both;
-    background-color: #005EA8;
+    background-color: #248B60;
 }
 
 #credito{

@@ -22,6 +22,13 @@ $(document).ready(function(){
 					$("#funcionario").html(campo['TX_FUNCIONARIO_ALT'][0]);
 					$("#situacao").html(campo['TX_SITUACAO'][0]);
 			}     
+	    
+	    $.post("acoes.php",
+			{identifier:'gerarCandidatos'},
+			function(valor){
+					$("#ESTAGIARIO_SELECAO").html(valor);
+			}
+		);	
 		
     };
 

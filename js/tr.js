@@ -14,20 +14,12 @@ $(document).ready(function(){
         allowNegative:false, 
         defaultZero:false
     });
-    $('#NB_INICIO_HORARIO,#NB_FIM_HORARIO').timepicker();
-	
-	$('#NB_CPF').setMask({
-        mask:'99999999999'
-    });
-   
-    $('#NB_INICIO_HORARIO,#NB_FIM_HORARIO').setMask({
-        mask:'99:99'
-    });
-    $('#DT_INICIO_VIGENCIA,#DT_FIM_VIGENCIA,#DT_DESLIGAMENTO').setMask({
+
+    $('#DT_TERMINO_ESTAGIO').setMask({
         mask:'99/99/9999'
     });
     //minicalendario
-    $('#DT_INICIO_VIGENCIA,#DT_FIM_VIGENCIA,#DT_DESLIGAMENTO').datepicker({
+    $('#DT_TERMINO_ESTAGIO').datepicker({
         changeMonth: true,
         changeYear: true
     });
@@ -35,25 +27,19 @@ $(document).ready(function(){
     //    change do  orgão solicitante -
     //     quando o Usuario carregar clicar no combo carrega automaticamente o campo de codigo de seleção
     $('#ID_ORGAO_ESTAGIO').change(function(){
-        if ($('#ID_ORGAO_ESTAGIO').val() != 0){  
+        if ($('#ID_ORGAO_ESTAGIO').val() != 0){
             var valor = $("#ID_ORGAO_ESTAGIO").val().split('_');
-            $("#ID_SELECAO_ESTAGIO,#ID_LOTACAO").val('');
+            $("#ESTAGIARIO_SELECAO option:first").attr('selected','selected');
+//            $("#ID_SELECAO_ESTAGIO,#ID_LOTACAO").val('');
             $.post("acoes.php",{
                 ID_ORGAO_ESTAGIO:valor[0], 
-                identifier:'codSelecao'
+                identifier:'buscarAgenteSetorial'
             },
             function(valor){
-                $('#ID_SELECAO_ESTAGIO').html(valor);
-            });
-            $.post("acoes.php",{
-                NB_COD_UNIDADE:valor[1], 
-                identifier:'lotacao'
-            },
-            function(valor){
-                $('#ID_LOTACAO').html(valor);
+                $('#ID_SETORIAL_ESTAGIO').html(valor);
             });
         }else{
-            $('#ID_SELECAO_ESTAGIO,#ID_LOTACAO').html('');
+            $('#ID_SETORIAL_ESTAGIO').html('');
         }
     }); 
     
@@ -92,7 +78,43 @@ $(document).ready(function(){
         }else{
             $('#NB_VALOR').html('');
         }
+    });      
+
+    // JQuery para carregar o cargo do supervisor
+    // Quando selecionar o supervisor o cargo será carregado automaticamente
+    $("#ID_CONTRATO").change(function(){
+        if ($("#ID_CONTRATO").val() != 0){  
+            
+			$("#TX_NOME,#NB_CPF,#TX_TIPO_VAGA_ESTAGIO,#TX_INSTITUICAO_ENSINO,#TX_CURSO_ESTAGIO,#TX_PERIODO,#TX_NIVEL,#TX_TCE").val('');
+			$.post("acoes.php",{
+                ID_CONTRATO: $("#ID_CONTRATO").val(), 
+                identifier:'buscarDadosContrato'
+            },
+            function(valor){
+                dados = valor.split('_');
+                $("#TX_NOME").val(dados[0]);
+                $("#NB_CPF").val(dados[1]);
+                $("#TX_TIPO_VAGA_ESTAGIO").val(dados[2]);
+                $("#TX_INSTITUICAO_ENSINO").val(dados[3]);
+                $("#TX_CURSO_ESTAGIO").val(dados[4]);
+                $("#TX_PERIODO").val(dados[5]);
+                $("#TX_NIVEL").val(dados[6]);
+                $("#TX_TCE").val(dados[7]);                
+            });
+
+        }else{
+            $('#TX_NOME').val('');
+            $("#NB_CPF").val('');
+            $("#TX_TIPO_VAGA_ESTAGIO").val('');
+            $("#TX_INSTITUICAO_ENSINO").val('');
+            $("#TX_CURSO_ESTAGIO").val('');
+            $("#TX_PERIODO").val('');
+            $("#TX_NIVEL").val('');
+            $("#TX_TCE").val('');             
+        }
     });  
+
+
     // JQuery para carregar o cargo do supervisor
     // Quando selecionar o supervisor o cargo será carregado automaticamente
     $("#ID_PESSOA_SUPERVISOR").change(function(){
@@ -117,10 +139,10 @@ $(document).ready(function(){
     // Change do orgão gestor -
     //quando o usuario clicar no combo do orgão gestor ele carrega o nome do secretario e o endereço
     $("#ID_ORGAO_GESTOR_ESTAGIO").change(function(){
-        
+
         if ($("#ID_ORGAO_GESTOR_ESTAGIO").val() != 0){
             var valor = $("#ID_ORGAO_GESTOR_ESTAGIO").val().split('_');
-            $("#TX_FUNCIONARIO,#TX_ENDERECO_SEC").val('');
+            $("#TX_FUNCIONARIO").val('');
             $.post("acoes.php",{
                 ID_UNIDADE_ORG:valor[1], 
                 identifier:'buscarNome'
@@ -128,20 +150,10 @@ $(document).ready(function(){
             function(valor){
                 $("#TX_FUNCIONARIO").val(valor);
             }
-            );
-			
-            $.post("acoes.php",
-            {
-                ID_UNIDADE_ORG:valor[1], 
-                identifier:'buscarEndereco'
-            },
-            function(valor){
-                $("#TX_ENDERECO_SEC").val(valor);
-            }
-            );
+            );			            
 			
         }else{
-            $("#TX_FUNCIONARIO,#TX_ENDERECO_SEC").val('');
+            $("#TX_FUNCIONARIO").val('');
         }
     });
     
@@ -180,7 +192,7 @@ $(document).ready(function(){
                 NB_CPF:$('#NB_CPF').val()
             }, hideLoader);
         }else
-            alert('Preencha pelo menos os campos \"Órgão Gestor e Órgão Solicitante\" para realizar pesquisa!');
+            alert('Preencha pelo menos um campo para realizar a pesquisa!');
     });
 	
     //Paginacao

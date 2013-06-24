@@ -24,6 +24,7 @@
                     <li><a href="{$url}src/recrutamento/?s=1"><span>5-Recrutamento de Estagiário</span></a></li>
                     <li><a href="{$url}src/selecao/?s=1"><span>6-Seleção de Estagiário</span></a></li>
                     <li><a href="{$url}src/contrato/?s=1"><span>7-Contrato de Estágio</span></a></li>
+                    <li><a href="{$url}src/tr/?s=1"><span>8-Solicitação de TR</span></a></li>                    
                  </ul>
             </div>
         </li>

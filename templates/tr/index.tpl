@@ -10,29 +10,34 @@
                 
                 <br /><br />
 				
-                <div id="camada" style="font-family:Verdana, Geneva, sans-serif; width:150px;" ><font color="#FF0000">*</font><strong>Órgão Gestor: </strong></div>
+                <div id="camada" style="font-family:Verdana, Geneva, sans-serif; width:160px;"><strong><font color="#FF0000">*</font>Órgão Gestor: </strong></div>
                     <select name="ID_ORGAO_GESTOR_ESTAGIO" id="ID_ORGAO_GESTOR_ESTAGIO" style="width:400px;">
                         {html_options options=$arrayOrgaoGestor selected=$VO->ID_ORGAO_GESTOR_ESTAGIO}
                     </select><br />
-                <div id="camada" style="font-family:Verdana, Geneva, sans-serif; width:150px;" ><font color="#FF0000">*</font><strong>Órgão Solicitante: </strong></div>
+
+                <div id="camada" style="font-family:Verdana, Geneva, sans-serif; width:160px;" ><strong><font color="#FF0000">*</font>Órgão Solicitante: </strong></div>
                     <select name="ID_ORGAO_ESTAGIO" id="ID_ORGAO_ESTAGIO" style="width:400px;">
                         {html_options options=$arrayOrgaoSolicitante selected=$VO->ID_ORGAO_ESTAGIO}
                     </select><br />
-                <div id="camada" style="font-family:Verdana, Geneva, sans-serif; width:150px;" ><strong>Código da Seleção: </strong></div>
-                    <select name="ID_SELECAO_ESTAGIO" id="ID_SELECAO_ESTAGIO" style="width:200px;">
-                        {html_options options=$arrayCodSelecao selected=$VO->ID_SELECAO_ESTAGIO}
-                    </select><br />
+
+                <div id="camada" style="font-family:Verdana, Geneva, sans-serif; width:160px;" ><strong>Agente de Integração</strong></div>
+                    <select name="ID_AGENCIA_ESTAGIO" id="ID_AGENCIA_ESTAGIO" style="width:400px;">
+                        {html_options options=$arrayAgenteIntegracao selected=$VO->ID_AGENCIA_ESTAGIO}
+                    </select>
+                <br />
                 
-                <div id="camada" style="font-family:Verdana, Geneva, sans-serif; width:150px;" ><strong>TCE: </strong></div>
-                    <input type="text" name="TX_TCE" id="TX_TCE" value="{$VO->TX_TCE}"  style="width:200px;" /><br />    
+                <div id="camada" style="font-family:Verdana, Geneva, sans-serif; width:160px;" ><strong>Cód. da Seleção: </strong></div>
+                    <input type="text" name="TX_COD_SELECAO" id="TX_COD_SELECAO" value="{$VO->TX_COD_SELECAO}"  style="width:200px;" /><br />    
                 
-                <div id="camada" style="font-family:Verdana, Geneva, sans-serif; width:150px;" ><strong>Nome do Estagiário: </strong></div>
+                <div id="camada" style="font-family:Verdana, Geneva, sans-serif; width:160px;" ><strong>Nome do Estagiário: </strong></div>
                     <input type="text" name="TX_NOME" id="TX_NOME" value="{$VO->TX_NOME}"  style="width:400px;" /><br />    
                 
-                <div id="camada" style="font-family:Verdana, Geneva, sans-serif; width:150px;" ><strong>CPF do Estagiário: </strong></div>
+                <div id="camada" style="font-family:Verdana, Geneva, sans-serif; width:160px;" ><strong>CPF do Estagiário: </strong></div>
                     <input type="text" name="NB_CPF" id="NB_CPF" value="{$VO->NB_CPF}"  style="width:200px;" /><br />    
                 
-                
+                <div id="camada" style="font-family:Verdana, Geneva, sans-serif; width:160px;" ><strong>Código da Solicitação: </strong></div>
+                    <input type="text" name="TX_TCE" id="TX_TCE" value="{$VO->TX_TCE}"  style="width:200px;" /><br />    
+                <br />
                 
                 <input type="button" name="pesquisar" id="pesquisar" value="Pesquisar" />
                 
