@@ -5,10 +5,8 @@ require_once $path."src/repositorio/RepositorioSelecao.php";
 
 class selecaoVO extends VO{
     
-    function selecaoVO(){
-        
-        return $this->repositorio = new RepositorioSelecao(); 
-        
+    function selecaoVO(){        
+        return $this->repositorio = new RepositorioSelecao();         
     }
     
 	function  pesquisarSelecao_Estagio(){    
@@ -21,8 +19,7 @@ class selecaoVO extends VO{
     
     function buscarOrgaoGestor(){        
         // Função que pega todos os orgãos Getores
-        return $this->repositorio->buscarOrgaoGestor($this);
-        
+        return $this->repositorio->buscarOrgaoGestor($this);        
     }
     
     function buscarOrgaoSolicitante(){
@@ -61,6 +58,6 @@ class selecaoVO extends VO{
     function  efetivar(){    
         return $this->repositorio->efetivar($this);
     }    
-        
+           
 }
 ?>
