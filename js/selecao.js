@@ -23,7 +23,7 @@ $(document).ready(function(){
 	});
 		
     $('#pesquisar').click(function(){
-     //   if ($('#ID_ORGAO_GESTOR_ESTAGIO').val() && $('#ID_ORGAO_ESTAGIO').val()){
+        if ($('#ID_ORGAO_GESTOR_ESTAGIO').val() && $('#ID_ORGAO_ESTAGIO').val()){
             showLoader();
             $('#tabela').load('acoes.php?identifier=tabela',{
                 ID_ORGAO_GESTOR_ESTAGIO:$('#ID_ORGAO_GESTOR_ESTAGIO').val(),
@@ -32,17 +32,19 @@ $(document).ready(function(){
                 CS_SITUACAO:$('#CS_SITUACAO').val(),
                 TX_COD_SELECAO:$('#TX_COD_SELECAO').val()                               
             }, hideLoader);
-    //    }else
-  //          alert('Preencha pelo menos os dois campos obrigatórios para realizar a pesquisa!');
+        }else
+            alert('Preencha pelo menos os dois campos obrigatórios para realizar a pesquisa!');
     });
 	
     //Paginacao
     $("#paginacao li").live('click', function(){
         showLoader();
         $("#tabela").load('acoes.php?identifier=tabela&PAGE='+this.id,{
-            ID_USUARIO_RESP:$('#ID_USUARIO_RESP').val(),
-            TX_FUNCIONARIO:$('#TX_FUNCIONARIO').val()
-           
+            ID_ORGAO_GESTOR_ESTAGIO:$('#ID_ORGAO_GESTOR_ESTAGIO').val(),
+            ID_ORGAO_ESTAGIO:$('#ID_ORGAO_ESTAGIO').val(),                
+            ID_RECRUTAMENTO_ESTAGIO:$('#ID_RECRUTAMENTO_ESTAGIO').val(),
+            CS_SITUACAO:$('#CS_SITUACAO').val(),
+            TX_COD_SELECAO:$('#TX_COD_SELECAO').val()                               
         }, hideLoader);
         return false;
     });
@@ -61,26 +63,6 @@ $(document).ready(function(){
         }
     });
     	
-    $("#ID_USUARIO_RESP").change(function(){
-        if ($("#ID_USUARIO_RESP").val() != 0){
-            $("#TX_FUNCIONARIO").val('');
-
-            $.post("acoes.php",
-            {
-                ID_USUARIO_RESP:$("#ID_USUARIO_RESP").val(), 
-                identifier:'buscarNome'
-            },
-            function(valor){
-                $("#TX_FUNCIONARIO").val(valor);
-            }
-            );
-			
-        }else{
-            $("#TX_FUNCIONARIO").val('');
-        }
-    });
-	
-	
     //Icone Alterar
     $("#alterar").live('click', function(){
         var href = $(this).attr('href');

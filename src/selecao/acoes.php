@@ -383,6 +383,24 @@ else if ($_REQUEST['identifier'] == "pesquisarCandidatos") {
                 
      gerarTabela($erro);
         
+}else if ($_REQUEST['identifier'] == "gerarCandidatos"){
+    
+    $codigo                     = explode('_', $_REQUEST['ESTAGIARIO_SELECAO']);
+    $VO->ID_RECRUTAMENTO_ESTAGIO                 = $codigo[0];
+    
+    $total = $VO->pesquisarCandidatos();
+    
+    if ($total) {
+       $dados = $VO->getVetor();
+
+       echo '<option value="">Escolha...</option>';
+       for ($i = 0; $i < $total; $i++) {
+            echo '<option value="' . $dados['CODIGO'][$i] . '">' . $dados['TX_NOME'][$i] . '</option>';
+       }
+    
+    } else
+        echo '<option value="">Nenhum registro encontrado</option>';
+
 }
 
 

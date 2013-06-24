@@ -28,12 +28,11 @@ class RepositorioSelecao extends Repositorio {
                ";
 
        $VO->ID_ORGAO_ESTAGIO ? $query .= " AND SELECAO_ESTAGIO.ID_ORGAO_ESTAGIO = " .$VO->ID_ORGAO_ESTAGIO."" : false;
-       $VO->ID_ORGAO_GESTOR_ESTAGIO ? $query .= " AND SELECAO_ESTAGIO.ID_ORGAO_GESTOR_ESTAGIO = " .$VO->ID_ORGAO_GESTOR_ESTAGIO."" : false;               
-//       $VO->ID_SELECAO_ESTAGIO ? $query .= " AND SELECAO_ESTAGIO.ID_SELECAO_ESTAGIO = ".$VO->ID_SELECAO_ESTAGIO."" : false;               
+       $VO->ID_ORGAO_GESTOR_ESTAGIO ? $query .= " AND SELECAO_ESTAGIO.ID_ORGAO_GESTOR_ESTAGIO = " .$VO->ID_ORGAO_GESTOR_ESTAGIO."" : false;                              
        $VO->TX_COD_SELECAO ? $query .= " AND UPPER(RECRUTAMENTO_ESTAGIO.TX_COD_SELECAO) LIKE UPPER('" .$VO->TX_COD_SELECAO."')" : false;
        $VO->CS_SITUACAO ? $query .= " AND SELECAO_ESTAGIO.CS_SITUACAO = ".$VO->CS_SITUACAO."" : false;
        $VO->ID_RECRUTAMENTO_ESTAGIO && empty($VO->ID_RECRUTAMENTO_ESTAGIO) ? $query .= " AND SELECAO_ESTAGIO.ID_RECRUTAMENTO_ESTAGIO = ".$VO->ID_RECRUTAMENTO_ESTAGIO."" : false;
-//    print_r($query);
+
        return $this->sqlVetor($query);
     }
 
@@ -100,7 +99,8 @@ class RepositorioSelecao extends Repositorio {
 
         $query = "SELECT RECRUTAMENTO_ESTAGIO.ID_RECRUTAMENTO_ESTAGIO CODIGO, TX_COD_RECRUTAMENTO 
                   FROM SEMAD.RECRUTAMENTO_ESTAGIO
-                  WHERE ID_ORGAO_ESTAGIO = ".$VO->ID_ORGAO_ESTAGIO;
+                  WHERE CS_SITUACAO = 2
+                  AND ID_ORGAO_ESTAGIO = ".$VO->ID_ORGAO_ESTAGIO;
 
         $query .= " ORDER BY TX_COD_RECRUTAMENTO";
 
@@ -154,12 +154,11 @@ class RepositorioSelecao extends Repositorio {
                   AND C.CS_SITUACAO = 1
                   AND C.NB_CANDIDATO NOT IN (SELECT ESTAGIARIO_SELECAO.NB_CANDIDATO FROM ESTAGIARIO_SELECAO 
                                              WHERE ESTAGIARIO_SELECAO.ID_RECRUTAMENTO_ESTAGIO = C.ID_RECRUTAMENTO_ESTAGIO
-                                             AND ESTAGIARIO_SELECAO.NB_VAGAS_RECRUTAMENTO = C.NB_VAGAS_RECRUTAMENTO
                                             )
                   
-                  AND C.ID_RECRUTAMENTO_ESTAGIO = " . $VO->ID_RECRUTAMENTO_ESTAGIO . "                  
+                  AND C.ID_RECRUTAMENTO_ESTAGIO = " . $_SESSION['ID_RECRUTAMENTO_ESTAGIO'] . "                  
                  ";
-                 
+               
         return $this->sqlVetor($query);
     }
     
@@ -194,7 +193,7 @@ class RepositorioSelecao extends Repositorio {
                  AND U1.ID_PESSOA_FUNCIONARIO                 = V1.ID_PESSOA_FUNCIONARIO
                  AND C.ID_RECRUTAMENTO_ESTAGIO = VR.ID_RECRUTAMENTO_ESTAGIO
                  AND C.NB_VAGAS_RECRUTAMENTO = VR.NB_VAGAS_RECRUTAMENTO
-                 AND VR.NB_VAGAS_RECRUTAMENTO = T.CS_TIPO_VAGA_ESTAGIO
+                 AND VR.CS_TIPO_VAGA_ESTAGIO = T.CS_TIPO_VAGA_ESTAGIO
                  AND R.ID_QUADRO_VAGAS_ESTAGIO = Q.ID_QUADRO_VAGAS_ESTAGIO
                ";
 
@@ -264,7 +263,7 @@ class RepositorioSelecao extends Repositorio {
                     (".$_SESSION[ID_SELECAO_ESTAGIO].", ".$VO->ID_RECRUTAMENTO_ESTAGIO.", ".$VO->NB_VAGAS_RECRUTAMENTO.", ".$_SESSION['ID_USUARIO'].", 
                     ".$VO->CS_SITUACAO.", '".$VO->TX_MOTIVO_SITUACAO."', ".$_SESSION['ID_USUARIO'].", TO_DATE('".$VO->DT_AGENDAMENTO."','DD/MM/YYYY'), TO_DATE('".$VO->DT_REALIZACAO."','DD/MM/YYYY'), ".$VO->NB_CANDIDATO.")
                    ";
-    
+
           return $this->sql($query);
 
      }

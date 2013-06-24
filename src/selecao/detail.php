@@ -42,6 +42,7 @@ if ($_SESSION['ID_SELECAO_ESTAGIO']){
     }       
     
     $VO->ID_RECRUTAMENTO_ESTAGIO = $dados['ID_RECRUTAMENTO_ESTAGIO'][0];
+    $_SESSION['ID_RECRUTAMENTO_ESTAGIO'] = $dados['ID_RECRUTAMENTO_ESTAGIO'][0];
     $VO->pesquisarCandidatos();
     $arrayCandidato =$VO->getArray('TX_NOME');
     $smarty->assign('arrayCandidato',$arrayCandidato);
