@@ -39,6 +39,9 @@ class RepositorioContrato extends Repositorio {
           $VO->ID_ORGAO_ESTAGIO ? $query .= " And A.ID_ORGAO_ESTAGIO = " . $codigoOrgaoSolicitante[0] . " " : false;
           $VO->ID_ORGAO_GESTOR_ESTAGIO ? $query .= " And A.ID_ORGAO_GESTOR_ESTAGIO = " . $codigoOrgaoGestor[0]. " " : false;
           $VO->ID_SELECAO_ESTAGIO ? $query .= " And A.ID_SELECAO_ESTAGIO = " . $VO->ID_SELECAO_ESTAGIO . " " : false;
+		  $VO->TX_TCE ? $query .= " And upper(A.TX_TCE) like upper('%" . $VO->TX_TCE . "%') " : false;
+		  $VO->TX_NOME ? $query .= " And upper(D.TX_NOME) like upper('%" . $VO->TX_NOME . "%') " : false;
+		  $VO->NB_CPF ? $query .= " And upper(D.NB_CPF) like upper('%" . $VO->NB_CPF . "%') " : false;
         
         return $this->sqlVetor($query);
     }
@@ -361,10 +364,12 @@ class RepositorioContrato extends Repositorio {
                   WHERE 
                     A.ID_SELECAO_ESTAGIO = B.ID_SELECAO_ESTAGIO
                     AND B.ID_RECRUTAMENTO_ESTAGIO = C.ID_RECRUTAMENTO_ESTAGIO
+					AND B.NB_CANDIDATO = C.NB_CANDIDATO
+					AND B.NB_VAGAS_RECRUTAMENTO = C.NB_VAGAS_RECRUTAMENTO
                     AND C.ID_PESSOA_ESTAGIARIO = D.ID_PESSOA_ESTAGIARIO
-                    --AND A.CS_SITUACAO =2 
-                    --AND B.CS_SITUACAO =2
-                    AND C.CS_SITUACAO =1 
+                    AND A.CS_SITUACAO =2 
+                    AND B.CS_SITUACAO =2
+                    AND C.CS_SITUACAO =2 
                     AND B.ID_SELECAO_ESTAGIO =" . $VO->ID_SELECAO_ESTAGIO;
         return $this->sqlVetor($query);
     }

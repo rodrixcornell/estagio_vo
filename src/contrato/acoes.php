@@ -115,10 +115,10 @@ else if ($_REQUEST['identifier'] == "codSelecao") {
     $VO->ID_ORGAO_ESTAGIO = $_REQUEST['ID_ORGAO_ESTAGIO'];
 
     $total = $VO->buscarCodSelecao();
+    echo '<option value="">Escolha...</option>';
 
     if ($total) {
         $dados = $VO->getVetor();
-        echo '<option value="">Escolha...</option>';
         for ($i = 0; $i < $total; $i++) {
             echo '<option value="' . $dados['CODIGO'][$i] . '">' . $dados['TX_COD_SELECAO'][$i] . '</option>';
         }
@@ -145,10 +145,9 @@ else if ($_REQUEST['identifier'] == "candidato") {
     $VO->ID_SELECAO_ESTAGIO = $_REQUEST['ID_SELECAO_ESTAGIO'];
 
     $total = $VO->buscarCandidato();
-
+	echo '<option value="">Escolha...</option>';
     if ($total) {
-        $dados = $VO->getVetor();
-        echo '<option value="">Escolha...</option>';
+        $dados = $VO->getVetor();    
         for ($i = 0; $i < $total; $i++) {
             echo '<option value="' . $dados['CODIGO'][$i] . '">' . $dados['TX_NOME'][$i] . '</option>';
         }
