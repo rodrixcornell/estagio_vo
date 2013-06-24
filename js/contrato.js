@@ -19,11 +19,11 @@ $(document).ready(function(){
     $('#NB_INICIO_HORARIO,#NB_FIM_HORARIO').setMask({
         mask:'99:99'
     });
-    $('#DT_INICIO_VIGENCIA,#DT_FIM_VIGENCIA').setMask({
+    $('#DT_INICIO_VIGENCIA,#DT_FIM_VIGENCIA,#DT_DESLIGAMENTO').setMask({
         mask:'99/99/9999'
     });
     //minicalendario
-    $('#DT_INICIO_VIGENCIA,#DT_FIM_VIGENCIA').datepicker({
+    $('#DT_INICIO_VIGENCIA,#DT_FIM_VIGENCIA,#DT_DESLIGAMENTO').datepicker({
         changeMonth: true,
         changeYear: true
     });

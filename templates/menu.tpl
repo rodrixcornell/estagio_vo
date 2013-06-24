@@ -35,6 +35,7 @@
                     <li><a href="{$url}src/eventos/?s=1"><span>2-Eventos de Pagamento</span></a></li>
                     <li><a href="{$url}src/pagamento/?s=1"><span>3-Pagamento de Estagiário</span></a></li>
                     <li><a href="{$url}src/tipo_pagamento/?s=1"><span>4-Tipo de Pagamento</span></a></li>
+                    <li><a href="{$url}src/termo_aditivo/?s=1"><span>5-Termo Aditivo de Contrato</span></a></li>
                  </ul>
             </div>
         </li>
