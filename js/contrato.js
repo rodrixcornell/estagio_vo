@@ -15,6 +15,10 @@ $(document).ready(function(){
         defaultZero:false
     });
     $('#NB_INICIO_HORARIO,#NB_FIM_HORARIO').timepicker();
+	
+	$('#NB_CPF').setMask({
+        mask:'99999999999'
+    });
    
     $('#NB_INICIO_HORARIO,#NB_FIM_HORARIO').setMask({
         mask:'99:99'
@@ -176,7 +180,7 @@ $(document).ready(function(){
                 NB_CPF:$('#NB_CPF').val()
             }, hideLoader);
         }else
-            alert('Preencha pelo menos um campo para realizar a pesquisa!');
+            alert('Preencha pelo menos os campos \"Órgão Gestor e Órgão Solicitante\" para realizar pesquisa!');
     });
 	
     //Paginacao

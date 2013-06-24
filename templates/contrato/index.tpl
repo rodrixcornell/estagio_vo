@@ -10,15 +10,15 @@
                 
                 <br /><br />
 				
-                <div id="camada" style="font-family:Verdana, Geneva, sans-serif; width:150px;" ><strong>Órgão Gestor: </strong></div>
+                <div id="camada" style="font-family:Verdana, Geneva, sans-serif; width:150px;" ><font color="#FF0000">*</font><strong>Órgão Gestor: </strong></div>
                     <select name="ID_ORGAO_GESTOR_ESTAGIO" id="ID_ORGAO_GESTOR_ESTAGIO" style="width:400px;">
                         {html_options options=$arrayOrgaoGestor selected=$VO->ID_ORGAO_GESTOR_ESTAGIO}
                     </select><br />
-                <div id="camada" style="font-family:Verdana, Geneva, sans-serif; width:150px;" ><strong>Órgão Solicitante: </strong></div>
+                <div id="camada" style="font-family:Verdana, Geneva, sans-serif; width:150px;" ><font color="#FF0000">*</font><strong>Órgão Solicitante: </strong></div>
                     <select name="ID_ORGAO_ESTAGIO" id="ID_ORGAO_ESTAGIO" style="width:400px;">
                         {html_options options=$arrayOrgaoSolicitante selected=$VO->ID_ORGAO_ESTAGIO}
                     </select><br />
-                <div id="camada" style="font-family:Verdana, Geneva, sans-serif; width:150px;" ><strong>Código da seleção: </strong></div>
+                <div id="camada" style="font-family:Verdana, Geneva, sans-serif; width:150px;" ><strong>Código da Seleção: </strong></div>
                     <select name="ID_SELECAO_ESTAGIO" id="ID_SELECAO_ESTAGIO" style="width:200px;">
                         {html_options options=$arrayCodSelecao selected=$VO->ID_SELECAO_ESTAGIO}
                     </select><br />
