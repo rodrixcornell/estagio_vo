@@ -184,24 +184,34 @@ else if ($_REQUEST['identifier'] == "cargoSupervisor") {
         
     echo $dados['TX_CARGO'][0];
 }
-else if ($_REQUEST['identifier'] == "buscarValor") {
+else if ($_REQUEST['identifier'] == "buscarDadosContrato") {
 
-    $VO->ID_BOLSA_ESTAGIO = $_REQUEST['ID_BOLSA_ESTAGIO'];
+    $VO->ID_CONTRATO = $_REQUEST['ID_CONTRATO'];
 
-    $VO->buscarBolsa();
+    $VO->buscarDadosContrato();
     $dados = $VO->getVetor();
-
         
-    echo $dados['NB_VALOR'][0];
+    echo $dados['TUDO'][0];
 }
 // buscar todos os documentos(CPF & RG) do candidato
-else if ($_REQUEST['identifier'] == "buscarDocuments") {
+else if ($_REQUEST['identifier'] == "buscarAgenteSetorial"){
 
-    $VO->ID_PESSOA_ESTAGIARIO = $_REQUEST['ID_PESSOA_ESTAGIARIO'];
+    $VO->ID_ORGAO_ESTAGIO = $_REQUEST['ID_ORGAO_ESTAGIO'];
 
-    $VO->buscarDocuments();
+    $total = $VO->buscarAgenteSetorial();
     $dados = $VO->getVetor();
-//    $dados= $VO->buscarDocuments();
+
+    if ($total) {
+       $dados = $VO->getVetor();
+
+       echo '<option value="">Escolha...</option>';
+       for ($i = 0; $i < $total; $i++) {
+            echo '<option value="' . $dados['CODIGO'][$i] . '">' . $dados['TX_FUNCIONARIO'][$i] . '</option>';
+       }
+    
+    } else
+        echo '<option value="">Nenhum registro encontrado</option>';
+
 
     echo json_encode($dados);
 }

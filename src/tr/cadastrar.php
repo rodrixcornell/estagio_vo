@@ -18,12 +18,12 @@ unset($_SESSION['ID_SOLICITACAO_TR']);
 if ($_POST) {
 
     $VO->configuracao();
-    $VO->setCaracteristica('ID_ORGAO_GESTOR_ESTAGIO,ID_ORGAO_ESTAGIO,ID_CONTRATO,TX_TELEFONE,ID_AGENCIA_ESTAGIO', 'obrigatorios');
-    $VO->setCaracteristica('DT_FIM_VIGENCIA,DT_INICIO_VIGENCIA', 'datas');
-    $VO->setCaracteristica('NB_INICIO_HORARIO,NB_FIM_HORARIO', 'horas');
+    $VO->setCaracteristica('ID_ORGAO_GESTOR_ESTAGIO,ID_ORGAO_ESTAGIO,ID_CONTRATO,TX_CARGO_AGENTE,TX_TELEFONE_AGENTE,TX_EMAIL_AGENTE,DT_TERMINO_ESTAGIO,ID_SETORIAL_ESTAGIO', 'obrigatorios');
+    $VO->setCaracteristica('DT_TERMINO_ESTAGIO', 'datas');
+    $VO->setCaracteristica('TX_EMAIL', 'emails');
 
     $validar = $VO->preencher($_POST);
-    if ($VO->ID_ORGAO_ESTAGIO) {
+/*    if ($VO->ID_ORGAO_ESTAGIO) {
 
         $codigo = explode('_', $VO->ID_ORGAO_ESTAGIO);
 
@@ -48,12 +48,12 @@ if ($_POST) {
         $smarty->assign("arrayPessoaEstagiario", $arrayPessoaEstagiario);
     }
 //    print_r($VO);
-
+*/
     if (!$validar)
         $id_pk = $VO->inserir();
 
     if ($id_pk) {
-        $_SESSION['ID_tr_ESTAGIO'] = $id_pk;
+        $_SESSION['ID_SOLICITACAO_TR'] = $id_pk;
         header("Location: " . $url . "src/" . $pasta . "/index.php");
     }
 

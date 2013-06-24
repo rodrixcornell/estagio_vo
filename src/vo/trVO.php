@@ -28,9 +28,9 @@ class TrVO extends VO {
      * 
      *  */
 
-    function buscarBolsa() {
+    function buscarDadosContrato() {
         // Função que pega todas as bolsas de estagio
-        return $this->repositorio->buscarBolsa($this);
+        return $this->repositorio->buscarDadosContrato($this);
     }
 
     function buscarSupervisor() {
@@ -63,9 +63,9 @@ class TrVO extends VO {
         return $this->repositorio->buscarAgenteIntegracao($this);
     }
 
-    function buscarCurso() {
+    function buscarAgenteSetorial() {
         // Função que pega todos os cursos disponiveis no Banco
-        return $this->repositorio->buscarCurso($this);
+        return $this->repositorio->buscarAgenteSetorial($this);
     }
 
     function buscarLotacao() {
