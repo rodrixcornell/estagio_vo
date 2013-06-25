@@ -154,7 +154,8 @@ $(document).ready(function(){
             }, emptyHideLoader);
 
             return false;
-        }
+        }else
+			return false;
 
     });
 
