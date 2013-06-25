@@ -1,54 +1,39 @@
 <?php
-
 require_once "../../php/define.php";
-require_once $path . "src/solicitacao/arrays.php";
-require_once $pathvo . "solicitacaoVO.php";
+require_once $path . "src/tbl_calc_recesso/arrays.php";
+require_once $pathvo . "tbl_calc_recessoVO.php";
 
-$modulo = 79;
-$programa = 3;
-$pasta = 'solicitacao';
-$current = 2;
-$titulopage = 'Solicitação de Estagiário';
+$modulo = 80;
+$programa = 6;
+$pasta = 'tbl_calc_recesso';
+$current = 3;
+$titulopage = 'Tabela de Cálculo do Recesso';
 
 session_start();
 require_once "../autenticacao/validaPermissao.php";
 
-unset($_SESSION['ID_SOLICITACAO_ESTAGIO']);
-unset($_SESSION['ID_ORGAO_ESTAGIO']);
-unset($_SESSION['ID_AGENCIA_ESTAGIO']);
+unset($_SESSION['ID_TABELA_RECESSO']);
+unset($_SESSION['ID_ORGAO_GESTOR_ESTAGIO']);
 
 // Iniciando Instância
-$VO = new solicitacaoVO();
+$VO = new tbl_calc_recessoVO();
 
 if ($_POST) {
     $VO->configuracao();
-    //ID_ORGAO_GESTOR_ESTAGIO, ID_AGENCIA_ESTAGIO, ID_ORGAO_ESTAGIO, TX_COD_SOLICITACAO, CS_SITUACAO, TX_JUSTIFICATIVA, ID_SOLICITACAO_ESTAGIO, ID_QUADRO_VAGAS_ESTAGIO
-    $VO->setCaracteristica('ID_ORGAO_GESTOR_ESTAGIO,ID_ORGAO_ESTAGIO,ID_QUADRO_VAGAS_ESTAGIO', 'obrigatorios');
+    $VO->setCaracteristica('TX_TABELA,ID_ORGAO_GESTOR_ESTAGIO,DT_INICIO_VIGENCIA','obrigatorios');
+    $VO->setCaracteristica('DT_INICIO_VIGENCIA,DT_FIM_VIGENCIA','datas');
     $validar = $VO->preencher($_POST);
 
-    //$tamanho_cod = strlen($_POST['TX_COD_SOLICITACAO']);
-    $tamanho_just = strlen($_POST['TX_JUSTIFICATIVA']);
-//    if ($tamanho_cod > 20) {
-//        $validar['TX_COD_SOLICITACAO'] = 'Valor máximo de 20, atual de: ' . $tamanho_cod;
-//    } else
-    if ($tamanho_just > 255) {
-        $validar['TX_JUSTIFICATIVA'] = 'Valor máximo de 255, atual de: ' . $tamanho_just;
-    } else if (!$validar) {
+    if (!$validar) {
         $id_pk = $VO->inserir();
 
         if ($id_pk) {
-            $_SESSION['ID_SOLICITACAO_ESTAGIO'] = $id_pk;
-            //$_SESSION['ID_ORGAO_ESTAGIO'] = $VO->ID_ORGAO_ESTAGIO;
-            //$_SESSION['ID_AGENCIA_ESTAGIO'] = $VO->ID_AGENCIA_ESTAGIO;
-            header("Location: " . $url . "src/" . $pasta . "/detail.php");
+            $_SESSION['ID_TABELA_RECESSO'] = $id_pk;
+
+            //header("Location: " . $url . "src/" . $pasta . "/detail.php");
         } else {
             $validar['ID_ORGAO_GESTOR_ESTAGIO'] = "Erro de Cadastro!";
         }
-    }
-
-    if ($VO->ID_ORGAO_GESTOR_ESTAGIO && $VO->ID_ORGAO_ESTAGIO) {
-        $VO->pesquisarQuadroVagasEstagio();
-        $smarty->assign("arrayQuadroVagasEstagio", $VO->getArray("TX_CODIGO"));
     }
 }
 

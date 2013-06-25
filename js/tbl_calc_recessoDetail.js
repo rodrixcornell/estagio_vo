@@ -6,15 +6,17 @@ $(document).ready(function(){
     function hideLoader(){
         $('.fundo_pag').fadeOut(200);
 
-        $.post("acoes.php?identifier=pesquisarTipoVaga", TipoVaga);
+        //$.post("acoes.php?identifier=pesquisarTipoVaga", TipoVaga);
     };
 
     function emptyHideLoader(){
+        //alert(valor);
+        //console.log(valor);
         $('.fundo_pag').fadeOut(200);
-        $('#NB_QUANTIDADE').val('');
-        $('#ID_CURSO_ESTAGIO').html('');
+        $('#TX_DURACAO_ESTAGIO,#NB_DURACAO_RECESSO,#TX_FORMULA_RECESSO').val('');
+        //$('#ID_CURSO_ESTAGIO').html('');
 
-        $.post("acoes.php?identifier=pesquisarTipoVaga", TipoVaga);
+        //$.post("acoes.php?identifier=pesquisarTipoVaga", TipoVaga);
 
         //$("#ID_UNIDADE_IRP option:first").attr('selected','selected');
 
@@ -26,11 +28,7 @@ $(document).ready(function(){
         }
     };
 
-    function TipoVaga(valor){
-        //alert(valor);
-        //console.log(valor);
-        $("#ID_CS_CODIGO").html(valor);
-    };
+    //function TipoVaga(valor){ $("#ID_CS_CODIGO").html(valor); };
 
     function showLoaderForm(){
         $('.fundoForm').fadeIn(200);
@@ -39,7 +37,7 @@ $(document).ready(function(){
         $('.fundoForm').fadeOut(200);
     };
 
-    $('#NB_QUANTIDADE').setMask({
+    $('#NB_DURACAO_RECESSO').setMask({
         mask:'999999'
     });
 
@@ -73,7 +71,7 @@ $(document).ready(function(){
 
     $("#paginacao li").live('click', function(){
         showLoader();
-        $("#tabelaVagasSolicitadas").load('acoes.php?identifier=tabelaVagasSolicitadas&PAGE='+this.id, hideLoader);
+        $("#tabelaItemTBLRecesso").load('acoes.php?identifier=tabelaItemTBLRecesso&PAGE='+this.id, hideLoader);
         return false;
     });
 
@@ -87,7 +85,7 @@ $(document).ready(function(){
             $('#NB_QUANTIDADE').focus();
         }else{
             showLoader();
-            $("#tabelaVagasSolicitadas").load('acoes.php',
+            $("#tabelaItemTBLRecesso").load('acoes.php',
             {
                 ID_CS_CODIGO:$('#ID_CS_CODIGO').val(),
                 NB_QUANTIDADE:$('#NB_QUANTIDADE').val(),
@@ -101,7 +99,7 @@ $(document).ready(function(){
     /*
 	$('#inserirTodos').live('click', function(){
 		showLoader();
-		$("#tabelaUnidadeConsumidora").load('acoes.php?identifier=inserirTodas', hideLoader);
+		$("#tabelaItemTBLRecesso").load('acoes.php?identifier=inserirTodas', hideLoader);
         return false;
     });
          */
@@ -112,7 +110,7 @@ $(document).ready(function(){
         resp = window.confirm('Tem certeza que deseja excluir este Registro?');
         if (resp){
             showLoader();
-            $("#tabelaVagasSolicitadas").load('acoes.php',
+            $("#tabelaItemTBLRecesso").load('acoes.php',
             {
                 CS_TIPO_VAGA_ESTAGIO:href,
                 identifier:'excluirVagasSolicitadas',
@@ -151,7 +149,7 @@ $(document).ready(function(){
                 }else{
                     console.log();
                     showLoader();
-                    $("#tabelaVagasSolicitadas").load('acoes.php',
+                    $("#tabelaItemTBLRecesso").load('acoes.php',
                     {
                         CS_TIPO_VAGA_ESTAGIO:$('#CS_TIPO_VAGA_ESTAGIO_ALT').val(),
                         NB_QUANTIDADE:$('#NB_QUANTIDADE_ALT').val(),
@@ -186,5 +184,5 @@ $(document).ready(function(){
     });
 
     showLoader();
-    $("#tabelaVagasSolicitadas").load('acoes.php?identifier=tabelaVagasSolicitadas', hideLoader);
+    $("#tabelaItemTBLRecesso").load('acoes.php?identifier=tabelaItemTBLRecesso', hideLoader);
 });

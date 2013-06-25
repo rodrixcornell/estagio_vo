@@ -13,6 +13,10 @@ class tbl_calc_recessoVO extends VO{
         return $this->repositorio->pesquisarOrgaoGestor($this);
     }
 
+    function pesquisarItemTBLRecesso(){
+        return $this->repositorio->pesquisarItemTBLRecesso($this);
+    }
+
     /*function pesquisarOrgaoSolicitante(){
         return $this->repositorio->pesquisarOrgaoSolicitante($this);
     }
