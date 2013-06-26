@@ -30,15 +30,21 @@ if($_POST){
 		 exit;
     }
 	
-	if ($VO->ID_ORGAO_ESTAGIO) {
-        $VO->buscarSolicitacao();
-        $smarty->assign("arraySolicitacao", $VO->getArray("TX_COD_SOLICITACAO"));
+	if ($VO->ID_ORGAO_GESTOR_ESTAGIO) {
+		$VO->buscarSolicitante();
+		$smarty->assign("arrayOrgaoSolicitante", $VO->getArray("TX_ORGAO_ESTAGIO"));
 		
-		if ($VO->ID_SOLICITACAO_ESTAGIO) {
-        	$VO->buscarQuadroVagas();
-        	$smarty->assign("arrayQuadroVagas", $VO->getArray("TX_CODIGO"));
+		if ($VO->ID_ORGAO_ESTAGIO) {
+			$VO->buscarSolicitacao();
+			$smarty->assign("arraySolicitacao", $VO->getArray("TX_COD_SOLICITACAO"));
+			
+			if ($VO->ID_SOLICITACAO_ESTAGIO) {
+				$VO->buscarQuadroVagas();
+				$smarty->assign("arrayQuadroVagas", $VO->getArray("TX_CODIGO"));
+			}
 		}
-    }
+	}
+	
 }
 
 $smarty->assign("current"       , $current);
