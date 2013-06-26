@@ -12,7 +12,7 @@ session_start();
 
 // Iniciando Instância
 
-$_SESSION['ID_CONTRATO'] = $_REQUEST['ID'];
+$_SESSION['ID_SOLICITACAO_TR'] = $_REQUEST['ID'];
 
 header("Location: ".$url."src/".$pasta."/detail.php");
 
