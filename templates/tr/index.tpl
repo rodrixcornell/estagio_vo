@@ -22,7 +22,7 @@
 
                 <div id="camada" style="font-family:Verdana, Geneva, sans-serif; width:160px;" ><strong>Agente de Integração</strong></div>
                     <select name="ID_AGENCIA_ESTAGIO" id="ID_AGENCIA_ESTAGIO" style="width:400px;">
-                        {html_options options=$arrayAgenteIntegracao selected=$VO->ID_AGENCIA_ESTAGIO}
+                        {html_options options=$arraybuscarAgenteIntegracao selected=$VO->ID_AGENCIA_ESTAGIO}
                     </select>
                 <br />
                 
@@ -36,7 +36,7 @@
                     <input type="text" name="NB_CPF" id="NB_CPF" value="{$VO->NB_CPF}"  style="width:200px;" /><br />    
                 
                 <div id="camada" style="font-family:Verdana, Geneva, sans-serif; width:160px;" ><strong>Código da Solicitação: </strong></div>
-                    <input type="text" name="TX_TCE" id="TX_TCE" value="{$VO->TX_TCE}"  style="width:200px;" /><br />    
+                    <input type="text" name="TX_CODIGO" id="TX_CODIGO" value="{$VO->TX_CODIGO}"  style="width:200px;" /><br />    
                 <br />
                 
                 <input type="button" name="pesquisar" id="pesquisar" value="Pesquisar" />
@@ -51,13 +51,14 @@ $(document).ready(function(){
 		showLoader();
                 
 		$("#tabela").load('acoes.php?identifier=tabela',{
-                 ID_ORGAO_GESTOR_ESTAGIO:"{$VO->ID_ORGAO_GESTOR_ESTAGIO}",
-			ID_ORGAO_ESTAGIO:"{$VO->ID_ORGAO_ESTAGIO}",
-		      ID_SELECAO_ESTAGIO:"{$VO->ID_SELECAO_ESTAGIO}",
-			          TX_TCE:"{$VO->TX_TCE}",
-			         TX_NOME:"{$VO->TX_NOME}",
-			          NB_CPF:"{$VO->NB_CPF}",
-			            PAGE:"{$VO->PAGE}"
+                ID_ORGAO_GESTOR_ESTAGIO:$('#ID_ORGAO_GESTOR_ESTAGIO').val(),
+                ID_ORGAO_ESTAGIO:$('#ID_ORGAO_ESTAGIO').val(),
+                ID_AGENCIA_ESTAGIO:$('#ID_AGENCIA_ESTAGIO').val(),
+                TX_COD_SELECAO:$('#TX_COD_SELECAO').val(),
+                TX_NOME:$('#TX_NOME').val(),
+                NB_CPF:$('#NB_CPF').val(),
+                TX_CODIGO:$('#TX_CODIGO').val(),                
+                PAGE:"{$VO->PAGE}"
 		}, hideLoader); 
       
                

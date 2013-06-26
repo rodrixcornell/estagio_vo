@@ -3,7 +3,60 @@
 require_once $path . "src/repositorio/Repositorio.php";
 
 class RepositorioRecrutamento extends Repositorio {
+	
+	function pesquisarOrgaoGestor($VO) {
 
+        $query = "SELECT 
+                    ID_ORGAO_GESTOR_ESTAGIO ,
+                    ID_ORGAO_GESTOR_ESTAGIO CODIGO,
+                    TX_ORGAO_GESTOR_ESTAGIO
+                  FROM 
+                    ORGAO_GESTOR_ESTAGIO";
+        return $this->sqlVetor($query);
+    }
+
+    function buscarSolicitante($VO) {
+
+          $query = "SELECT DISTINCT 
+					  C.ID_ORGAO_ESTAGIO CODIGO,
+					  C.TX_ORGAO_ESTAGIO
+					FROM 
+					  AGENTE_SETORIAL_ESTAGIO A ,
+					  ORGAO_AGENTE_SETORIAL B,
+					  ORGAO_ESTAGIO C,
+					  SOLICITACAO_ESTAGIO D
+					WHERE 
+					  A.ID_SETORIAL_ESTAGIO = B.ID_SETORIAL_ESTAGIO
+					  and C.ID_ORGAO_ESTAGIO = B.ID_ORGAO_ESTAGIO
+					  AND D.ID_ORGAO_ESTAGIO = C.ID_ORGAO_ESTAGIO
+					  AND D.ID_ORGAO_GESTOR_ESTAGIO = '".$VO->ID_ORGAO_GESTOR_ESTAGIO."'
+					  AND A.ID_USUARIO = '".$_SESSION['ID_USUARIO']."'";
+		
+        return $this->sqlVetor($query);
+    }
+	
+	function buscarSolicitacao($VO) {
+
+        $query = "select a.ID_SOLICITACAO_ESTAGIO codigo, a.TX_COD_SOLICITACAO 
+					from SOLICITACAO_ESTAGIO a
+					where a.ID_ORGAO_ESTAGIO = '".$VO->ID_ORGAO_ESTAGIO."'
+					and a.CS_SITUACAO = 2
+					and a.ID_SOLICITACAO_ESTAGIO not in (select id_solicitacao_estagio from RECRUTAMENTO_ESTAGIO where id_orgao_estagio = '".$VO->ID_ORGAO_ESTAGIO."')";
+
+        return $this->sqlVetor($query);
+    }
+	
+
+	function buscarQuadroVagas($VO) {
+
+        $query = "select a.ID_QUADRO_VAGAS_ESTAGIO CODIGO, B.TX_CODIGO 
+					from SOLICITACAO_ESTAGIO a, QUADRO_VAGAS_ESTAGIO B
+					where a.ID_QUADRO_VAGAS_ESTAGIO = B.ID_QUADRO_VAGAS_ESTAGIO
+					AND A.ID_SOLICITACAO_ESTAGIO = '".$VO->ID_SOLICITACAO_ESTAGIO."'";
+
+        return $this->sqlVetor($query);
+    }
+	
     function pesquisarRecrutamento($VO) {
 
         $query = "        SELECT RECRUTAMENTO_ESTAGIO.ID_RECRUTAMENTO_ESTAGIO, 
@@ -81,7 +134,7 @@ class RepositorioRecrutamento extends Repositorio {
   
     function pesquisar($VO) {
 
-        $query = "          SELECT RECRUTAMENTO_ESTAGIO.ID_RECRUTAMENTO_ESTAGIO, 
+        $query = "SELECT RECRUTAMENTO_ESTAGIO.ID_RECRUTAMENTO_ESTAGIO, 
         QUADRO_VAGAS_ESTAGIO.ID_ORGAO_GESTOR_ESTAGIO,
         RECRUTAMENTO_ESTAGIO.ID_ORGAO_ESTAGIO,
 
@@ -164,17 +217,25 @@ class RepositorioRecrutamento extends Repositorio {
 
     function inserir($VO) {
 
-        $queryPK = "select SEMAD.F_G_PK_RECRUTAMENTO_ESTAGIO as ID_RECRUTAMENTO_ESTAGIO from DUAL";
+        $queryPK = "select SEMAD.F_G_PK_RECRUTAMENTO_ESTAGIO() as ID_RECRUTAMENTO_ESTAGIO from DUAL";
         $this->sqlVetor($queryPK);
         $CodigoPK = $this->getVetor();
 
         $query = "
             INSERT INTO RECRUTAMENTO_ESTAGIO
-            (ID_RECRUTAMENTO_ESTAGIO,DT_CADASTRO,DT_ATUALIZACAO, ID_USUARIO_CADASTRO,ID_USUARIO_ATUALIZACAO,ID_ORGAO_ESTAGIO, ID_QUADRO_VAGAS_ESTAGIO, TX_DOC_AUTORIZACAO, TX_MOTIVO, TX_COD_RECRUTAMENTO, CS_SITUACAO)
+            (ID_RECRUTAMENTO_ESTAGIO, DT_CADASTRO, DT_ATUALIZACAO, ID_QUADRO_VAGAS_ESTAGIO, ID_ORGAO_ESTAGIO, ID_USUARIO_CADASTRO, ID_USUARIO_ATUALIZACAO, TX_DOC_AUTORIZACAO, TX_MOTIVO, TX_COD_RECRUTAMENTO, CS_SITUACAO, ID_SOLICITACAO_ESTAGIO)
             VALUES
-	(" . $CodigoPK['ID_RECRUTAMENTO_ESTAGIO'][0] . ", SYSDATE, SYSDATE," . $_SESSION['ID_USUARIO'] . "," . $_SESSION['ID_USUARIO'] . ",".$VO->ID_ORGAO_ESTAGIO."," .$VO->ID_QUADRO_VAGAS_ESTAGIO.", '".$VO->TX_DOC_AUTORIZACAO."', '".$VO->TX_MOTIVO."', SEMAD.F_G_COD_RECRUTAMENTO_ESTAGIO() , 2) ";
-
-    //    print_r($query);
+			(" . $CodigoPK['ID_RECRUTAMENTO_ESTAGIO'][0] 
+			   . ", SYSDATE, SYSDATE" 
+			   . ", '".$VO->ID_QUADRO_VAGAS_ESTAGIO."' "
+			   . ", '".$VO->ID_ORGAO_ESTAGIO."' "
+			   . ", '".$_SESSION['ID_USUARIO']."' " 
+			   . ", '".$_SESSION['ID_USUARIO']."' "
+			   . ", '".$VO->TX_DOC_AUTORIZACAO."' "
+			   . ", '".$VO->TX_MOTIVO."' "
+			   . ", SEMAD.F_G_COD_RECRUTAMENTO_ESTAGIO() "
+			   . ", '1' "
+			   . ", '".$VO->ID_SOLICITACAO_ESTAGIO."' ) ";
 
         $retorno = $this->sql($query);
         return $retorno ? '' : $CodigoPK['ID_RECRUTAMENTO_ESTAGIO'][0];
@@ -422,17 +483,8 @@ AND
   //echo $query;
  return $this->sqlVetor($query);
     }
-        function pesquisarOrgaoGestor($VO) {
-
-        $query = "SELECT TX_ORGAO_ESTAGIO,
-            ID_ORGAO_ESTAGIO ID_ORGAO_GESTOR,
-            ID_ORGAO_ESTAGIO CODIGO
-
-            from ORGAO_ESTAGIO ORDER BY TX_ORGAO_ESTAGIO";
-
-        return $this->sqlVetor($query);
-    }
-
+    
+	
     function pesquisarTipoVagaEstagio($VO) {
 	   $recrutamento = "SELECT ID_QUADRO_VAGAS_ESTAGIO , ID_ORGAO_ESTAGIO 
       FROM RECRUTAMENTO_ESTAGIO      
@@ -461,29 +513,9 @@ AND
         return $this->sqlVetor($query);
     }
 	
-    function pesquisarOrgaoSolicitante($VO) {
+   
 
-        $query = "SELECT TX_ORGAO_ESTAGIO,
-            ID_ORGAO_ESTAGIO ID_ORGAO_SOLICITANTE,
-            ID_ORGAO_ESTAGIO CODIGO
-
-            from ORGAO_ESTAGIO ORDER BY TX_ORGAO_ESTAGIO";
-
-        return $this->sqlVetor($query);
-    }
-
-    function pesquisarQuadroVagas($VO) {
-     
-	  
-	  
-        $query = "SELECT TX_CODIGO,
-            ID_QUADRO_VAGAS_ESTAGIO,
-            ID_QUADRO_VAGAS_ESTAGIO CODIGO
-
-            from QUADRO_VAGAS_ESTAGIO ORDER BY ID_QUADRO_VAGAS_ESTAGIO DESC";
-
-        return $this->sqlVetor($query);
-    }
+    
 
 
    

@@ -24,7 +24,7 @@
                     <li><a href="{$url}src/recrutamento/?s=1"><span>5-Recrutamento de Estagiário</span></a></li>
                     <li><a href="{$url}src/selecao/?s=1"><span>6-Seleção de Estagiário</span></a></li>
                     <li><a href="{$url}src/contrato/?s=1"><span>7-Contrato de Estágio</span></a></li>
-                    <li><a href="{$url}src/tr/?s=1"><span>8-Solicitação de TR</span></a></li>                    
+                    <li><a href="{$url}src/tr/?s=1"><span>8-Solicitação de TR</span></a></li>
                  </ul>
             </div>
         </li>
@@ -37,6 +37,7 @@
                     <li><a href="{$url}src/tipo_pagamento/?s=1"><span>4-Tipo de Pagamento</span></a></li>
                     <li><a href="{$url}src/termo_aditivo/?s=1"><span>5-Termo Aditivo de Contrato</span></a></li>
                     <li><a href="{$url}src/tbl_calc_recesso/?s=1"><span>6-Tabela de Cálculo do Recesso</span></a></li>
+                    <li><a href="{$url}src/ta_contrato/?s=1"><span>7-Solicitação de Termo de Aditivo de Contrato</span></a></li>
                  </ul>
             </div>
         </li>

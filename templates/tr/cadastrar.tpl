@@ -42,7 +42,7 @@
                 <div id="camada" style="font-family:Verdana, Geneva, sans-serif; width:150px;" >CPF do Estagiário 
                     <input type="text" name="NB_CPF" id="NB_CPF" value="{$VO->NB_CPF}"  style="width:145px;" class="leitura" readonly="readonly" />
                 </div>  
-                <div id="camada" style="font-family:Verdana, Geneva, sans-serif; width:376px;" >Instituição do Estagiário 
+                <div id="camada" style="font-family:Verdana, Geneva, sans-serif; width:376px;" >Instituição de Ensino 
                     <input type="text" name="TX_INSTITUICAO_ENSINO" id="TX_INSTITUICAO_ENSINO" value="{$VO->TX_INSTITUICAO_ENSINO}"  style="width:371px;" class="leitura" readonly="readonly" />
                 </div>  
                 <div id="camada" style="font-family:Verdana, Geneva, sans-serif; width:376px;" >Curso 
@@ -53,9 +53,12 @@
                 </div>  
                 <div id="camada" style="font-family:Verdana, Geneva, sans-serif; width:150px;" >Período/Ano 
                     <input type="text" name="TX_PERIODO" id="TX_PERIODO" value="{$VO->TX_PERIODO}"  style="width:145px;" class="leitura" readonly="readonly" />
-                </div>  
-                <div id="camada" style="font-family:Verdana, Geneva, sans-serif; width:502px;" > <font color="#FF0000">*</font>Agente Setorial <font color="#FF0000">{$validar.ID_SETORIAL_ESTAGIO}</font><br />
-                    <select name="ID_SETORIAL_ESTAGIO" id="ID_SETORIAL_ESTAGIO" style="width:502px;">
+                </div>                
+                <div id="camada" style="font-family:Verdana, Geneva, sans-serif; width:150px;" >Agente de Integração
+                    <input type="text" name="TX_AGENCIA_ESTAGIO" id="TX_AGENCIA_ESTAGIO" value="{$VO->TX_AGENCIA_ESTAGIO}"  style="width:145px;" class="leitura" readonly="readonly" />
+                </div>                                  
+                <div id="camada" style="font-family:Verdana, Geneva, sans-serif; width:349px;" > <font color="#FF0000">*</font>Agente Setorial <font color="#FF0000">{$validar.ID_SETORIAL_ESTAGIO}</font><br />
+                    <select name="ID_SETORIAL_ESTAGIO" id="ID_SETORIAL_ESTAGIO" style="width:349px;">
                         {html_options options=$arraybuscarAgenteSetorial selected=$VO->ID_SETORIAL_ESTAGIO}
                     </select>
                 </div>  
@@ -71,7 +74,15 @@
                 </div>  
                 <div id="camada" style="font-family:Verdana, Geneva, sans-serif; width:165px;" > <font color="#FF0000">*</font>Data de Desligamento <font color="#FF0000">{$validar.DT_TERMINO_ESTAGIO}</font><br />
                     <input type="text" name="DT_TERMINO_ESTAGIO" id="DT_TERMINO_ESTAGIO" value="{$VO->DT_TERMINO_ESTAGIO}"  style="width:165px;" />
-                </div>  
+                </div>                  
+                <div id="camada" style="font-family:Verdana, Geneva, sans-serif; width:900px;"> <font color="#FF0000">*</font>Motivo <font color="#FF0000">{$validar.TX_MOTIVO}</font><br />
+                    <textarea name="TX_MOTIVO" id="TX_MOTIVO" style="width:890px; height:80px;">{$VO->TX_MOTIVO}</textarea></div>                                      
+                <br />
+                <div id="camada" style="font-family:Verdana, Geneva, sans-serif; width:900px;">Observação<br />
+                    <textarea name="TX_OBSERVACAO" id="TX_OBSERVACAO" style="width:890px; height:80px;">{$VO->TX_OBSERVACAO}</textarea></div><br />                                      
+                <br />
+
+                
             </fieldset>
 
             <br />
