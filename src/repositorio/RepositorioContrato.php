@@ -446,7 +446,10 @@ class RepositorioContrato extends Repositorio {
 
         // Função uitlizadas para trazer todos os quadros de vagas
         // função utilizada no arrays.php
-        $query = "SELECT ID_CONTRATO, TX_CODIGO FROM CONTRATO_ESTAGIO ORDER BY TX_CODIGO";
+        $query = "SELECT ID_QUADRO_VAGAS_ESTAGIO CODIGO,
+            ID_QUADRO_VAGAS_ESTAGIO,
+            TX_CODIGO 
+            FROM QUADRO_VAGAS_ESTAGIO ORDER BY TX_CODIGO";
         return $this->sqlVetor($query);
     }
 
@@ -529,14 +532,10 @@ class RepositorioContrato extends Repositorio {
     }
 
     function buscarEnderecoOrgaoGestor($VO) {
-
         // Função utilizada para trazer endereço do Orgão gestor
         // Utilizada no acoes.php
         $query = "SELECT 
-                    ID_ENDERECO,
-                    ID_ENDERECO CODIGO,
-                    ID_UNIDADE_ORG,
-                    TX_ENDERECO
+                          TX_ENDERECO TX_ENDERECO_SEC
                   FROM 
                     V_END_UNID_ORG END
                   where
