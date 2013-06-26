@@ -27,8 +27,7 @@
                 Data Fim de Vigência:<br />
                 <input type="text" name="DT_FIM_VIGENCIA" id="DT_FIM_VIGENCIA" value="{$VO->DT_FIM_VIGENCIA}" style="width:120px;" /></div><br />
 
-            <br /><br />
-
+            <br />
             <input type="button" name="cancelar" id="cancelar" value="Cancelar" onclick="window.location.href = '{$url}src/{$pasta}/index.php'" />&nbsp;&nbsp;&nbsp;&nbsp;
             <input type="submit" name="salvar" id="salvar" value=" Salvar " />
         </form>
