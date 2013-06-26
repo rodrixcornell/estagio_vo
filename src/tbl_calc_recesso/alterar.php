@@ -1,39 +1,50 @@
 <?php
-require_once "../../php/define.php";
-require_once $path . "src/tbl_calc_recesso/arrays.php";
-require_once $pathvo . "tbl_calc_recessoVO.php";
 
-$modulo = 80;
-$programa = 6;
-$pasta = 'tbl_calc_recesso';
-$current = 3;
-$titulopage = 'Tabela de Cálculo do Recesso';
+require_once "../../php/define.php";
+require_once $path . "src/solicitacao/arrays.php";
+require_once $pathvo . "solicitacaoVO.php";
+
+$modulo = 79;
+$programa = 3;
+$pasta = 'solicitacao';
+$current = 2;
+$titulopage = 'Solicitação de Estagiário';
 
 session_start();
 require_once "../autenticacao/validaPermissao.php";
 
 // Iniciando Instância
-$VO = new tbl_calc_recessoVO();
+$VO = new solicitacaoVO();
 
-if ($_SESSION['ID_TABELA_RECESSO']) {
+if ($_SESSION['ID_SOLICITACAO_ESTAGIO']) {
 
-    $VO->ID_TABELA_RECESSO = $_SESSION['ID_TABELA_RECESSO'];
+    $VO->ID_SOLICITACAO_ESTAGIO = $_SESSION['ID_SOLICITACAO_ESTAGIO'];
     $VO->buscar();
     $VO->preencherVOBD($VO->getVetor());
 
+    if ($VO->ID_ORGAO_GESTOR_ESTAGIO && $VO->ID_ORGAO_ESTAGIO) {
+        $VO->pesquisarQuadroVagasEstagio();
+        $smarty->assign("arrayQuadroVagasEstagio", $VO->getArray("TX_CODIGO"));
+    }
+
     if ($_POST) {
         $VO->configuracao();
-        $VO->setCaracteristica('TX_TABELA,ID_ORGAO_GESTOR_ESTAGIO,DT_INICIO_VIGENCIA', 'obrigatorios');
-        $VO->setCaracteristica('DT_INICIO_VIGENCIA,DT_FIM_VIGENCIA', 'datas');
+        //ID_ORGAO_GESTOR_ESTAGIO, ID_AGENCIA_ESTAGIO, ID_ORGAO_ESTAGIO, TX_COD_SOLICITACAO, CS_SITUACAO, TX_JUSTIFICATIVA, ID_SOLICITACAO_ESTAGIO
+        $VO->setCaracteristica('ID_ORGAO_GESTOR_ESTAGIO,ID_ORGAO_ESTAGIO,TX_COD_SOLICITACAO,ID_QUADRO_VAGAS_ESTAGIO', 'obrigatorios');
         $validar = $VO->preencher($_POST);
 
-        if (!$validar) {
+        $tamanho_cod = strlen($_POST['TX_COD_SOLICITACAO']);
+        $tamanho_just = strlen($_POST['TX_JUSTIFICATIVA']);
+        if ($tamanho_cod > 20) {
+            $validar['TX_COD_SOLICITACAO'] = 'Valor máximo de 20, atual de: ' . $tamanho_cod;
+        } else if ($tamanho_just > 255) {
+            $validar['TX_JUSTIFICATIVA'] = 'Valor máximo de 255, atual de: ' . $tamanho_just;
+        } else if (!$validar) {
             $VO->alterar();
             header("Location: " . $url . "src/" . $pasta . "/detail.php");
         }
     }
-}
-else
+}else
     header("Location: " . $url . "src/" . $pasta . "/index.php");
 
 $smarty->assign("current", $current);
