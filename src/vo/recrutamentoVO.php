@@ -10,23 +10,29 @@ class recrutamentoVO extends VO{
         return $this->repositorio = new RepositorioRecrutamento(); 
         
     }
+	
 
 
     function inserirCandidato(){   
         return $this->repositorio->inserirCandidato($this);
     }
-
-
-    function  pesquisarQuadroVagas(){    
-        return $this->repositorio->pesquisarQuadroVagas($this);
-    }
+	
+	
     
 	function  pesquisarOrgaoGestor(){    
         return $this->repositorio->pesquisarOrgaoGestor($this);
     }
- 
-    function  pesquisarOrgaoSolicitante(){    
-        return $this->repositorio->pesquisarOrgaoSolicitante($this);
+	
+	function  buscarSolicitante(){    
+        return $this->repositorio->buscarSolicitante($this);
+    }
+	
+	function buscarSolicitacao(){   
+        return $this->repositorio->buscarSolicitacao($this);
+    }
+
+    function  buscarQuadroVagas(){    
+        return $this->repositorio->buscarQuadroVagas($this);
     }
 	
     function  pesquisarTipoVagaEstagio(){    

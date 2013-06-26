@@ -7,7 +7,7 @@ $modulo = 79;
 $programa = 5;
 $pasta = 'recrutamento';
 $current = 2;
-$titulopage = 'Recrutamento de Estagi·rio';
+$titulopage = 'Recrutamento de Estagi√°rio';
 
 require_once "../autenticacao/validaPermissao.php";
 

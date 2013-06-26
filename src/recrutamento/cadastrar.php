@@ -19,14 +19,25 @@ $VO = new recrutamentoVO();
 
 if($_POST){
     $VO->configuracao();
-    $VO->setCaracteristica('ID_QUADRO_VAGAS_ESTAGIO,ID_ORGAO_ESTAGIO','obrigatorios');
+    $VO->setCaracteristica('ID_ORGAO_GESTOR_ESTAGIO,ID_ORGAO_ESTAGIO,ID_SOLICITACAO_ESTAGIO,ID_QUADRO_VAGAS_ESTAGIO','obrigatorios');
     $validar = $VO->preencher($_POST);
 	
 	(!$validar) ? $id_pk = $VO->inserir() : false;
 	
-    if (!$validar) {
+    if ($id_pk) {
         $_SESSION['ID_RECRUTAMENTO_ESTAGIO'] = $id_pk;
 		 header("Location: ".$url."src/".$pasta."/detail.php");
+		 exit;
+    }
+	
+	if ($VO->ID_ORGAO_ESTAGIO) {
+        $VO->buscarSolicitacao();
+        $smarty->assign("arraySolicitacao", $VO->getArray("TX_COD_SOLICITACAO"));
+		
+		if ($VO->ID_SOLICITACAO_ESTAGIO) {
+        	$VO->buscarQuadroVagas();
+        	$smarty->assign("arrayQuadroVagas", $VO->getArray("TX_CODIGO"));
+		}
     }
 }
 

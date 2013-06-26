@@ -315,11 +315,10 @@ $.widget( "ui.combobox", {
 $VO = new recrutamentoVO();
 
 if ($_REQUEST['identifier'] == "tabela") {
-    $VO->ID_RECRUTAMENTO_ESTAGIO = $_REQUEST['ID_RECRUTAMENTO_ESTAGIO'];
-    $VO->ID_ORGAO_ESTAGIO        = $_REQUEST['ID_ORGAO_ESTAGIO'];
     $VO->ID_ORGAO_GESTOR_ESTAGIO = $_REQUEST['ID_ORGAO_GESTOR_ESTAGIO'];
-    $VO->ID_QUADRO_VAGAS_ESTAGIO = $_REQUEST['ID_QUADRO_VAGAS_ESTAGIO'];
-    $VO->TX_COD_RECRUTAMENTO     = $_REQUEST['TX_COD_RECRUTAMENTO'];
+    $VO->ID_ORGAO_ESTAGIO        = $_REQUEST['ID_ORGAO_ESTAGIO'];
+    $VO->CS_SITUACAO 			 = $_REQUEST['CS_SITUACAO'];
+    $VO->TX_COD_RECRUTAMENTO 	 = $_REQUEST['TX_COD_RECRUTAMENTO'];
 
     $page = $_REQUEST['PAGE'];
 
@@ -393,7 +392,43 @@ if ($_REQUEST['identifier'] == "tabela") {
     }else {
         echo '<div id="nao_encontrado">Nenhum registro encontrado.</div>';
     }
-} else if ($_REQUEST['identifier'] == "buscarCodigo") {
+}else if ($_REQUEST['identifier'] == "buscarSolicitante") {
+
+    $VO->ID_ORGAO_GESTOR_ESTAGIO = $_REQUEST['ID_ORGAO_GESTOR_ESTAGIO'];
+    $total = $VO->buscarSolicitante();
+
+	echo '<option value="">Escolha...</option>';
+    if ($total) {
+        $dados = $VO->getVetor();
+        for ($i = 0; $i < $total; $i++) {
+            echo '<option value="' . $dados['CODIGO'][$i] . '">' . $dados['TX_ORGAO_ESTAGIO'][$i] . '</option>';
+        }
+    }
+}else if ($_REQUEST['identifier'] == "buscarSolicitacao") {
+
+    $VO->ID_ORGAO_ESTAGIO = $_REQUEST['ID_ORGAO_ESTAGIO'];
+    $total = $VO->buscarSolicitacao();
+
+	echo '<option value="">Escolha...</option>';
+    if ($total) {
+        $dados = $VO->getVetor();
+        for ($i = 0; $i < $total; $i++) {
+            echo '<option value="' . $dados['CODIGO'][$i] . '">' . $dados['TX_COD_SOLICITACAO'][$i] . '</option>';
+        }
+    }
+}else if ($_REQUEST['identifier'] == "buscarQuadroVagas") {
+
+    $VO->ID_SOLICITACAO_ESTAGIO = $_REQUEST['ID_SOLICITACAO_ESTAGIO'];
+    $total = $VO->buscarQuadroVagas();
+
+	echo '<option value="">Escolha...</option>';
+    if ($total) {
+        $dados = $VO->getVetor();
+        for ($i = 0; $i < $total; $i++) {
+            echo '<option value="' . $dados['CODIGO'][$i] . '">' . $dados['TX_CODIGO'][$i] . '</option>';
+        }
+    }
+}else if ($_REQUEST['identifier'] == "buscarCodigo") {
 
     $VO->ID_RECRUTAMENTO_ESTAGIO = $_REQUEST['ID_RECRUTAMENTO_ESTAGIO'];
 
