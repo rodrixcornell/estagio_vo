@@ -1,10 +1,10 @@
 <?php
 
 include "../../php/define.php";
-require_once $pathvo . "trVO.php";
+require_once $pathvo . "contratoVO.php";
 
 $modulo = 79;
-$programa = 8;
+$programa = 7;
 
 require_once "../autenticacao/validaPermissao.php";
 
@@ -12,10 +12,10 @@ session_start();
 
 function gerarTabela($param = '') {
     include "../../php/define.php";
-    require_once $pathvo . "trVO.php";
+    require_once $pathvo . "contratoVO.php";
     $acesso = $GLOBALS['acesso']; //Acessar a Variavel global;
 
-    $VO = new trVO();
+    $VO = new contratoVO();
     $VO->ID_ORGAO_GESTOR_ESTAGIO = $_REQUEST['ID_ORGAO_GESTOR_ESTAGIO'];
     $VO->ID_ORGAO_ESTAGIO = $_REQUEST['ID_ORGAO_ESTAGIO'];
     $VO->ID_SELECAO_ESTAGIO = $_REQUEST['ID_SELECAO_ESTAGIO'];
@@ -46,7 +46,7 @@ function gerarTabela($param = '') {
         echo '<div id="status">' . $_SESSION['STATUS'] . '</div>
 		<table width="100%" class="dataGrid">
                 <tr>
-                    <th>Código do tr</th>
+                    <th>Código do Contrato</th>
                     <th>Órgão Gestor</th>
                     <th>Agente de Integração</th>
                     <th>Agente Solicitante</th>
@@ -72,7 +72,7 @@ function gerarTabela($param = '') {
             //Somente ver a coluna de alterar se tiver acesso completo a tela					
             if ($acesso)
                 echo '<td align="center"> 
-                       <a href="' . $dados['ID_tr'][$i] . '" id="alterar"><img src="' . $urlimg . 'icones/editar.png" alt="itens" title="Alterar"/></a></td>';
+                       <a href="' . $dados['ID_CONTRATO'][$i] . '" id="alterar"><img src="' . $urlimg . 'icones/editar.png" alt="itens" title="Alterar"/></a></td>';
             echo '</tr>';
         }
 
@@ -103,7 +103,7 @@ function gerarTabela($param = '') {
 }
 
 //Instancia da classe trVO();
-$VO = new trVO();
+$VO = new contratoVO();
 
 // Tabela do master
 if ($_REQUEST['identifier'] == "tabela") {
@@ -157,11 +157,9 @@ else if ($_REQUEST['identifier'] == "candidato") {
 else if ($_REQUEST['identifier'] == "buscarEndereco") {
 
     $VO->ID_UNIDADE_ORG = $_REQUEST['ID_UNIDADE_ORG'];
-
     $VO->buscarEnderecoOrgaoGestor();
     $dados = $VO->getVetor();
-
-    echo $dados['TX_ENDERECO'][0];
+    echo $dados['TX_ENDERECO_SEC'][0];
 }
 //busca de Nome do Secretario do Orgão Gestor
 else if ($_REQUEST['identifier'] == "buscarNome") {

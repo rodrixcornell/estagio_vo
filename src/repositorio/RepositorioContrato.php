@@ -532,14 +532,10 @@ class RepositorioContrato extends Repositorio {
     }
 
     function buscarEnderecoOrgaoGestor($VO) {
-
         // Função utilizada para trazer endereço do Orgão gestor
         // Utilizada no acoes.php
         $query = "SELECT 
-                    ID_ENDERECO,
-                    ID_ENDERECO CODIGO,
-                    ID_UNIDADE_ORG,
-                    TX_ENDERECO
+                          TX_ENDERECO TX_ENDERECO_SEC
                   FROM 
                     V_END_UNID_ORG END
                   where
