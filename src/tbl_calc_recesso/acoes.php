@@ -249,6 +249,13 @@ if ($_REQUEST['identifier'] == "tabela") {
     }
 } else if ($_REQUEST['identifier'] == "tabelaItemTBLRecesso") {
     gerarTabela();
+} else if ($_REQUEST['identifier'] == 'atualizarInf') {
+
+    $VO->ID_TABELA_RECESSO = $_SESSION['ID_TABELA_RECESSO'];
+
+    $dados = $VO->atualizarInf();
+
+    echo json_encode($dados);
 }
 
 

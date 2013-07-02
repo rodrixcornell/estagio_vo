@@ -30,7 +30,7 @@ if ($_POST) {
         if ($id_pk) {
             $_SESSION['ID_TABELA_RECESSO'] = $id_pk;
 
-            //header("Location: " . $url . "src/" . $pasta . "/detail.php");
+            header("Location: " . $url . "src/" . $pasta . "/detail.php");
         } else {
             $validar['ID_ORGAO_GESTOR_ESTAGIO'] = "Erro de Cadastro!";
         }
