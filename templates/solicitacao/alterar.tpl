@@ -48,25 +48,25 @@
                 </select></div><br />
 
             <div id="camada" style="font-family:Verdana, Geneva, sans-serif; width:620px;" >
-                Motivo / Justificativa: <font color="#FF0000">{$validar.TX_JUSTIFICATIVA}</font>
+                Motivo / Justificativa <font color="#FF0000">{$validar.TX_JUSTIFICATIVA}</font>
                 <textarea name="TX_JUSTIFICATIVA" id="TX_JUSTIFICATIVA" style="width:765px; height:110px;" rows="2">{$VO->TX_JUSTIFICATIVA}</textarea></div>
 
             <br />
             <div id="camada" style="font-family:Verdana, Geneva, sans-serif; width:565px;" >
-                Usuário do Cadastro:
+                Funcionário do Cadastro
                 <input type="text" name="TX_FUNCIONARIO_CAD" id="TX_FUNCIONARIO_CAD" value="{$VO->TX_FUNCIONARIO_CAD}"  style="width:555px;" readonly="readonly" class="leitura"/></div>
 
             <div id="camada" style="font-family:Verdana, Geneva, sans-serif; width:210px;" >
-                Data do Cadastro:
+                Data do Cadastro
                 <input type="text" name="DT_CADASTRO" id="DT_CADASTRO" value="{$VO->DT_CADASTRO}"  style="width:200px;" readonly="readonly" class="leitura"/></div>
 
             <br />
             <div id="camada" style="font-family:Verdana, Geneva, sans-serif; width:565px;" >
-                Usuário da Atualização:
+                Funcionário da Atualização
                 <input type="text" name="TX_FUNCIONARIO_ATUAL" id="TX_FUNCIONARIO_ATUAL" value="{$VO->TX_FUNCIONARIO_ATUAL}"  style="width:555px;" readonly="readonly" class="leitura"/></div>
 
             <div id="camada" style="font-family:Verdana, Geneva, sans-serif; width:210px;" >
-                Data da Atualização:
+                Data da Atualização
                 <input type="text" name="DT_ATUALIZACAO" id="DT_ATUALIZACAO" value="{$VO->DT_ATUALIZACAO}"  style="width:200px;" readonly="readonly" class="leitura"/></div>
 
             <br /><br />

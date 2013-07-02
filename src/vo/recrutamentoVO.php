@@ -82,5 +82,10 @@ class recrutamentoVO extends VO{
 	function  efetivar(){    
         return $this->repositorio->efetivar($this);
     }
+	
+	function  verificarSelecao(){    
+        return $this->repositorio->verificarSelecao($this);
+    }
+
 }
 ?>

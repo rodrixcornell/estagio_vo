@@ -12,37 +12,37 @@
                 <table width="100%" class="dataGrid" >
                     <tr bgcolor="#E0E0E0">
                         <td style="width:125px;"><strong>Órgão Gestor</strong></td>
-                        <td style="width:350px;">{$dados.TX_ORGAO_GESTOR[0]}</td>
-                        <td><strong>Órgão Solicitante</strong></td>
-                        <td style="text-align:right;">{$dados.TX_ORGAO_SOLICITANTE[0]}</td>
+                        <td style="width:350px;">{$dados.TX_ORGAO_GESTOR_ESTAGIO[0]}</td>
+                        <td style="width:150px;"><strong>Órgão Solicitante</strong></td>
+                        <td style="width:100px; text-align:right;">{$dados.TX_ORGAO_ESTAGIO[0]}</td>
                     </tr>
-                    <tr bgcolor="#E0E0E0">
-                        <td style="width:125px;"><strong>Quadro de Vagas</strong></td>
-                        <td style="width:350px;">{$dados.TX_QUADRO_VAGAS[0]}</td>
+                    <tr bgcolor="#F0EFEF">
+                        <td><strong>Quadro de Vagas</strong></td>
+                        <td>{$dados.TX_CODIGO[0]}</td>
                         <td><strong>Cód. de Recrutamento</strong></td>
                         <td style="text-align:right;">{$dados.TX_COD_RECRUTAMENTO[0]}</td>
                     </tr>
                     <tr bgcolor="#E0E0E0">
-                        <td style="width:125px;"><strong>Motivo/Justificativa</strong></td>
-                        <td style="width:350px;">{$dados.TX_MOTIVO[0]}</td>
-                        <td><strong>Situação</strong></td>
-                        <td style="text-align:right;">{$dados.TX_SITUACAO[0]}</td>
-                    </tr>
-                    <tr bgcolor="#E0E0E0">
-                        <td style="width:125px;"><strong></strong></td>
-                        <td style="width:350px;"></td>
-                        <td style="width:150px;"><strong>Doc. Autorização</strong></td>
-                        <td style="width:100px;">{$dados.TX_DOC_AUTORIZACAO[0]}</td>
+                        <td><strong>Motivo/Justificativa</strong></td>
+                        <td>{$dados.TX_MOTIVO[0]}</td>
+                        <td><strong>Cód. da Solicitação </strong></td>
+                        <td style="text-align:right;">{$dados.TX_COD_SOLICITACAO[0]}</td>
                     </tr>
                     <tr bgcolor="#F0EFEF">
+                        <td><strong>Doc. Autorização</strong></td>
+                        <td>{$dados.TX_DOC_AUTORIZACAO[0]}</td>
+                        <td><strong>Situação</strong></td>
+                        <td style="width:100px; text-align:right;">{$dados.TX_SITUACAO[0]}</td>
+                    </tr>
+                    <tr bgcolor="#E0E0E0">
                         <td><strong>Cadastrado por</strong></td>
-                        <td>{$dados.CADASTRADOPOR[0]}</td>
+                        <td>{$dados.TX_FUNCIONARIO_CADASTRO[0]}</td>
                         <td><strong>Data de Cadastro</strong></td>
                         <td style="text-align:right;">{$dados.DT_CADASTRO[0]}</td>
                     </tr>
-                    <tr bgcolor="#E0E0E0">
+                    <tr bgcolor="#F0EFEF">
                         <td><strong>Alterado por</strong></td>
-                        <td><div id="funcionario">{$dados.ALTERADOPOR[0]}</div></td>
+                        <td><div id="funcionario">{$dados.TX_FUNCIONARIO_ATUALIZACAO[0]}</div></td>
                         <td><strong>Data de Atualização</strong></td>
                         <td style="text-align:right;"><div id="atualizacao">{$dados.DT_ATUALIZACAO[0]}</div></td>
                     </tr>
@@ -59,21 +59,21 @@
         
 {if $acesso}<fieldset>
         	<legend>Cadastrar Vagas de Estágio</legend>
-        	<div id="camada" style="width:210px;"><strong><font color="#FF0000">*</font>Tipo Quadro Vaga</strong> <br />
+        	<div id="camada" style="width:210px;"><strong><font color="#FF0000">*</font>Tipo de Vaga</strong> <br />
               <select name="CS_TIPO_VAGA_ESTAGIO" id="CS_TIPO_VAGA_ESTAGIO" style="width:200px;">
                     {html_options options=$arrayTipoVagaEstagioDetail selected=$VO->CS_TIPO_VAGA_ESTAGIO}
             </select> </div>
             
            <div id="camada" style="width:110px;"><strong><font color="#FF0000">*</font>Quantidade</strong>
-
-<!--               <strong> <font color="#FF0000"></font>* Quantidade<font color="#FF0000">{$validar.NB_QUANTIDADE}</font></strong> -->
-                <input type="text" name="NB_QUANTIDADE" id="NB_QUANTIDADE" value="{$VO->NB_QUANTIDADE}" style="width:100px;" /> </div>
+				<input type="text" name="NB_QUANTIDADE" id="NB_QUANTIDADE" value="{$VO->NB_QUANTIDADE}" style="width:100px; text-align:center;" /> </div>
                 
-            
-<input type="button" name="inserir" id="inserir" value=" Inserir "  />
+           <div id="camada" style="width:110px;"><strong>Qtde Solicitada</strong>
+				<input type="text" name="NB_QUANTIDADE_SOLIC" id="NB_QUANTIDADE_SOLIC" value="{$VO->NB_QUANTIDADE_SOLIC}" style="width:100px; text-align:center;" class="leitura" readonly="readonly" /> </div>
 
-<form action="{$url}src/{$pasta}/detail.php" method="post" style="display:inline;">			
-            <input type="submit" name="efetivar" id="inserir" value=" Efetivar Recrutamento " style="float:right;margin-top:15px;"; />
+			<input type="button" name="inserir" id="inserir" value=" Inserir "  />
+
+			<form action="{$url}src/{$pasta}/detail.php" method="post" style="display:inline;">			
+           	 <input type="submit" name="efetivar" id="inserir" value=" Efetivar Recrutamento " {if $dados.CS_SITUACAO[0] == 2}disabled="disabled"{/if} style="float:right;margin-top:15px;"; />
 			</form>
             
             
@@ -85,13 +85,8 @@
  	
         
         <div id="dialog-tabela" title="Candidatos do Recrutamento">
-        
+        	<div class="fundoForm"><img src="{$urlimg}icones/loader3.gif" ></div>
             <div id="tabelaCand"></div>
-              <div class="fundoForm">
-                <img src="{$urlimg}icones/loader3.gif" >
-            </div>
-                
-        
         </div>
 
 	        

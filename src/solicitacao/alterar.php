@@ -35,7 +35,7 @@ if ($_SESSION['ID_SOLICITACAO_ESTAGIO']) {
 
     if ($_POST) {
         $VO->configuracao();
-		if ($recrutamento) $VO->setCaracteristica('CS_SITUACAO', 'obrigatorios');
+		if (!$recrutamento) $VO->setCaracteristica('CS_SITUACAO', 'obrigatorios');
         $validar = $VO->preencher($_POST);
 		
 		$tamanho_just = strlen($_POST['TX_JUSTIFICATIVA']);

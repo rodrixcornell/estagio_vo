@@ -20,21 +20,27 @@ if ($_SESSION['ID_RECRUTAMENTO_ESTAGIO']){
     $VO->ID_RECRUTAMENTO_ESTAGIO = $_SESSION['ID_RECRUTAMENTO_ESTAGIO'];
     $VO->buscar();
     $VO->preencherVOBD($VO->getVetor());
+	
+	$selecao = $VO->verificarSelecao();
   
     if($_POST){
 		$VO->configuracao();
-        $VO->setCaracteristica('ID_QUADRO_VAGAS_ESTAGIO,ID_ORGAO_ESTAGIO,TX_DOC_AUTORIZACAO','obrigatorios');
-		$validar = $VO->preencher($_POST);
-
+		if (!$selecao) $VO->setCaracteristica('CS_SITUACAO', 'obrigatorios');
+        $validar = $VO->preencher($_POST);
+		
         if (!$validar){
              $VO->alterar();
              header("Location: ".$url."src/".$pasta."/detail.php");
+			 exit;
         }
     }
+	
+	
 }else header("Location: ".$url."src/".$pasta."/index.php");
 
 $smarty->assign("current"       , $current);
 $smarty->assign("pasta"         , $pasta);
+$smarty->assign("selecao"       , $selecao);
 $smarty->assign("validar"		, $validar);
 $smarty->assign("VO"			, $VO);
 $smarty->assign("titulopage"    , $titulopage);
