@@ -59,18 +59,18 @@
                     <font color="#FF0000">*</font><strong>Duração do Recesso</strong><br />
                 <input type="text" name="NB_DURACAO_RECESSO" id="NB_DURACAO_RECESSO" value="{$VO->NB_DURACAO_RECESSO}"  style="width:140px;" /></div>
 
-                <div id="camada" style="font-family:Verdana, Geneva, sans-serif; width:310px;" >
+                <div id="camada" style="font-family:Verdana, Geneva, sans-serif; width:360px;" >
                     <font color="#FF0000">*</font><strong>Fórmula</strong><br />
-                <input type="text" name="TX_FORMULA_RECESSO" id="TX_FORMULA_RECESSO" value="{$VO->TX_FORMULA_RECESSO}"  style="width:300px;" /></div>
+                <input type="text" name="TX_FORMULA_RECESSO" id="TX_FORMULA_RECESSO" value="{$VO->TX_FORMULA_RECESSO}"  style="width:350px;" /></div>
 
                 <input type="button" name="inserir" id="inserir" value=" Inserir " />
             </fieldset>
         {/if}
 
-        <div id="tabelaItemTBLRecesso"></div>
+        <div id="tabelaTBLRecesso"></div>
 
         <div id="dialog" title="Alterar Itens Tabela Recesso">
-            <div id="tabelaAlterarItemTBLRecesso" style="text-align:left;"></div>
+            <div id="tabelaAlterarTBLRecesso" style="text-align:left;"></div>
             <div class="fundoForm">
                 <img src="{$urlimg}icones/loader3.gif" >
             </div>

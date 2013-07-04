@@ -5,8 +5,6 @@ $(document).ready(function(){
     }
     function hideLoader(){
         $('.fundo_pag').fadeOut(200);
-
-        //$.post("acoes.php?identifier=pesquisarTipoVaga", TipoVaga);
     };
 
     function emptyHideLoader(){
@@ -14,11 +12,6 @@ $(document).ready(function(){
         //console.log(valor);
         $('.fundo_pag').fadeOut(200);
         $('#TX_DURACAO_ESTAGIO,#NB_DURACAO_RECESSO,#TX_FORMULA_RECESSO').val('');
-        //$('#ID_CURSO_ESTAGIO').html('');
-
-        //$.post("acoes.php?identifier=pesquisarTipoVaga", TipoVaga);
-
-        //$("#ID_UNIDADE_IRP option:first").attr('selected','selected');
 
         $.getJSON('acoes.php?identifier=atualizarInf', atualizarInf);
         function atualizarInf(campo){
@@ -28,8 +21,6 @@ $(document).ready(function(){
         }
     };
 
-    //function TipoVaga(valor){ $("#ID_CS_CODIGO").html(valor); };
-
     function showLoaderForm(){
         $('.fundoForm').fadeIn(200);
     };
@@ -38,99 +29,70 @@ $(document).ready(function(){
     };
 
     $('#NB_DURACAO_RECESSO').setMask({
-        mask:'999999'
-    });
-
-    $('#ID_CS_CODIGO').change(function(){
-        if ($('#ID_CS_CODIGO').val()){
-            var valor = $('#ID_CS_CODIGO').val().split('_');
-            //alert(valor);
-            //console.log(valor);
-            //            $.post("acoes.php",
-            //            {
-            //                CS_TIPO_VAGA_ESTAGIO:valor[0],
-            //                ID_CURSO_ESTAGIO:valor[1],
-            //                NB_QUANTIDADE:valor[2],
-            //                identifier:'buscarQuantidade'
-            //            }, function(valor){
-            //                //alert(valor);
-            //                $("#NB_QUANTIDADE").val(valor);
-            //            });
-            $("#ID_CURSO_ESTAGIO").html('<option value="">Carregando ...</option>');
-            $.post("acoes.php",
-            {
-                ID_CURSO_ESTAGIO:valor[1],
-                identifier:'buscarCursos'
-            }, function(valor){
-                $("#ID_CURSO_ESTAGIO").html(valor);
-            });
-            $("#NB_QUANTIDADE").val(valor[2]);
-            $("#NB_QUANTIDADE").focus();
-        }
+        mask:'9999'
     });
 
     $("#paginacao li").live('click', function(){
         showLoader();
-        $("#tabelaItemTBLRecesso").load('acoes.php?identifier=tabelaItemTBLRecesso&PAGE='+this.id, hideLoader);
+        $("#tabelaTBLRecesso").load('acoes.php?identifier=tabelaTBLRecesso&PAGE='+this.id, hideLoader);
         return false;
     });
 
-    // Inserção de Vagas de Estágio
+    // Inserção
     $('#inserir').live('click', function(){
-        if (!$('#ID_CS_CODIGO').val()){
-            alert('Para inserir escolha um Tipo.');
-            $('#ID_CS_CODIGO').focus();
-        }else if (!$('#NB_QUANTIDADE').val()){
-            alert('Para inserir escolha uma Quantidade.');
-            $('#NB_QUANTIDADE').focus();
+        if (!$('#TX_DURACAO_ESTAGIO').val()){
+            alert('Insira o Tempo de Estágio.');
+            $('#TX_DURACAO_ESTAGIO').focus();
+        }else if (!$('#NB_DURACAO_RECESSO').val()){
+            alert('Insira a Duração do Recesso.');
+            $('#NB_DURACAO_RECESSO').focus();
+        }else if (!$('#TX_FORMULA_RECESSO').val()){
+            alert('Insira a Fórmula.');
+            $('#TX_FORMULA_RECESSO').focus();
         }else{
+            //console.log();
             showLoader();
-            $("#tabelaItemTBLRecesso").load('acoes.php',
+            $("#tabelaTBLRecesso").load('acoes.php',
             {
-                ID_CS_CODIGO:$('#ID_CS_CODIGO').val(),
-                NB_QUANTIDADE:$('#NB_QUANTIDADE').val(),
-                ID_CURSO_ESTAGIO:$('#ID_CURSO_ESTAGIO').val(),
-                identifier:'inserirVagasSolicitadas',
+                TX_DURACAO_ESTAGIO:$('#TX_DURACAO_ESTAGIO').val(),
+                NB_DURACAO_RECESSO:$('#NB_DURACAO_RECESSO').val(),
+                TX_FORMULA_RECESSO:$('#TX_FORMULA_RECESSO').val(),
+                identifier:'inserirTBLRecesso',
                 PAGE:$('.selecionado').text()
             }, emptyHideLoader);
         }
         return false;
     });
-    /*
-	$('#inserirTodos').live('click', function(){
-		showLoader();
-		$("#tabelaItemTBLRecesso").load('acoes.php?identifier=inserirTodas', hideLoader);
-        return false;
-    });
-         */
-    //Exclusão de Vagas de Estágio
+
+    //Exclusão
     $('#excluir').live('click', function(){
         var href = $(this).attr('href');
 
         resp = window.confirm('Tem certeza que deseja excluir este Registro?');
         if (resp){
             showLoader();
-            $("#tabelaItemTBLRecesso").load('acoes.php',
+            $("#tabelaTBLRecesso").load('acoes.php',
             {
-                CS_TIPO_VAGA_ESTAGIO:href,
-                identifier:'excluirVagasSolicitadas',
+                NB_ITEM_TAB_RECESSO:href,
+                identifier:'excluirTBLRecesso',
                 PAGE:$('.selecionado').text()
             }, emptyHideLoader);
         }
         return false;
     });
 
+    // Alterar
     $('#alterar').live('click', function(){
         var href = $(this).attr('href');
 
         $("#dialog").dialog("open");
-
-        $('#tabelaAlterarVagasSolicitadas').html('');
+        $('#tabelaAlterarTBLRecesso').html('');
+        //console.log();
         showLoaderForm();
-        $('#tabelaAlterarVagasSolicitadas').load('acoes.php',
+        $('#tabelaAlterarTBLRecesso').load('acoes.php',
         {
-            CS_TIPO_VAGA_ESTAGIO:href,
-            identifier:'tabelaAlterarVagasSolicitadas'
+            NB_ITEM_TAB_RECESSO:href,
+            identifier:'tabelaAlterarTBLRecesso'
         }, hideLoaderForm);
 
         return false;
@@ -143,34 +105,39 @@ $(document).ready(function(){
         modal: true,
         buttons:{
             "Salvar": function() {
-                if (!$('#NB_QUANTIDADE_ALT').val()){
-                    alert('Para inserir escolha uma Quantidade.');
-                    $('#NB_QUANTIDADE_ALT').focus();
+                if (!$('#TX_DURACAO_ESTAGIO_ALT').val()){
+                    alert('Insira o Tempo de Estágio.');
+                    $('#TX_DURACAO_ESTAGIO_ALT').focus();
+                }else if (!$('#NB_DURACAO_RECESSO_ALT').val()){
+                    alert('Insira a Duração do Recesso.');
+                    $('#NB_DURACAO_RECESSO_ALT').focus();
+                }else if (!$('#TX_FORMULA_RECESSO_ALT').val()){
+                    alert('Insira a Fórmula.');
+                    $('#TX_FORMULA_RECESSO_ALT').focus();
                 }else{
-                    console.log();
+                    //console.log();
                     showLoader();
-                    $("#tabelaItemTBLRecesso").load('acoes.php',
+                    $("#tabelaTBLRecesso").load('acoes.php',
                     {
-                        CS_TIPO_VAGA_ESTAGIO:$('#CS_TIPO_VAGA_ESTAGIO_ALT').val(),
-                        NB_QUANTIDADE:$('#NB_QUANTIDADE_ALT').val(),
-                        ID_CURSO_ESTAGIO:$('#ID_CURSO_ESTAGIO_ALT').val(),
-                        identifier:'alterarVagasSolicitadas',
+                        NB_ITEM_TAB_RECESSO:$('#NB_ITEM_TAB_RECESSO_ALT').val(),
+                        TX_DURACAO_ESTAGIO:$('#TX_DURACAO_ESTAGIO_ALT').val(),
+                        NB_DURACAO_RECESSO:$('#NB_DURACAO_RECESSO_ALT').val(),
+                        TX_FORMULA_RECESSO:$('#TX_FORMULA_RECESSO_ALT').val(),
+                        identifier:'alterarTBLRecesso',
                         PAGE:$('.selecionado').text()
                     }, emptyHideLoader);
-                    $( this ).dialog("close");
+                    $(this).dialog("close");
                 };
             },
             "Cancelar": function() {
-                $('#tabelaAlterarVagasSolicitadas').html('');
-                $( this ).dialog( "close" );
+                $('#tabelaAlterarTBLRecesso').html('');
+                $(this).dialog("close");
             }
         }
     });
 
-
     //Excluir Master
     $('#excluirMaster').click(function(){
-
         if ($('.icones').length){
             alert('Este registro não pode ser excluído pois possui dependentes.');
             return false;
@@ -180,9 +147,8 @@ $(document).ready(function(){
                 return false;
             }
         }
-
     });
 
     showLoader();
-    $("#tabelaItemTBLRecesso").load('acoes.php?identifier=tabelaItemTBLRecesso', hideLoader);
+    $("#tabelaTBLRecesso").load('acoes.php?identifier=tabelaTBLRecesso', hideLoader);
 });
