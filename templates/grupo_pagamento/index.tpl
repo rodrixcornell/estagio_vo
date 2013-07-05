@@ -10,9 +10,9 @@
                 
                 <br /><br />
                 				
-                <div id="camada" style="font-family:Verdana, Geneva, sans-serif; width:130px;" ><strong>Bolsa de Estágio: </strong></div>
-                    <select name="ID_BOLSA_ESTAGIO" id="ID_BOLSA_ESTAGIO" style="width:400px;">
-                        {html_options options=$arrayBolsa selected=$VO->ID_BOLSA_ESTAGIO}
+                <div id="camada" style="font-family:Verdana, Geneva, sans-serif; width:130px;" ><strong>Grupo de Pagamento: </strong></div>
+                    <select name="ID_GRUPO_PAGAMENTO" id="ID_GRUPO_PAGAMENTO" style="width:400px;">
+                        {html_options options=$arrayGrupo selected=$VO->ID_GRUPO_PAGAMENTO}
                     </select>
                     <br />
                     <br />
@@ -29,7 +29,7 @@
                     		showLoader();
                     		$("#tabela").load('acoes.php?identifier=tabela',{
                     		    ID:$(this).attr('href'),
-                    			ID_BOLSA_ESTAGIO:"{$VO->ID_BOLSA_ESTAGIO}",
+                    			ID_BOLSA_ESTAGIO:"{$VO->ID_GRUPO_PAGAMENTO}",
                     			PAGE:"{$VO->PAGE}"
                     		}, hideLoader); 
                    	}

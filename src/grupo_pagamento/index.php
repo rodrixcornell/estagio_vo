@@ -1,17 +1,17 @@
 <?php
 require_once "../../php/define.php";
-require_once $path."src/bolsa/arrays.php";
-require_once $pathvo."bolsaVO.php";
+require_once $path."src/grupo_pagamento/arrays.php";
+require_once $pathvo."grupo_pagamentoVO.php";
 
-$modulo = 78;
-$programa = 1;
-$pasta = 'bolsa';
+$modulo = 80;
+$programa = 8;
+$pasta = 'grupo_pagamento';
 $current = 3;
-$titulopage = 'Bolsa de Estágio';
+$titulopage = 'Grupo de Pagamento';
 
 require_once "../autenticacao/validaPermissao.php";
 
-$VO = new bolsaVO();
+$VO = new grupo_pagamentoVO();
 $VO->preencherVOSession($_SESSION);
 
 $smarty->assign("current"       , $current);

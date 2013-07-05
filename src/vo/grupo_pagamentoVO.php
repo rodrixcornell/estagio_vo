@@ -1,16 +1,16 @@
 <?php
 
 require_once $pathvo."VO.php";
-require_once $path."src/repositorio/RepositorioBolsa.php";
+require_once $path."src/repositorio/RepositorioGrupo_pagamento.php";
 
-class bolsaVO extends VO{
+class grupo_pagamentoVO extends VO{
     
-    function bolsaVO(){        
-        return $this->repositorio = new RepositorioBolsa();         
+    function grupo_pagamentoVO(){        
+        return $this->repositorio = new RepositorioGrupo_pagamento();         
     }
     
-	function pesquisarBolsa(){    
-        return $this->repositorio->pesquisarBolsa($this);
+	function pesquisargrupo_pagamento(){    
+        return $this->repositorio->pesquisargrupo_pagamento($this);
     }
  	
 }

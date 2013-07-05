@@ -1,11 +1,11 @@
 <?php
 require_once "../../php/define.php";
-require_once $pathvo."bolsaVO.php";
+require_once $pathvo."grupo_pagamentoVO.php";
 	
-$VO = new bolsaVO();
+$VO = new grupo_pagamentoVO();
 
-$VO->pesquisarBolsa();
-$arrayBolsa = $VO->getArray("TX_BOLSA_ESTAGIO");    
-$smarty->assign("arrayBolsa", $arrayBolsa);
+$VO->pesquisargrupo_pagamento();
+$arrayGrupo = $VO->getArray("TX_GRUPO_PAGAMENTO");    
+$smarty->assign("arrayGrupo", $arrayGrupo);
 
 ?>

@@ -1,37 +1,38 @@
 <?php
 require_once "../../php/define.php";
-require_once $path."src/bolsa/arrays.php";
-require_once $pathvo."bolsaVO.php";
+require_once $path."src/grupo_pagamento/arrays.php";
+require_once $pathvo."grupo_pagamentoVO.php";
 
-$modulo = 78;
-$programa = 1;
-$pasta = 'bolsa';
+$modulo = 80;
+$programa = 8;
+$pasta = 'grupo_pagamento';
 $current = 3;
-$titulopage = 'Bolsa de Estágio';
+$titulopage = 'Grupo de Pagamento';
 
 session_start();
 require_once "../autenticacao/validaPermissao.php";
 
 // Iniciando Instância
-$VO = new bolsaVO();
+$VO = new grupo_pagamentoVO();
 
-if ($_SESSION['ID_BOLSA_ESTAGIO']){
+if ($_SESSION['ID_GRUPO_PAGAMENTO']){
     
-    $VO->ID_BOLSA_ESTAGIO = $_SESSION['ID_BOLSA_ESTAGIO'];
+    $VO->ID_GRUPO_PAGAMENTO = $_SESSION['ID_GRUPO_PAGAMENTO'];
 
     $VO->pesquisar();
     $VO->preencherVOBD($VO->getVetor());
     
     if($_POST){
-		$VO->configuracao();
-        $VO->setCaracteristica('TX_BOLSA_ESTAGIO,NB_VALOR','obrigatorios');
-        $VO->verificarMoeda('NB_VALOR');
+        $VO->configuracao();
+        $VO->setCaracteristica('TX_GRUPO_PAGAMENTO','obrigatorios');
+        $VO->setCaracteristica('ID_GRUPO_PAGAMENTO','numeros');
                 
 		$validar = $VO->preencher($_POST);
 
         if (!$validar){
             $VO->alterar();
-			$_SESSION['ID_BOLSA_ESTAGIO'] = $VO->ID_BOLSA_ESTAGIO;
+			$_SESSION['ID_GRUPO_PAGAMENTO'] = $VO->ID_GRUPO_PAGAMENTO;
+                        $_SESSION['TX_GRUPO_PAGAMENTO'] = $VO->TX_GRUPO_PAGAMENTO;
 			$_SESSION['STATUS'] = '*Registro alterado com sucesso!';
 			$_SESSION['PAGE'] = '1';
             header("Location: ".$url."src/".$pasta."/index.php");

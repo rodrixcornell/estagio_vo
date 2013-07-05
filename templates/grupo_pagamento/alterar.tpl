@@ -6,18 +6,18 @@
     <br /><br /><br /><hr />
 	
     <div id="conteudo">
-        Para alterar a Bolsa de Estágio preencha o formulário abaixo e clique em Avançar:<br /><br /><br />
+        Para alterar o Grupo de Pagamento preencha o formulário abaixo e clique em Avançar:<br /><br /><br />
         <form name="form" action="{$url}src/{$pasta}/alterar.php" method="post">
 				
             <div id="camada" style="font-family:Verdana, Geneva, sans-serif; width:410px;">
-                <font color="#FF0000">*</font>Bolsa de Estágio <font color="#FF0000">{$validar.TX_BOLSA_ESTAGIO}</font><br />
-                <input type="text" name="TX_BOLSA_ESTAGIO" id="TX_BOLSA_ESTAGIO" value="{$VO->TX_BOLSA_ESTAGIO}" style="width:400px;" /></div>
+                <font color="#FF0000">*</font>Código <font color="#FF0000">{$validar.ID_GRUPO_PAGAMENTO}</font><br />
+                <input type="text" name="ID_GRUPO_PAGAMENTO" id="ID_GRUPO_PAGAMENTO" value="{$VO->ID_GRUPO_PAGAMENTO}" style="width:100px;" /></div>
                 
             <br />
-
+			
             <div id="camada" style="font-family:Verdana, Geneva, sans-serif; width:410px;">
-                <font color="#FF0000">*</font>Valor <font color="#FF0000">{$validar.NB_VALOR}</font><br />
-                <input type="text" name="NB_VALOR" id="NB_VALOR" value="{number_format($VO->NB_VALOR,2,',','.')}" style="width:100px;" /></div>
+                <font color="#FF0000">*</font>Descrição<font color="#FF0000">{$validar.TX_GRUPO_PAGAMENTO}</font><br />
+                <input type="text" name="TX_GRUPO_PAGAMENTO" id="TX_GRUPO_PAGAMENTO" value="{$VO->TX_GRUPO_PAGAMENTO}" style="width:400px;" /></div>
                 
             <br />                          
                 

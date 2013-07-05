@@ -1,9 +1,9 @@
 <?php
 include "../../php/define.php";
-require_once $pathvo."bolsaVO.php";
+require_once $pathvo."grupo_pagamentoVO.php";
 
-$modulo = 78;
-$programa = 1;
+$modulo = 80;
+$programa = 8;
 
 require_once "../autenticacao/validaPermissao.php";
 
@@ -14,8 +14,8 @@ function gerarTabela($param=''){
 	require_once $pathvo."bolsaVO.php";
 	$acesso = $GLOBALS['acesso']; //Acessar a Variavel global;
 
-	$VO = new bolsaVO();
-	$VO->ID_BOLSA_ESTAGIO 	= $_REQUEST['ID_BOLSA_ESTAGIO'];
+	$VO = new grupo_pagamentoVO();
+	$VO->ID_GRUPO_PAGAMENTO 	= $_REQUEST['ID_GRUPO_PAGAMENTO'];
 	$page               	= $_REQUEST['PAGE'];
 	
 	$VO->preencherSessionPesquisar($_REQUEST);
@@ -37,8 +37,8 @@ function gerarTabela($param=''){
 		echo '<div id="status">'.$_SESSION['STATUS'].'</div>
 		<table width="100%" class="dataGrid">
                             <tr>
-								<th>Bolsa</th>
-								<th>Valor</th>';
+								<th>Código</th>
+								<th>Descrição</th>';
 			//Somente ver a coluna de alterar se tiver acesso completo a tela					
 			if ($acesso) 
 				echo '<th style="width:50px;"></th>';
@@ -47,15 +47,17 @@ function gerarTabela($param=''){
                 for ($i=0; $i<$tot_da_pagina; $i++){
                     ($bgcolor == '#E6E6E6') ? $bgcolor = '#F0EFEF' : $bgcolor = '#E6E6E6';
 
-                    echo '<tr bgcolor="'.$bgcolor.'">
-                            <td align="center">'.$dados['TX_BOLSA_ESTAGIO'][$i].'</td>
-							<td align="center">'.number_format($dados['NB_VALOR'][$i],2,',','.').'</td>';
+                   echo '<tr bgcolor="'.$bgcolor.'">
+                            <td align="center">'.$dados['ID_GRUPO_PAGAMENTO'][$i].'</td>
+							<td align="center">'.$dados['TX_GRUPO_PAGAMENTO'][$i].'</td>
+							
+                          ';
 							
 		//Somente ver a coluna de alterar se tiver acesso completo a tela					
            if ($acesso) 
 		 			echo '<td align="center"> 
-								<a href="'.$dados['ID_BOLSA_ESTAGIO'][$i].'" id="alterar"><img src="'.$urlimg.'icones/editar.png" alt="itens" title="Alterar"/></a>
-								<a href="'.$dados['ID_BOLSA_ESTAGIO'][$i].'" id="excluir"><img src="'.$urlimg.'icones/excluirItem.png" alt="itens" title="Excluir"/></a></td>';
+								<a href="'.$dados['ID_GRUPO_PAGAMENTO'][$i].'" id="alterar"><img src="'.$urlimg.'icones/editar.png" alt="itens" title="Alterar"/></a>
+								<a href="'.$dados['ID_GRUPO_PAGAMENTO'][$i].'" id="excluir"><img src="'.$urlimg.'icones/excluirItem.png" alt="itens" title="Excluir"/></a></td>';
 					echo '</tr>';
 		}
 		
@@ -85,13 +87,13 @@ function gerarTabela($param=''){
 	unset($_SESSION['STATUS']);			
 }
 
-$VO = new bolsaVO();
+$VO = new grupo_pagamentoVO();
 
 if ($_REQUEST['identifier'] == "tabela"){
 	gerarTabela($erro);
 }else if ($_REQUEST['identifier'] == 'excluir'){
 	
-	$VO->ID_BOLSA_ESTAGIO 		= $_REQUEST['ID'];
+	$VO->ID_GRUPO_PAGAMENTO 		= $_REQUEST['ID'];
 	
 	if ($acesso){
 		

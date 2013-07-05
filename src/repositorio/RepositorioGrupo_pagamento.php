@@ -1,24 +1,28 @@
 <?php
 require_once $path."src/repositorio/Repositorio.php";
 
-class RepositorioBolsa extends Repositorio{
+class RepositorioGrupo_pagamento extends Repositorio{
 
 
-    function pesquisarBolsa($VO){
+    function pesquisargrupo_pagamento($VO){
         
-        $query="SELECT ID_BOLSA_ESTAGIO CODIGO, ID_BOLSA_ESTAGIO, TX_BOLSA_ESTAGIO, NB_VALOR FROM BOLSA_ESTAGIO
-        ORDER BY TX_BOLSA_ESTAGIO";
+        $query="SELECT ID_GRUPO_PAGAMENTO CODIGO,
+                       TX_GRUPO_PAGAMENTO
+                  FROM GRUPO_PAGAMENTO
+              ORDER BY TX_GRUPO_PAGAMENTO";
 			
         return $this->sqlVetor($query);	
     }
 	
 	function pesquisar($VO) {
 		
-        $query = "SELECT ID_BOLSA_ESTAGIO CODIGO, ID_BOLSA_ESTAGIO, TX_BOLSA_ESTAGIO, NB_VALOR FROM BOLSA_ESTAGIO";
+        $query = "SELECT ID_GRUPO_PAGAMENTO CODIGO,
+                        TX_GRUPO_PAGAMENTO
+                  FROM  GRUPO_PAGAMENTO";
 					
-		($VO->ID_BOLSA_ESTAGIO) ? $query .= " WHERE ID_BOLSA_ESTAGIO = ".$VO->ID_BOLSA_ESTAGIO.""  : false;
+		($VO->ID_GRUPO_PAGAMENTO) ? $query .= " WHERE ID_GRUPO_PAGAMENTO = ".$VO->ID_GRUPO_PAGAMENTO.""  : false;
         
-        $query .= " ORDER BY TX_BOLSA_ESTAGIO";
+        $query .= " ORDER BY ID_GRUPO_PAGAMENTO";
 
         if ($VO->Reg_quantidade){
             !$VO->Reg_inicio? $VO->Reg_inicio = 0: false;
@@ -30,37 +34,43 @@ class RepositorioBolsa extends Repositorio{
     
     function excluir($VO){
 
-        $query = "DELETE FROM BOLSA_ESTAGIO
-                    WHERE ID_BOLSA_ESTAGIO = '".$VO->ID_BOLSA_ESTAGIO."'";
+        $query = "DELETE FROM GRUPO_PAGAMENTO
+                    WHERE ID_GRUPO_PAGAMENTO = '".$VO->ID_GRUPO_PAGAMENTO."'";
                     
         return $this->sql($query);
     }    
     	
 	function inserir($VO){
-		
-		$queryPK = "select SEMAD.F_G_PK_Bolsa_Estagio as ID_BOLSA_ESTAGIO from DUAL";
+     $queryPK = "select SEMAD.F_G_PK_GRUPO_PAGAMENTO as ID_GRUPO_PAGAMENTO from DUAL";
         $this->sqlVetor($queryPK);
         $CodigoPK = $this->getVetor();
 
         $query = "
-            INSERT INTO BOLSA_ESTAGIO(ID_BOLSA_ESTAGIO, TX_BOLSA_ESTAGIO, NB_VALOR) 
+            INSERT INTO BOLSA_ESTAGIO(ID_GRUPO_PAGAMENTO, TX_GRUPO_PAGAMENTO) 
 						values
-								('".$CodigoPK['ID_BOLSA_ESTAGIO'][0]."', '".$VO->TX_BOLSA_ESTAGIO."' ,'".$VO->moeda($VO->NB_VALOR)."')
+	('".$CodigoPK['ID_GRUPO_PAGAMENTO'][0]."', '".$VO->TX_GRUPO_PAGAMENTO."')
         ";
 
         $retorno = $this->sql($query);
-        return $retorno ? '' : $CodigoPK['ID_BOLSA_ESTAGIO'][0];
+        return $retorno ? '' : $CodigoPK['ID_GRUPO_PAGAMENTO'][0];
     }
 
     function alterar($VO){
 
-        $query = "update BOLSA_ESTAGIO set
-                    TX_BOLSA_ESTAGIO = '".$VO->TX_BOLSA_ESTAGIO."' ,
-                    NB_VALOR = '".$VO->moeda($VO->NB_VALOR)."'
-                  where
-                    ID_BOLSA_ESTAGIO = '".$VO->ID_BOLSA_ESTAGIO."'";
+$query = "update GRUPO_PAGAMENTO set
+                                 TX_GRUPO_PAGAMENTO = '".$VO->TX_GRUPO_PAGAMENTO."'                 
+                               where
+                                 ID_GRUPO_PAGAMENTO = '".$VO->ID_GRUPO_PAGAMENTO."'";
 
         return $this->sql($query);
+    }
+    function buscar($VO) {
+	$query ="SELECT ID_GRUPO_PAGAMENTO CODIGO,
+                        TX_GRUPO_PAGAMENTO
+                  FROM  GRUPO_PAGAMENTO
+	          where ID_GRUPO_PAGAMENTO = '".$VO->ID_GRUPO_PAGAMENTO."'";
+       
+        return $this->sqlVetor($query);
     }
  
 }
