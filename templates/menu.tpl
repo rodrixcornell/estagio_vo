@@ -38,6 +38,7 @@
                     <li><a href="{$url}src/termo_aditivo/?s=1"><span>5-Termo Aditivo de Contrato</span></a></li>
                     <li><a href="{$url}src/tbl_calc_recesso/?s=1"><span>6-Tabela de Cálculo do Recesso</span></a></li>
                     <li><a href="{$url}src/ta_contrato/?s=1"><span>7-Solicitação de Termo de Aditivo de Contrato</span></a></li>
+                    <li><a href="{$url}src/grupo_pagamento/?s=1"><span>8-Grupo de Pagamento</span></a></li>
                  </ul>
             </div>
         </li>
