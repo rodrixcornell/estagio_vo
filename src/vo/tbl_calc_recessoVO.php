@@ -17,52 +17,24 @@ class tbl_calc_recessoVO extends VO{
         return $this->repositorio->pesquisarItemTBLRecesso($this);
     }
 
-    /*function pesquisarOrgaoSolicitante(){
-        return $this->repositorio->pesquisarOrgaoSolicitante($this);
-    }
-
-    function pesquisarAgenciaEstagio(){
-        return $this->repositorio->pesquisarAgenciaEstagio($this);
-    }
-
-    function pesquisarQuadroVagasEstagio(){
-        return $this->repositorio->pesquisarQuadroVagasEstagio($this);
-    }
-
-    function pesquisarTipoVaga(){
-        return $this->repositorio->pesquisarTipoVaga($this);
-    }
-
-    function buscarQuantidade(){
-        return $this->repositorio->buscarQuantidade($this);
-    }
-
-    function buscarCursos(){
-        return $this->repositorio->buscarCursos($this);
-    }
-
-    function pesquisarVagasSolicitadas(){
-        return $this->repositorio->pesquisarVagasSolicitadas($this);
-    }
-
-    function inserirVagasSolicitadas(){
-        return $this->repositorio->inserirVagasSolicitadas($this);
-    }
-
-    function excluirVagasSolicitadas(){
-        return $this->repositorio->excluirVagasSolicitadas($this);
-    }
-
-    function buscarVagasSolicitadas(){
-        return $this->repositorio->buscarVagasSolicitadas($this);
-    }
-
-    function alterarVagasSolicitadas(){
-        return $this->repositorio->alterarVagasSolicitadas($this);
-    }
-
     function atualizarInf(){
         return $this->repositorio->atualizarInf($this);
-    }*/
+    }
+
+    function inserirTBLRecesso(){
+        return $this->repositorio->inserirTBLRecesso($this);
+    }
+
+    function excluirTBLRecesso(){
+        return $this->repositorio->excluirTBLRecesso($this);
+    }
+
+    function buscarTBLRecesso(){
+        return $this->repositorio->buscarTBLRecesso($this);
+    }
+
+    function alterarTBLRecesso(){
+        return $this->repositorio->alterarTBLRecesso($this);
+    }
 }
 ?>

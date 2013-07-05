@@ -446,10 +446,18 @@ class RepositorioContrato extends Repositorio {
 
         // Função uitlizadas para trazer todos os quadros de vagas
         // função utilizada no arrays.php
-        $query = "SELECT ID_QUADRO_VAGAS_ESTAGIO CODIGO,
-            ID_QUADRO_VAGAS_ESTAGIO,
-            TX_CODIGO 
-            FROM QUADRO_VAGAS_ESTAGIO ORDER BY TX_CODIGO";
+        $query = "SELECT 
+                            QUADRO_VAGAS_ESTAGIO.ID_QUADRO_VAGAS_ESTAGIO CODIGO,
+                            QUADRO_VAGAS_ESTAGIO.ID_QUADRO_VAGAS_ESTAGIO,
+                            QUADRO_VAGAS_ESTAGIO.TX_CODIGO TX_CODIGO_QUADRO_VAGAS
+                  FROM
+                            SELECAO_ESTAGIO,
+                            RECRUTAMENTO_ESTAGIO,
+                            QUADRO_VAGAS_ESTAGIO
+                  WHERE 
+                            SELECAO_ESTAGIO.ID_RECRUTAMENTO_ESTAGIO = RECRUTAMENTO_ESTAGIO.ID_RECRUTAMENTO_ESTAGIO
+                            AND RECRUTAMENTO_ESTAGIO.ID_QUADRO_VAGAS_ESTAGIO = QUADRO_VAGAS_ESTAGIO.ID_QUADRO_VAGAS_ESTAGIO
+                            and SELECAO_ESTAGIO.ID_SELECAO_ESTAGIO =".$VO->ID_SELECAO_ESTAGIO;
         return $this->sqlVetor($query);
     }
 
