@@ -2,7 +2,6 @@
 require_once "../../php/define.php";
 require_once $pathvo."recrutamentoVO.php";
 
-
 $modulo = 79;
 $programa = 5;
 $pasta = 'recrutamento';
@@ -18,7 +17,7 @@ if ($_SESSION['ID_RECRUTAMENTO_ESTAGIO']){
 	$VO->ID_RECRUTAMENTO_ESTAGIO = $_SESSION['ID_RECRUTAMENTO_ESTAGIO'];
 	
 	$retorno = $VO->excluir();
-			
+	
 	if (!$retorno){
 		$msg = 'Recrutamento de Estagiário excluído com sucesso.<br><br> <a href="'.$url.'src/'.$pasta.'/index.php">Clique aqui</a> para voltar';	
 		unset($_SESSION['ID_RECRUTAMENTO_ESTAGIO']);

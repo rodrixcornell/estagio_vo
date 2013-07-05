@@ -37,13 +37,12 @@ $(document).ready(function(){
 	function hideLoader(){ $('.fundo_pag').fadeOut(200); };
 	
 	
-	if ("{$VO->ID_ORGAO_GESTOR_ESTAGIO}" || "{$VO->ID_ORGAO_ESTAGIO}"|| "{$VO->ID_QUADRO_VAGAS_ESTAGIO}"|| "{$VO->TX_COD_RECRUTAMENTO}"       ){
+	if ("{$VO->ID_ORGAO_GESTOR_ESTAGIO}" && "{$VO->ID_ORGAO_ESTAGIO}" ){
 		showLoader();
 		$("#tabela").load('acoes.php?identifier=tabela',{
-			ID_RECRUTAMENTO_ESTAGIO:"{$VO->ID_RECRUTAMENTO_ESTAGIO}",
-			ID_ORGAO_ESTAGIO_GEST:"{$VO->ID_ORGAO_GESTOR_ESTAGIO}",
+			ID_ORGAO_GESTOR_ESTAGIO:"{$VO->ID_ORGAO_GESTOR_ESTAGIO}",
 			ID_ORGAO_ESTAGIO:"{$VO->ID_ORGAO_ESTAGIO}",
-			ID_QUADRO_VAGAS_ESTAGIO:"{$VO->ID_QUADRO_VAGAS_ESTAGIO}",
+			CS_SITUACAO:"{$VO->CS_SITUACAO}",
 			TX_COD_RECRUTAMENTO:"{$VO->TX_COD_RECRUTAMENTO}",
 			PAGE:"{$VO->PAGE}"
 		}, hideLoader); 

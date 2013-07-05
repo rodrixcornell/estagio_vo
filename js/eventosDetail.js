@@ -19,7 +19,6 @@ $(document).ready(function(){
 		$.getJSON('acoes.php?identifier=atualizarInfMaster', atualizarInfMaster);
 		
 		function atualizarInfMaster(campo){
-			console.log(campo);
 			$("#atualizacao").html(campo['DT_ATUALIZACAO'][0]);
 		}     
 		
