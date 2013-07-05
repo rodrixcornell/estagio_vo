@@ -21,8 +21,8 @@ $VO->buscarTipoVaga();
 $arrayTipoVagas=$VO->getArray('TX_TIPO_VAGA_ESTAGIO');
 
 // selecionar quadro de vagas
-$VO->buscarQuadroVaga();
-$arrayQuadroVagas=$VO->getArray('TX_CODIGO');
+//$VO->buscarQuadroVaga();
+//$arrayQuadroVagas=$VO->getArray('TX_CODIGO');
 
 //selecionar curso
 $VO->buscarCurso();
@@ -82,7 +82,7 @@ $smarty->assign('arrayTipoContrato',$arrayTipoContrato);
 $smarty->assign('arrayPeriodoEstagio',$arrayPeriodoEstagio);
 $smarty->assign('arrayHorarioCurso',$arrayHorarioCurso);
 $smarty->assign('arrayTipoVagas',$arrayTipoVagas);
-$smarty->assign('arrayQuadroVagas',$arrayQuadroVagas);
+//$smarty->assign('arrayQuadroVagas',$arrayQuadroVagas);
 $smarty->assign('arrayCursoEstagio',$arrayCursoEstagio);
 $smarty->assign('arrayAgenteIntegracao',$arrayAgenteIntegracao);
 $smarty->assign('arrayInstituicaoDeEnsino',$arrayInstituicaoDeEnsino);

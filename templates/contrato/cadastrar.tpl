@@ -31,29 +31,43 @@
                     <input type="text" name="TX_ENDERECO_SEC" id="TX_ENDERECO_SEC" value="{$VO->TX_ENDERECO_SEC}"  style="width:910px;" class="leitura" readonly="readonly" />
                 </div>
                 <br />
-                <div id="camada" style="font-family:Verdana, Geneva, sans-serif; width:180px;" > <font color="#FF0000">*</font>Quadro de Vagas:<font color="#FF0000">{$validar.ID_QUADRO_VAGAS_ESTAGIO}</font><br />
-                    <select name="ID_QUADRO_VAGAS_ESTAGIO" id="ID_QUADRO_VAGAS_ESTAGIO" style="width:170px;">
-                        {html_options options=$arrayQuadroVagas selected=$VO->ID_QUADRO_VAGAS_ESTAGIO}
-                    </select>
-                </div>
+
                 <div id="camada" style="font-family:Verdana, Geneva, sans-serif; width:310px;" > <font color="#FF0000">*</font>Tipo de Vagas:<font color="#FF0000">{$validar.CS_TIPO_VAGA_ESTAGIO}</font><br />
                     <select name="CS_TIPO_VAGA_ESTAGIO" id="CS_TIPO_VAGA_ESTAGIO" style="width:300px;">
                         {html_options options=$arrayTipoVagas selected=$VO->CS_TIPO_VAGA_ESTAGIO}
                     </select>
                 </div>
-                <div id="camada" style="font-family:Verdana, Geneva, sans-serif; width:180px;" > <font color="#FF0000">*</font>Código da seleção:<font color="#FF0000">{$validar.ID_SELECAO_ESTAGIO}</font><br />
-                    <select name="ID_SELECAO_ESTAGIO" id="ID_SELECAO_ESTAGIO" style="width:170px;">
-                        {html_options options=$arrayCodSelecao selected=$VO->ID_SELECAO_ESTAGIO}
-                    </select>
-                </div>
+
+
                 <div id="camada" style="font-family:Verdana, Geneva, sans-serif; width:210px;" > <font color="#FF0000">*</font>Tipo de Contrato:<font color="#FF0000">{$validar.CS_TIPO}</font><br />
                     <select name="CS_TIPO" id="CS_TIPO" style="width:200px;">
                         {html_options options=$arrayTipoContrato selected=$VO->CS_TIPO}
                     </select>
                 </div>
 
+                <input type="radio" name="CS_SELECAO" ID="CHECK_RESP" value="1">Com Seleção
+                <input type="radio" name="CS_SELECAO" ID="CHECK_RESP_2" value="2">Sem Seleção
+
+                <br />
+
             </fieldset>
             <!-- FIm FildSet da Unidade Solicitante -->          
+            <fieldset id="SELECAO_ID" style="display: none;">
+                <legend>Seleção</legend>
+
+                <div id="camada" style="font-family:Verdana, Geneva, sans-serif; width:180px;" > <font color="#FF0000">*</font>Código da seleção:<font color="#FF0000">{$validar.ID_SELECAO_ESTAGIO}</font><br />
+                    <select name="ID_SELECAO_ESTAGIO" id="ID_SELECAO_ESTAGIO" style="width:170px;">
+                        {html_options options=$arrayCodSelecao selected=$VO->ID_SELECAO_ESTAGIO}
+                    </select>
+                </div>
+                <div id="camada" style="font-family:Verdana, Geneva, sans-serif; width:180px;" > <font color="#FF0000">*</font>Quadro de Vagas:<font color="#FF0000">{$validar.ID_QUADRO_VAGAS_ESTAGIO}</font><br />
+                 
+                    <input type="text" name="TX_CODIGO_QUADRO_VAGAS" id="TX_CODIGO_QUADRO_VAGAS" value="{$VO->TX_CODIGO_QUADRO_VAGAS}"  style="width:150px;" class="leitura" readonly="readonly" />
+                    <input type="hidden" name="ID_QUADRO_VAGAS_ESTAGIO" id="ID_QUADRO_VAGAS_ESTAGIO" value="{$VO->ID_QUADRO_VAGAS_ESTAGIO}"    />
+                </div>
+
+
+            </fieldset>
 
             <!-- FildSet do Estagiário -->
             <fieldset>

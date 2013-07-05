@@ -32,7 +32,26 @@ $(document).ready(function(){
         changeYear: true
     });
     
-    //    change do  orgão solicitante -
+
+    	
+	$("input[name=CS_SELECAO]").click( function() {
+		if($('#CHECK_RESP').is(':checked')){
+//			$("#ID_UNIDADE_ORC option:first").attr('selected','selected');
+//			$('#ID_UNIDADE_ORC').attr("disabled", true);	
+//			$('#ID_UNIDADE_ORG').attr("disabled", false);	
+//			$('#ID_UNIDADE_ORG').focus();
+//			$("#NB_MES_INICIO,#NB_MES_FIM,#NB_ANO_INICIO,#NB_ANO_FIM").html('');
+                     $('#SELECAO_ID').show();
+		}else{
+//			$("#ID_UNIDADE_ORG option:first").attr('selected','selected');
+//			$('#ID_UNIDADE_ORG').attr("disabled", true);
+//			$('#ID_UNIDADE_ORC').attr("disabled", false);	
+//			$('#ID_UNIDADE_ORC').focus();
+//			$("#NB_MES_INICIO,#NB_MES_FIM,#NB_ANO_INICIO,#NB_ANO_FIM").html('');
+                        $('#SELECAO_ID').hide();
+		}
+	});
+        //    change do  orgão solicitante -
     //     quando o Usuario carregar clicar no combo carrega automaticamente o campo de codigo de seleção
     $('#ID_ORGAO_ESTAGIO').change(function(){
         if ($('#ID_ORGAO_ESTAGIO').val() != 0){  
@@ -62,7 +81,7 @@ $(document).ready(function(){
     $("#ID_SELECAO_ESTAGIO").change(function(){
         if ($("#ID_SELECAO_ESTAGIO").val() != 0){  
             var valor = $("#ID_SELECAO_ESTAGIO").val().split('_');
-            $("#ID_PESSOA_ESTAGIARIO").val('');
+            $("#ID_PESSOA_ESTAGIARIO,#TX_CODIGO_QUADRO_VAGAS,#ID_QUADRO_VAGAS_ESTAGIO").val('');
             $.post("acoes.php",{
                 ID_SELECAO_ESTAGIO: $("#ID_SELECAO_ESTAGIO").val(), 
                 identifier:'candidato'
@@ -70,9 +89,20 @@ $(document).ready(function(){
             function(valor){
                 $('#ID_PESSOA_ESTAGIARIO').html(valor);
             });
+            $.post("acoes.php",{
+                ID_SELECAO_ESTAGIO: $("#ID_SELECAO_ESTAGIO").val(), 
+                identifier:'buscarQuadroVagas'
+            },
+            function(valor){
+//                    console.log(valor);
+//                alert(valor["ID_QUADRO_VAGAS_ESTAGIO"][0]);
+                $("#TX_CODIGO_QUADRO_VAGAS").val(valor["TX_CODIGO_QUADRO_VAGAS"][0]);
+                $("#ID_QUADRO_VAGAS_ESTAGIO").val(valor["ID_QUADRO_VAGAS_ESTAGIO"][0]);
+             
+            },'json');
             
         }else{
-            $('#ID_PESSOA_ESTAGIARIO').html('');
+            $('#ID_PESSOA_ESTAGIARIO,#TX_CODIGO_QUADRO_VAGAS,#ID_QUADRO_VAGAS_ESTAGIO').html('');
         }
     });  
     // JQuery para carregar o valor da  bolsa
@@ -156,7 +186,7 @@ $(document).ready(function(){
                 identifier:'buscarDocuments'
             },
             function(valor){
-                console.log(valor);
+                
                 $("#NB_RG").val(valor['NB_RG'][0]);
                 $("#NB_CPF").val(valor['NB_CPF'][0]);
             }

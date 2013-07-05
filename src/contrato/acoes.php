@@ -13,7 +13,7 @@ session_start();
 function gerarTabela($param = '') {
     include "../../php/define.php";
     require_once $pathvo . "contratoVO.php";
-    $acesso = $GLOBALS['acesso']; //Acessar a Variavel global;
+    $acesso = $GLOBALS['acesso']; //Acessar a Variavel global; --------------------------------------------------------------------------------
 
     $VO = new contratoVO();
     $VO->ID_ORGAO_GESTOR_ESTAGIO = $_REQUEST['ID_ORGAO_GESTOR_ESTAGIO'];
@@ -52,7 +52,7 @@ function gerarTabela($param = '') {
                     <th>Agente Solicitante</th>
                     <th>Estagiário</th>
                     <th>CPF</th>';
-        //Somente ver a coluna de alterar se tiver acesso completo a tela					
+        //Somente ver a coluna de alterar se tiver acesso completo a tela --------------------------------------------------------------------------------					
         if ($acesso)
             echo '<th style="width:50px;"></th>';
         echo '</tr>';
@@ -69,7 +69,7 @@ function gerarTabela($param = '') {
                     <td align="center">' . $dados['NB_CPF'][$i] . '</td>';
 
 
-            //Somente ver a coluna de alterar se tiver acesso completo a tela					
+            //Somente ver a coluna de alterar se tiver acesso completo a tela	--------------------------------------------------------------------------				
             if ($acesso)
                 echo '<td align="center"> 
                        <a href="' . $dados['ID_CONTRATO'][$i] . '" id="alterar"><img src="' . $urlimg . 'icones/editar.png" alt="itens" title="Alterar"/></a></td>';
@@ -102,14 +102,14 @@ function gerarTabela($param = '') {
     unset($_SESSION['STATUS']);
 }
 
-//Instancia da classe trVO();
+//Instancia da classe contratoVO();----------------------------------------------------------------------------
 $VO = new contratoVO();
 
 // Tabela do master
 if ($_REQUEST['identifier'] == "tabela") {
     gerarTabela($erro);
 }
-//Buscar ComboBox de Codigo de seleção 
+//Buscar ComboBox de Codigo de seleção  -----------------------------------------------------------------------
 else if ($_REQUEST['identifier'] == "codSelecao") {
 
     $VO->ID_ORGAO_ESTAGIO = $_REQUEST['ID_ORGAO_ESTAGIO'];
@@ -124,7 +124,7 @@ else if ($_REQUEST['identifier'] == "codSelecao") {
         }
     }
 }
-// trazer todas as lotações de um orgão solicitante
+// trazer todas as lotações de um orgão solicitante -----------------------------------------------------------
 else if ($_REQUEST['identifier'] == "lotacao") {
 
     $VO->NB_COD_UNIDADE = $_REQUEST['NB_COD_UNIDADE'];
@@ -139,7 +139,7 @@ else if ($_REQUEST['identifier'] == "lotacao") {
         }
     }
 }
-// Trazer todos os candidatos de uma seleção
+// Trazer todos os candidatos de uma seleção--------------------------------------------------------------------
 else if ($_REQUEST['identifier'] == "candidato") {
 
     $VO->ID_SELECAO_ESTAGIO = $_REQUEST['ID_SELECAO_ESTAGIO'];
@@ -153,7 +153,7 @@ else if ($_REQUEST['identifier'] == "candidato") {
         }
     }
 }
-// Busca de E/ndereço do Orgão gestor
+// Busca de E/ndereço do Orgão gestor---------------------------------------------------------------------------
 else if ($_REQUEST['identifier'] == "buscarEndereco") {
 
     $VO->ID_UNIDADE_ORG = $_REQUEST['ID_UNIDADE_ORG'];
@@ -161,7 +161,7 @@ else if ($_REQUEST['identifier'] == "buscarEndereco") {
     $dados = $VO->getVetor();
     echo $dados['TX_ENDERECO_SEC'][0];
 }
-//busca de Nome do Secretario do Orgão Gestor
+//busca de Nome do Secretario do Orgão Gestor-------------------------------------------------------------------
 else if ($_REQUEST['identifier'] == "buscarNome") {
 
     $VO->ID_UNIDADE_ORG = $_REQUEST['ID_UNIDADE_ORG'];
@@ -171,6 +171,7 @@ else if ($_REQUEST['identifier'] == "buscarNome") {
 
     echo $dados['TX_FUNCIONARIO'][0];
 }
+//busca do cargo do Supervisor ---------------------------------------------------------------------------------
 else if ($_REQUEST['identifier'] == "cargoSupervisor") {
 
     $VO->ID_PESSOA_SUPERVISOR = $_REQUEST['ID_PESSOA_SUPERVISOR'];
@@ -181,6 +182,7 @@ else if ($_REQUEST['identifier'] == "cargoSupervisor") {
         
     echo $dados['TX_CARGO'][0];
 }
+// buscar o valor da bolsa do estagio --------------------------------------------------------------------------
 else if ($_REQUEST['identifier'] == "buscarValor") {
 
     $VO->ID_BOLSA_ESTAGIO = $_REQUEST['ID_BOLSA_ESTAGIO'];
@@ -191,12 +193,22 @@ else if ($_REQUEST['identifier'] == "buscarValor") {
         
     echo $dados['NB_VALOR'][0];
 }
-// buscar todos os documentos(CPF & RG) do candidato
+// buscar todos os documentos(CPF & RG) do candidato-------------------------------------------------------------
 else if ($_REQUEST['identifier'] == "buscarDocuments") {
 
     $VO->ID_PESSOA_ESTAGIARIO = $_REQUEST['ID_PESSOA_ESTAGIARIO'];
 
     $VO->buscarDocuments();
+    $dados = $VO->getVetor();
+//    $dados= $VO->buscarDocuments();
+
+    echo json_encode($dados);
+}
+else if ($_REQUEST['identifier'] == "buscarQuadroVagas") {
+
+    $VO->ID_SELECAO_ESTAGIO = $_REQUEST['ID_SELECAO_ESTAGIO'];
+
+    $VO->buscarQuadroVaga();
     $dados = $VO->getVetor();
 //    $dados= $VO->buscarDocuments();
 
