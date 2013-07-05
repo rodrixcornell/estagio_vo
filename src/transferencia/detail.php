@@ -1,14 +1,13 @@
 <?php
-
 require_once "../../php/define.php";
 require_once $path . "src/transferencia/arrays.php";
 require_once $pathvo . "transferenciaVO.php";
 
 $modulo = 79;
-$programa = 3;
+$programa = 4;
 $pasta = 'transferencia';
 $current = 2;
-$titulopage = 'Tanferência  de Vagas';
+$titulopage = 'Transferência de Vagas';
 
 session_start();
 require_once "../autenticacao/validaPermissao.php";
@@ -16,22 +15,29 @@ require_once "../autenticacao/validaPermissao.php";
 // Iniciando Instância
 $VO = new transferenciaVO();
 
-if ($_SESSION['ID_SOLICITACAO_ESTAGIO']) {
-
-    $VO->ID_SOLICITACAO_ESTAGIO = $_SESSION['ID_SOLICITACAO_ESTAGIO'];
-
+if ($_SESSION['ID_TRANSFERENCIA_ESTAGIO']) {
+  
+    $VO->ID_TRANSFERENCIA_ESTAGIO = $_SESSION['ID_TRANSFERENCIA_ESTAGIO'];
+  
+    
+    if ($_POST['efetivar']){
+	  $VO->efetivarSolicitacao(); 
+	  header("Location: ".$url."src/".$pasta."/detail.php");
+	}	
+        
     $total = $VO->buscar();
-    if ($total) {
-        $dados = $VO->getVetor();
-
-        $VO->ID_ORGAO_ESTAGIO = $_SESSION['ID_ORGAO_ESTAGIO'] = $dados['ID_ORGAO_ESTAGIO'][0];
-        $VO->ID_AGENCIA_ESTAGIO = $_SESSION['ID_AGENCIA_ESTAGIO'] = $dados['ID_AGENCIA_ESTAGIO'][0];
-        $VO->CS_SITUACAO = $_SESSION['CS_SITUACAO'] = $dados['CS_SITUACAO'][0];
-        $VO->TX_COD_SOLICITACAO = $_SESSION['TX_COD_SOLICITACAO'] = $dados['TX_COD_SOLICITACAO'][0];
-
-        $VO->pesquisarTipoVaga();
-        $smarty->assign("arrayTipoVaga", $VO->getArray("TX_TIPO_VAGA_ESTAGIO"));
-    }
+    $dados = $VO->getVetor();
+	
+	if ($dados['CS_SITUACAO'][0] == 2){
+	   $acessoEfetivado = 1;
+	} 	
+	
+	$VO->preencherVOBD($dados);
+	
+ 	$VO->pesquisarTipoVaga();
+	$smarty->assign("arrayTipoVaga", $VO->getArray("TX_TIPO_VAGA_ESTAGIO"));
+	
+	
 }else
     header("Location: " . $url . "src/" . $pasta . "/index.php");
 
@@ -39,7 +45,7 @@ if ($_SESSION['ID_SOLICITACAO_ESTAGIO']) {
 $smarty->assign("current", $current);
 $smarty->assign("pasta", $pasta);
 $smarty->assign("dados", $dados);
-$smarty->assign("censo", $censo);
+$smarty->assign("acessoEfetivado", $acessoEfetivado);
 $smarty->assign("titulopage", $titulopage);
 $smarty->assign("arquivoCSS", $pasta . trim(ucfirst($nomeArquivo)));
 $smarty->assign("arquivoJS", $pasta . trim(ucfirst($nomeArquivo)));

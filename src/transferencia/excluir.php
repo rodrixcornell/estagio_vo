@@ -5,7 +5,7 @@ require_once $path . "src/transferencia/arrays.php";
 require_once $pathvo . "transferenciaVO.php";
 
 $modulo = 79;
-$programa = 3;
+$programa = 4;
 $pasta = 'transferencia';
 $current = 2;
 $titulopage = 'Transferência de Vagas';
@@ -14,9 +14,9 @@ session_start();
 require_once "../autenticacao/validaPermissao.php";
 
 // Iniciando Instância
-if ($_SESSION['ID_SOLICITACAO_ESTAGIO']){
-	$VO = new solicitacaoVO();
-	$VO->ID_SOLICITACAO_ESTAGIO = $_SESSION['ID_SOLICITACAO_ESTAGIO'];
+if ($_SESSION['ID_TRANSFERENCIA_ESTAGIO']){
+	$VO = new transferenciaVO();
+	$VO->ID_TRANSFERENCIA_ESTAGIO = $_SESSION['ID_TRANSFERENCIA_ESTAGIO'];
 
 	$retorno = $VO->excluir();
 

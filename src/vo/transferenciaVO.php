@@ -16,13 +16,13 @@ class transferenciaVO extends VO{
     function pesquisarOrgaoSolicitante(){
         return $this->repositorio->pesquisarOrgaoSolicitante($this);
     }
-
-    function pesquisarAgenciaEstagio(){
-        return $this->repositorio->pesquisarAgenciaEstagio($this);
+	
+	function buscarAgenciaEstagio(){
+        return $this->repositorio->buscarAgenciaEstagio($this);
     }
 
-    function pesquisarCodigoSilicitacao(){
-        return $this->repositorio->pesquisarCodigoSilicitacao($this);
+    function buscarQuadroVagasEstagio(){
+        return $this->repositorio->buscarQuadroVagasEstagio($this);
     }
 
     function pesquisarTipoVaga(){
@@ -33,9 +33,9 @@ class transferenciaVO extends VO{
         return $this->repositorio->buscarQuantidade($this);
     }
 
-    function buscarCursos(){
-        return $this->repositorio->buscarCursos($this);
-    }
+    /*function buscarTipo(){
+        return $this->repositorio->buscarTipo($this);
+    }*/
 
     function pesquisarVagasSolicitadas(){
         return $this->repositorio->pesquisarVagasSolicitadas($this);
@@ -44,5 +44,33 @@ class transferenciaVO extends VO{
     function inserirVagasSolicitadas(){
         return $this->repositorio->inserirVagasSolicitadas($this);
     }
+
+    function excluirVagasSolicitadas(){
+        return $this->repositorio->excluirVagasSolicitadas($this);
+    }
+
+    function buscarVagasSolicitadas(){
+        return $this->repositorio->buscarVagasSolicitadas($this);
+    }
+
+    function alterarVagasSolicitadas(){
+        return $this->repositorio->alterarVagasSolicitadas($this);
+    }
+
+    function atualizarInf(){
+        return $this->repositorio->atualizarInf($this);
+    }
+	
+	function verificarRecrutamento(){
+        return $this->repositorio->verificarRecrutamento($this);
+    }
+	
+	function efetivarSolicitacao(){
+        return $this->repositorio->efetivarSolicitacao($this);
+    }
+    function pesquisarOrgaoCedente(){
+        return $this->repositorio->pesquisarOrgaoCedente($this);
+    }
+    
 }
 ?>

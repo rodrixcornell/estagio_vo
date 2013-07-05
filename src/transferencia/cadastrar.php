@@ -1,53 +1,50 @@
 <?php
-
 require_once "../../php/define.php";
 require_once $path . "src/transferencia/arrays.php";
 require_once $pathvo . "transferenciaVO.php";
 
 $modulo = 79;
-$programa = 3;
+$programa = 4;
 $pasta = 'transferencia';
 $current = 2;
-$titulopage = 'Tranferência de Vagas';
+$titulopage = 'Transferência de Vagas';
 
 session_start();
 require_once "../autenticacao/validaPermissao.php";
 
-unset($_SESSION['ID_SOLICITACAO_ESTAGIO']);
-unset($_SESSION['ID_ORGAO_ESTAGIO']);
-unset($_SESSION['ID_AGENCIA_ESTAGIO']);
+unset($_SESSION['ID_TRANSFERENCIA_ESTAGIO']);
 
 // Iniciando Instância
 $VO = new transferenciaVO();
 
 if ($_POST) {
     $VO->configuracao();
-    //ID_ORGAO_GESTOR_ESTAGIO, ID_AGENCIA_ESTAGIO, ID_ORGAO_ESTAGIO, TX_COD_SOLICITACAO, CS_SITUACAO, TX_JUSTIFICATIVA, ID_SOLICITACAO_ESTAGIO, ID_QUADRO_VAGAS_ESTAGIO
-    $VO->setCaracteristica('ID_ORGAO_GESTOR_ESTAGIO,ID_AGENCIA_ESTAGIO,ID_ORGAO_ESTAGIO,TX_COD_SOLICITACAO,ID_QUADRO_VAGAS_ESTAGIO', 'obrigatorios');
+    $VO->setCaracteristica('ID_ORGAO_GESTOR_ESTAGIO,ID_ORGAO_ESTAGIO,ID_ORGAO_SOLICITANTE,ID_QUADRO_VAGAS_ESTAGIO', 'obrigatorios');
     $validar = $VO->preencher($_POST);
 
-    $tamanho_cod = strlen($_POST['TX_COD_SOLICITACAO']);
-    $tamanho_just = strlen($_POST['TX_JUSTIFICATIVA']);
-    if ($tamanho_cod > 20) {
-        $validar['TX_COD_SOLICITACAO'] = 'Valor máximo de 20, atual de: ' . $tamanho_cod;
-    } else if ($tamanho_just > 255) {
-        $validar['TX_JUSTIFICATIVA'] = 'Valor máximo de 255, atual de: ' . $tamanho_just;
+    $tamanho_just = strlen($_POST['TX_MOTIVO']);
+
+    if ($tamanho_just > 255) {
+        $validar['TX_MOTIVO'] = 'Valor máximo de 255 caracteres, atual de: ' . $tamanho_just;
     } else if (!$validar) {
         $id_pk = $VO->inserir();
-
+        
         if ($id_pk) {
-            $_SESSION['ID_SOLICITACAO_ESTAGIO'] = $id_pk;
-            //$_SESSION['ID_ORGAO_ESTAGIO'] = $VO->ID_ORGAO_ESTAGIO;
-            //$_SESSION['ID_AGENCIA_ESTAGIO'] = $VO->ID_AGENCIA_ESTAGIO;
+            $_SESSION['ID_TRANSFERENCIA_ESTAGIO'] = $id_pk;
             header("Location: " . $url . "src/" . $pasta . "/detail.php");
         } else {
             $validar['ID_ORGAO_GESTOR_ESTAGIO'] = "Erro de Cadastro!";
         }
     }
 
-    if ($VO->ID_ORGAO_ESTAGIO && $VO->ID_AGENCIA_ESTAGIO) {
-        $VO->pesquisarQuadroVagasEstagio();
-        $smarty->assign("arrayQuadroVagasEstagio", $VO->getArray("TX_CODIGO"));
+    if ($VO-> ID_ORGAO_SOLICITANTE) {
+        $VO->pesquisarOrgaoCedente();
+        $smarty->assign("pesquisarOrgaoCedente", $VO->getArray("TX_ORGAO_ESTAGIO"));
+		
+		if ($VO->ID_ORGAO_ESTAGIO) {
+        	$VO->buscarQuadroVagasEstagio();
+        	$smarty->assign("arrayQuadroVagasEstagio", $VO->getArray("TX_CODIGO"));
+		}
     }
 }
 
