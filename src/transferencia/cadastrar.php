@@ -1,4 +1,5 @@
 <?php
+
 require_once "../../php/define.php";
 require_once $path . "src/transferencia/arrays.php";
 require_once $pathvo . "transferenciaVO.php";
@@ -28,7 +29,7 @@ if ($_POST) {
         $validar['TX_MOTIVO'] = 'Valor máximo de 255 caracteres, atual de: ' . $tamanho_just;
     } else if (!$validar) {
         $id_pk = $VO->inserir();
-        
+
         if ($id_pk) {
             $_SESSION['ID_TRANSFERENCIA_ESTAGIO'] = $id_pk;
             header("Location: " . $url . "src/" . $pasta . "/detail.php");
@@ -37,14 +38,14 @@ if ($_POST) {
         }
     }
 
-    if ($VO-> ID_ORGAO_SOLICITANTE) {
+    if ($VO->ID_ORGAO_SOLICITANTE) {
         $VO->pesquisarOrgaoCedente();
         $smarty->assign("pesquisarOrgaoCedente", $VO->getArray("TX_ORGAO_ESTAGIO"));
-		
-		if ($VO->ID_ORGAO_ESTAGIO) {
-        	$VO->buscarQuadroVagasEstagio();
-        	$smarty->assign("arrayQuadroVagasEstagio", $VO->getArray("TX_CODIGO"));
-		}
+
+        if ($VO->ID_ORGAO_ESTAGIO) {
+            $VO->buscarQuadroVagasEstagio();
+            $smarty->assign("arrayQuadroVagasEstagio", $VO->getArray("TX_CODIGO"));
+        }
     }
 }
 

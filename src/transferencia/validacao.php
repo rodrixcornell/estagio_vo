@@ -18,8 +18,7 @@ $id = explode('_', $_REQUEST['ID']);
 $_SESSION['ID_TRANSFERENCIA_ESTAGIO'] = $id[0];
 $_SESSION['ID_ORGAO_ESTAGIO'] = $id[1];
 //$_SESSION['ID_ORGAO_SOLICITANTE']=$id[2];
-header("Location: ".$url."src/".$pasta."/detail.php");
+header("Location: " . $url . "src/" . $pasta . "/detail.php");
 
 //print_r($_SESSION);
- 
 ?>

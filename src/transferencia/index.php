@@ -16,11 +16,11 @@ require_once "../autenticacao/validaPermissao.php";
 $VO = new transferenciaVO();
 $VO->preencherVOSession($_SESSION);
 
-if($_SESSION['ID_ORGAO_SOLICITANTE']){
-	$VO->ID_ORGAO_SOLICITANTE = $_SESSION['ID_ORGAO_SOLICITANTE'];
-	$VO->pesquisarOrgaoCedente();
-	$arraypesquisarOrgaoCedente =$VO->getArray('TX_ORGAO_ESTAGIO');
-	$smarty->assign('arraypesquisarOrgaoCedente',	$arraypesquisarOrgaoCedente);
+if ($_SESSION['ID_ORGAO_SOLICITANTE']) {
+    $VO->ID_ORGAO_SOLICITANTE = $_SESSION['ID_ORGAO_SOLICITANTE'];
+    $VO->pesquisarOrgaoCedente();
+    $arraypesquisarOrgaoCedente = $VO->getArray('TX_ORGAO_ESTAGIO');
+    $smarty->assign('arraypesquisarOrgaoCedente', $arraypesquisarOrgaoCedente);
 }
 
 $smarty->assign("current", $current);

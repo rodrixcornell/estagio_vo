@@ -1,76 +1,78 @@
 <?php
 
-require_once $pathvo."VO.php";
-require_once $path."src/repositorio/RepositorioTransferencia.php";
+require_once $pathvo . "VO.php";
+require_once $path . "src/repositorio/RepositorioTransferencia.php";
 
-class transferenciaVO extends VO{
+class transferenciaVO extends VO {
 
-    function transferenciaVO(){
+    function transferenciaVO() {
         return $this->repositorio = new RepositorioTransferencia();
     }
 
-    function pesquisarOrgaoGestor(){
+    function pesquisarOrgaoGestor() {
         return $this->repositorio->pesquisarOrgaoGestor($this);
     }
 
-    function pesquisarOrgaoSolicitante(){
+    function pesquisarOrgaoSolicitante() {
         return $this->repositorio->pesquisarOrgaoSolicitante($this);
     }
-	
-	function buscarAgenciaEstagio(){
+
+    function buscarAgenciaEstagio() {
         return $this->repositorio->buscarAgenciaEstagio($this);
     }
 
-    function buscarQuadroVagasEstagio(){
+    function buscarQuadroVagasEstagio() {
         return $this->repositorio->buscarQuadroVagasEstagio($this);
     }
 
-    function pesquisarTipoVaga(){
+    function pesquisarTipoVaga() {
         return $this->repositorio->pesquisarTipoVaga($this);
     }
 
-    function buscarQuantidade(){
+    function buscarQuantidade() {
         return $this->repositorio->buscarQuantidade($this);
     }
 
-    /*function buscarTipo(){
-        return $this->repositorio->buscarTipo($this);
-    }*/
+    /* function buscarTipo(){
+      return $this->repositorio->buscarTipo($this);
+      } */
 
-    function pesquisarVagasSolicitadas(){
+    function pesquisarVagasSolicitadas() {
         return $this->repositorio->pesquisarVagasSolicitadas($this);
     }
 
-    function inserirVagasSolicitadas(){
+    function inserirVagasSolicitadas() {
         return $this->repositorio->inserirVagasSolicitadas($this);
     }
 
-    function excluirVagasSolicitadas(){
+    function excluirVagasSolicitadas() {
         return $this->repositorio->excluirVagasSolicitadas($this);
     }
 
-    function buscarVagasSolicitadas(){
+    function buscarVagasSolicitadas() {
         return $this->repositorio->buscarVagasSolicitadas($this);
     }
 
-    function alterarVagasSolicitadas(){
+    function alterarVagasSolicitadas() {
         return $this->repositorio->alterarVagasSolicitadas($this);
     }
 
-    function atualizarInf(){
+    function atualizarInf() {
         return $this->repositorio->atualizarInf($this);
     }
-	
-	function verificarRecrutamento(){
+
+    function verificarRecrutamento() {
         return $this->repositorio->verificarRecrutamento($this);
     }
-	
-	function efetivarSolicitacao(){
+
+    function efetivarSolicitacao() {
         return $this->repositorio->efetivarSolicitacao($this);
     }
-    function pesquisarOrgaoCedente(){
+
+    function pesquisarOrgaoCedente() {
         return $this->repositorio->pesquisarOrgaoCedente($this);
     }
-    
+
 }
+
 ?>

@@ -43,8 +43,8 @@
                         <td><div id="funcionario">{$dados.TX_FUNCIONARIO_ATUAL[0]}</div></td>
                         <td><strong>Data de Atualização</strong></td>
                         <td style="text-align:right;"><div id="atualizacao">{$dados.DT_ATUALIZACAO[0]}</div>
-                        <input type="hidden" name="ID_QUADRO_VAGAS_ESTAGIO" id="ID_QUADRO_VAGAS_ESTAGIO" value="{$dados.ID_QUADRO_VAGAS_ESTAGIO[0]}" />
-                        <input type="hidden" name="ID_ORGAO_ESTAGIO" id="ID_ORGAO_ESTAGIO" value="{$dados.ID_ORGAO_ESTAGIO[0]}" />
+                            <input type="hidden" name="ID_QUADRO_VAGAS_ESTAGIO" id="ID_QUADRO_VAGAS_ESTAGIO" value="{$dados.ID_QUADRO_VAGAS_ESTAGIO[0]}" />
+                            <input type="hidden" name="ID_ORGAO_ESTAGIO" id="ID_ORGAO_ESTAGIO" value="{$dados.ID_ORGAO_ESTAGIO[0]}" />
                         </td>
                     </tr>
                 </table>
@@ -52,16 +52,16 @@
                 {if $acesso}
                     <div id="botoes">
                         <a href="{$url}src/{$pasta}/alterar.php"><img src="{$urlimg}icones/alterar.png"  alt="Alterar" title="Alterar" id="alterarMaster" /></a>
-                        {if !$acessoEfetivado}<a href="{$url}src/{$pasta}/excluir.php"><img src="{$urlimg}icones/excluir.png"  alt="Excluir" title="Excluir" id="excluirMaster" /></a>{/if}
-                    </div>
-                {/if}
-            </fieldset>
-        </form>
+                    {if !$acessoEfetivado}<a href="{$url}src/{$pasta}/excluir.php"><img src="{$urlimg}icones/excluir.png"  alt="Excluir" title="Excluir" id="excluirMaster" /></a>{/if}
+                </div>
+            {/if}
+        </fieldset>
+    </form>
 
-        <div class="fundo_pag"><img src="{$urlimg}icones/loader.gif" alt=""></div>
+    <div class="fundo_pag"><img src="{$urlimg}icones/loader.gif" alt=""></div>
 
-        {if $acesso}
-           {if !$acessoEfetivado}
+    {if $acesso}
+        {if !$acessoEfetivado}
             <fieldset>
                 <legend>Cadastrar Vagas de Estágio</legend>
 
@@ -75,29 +75,29 @@
                     <strong><font color="#FF0000">*</font>Quantidade</strong><br />
                     <input type="text" name="NB_QUANTIDADE" id="NB_QUANTIDADE" value="{$VO->NB_QUANTIDADE}" style="width:80px;" /></div>
 
-             
+
                 <input type="button" name="inserir" id="inserir" value=" Inserir " />
-                
+
                 <form action="{$url}src/{$pasta}/detail.php" method="post" style="display:inline;">			
-                	<input type="submit" name="efetivar" id="efetivar" value=" Efetivar Solicitação " style="margin-top:17px; float:right; padding:4px 8px; font-weight:bold;"/>
+                    <input type="submit" name="efetivar" id="efetivar" value=" Efetivar Solicitação " style="margin-top:17px; float:right; padding:4px 8px; font-weight:bold;"/>
                 </form>
-                
+
             </fieldset>
-           {/if}
         {/if}
+    {/if}
 
-        <div id="tabelaVagasSolicitadas"></div>
+    <div id="tabelaVagasSolicitadas"></div>
 
-        <div id="dialog" title="Alterar Vagas de Estátgio">
-            <div id="tabelaAlterarVagasSolicitadas" style="text-align:left;"></div>
-            <div class="fundoForm">
-                <img src="{$urlimg}icones/loader3.gif" >
-            </div>
-        </div>
-
-        <div id="botoesInferiores">
-            <a href="{$url}src/{$pasta}/index.php"><img src="{$urlimg}icones/voltar.png" alt="Voltar" title="Voltar" class="voltar" /></a>
-            <a href="{$url}src/{$pasta}/index.php"><img src="{$urlimg}icones/finalizar.png" alt="Finalizar" title="Finalizar" class="finalizar"/></a>
+    <div id="dialog" title="Alterar Vagas de Estátgio">
+        <div id="tabelaAlterarVagasSolicitadas" style="text-align:left;"></div>
+        <div class="fundoForm">
+            <img src="{$urlimg}icones/loader3.gif" >
         </div>
     </div>
+
+    <div id="botoesInferiores">
+        <a href="{$url}src/{$pasta}/index.php"><img src="{$urlimg}icones/voltar.png" alt="Voltar" title="Voltar" class="voltar" /></a>
+        <a href="{$url}src/{$pasta}/index.php"><img src="{$urlimg}icones/finalizar.png" alt="Finalizar" title="Finalizar" class="finalizar"/></a>
+    </div>
+</div>
 </div>

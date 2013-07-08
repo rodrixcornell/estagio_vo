@@ -45,7 +45,7 @@
                
             {*--------------situação--------------------*}
             <div id="camada" style="font-family:Verdana, Geneva, sans-serif; width:150px;" >
-             {*{if !$recrutamento}<font color="#FF0000">*</font>{/if}Situação <font color="#FF0000">{$validar.CS_SITUACAO}</font>*}
+             {if !$recrutamento}<font color="#FF0000">*</font>{/if}Situação <font color="#FF0000">{$validar.CS_SITUACAO}</font>
              Situação
             <select name="CS_SITUACAO" id="CS_SITUACAO" style="width:140px;" {if $recrutamento} disabled="disabled" {/if}>
                  {html_options options=$arraySituacao selected=$VO->CS_SITUACAO}
