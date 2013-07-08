@@ -25,20 +25,19 @@ if ($_SESSION['ID_GRUPO_PAGAMENTO']){
     if($_POST){
         $VO->configuracao();
         $VO->setCaracteristica('TX_GRUPO_PAGAMENTO','obrigatorios');
-        $VO->setCaracteristica('ID_GRUPO_PAGAMENTO','numeros');
-                
-		$validar = $VO->preencher($_POST);
+	$validar = $VO->preencher($_POST);
 
-        if (!$validar){
-            $VO->alterar();
-			$_SESSION['ID_GRUPO_PAGAMENTO'] = $VO->ID_GRUPO_PAGAMENTO;
-                        $_SESSION['TX_GRUPO_PAGAMENTO'] = $VO->TX_GRUPO_PAGAMENTO;
-			$_SESSION['STATUS'] = '*Registro alterado com sucesso!';
-			$_SESSION['PAGE'] = '1';
-            header("Location: ".$url."src/".$pasta."/index.php");
+       if (!$validar) {
+			if (!$validar){
+				$VO->alterar();
+				$_SESSION['ID_GRUPO_PAGAMENTO'] = $VO->ID_GRUPO_PAGAMENTO;
+				$_SESSION['STATUS'] = '*Registro alterado com sucesso!';
+				$_SESSION['PAGE'] = '1';
+			  header("Location: ".$url."src/".$pasta."/index.php");
         }
     }
-}else header("Location: ".$url."src/".$pasta."/index.php");
+}
+}
 
 $smarty->assign("current"       , $current);
 $smarty->assign("pasta"         , $pasta);

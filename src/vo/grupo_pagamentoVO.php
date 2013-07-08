@@ -9,8 +9,8 @@ class grupo_pagamentoVO extends VO{
         return $this->repositorio = new RepositorioGrupo_pagamento();         
     }
     
-	function pesquisargrupo_pagamento(){    
-        return $this->repositorio->pesquisargrupo_pagamento($this);
+	function pesquisarGrupo_pagamento(){    
+        return $this->repositorio->pesquisarGrupo_pagamento($this);
     }
  	
 }

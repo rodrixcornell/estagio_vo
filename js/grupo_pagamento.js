@@ -10,15 +10,17 @@ $(document).ready(function(){
     };
 
 //(Pesquisar)
-	$('#pesquisar').click(function(){
+ $('#pesquisar').click(function(){
+//		if ($('#TX_GRUPO_PAGAMENTO').val() || $('#ID_GRUPO_PAGAMENTO').val()){
 			showLoader();
 			$('#tabela').load('acoes.php?identifier=tabela',{
 					ID_GRUPO_PAGAMENTO:$('#ID_GRUPO_PAGAMENTO').val()
 				}, hideLoader);
-			alert('Preencha pelo menos um campo para realizar a pesquisa!');
+//		}else
+//			alert('Preencha pelo menos um campo para realizar a pesquisa!');
     });
 	
-//(Paginação)   
+    //Paginacao
     $("#paginacao li").live('click', function(){
         showLoader();
         $("#tabela").load('acoes.php?identifier=tabela&PAGE='+this.id,{
@@ -35,19 +37,17 @@ $(document).ready(function(){
     });
 	
 //(Excluir)
-   $('#excluir').live('click', function(){
-		
-		resp = window.confirm('Tem certeza que deseja excluir este Registro?');
-		if (resp){
-		   showLoader();
-		   $('#tabela').load('acoes.php?identifier=excluir',{
-				ID:$(this).attr('href'),
-				ID_GRUPO_PAGAMENTO:$('#ID_GRUPO_PAGAMENTO').val(),
-				PAGE:$('.selecionado').text()
-			}, hideLoader);
+  	
+$('#excluir').live('click', function(){
+	var href = $(this).attr('href');
+	
+	resp = window.confirm('Tem certeza que deseja excluir este Registro?');
+	if (resp){
+	   showLoader();
+	   $('#tabela').load('acoes.php?identifier=excluir&ID='+href, hideLoader);
 		}
-					
-		return false;
+				
+	return false;
 	});
 
 });

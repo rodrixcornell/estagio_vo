@@ -19,28 +19,24 @@ $VO = new grupo_pagamentoVO();
 
 if($_POST){
         $VO->configuracao();
-        $VO->setCaracteristica('TX_GRUPO_PAGAMENTO','obrigatorios');
-        $VO->setCaracteristica('ID_GRUPO_PAGAMENTO','numeros');
-                
-   
+    $VO->setCaracteristica('ID_GRUPO_PAGAMENTO,TX_GRUPO_PAGAMENTO', 'obrigatorios');
+    $VO->setCaracteristica('ID_GRUPO_PAGAMENTO', 'numeros');
     $validar = $VO->preencher($_POST);
-
-	(!$validar) ? $id_pk = $VO->inserir() : false;
-
-    if (!$validar) {
-        $_SESSION['ID_GRUPO_PAGAMENTO'] = $id_pk;
-        $_SESSION['TX_GRUPO_PAGAMENTO'] = $VO->TX_GRUPO_PAGAMENTO;
-        $_SESSION['STATUS'] = '*Registro inserido com sucesso!';
-        $_SESSION['PAGE'] = '1';
-        header("Location: ".$url."src/".$pasta."/index.php");
-  }else{
-	$validar['ID_GRUPO_PAGAMENTO'] = 'Registro já existe.';
-		}
+	
+	if (!$validar){
+		 if (!$VO->inserir()){
+			 $_SESSION['ID_GRUPO_PAGAMENTO'] = $VO->ID_GRUPO_PAGAMENTO;
+			 $_SESSION['STATUS'] = '*Registro inserido com sucesso!';
+			 $_SESSION['PAGE'] = '1';
+			 header("Location: " . $url . "src/" . $pasta . "/index.php");
+		 }else
+			 $validar['ID_GRUPO_PAGAMENTO'] = 'Registro já existe!';
+		
+	}
+  }	
         
      
-    }
-
-
+    
 $smarty->assign("current"       , $current);
 $smarty->assign("pasta"         , $pasta);
 $smarty->assign("validar"		, $validar);

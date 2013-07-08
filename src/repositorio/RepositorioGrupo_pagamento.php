@@ -4,23 +4,24 @@ require_once $path."src/repositorio/Repositorio.php";
 class RepositorioGrupo_pagamento extends Repositorio{
 
 
-    function pesquisargrupo_pagamento($VO){
+    function pesquisarGrupo_pagamento($VO){
         
         $query="SELECT ID_GRUPO_PAGAMENTO CODIGO,
                        TX_GRUPO_PAGAMENTO
                   FROM GRUPO_PAGAMENTO
-              ORDER BY TX_GRUPO_PAGAMENTO";
+              ";
+          $query .= " ORDER BY ID_GRUPO_PAGAMENTO";
 			
         return $this->sqlVetor($query);	
     }
 	
-	function pesquisar($VO) {
+    function pesquisar($VO) {
 		
-        $query = "SELECT ID_GRUPO_PAGAMENTO CODIGO,
-                        TX_GRUPO_PAGAMENTO
+        $query = "SELECT ID_GRUPO_PAGAMENTO,
+                         TX_GRUPO_PAGAMENTO
                   FROM  GRUPO_PAGAMENTO";
 					
-		($VO->ID_GRUPO_PAGAMENTO) ? $query .= " WHERE ID_GRUPO_PAGAMENTO = ".$VO->ID_GRUPO_PAGAMENTO.""  : false;
+	$VO->ID_GRUPO_PAGAMENTO ? $query .= " WHERE (ID_GRUPO_PAGAMENTO = " . $VO->ID_GRUPO_PAGAMENTO. ") " : false;
         
         $query .= " ORDER BY ID_GRUPO_PAGAMENTO";
 
@@ -41,26 +42,21 @@ class RepositorioGrupo_pagamento extends Repositorio{
     }    
     	
 	function inserir($VO){
-     $queryPK = "select SEMAD.F_G_PK_GRUPO_PAGAMENTO as ID_GRUPO_PAGAMENTO from DUAL";
-        $this->sqlVetor($queryPK);
-        $CodigoPK = $this->getVetor();
-
-        $query = "
-            INSERT INTO BOLSA_ESTAGIO(ID_GRUPO_PAGAMENTO, TX_GRUPO_PAGAMENTO) 
+    $query = "
+            INSERT INTO GRUPO_PAGAMENTO(ID_GRUPO_PAGAMENTO,TX_GRUPO_PAGAMENTO) 
 						values
-	('".$CodigoPK['ID_GRUPO_PAGAMENTO'][0]."', '".$VO->TX_GRUPO_PAGAMENTO."')
-        ";
+	         ('".$VO->ID_GRUPO_PAGAMENTO."','".$VO->TX_GRUPO_PAGAMENTO."') ";
 
-        $retorno = $this->sql($query);
-        return $retorno ? '' : $CodigoPK['ID_GRUPO_PAGAMENTO'][0];
+        return $this->sql($query);
+      
     }
 
     function alterar($VO){
 
-$query = "update GRUPO_PAGAMENTO set
-                                 TX_GRUPO_PAGAMENTO = '".$VO->TX_GRUPO_PAGAMENTO."'                 
-                               where
-                                 ID_GRUPO_PAGAMENTO = '".$VO->ID_GRUPO_PAGAMENTO."'";
+   $query = "UPDATE GRUPO_PAGAMENTO SET
+                         TX_GRUPO_PAGAMENTO = '" . $VO->TX_GRUPO_PAGAMENTO . "'         
+	           WHERE ID_GRUPO_PAGAMENTO = '" . $VO->ID_GRUPO_PAGAMENTO . "'
+                  ";
 
         return $this->sql($query);
     }

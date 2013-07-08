@@ -11,11 +11,12 @@ session_start();
 
 function gerarTabela($param=''){
 	include "../../php/define.php";
-	require_once $pathvo."bolsaVO.php";
+	require_once $pathvo."grupo_pagamentoVO.php";
 	$acesso = $GLOBALS['acesso']; //Acessar a Variavel global;
 
 	$VO = new grupo_pagamentoVO();
 	$VO->ID_GRUPO_PAGAMENTO 	= $_REQUEST['ID_GRUPO_PAGAMENTO'];
+        $VO->TX_GRUPO_PAGAMENTO 	= $_REQUEST['TX_GRUPO_PAGAMENTO'];
 	$page               	= $_REQUEST['PAGE'];
 	
 	$VO->preencherSessionPesquisar($_REQUEST);

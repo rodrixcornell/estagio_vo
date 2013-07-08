@@ -10,8 +10,8 @@
                 
                 <br /><br />
                 				
-                <div id="camada" style="font-family:Verdana, Geneva, sans-serif; width:130px;" ><strong>Grupo de Pagamento: </strong></div>
-                    <select name="ID_GRUPO_PAGAMENTO" id="ID_GRUPO_PAGAMENTO" style="width:400px;">
+                <div id="camada" style="font-family:Verdana, Geneva, sans-serif; width:150px;" ><strong>Grupo de Pagamento: </strong></div>
+                    <select name="ID_GRUPO_PAGAMENTO" id="ID_GRUPO_PAGAMENTO" value="{$VO->ID_GRUPO_PAGAMENTO}" style="width:350px;">
                         {html_options options=$arrayGrupo selected=$VO->ID_GRUPO_PAGAMENTO}
                     </select>
                     <br />
@@ -26,11 +26,10 @@
                     	
                     	
                     	if (!"{$s}"){
-                    		showLoader();
-                    		$("#tabela").load('acoes.php?identifier=tabela',{
-                    		    ID:$(this).attr('href'),
-                    			ID_BOLSA_ESTAGIO:"{$VO->ID_GRUPO_PAGAMENTO}",
-                    			PAGE:"{$VO->PAGE}"
+		showLoader();
+		$("#tabela").load('acoes.php?identifier=tabela',{
+			ID_GRUPO_PAGAMENTO:"{$VO->ID_GRUPO_PAGAMENTO}",
+                    	PAGE:"{$VO->PAGE}"
                     		}, hideLoader); 
                    	}
                     	
