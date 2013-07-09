@@ -211,13 +211,7 @@ class RepositorioTransferencia extends Repositorio {
         return $this->sql($query);
     }
 
-    /* delete
-      from VAGAS_TRANSFERIDAS
-      WHERE (ID_TRANSFERENCIA_ESTAGIO  =  " . $VO->ID_TRANSFERENCIA_ESTAGIO . ")";
-
-      return $this->sql($query);
-      }
-     */
+   
 
 //-------------PESQUISA TIPO VAGAS-----------------------------
     function pesquisarTipoVaga($VO) {
@@ -243,17 +237,13 @@ class RepositorioTransferencia extends Repositorio {
 
 //--------------QUANTIDADE DO DETAIL------------------
     function buscarQuantidade($VO) {
-        $query = " SELECT NB_QUANTIDADE,
-          ID_QUADRO_VAGAS_ESTAGIO
-     FROM VAGAS_ESTAGIO
-                WHERE  ID_QUADRO_VAGAS_ESTAGIO = " . $VO->ID_QUADRO_VAGAS_ESTAGIO . " ";
-
-        /* "select NB_QUANTIDADE
+        $query = 
+        "select NB_QUANTIDADE
           from VAGAS_ESTAGIO
           where ID_ORGAO_ESTAGIO = " . $VO->ID_ORGAO_ESTAGIO . "
           and ID_QUADRO_VAGAS_ESTAGIO = " . $VO->ID_QUADRO_VAGAS_ESTAGIO . "
           and CS_TIPO_VAGA_ESTAGIO = " . $VO->CS_TIPO_VAGA_ESTAGIO . " ";
-          print_r($query); */
+          
         return $this->sqlVetor($query);
     }
 
@@ -336,16 +326,6 @@ class RepositorioTransferencia extends Repositorio {
         return $this->sql($query);
 }
 
-//-------EXCLUIR DO DETAIL--------------------------------------------------------------
-    function excluirVagasSolicitadas($VO) {
-        $query = "
-            delete
-               from VAGAS_TRANSFERIDAS
-              WHERE (ID_TRANSFERENCIA_ESTAGIO  =  " . $VO->ID_TRANSFERENCIA_ESTAGIO . ")";
-
-        return $this->sql($query);
-    }
-
 //------------------------------------------------------
     function buscarVagasSolicitadas($VO) {
         $query = " select VT.ID_TRANSFERENCIA_ESTAGIO,
@@ -373,10 +353,40 @@ class RepositorioTransferencia extends Repositorio {
                     and (u_cad.ID_UNIDADE_GESTORA = vft_cad.ID_UNIDADE_GESTORA)
                     and (u_atual.ID_PESSOA_FUNCIONARIO = vft_atual.ID_PESSOA_FUNCIONARIO)
                     and (u_atual.ID_UNIDADE_GESTORA = vft_atual.ID_UNIDADE_GESTORA)
-                    AND (VT.ID_TRANSFERENCIA_ESTAGIO = " . $VO->ID_TRANSFERENCIA_ESTAGIO . ") ";
+                    AND (VT.ID_TRANSFERENCIA_ESTAGIO = " . $VO->ID_TRANSFERENCIA_ESTAGIO . ")
+                    AND (ID_QUADRO_VAGAS_ESTAGIO = ".$VO->ID_QUADRO_VAGAS_ESTAGIO.")";
 
+    
         return $this->sqlVetor($query);
     }
+
+    
+//-------------------ALTERAR DO DETAIL --------------------------------------
+    function alterarVagasSolicitadas($VO) {
+        $query = "update VAGAS_TRANSFERIDAS
+                     set DT_ATUALIZACAO = sysdate,
+                         ID_USUARIO_ATUALIZACAO = " . $_SESSION['ID_USUARIO'] . ",
+                         NB_QUANTIDADE = '" . $VO->NB_QUANTIDADE . "',
+                         CS_TIPO_VAGA_ESTAGIO = '" . $VO->CS_TIPO_VAGA_ESTAGIO . "'    
+                  where (ID_TRANSFERENCIA_ESTAGIO = " . $VO->ID_TRANSFERENCIA_ESTAGIO . ")
+                    ";
+       print_r($query);
+
+        return $this->sql($query);
+}
+
+//-------EXCLUIR DO DETAIL--------------------------------------------------------------
+    function excluirVagasSolicitadas($VO) {
+        $query = "
+            delete
+               from VAGAS_TRANSFERIDAS
+              WHERE (ID_TRANSFERENCIA_ESTAGIO  =  " . $VO->ID_TRANSFERENCIA_ESTAGIO . ")
+             
+                ";
+        
+        return $this->sql($query);
+    }
+
 
 //---------------------RECRUTAMENTO--------------------------------------------	
     function verificarRecrutamento($VO) {
@@ -385,18 +395,6 @@ class RepositorioTransferencia extends Repositorio {
                     WHERE ID_ORGAO_ESTAGIO = '" . $VO->ID_ORGAO_ESTAGIO . "'";
 
         return $this->sqlVetor($query);
-    }
-
-//-------------------ALTERAR DO DETAIL --------------------------------------
-    function alterarVagasSolicitadas($VO) {
-        $query = "update VAGAS_TRANSFERIDAS
-                     set DT_ATUALIZACAO = sysdate,
-                         NB_QUANTIDADE = '" . $VO->NB_QUANTIDADE . "',
-                         CS_TIPO_VAGA_ESTAGIO = '" . $VO->CS_TIPO_VAGA_ESTAGIO . "'
-                  where (ID_TRANSFERENCIA_ESTAGIO = " . $VO->ID_TRANSFERENCIA_ESTAGIO . ")";
-        //print_r($query);
-
-        return $this->sql($query);
     }
 
 //---------ATUALIZA  ------------------------
@@ -425,7 +423,7 @@ class RepositorioTransferencia extends Repositorio {
     }
 
 //-----------busca tipo-----------------------------------
-    /* function buscarTipo($VO) {
+    function buscarTipo($VO) {
       $query = "
       SELECT CS_TIPO_VAGA_ESTAGIO CODIGO, TX_TIPO_VAGA_ESTAGIO
       FROM TIPO_VAGA_ESTAGIO
@@ -433,7 +431,7 @@ class RepositorioTransferencia extends Repositorio {
       ";
 
       return $this->sqlVetor($query);
-      } */
+      }
 //------------------EFETIVA SOLICITAÇÃO DE VAGAS---------------------------------
     function efetivarSolicitacao($VO) {
         $query = " UPDATE TRANSFERENCIA_VAGAS 
