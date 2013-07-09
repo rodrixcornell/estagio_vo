@@ -93,7 +93,8 @@ class RepositorioContrato extends Repositorio {
                         TX_ENDERECO,
                         TX_CODIGO,
                         ID_USUARIO_CADASTRO,
-                        ID_USUARIO_ATUALIZACAO
+                        ID_USUARIO_ATUALIZACAO,
+                        CS_SELECAO
                     )
                     VALUES
                     (
@@ -129,7 +130,8 @@ class RepositorioContrato extends Repositorio {
                         '" . $VO->TX_ENDERECO . "',
                         semad.f_g_cod_contrato_estagio(),
                         '".$_SESSION['ID_USUARIO']."',
-                        '".$_SESSION['ID_USUARIO']."'
+                        '".$_SESSION['ID_USUARIO']."',
+                        '" . $VO->CS_SELECAO . "'
                     )
                     ";
 
@@ -305,6 +307,7 @@ class RepositorioContrato extends Repositorio {
      *               buscarQuadroVaga($VO);
      *               buscarCandidato($VO);
      *               buscarEstagiario($VO);
+     *               buscarEstagiarioSemSelecao($VO);
      *               buscarInstituicaoDeEnsino($VO);
      *               buscarAgenteIntegracao($VO);
      *               buscarSupervisor($VO);
@@ -373,6 +376,20 @@ class RepositorioContrato extends Repositorio {
                     AND B.ID_SELECAO_ESTAGIO =" . $VO->ID_SELECAO_ESTAGIO;
         return $this->sqlVetor($query);
     }
+
+    function  buscarEstagiarioSemSelecao($VO){
+        $query ="SELECT 
+                        ID_PESSOA_ESTAGIARIO CODIGO,
+                        ID_PESSOA_ESTAGIARIO ,
+                        TX_NOME
+                 FROM 
+                        V_ESTAGIARIO
+                 WHERE 
+                 ID_PESSOA_ESTAGIARIO NOT IN (SELECT ID_PESSOA_ESTAGIARIO FROM estagiario_vaga)";
+        return $this->sqlVetor($query);
+        
+    }
+
 
     function buscarInstituicaoDeEnsino($VO) {
         // função que busca no banco todas as instuições de ensino       

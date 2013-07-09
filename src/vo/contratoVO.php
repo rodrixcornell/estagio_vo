@@ -47,6 +47,10 @@ class contratoVO extends VO {
         // Função que pega todos os Cadidatos de uma seleção
         return $this->repositorio->buscarCandidato($this);
     }
+    function buscarEstagiarioSemSelecao() {
+        // Função que pega todos os Cadidatos de uma seleção
+        return $this->repositorio->buscarEstagiarioSemSelecao($this);
+    }
 
     function buscarTipoVaga() {
         // Função que pega todos os tipos de vagas

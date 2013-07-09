@@ -94,7 +94,7 @@ $(document).ready(function(){
                 identifier:'buscarQuadroVagas'
             },
             function(valor){
-//                    console.log(valor);
+//                console.log(valor);
 //                alert(valor["ID_QUADRO_VAGAS_ESTAGIO"][0]);
                 $("#TX_CODIGO_QUADRO_VAGAS").val(valor["TX_CODIGO_QUADRO_VAGAS"][0]);
                 $("#ID_QUADRO_VAGAS_ESTAGIO").val(valor["ID_QUADRO_VAGAS_ESTAGIO"][0]);
