@@ -52,11 +52,9 @@ if ($_POST) {
         $VO->ID_QUADRO_VAGAS_ESTAGIO=  $VO->ID_QUADRO_VAGAS_ESTAGIO_2;
         
     }
-//    print_r($VO);
 
     if (!$validar)
         $id_pk = $VO->inserir();
-//    print_r($VO->inserir());
     if ($id_pk) {
         $_SESSION['ID_CONTRATO_ESTAGIO'] = $id_pk;
         header("Location: " . $url . "src/" . $pasta . "/index.php");
