@@ -81,6 +81,11 @@ class contratoVO extends VO {
         //Função que pegas todos os quadros de vagas
         return $this->repositorio->buscarQuadroVaga($this);
     }
+    
+    function buscarTodosQuadrosVagas(){
+        
+        return $this->repositorio->buscarTodosQuadrosVagas($this);
+    }
 
     function buscarOrgaoSolicitante() {
         // Função que pega todos os Orgãos Solicitantes a qual o Usuario pertence
@@ -91,6 +96,11 @@ class contratoVO extends VO {
         // Função que pega todso os codigos das seleções de orgão Solicitante
         return $this->repositorio->buscarCodSelecao($this);
     }
+
+    
+
+
+
 
     //############################ --------------- FIM VO Funções dos combosBox--------------------##################################
     // ###########################------------------- BUSCA ENDEREÇO ORGAO E SECRATARIO -----------################################## 

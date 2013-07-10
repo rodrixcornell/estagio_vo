@@ -41,6 +41,7 @@ $(document).ready(function(){
 //			$('#ID_UNIDADE_ORG').attr("disabled", false);	
 //			$('#ID_UNIDADE_ORG').focus();
 //			$("#NB_MES_INICIO,#NB_MES_FIM,#NB_ANO_INICIO,#NB_ANO_FIM").html('');
+                     $('#QUADRO_ID').hide();
                      $('#SELECAO_ID').show();
 		}else{
 //			$("#ID_UNIDADE_ORG option:first").attr('selected','selected');
@@ -49,6 +50,7 @@ $(document).ready(function(){
 //			$('#ID_UNIDADE_ORC').focus();
 //			$("#NB_MES_INICIO,#NB_MES_FIM,#NB_ANO_INICIO,#NB_ANO_FIM").html('');
                         $('#SELECAO_ID').hide();
+                        $('#QUADRO_ID').show();
 		}
 	});
         //    change do  orgão solicitante -

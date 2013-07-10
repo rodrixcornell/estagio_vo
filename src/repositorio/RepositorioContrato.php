@@ -36,9 +36,9 @@ class RepositorioContrato extends Repositorio {
                         AND A.ID_PESSOA_ESTAGIARIO = D.ID_PESSOA_ESTAGIARIO
                         and F.ID_SELECAO_ESTAGIO = A.ID_SELECAO_ESTAGIO
                         ";
-          $VO->ID_ORGAO_ESTAGIO ? $query .= " And A.ID_ORGAO_ESTAGIO = " . $codigoOrgaoSolicitante[0] . " " : false;
-          $VO->ID_ORGAO_GESTOR_ESTAGIO ? $query .= " And A.ID_ORGAO_GESTOR_ESTAGIO = " . $codigoOrgaoGestor[0]. " " : false;
-          $VO->ID_SELECAO_ESTAGIO ? $query .= " And A.ID_SELECAO_ESTAGIO = " . $VO->ID_SELECAO_ESTAGIO . " " : false;
+                  $VO->ID_ORGAO_ESTAGIO ? $query .= " And A.ID_ORGAO_ESTAGIO = " . $codigoOrgaoSolicitante[0] . " " : false;
+                  $VO->ID_ORGAO_GESTOR_ESTAGIO ? $query .= " And A.ID_ORGAO_GESTOR_ESTAGIO = " . $codigoOrgaoGestor[0]. " " : false;
+                  $VO->ID_SELECAO_ESTAGIO ? $query .= " And A.ID_SELECAO_ESTAGIO = " . $VO->ID_SELECAO_ESTAGIO . " " : false;
 		  $VO->TX_TCE ? $query .= " And upper(A.TX_TCE) like upper('%" . $VO->TX_TCE . "%') " : false;
 		  $VO->TX_NOME ? $query .= " And upper(D.TX_NOME) like upper('%" . $VO->TX_NOME . "%') " : false;
 		  $VO->NB_CPF ? $query .= " And upper(D.NB_CPF) like upper('%" . $VO->NB_CPF . "%') " : false;
@@ -134,6 +134,8 @@ class RepositorioContrato extends Repositorio {
                         '" . $VO->CS_SELECAO . "'
                     )
                     ";
+        
+//        print_r($query);
 
         $retorno = $this->sql($query);
         return $retorno ? '' : $CodigoPK['ID_CONTRATO_ESTAGIO'][0];
@@ -372,7 +374,7 @@ class RepositorioContrato extends Repositorio {
                     AND C.ID_PESSOA_ESTAGIARIO = D.ID_PESSOA_ESTAGIARIO
                     AND A.CS_SITUACAO =2 
                     AND B.CS_SITUACAO =2
-                    AND C.CS_SITUACAO =2 
+                    --AND C.CS_SITUACAO =2 
                     AND B.ID_SELECAO_ESTAGIO =" . $VO->ID_SELECAO_ESTAGIO;
         return $this->sqlVetor($query);
     }
@@ -459,6 +461,18 @@ class RepositorioContrato extends Repositorio {
         return $this->sqlVetor($query);
     }
 
+    function buscarTodosQuadrosVagas($VO){
+        $query ="SELECT 
+                    ID_QUADRO_VAGAS_ESTAGIO CODIGO,
+                    ID_QUADRO_VAGAS_ESTAGIO ID_QUADRO_VAGAS_ESTAGIO_2,
+                    TX_CODIGO TX_QUADRO_VAGAS_2
+                 FROM 
+                    QUADRO_VAGAS_ESTAGIO";
+        return $this->sqlVetor($query);
+        
+    }
+    
+    
     function buscarQuadroVaga($VO) {
 
         // Função uitlizadas para trazer todos os quadros de vagas
