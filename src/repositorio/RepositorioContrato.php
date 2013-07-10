@@ -379,6 +379,9 @@ class RepositorioContrato extends Repositorio {
         return $this->sqlVetor($query);
     }
 
+
+
+
     function  buscarEstagiarioSemSelecao($VO){
         $query ="SELECT 
                         ID_PESSOA_ESTAGIARIO CODIGO,
@@ -605,18 +608,10 @@ class RepositorioContrato extends Repositorio {
                         D.NB_CPF,
                         D.NB_RG
                 FROM 
-                        SELECAO_ESTAGIO A ,
-                        ESTAGIARIO_SELECAO B ,
-                        ESTAGIARIO_VAGA C ,
+                      
                         V_ESTAGIARIO D
                 WHERE 
-                        A.ID_SELECAO_ESTAGIO    = B.ID_SELECAO_ESTAGIO
-                        AND B.ID_RECRUTAMENTO_ESTAGIO = C.ID_RECRUTAMENTO_ESTAGIO
-                        AND C.ID_PESSOA_ESTAGIARIO    = D.ID_PESSOA_ESTAGIARIO
-                        --AND A.CS_SITUACAO             =2
-                        --AND B.CS_SITUACAO             =2
-                        AND C.CS_SITUACAO             =1 
-                        AND D.ID_PESSOA_ESTAGIARIO  =" . $VO->ID_PESSOA_ESTAGIARIO;
+                    D.ID_PESSOA_ESTAGIARIO  =" . $VO->ID_PESSOA_ESTAGIARIO;
         return $this->sqlVetor($query);
     }
 

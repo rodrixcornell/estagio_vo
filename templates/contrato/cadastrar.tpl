@@ -45,7 +45,7 @@
                     </select>
                 </div>
 
-                <input type="radio" name="CS_SELECAO" ID="CHECK_RESP" value="1">Com Seleção
+                <input type="radio" name="CS_SELECAO" ID="CHECK_RESP" value="1">Com Seleção || ou ||
                 <input type="radio" name="CS_SELECAO" ID="CHECK_RESP_2" value="2">Sem Seleção
 
                 <br />

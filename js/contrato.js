@@ -36,21 +36,27 @@ $(document).ready(function(){
     	
 	$("input[name=CS_SELECAO]").click( function() {
 		if($('#CHECK_RESP').is(':checked')){
-//			$("#ID_UNIDADE_ORC option:first").attr('selected','selected');
-//			$('#ID_UNIDADE_ORC').attr("disabled", true);	
-//			$('#ID_UNIDADE_ORG').attr("disabled", false);	
-//			$('#ID_UNIDADE_ORG').focus();
+			$("#ID_QUADRO_VAGAS_ESTAGIO_2 option:first").attr('selected','selected');
+			$('#ID_QUADRO_VAGAS_ESTAGIO_2').attr("disabled", true);	
+			$('#ID_SELECAO_ESTAGIO').attr("disabled", false);	
+			$('#ID_SELECAO_ESTAGIO').focus();
 //			$("#NB_MES_INICIO,#NB_MES_FIM,#NB_ANO_INICIO,#NB_ANO_FIM").html('');
                      $('#QUADRO_ID').hide();
                      $('#SELECAO_ID').show();
 		}else{
-//			$("#ID_UNIDADE_ORG option:first").attr('selected','selected');
-//			$('#ID_UNIDADE_ORG').attr("disabled", true);
-//			$('#ID_UNIDADE_ORC').attr("disabled", false);	
-//			$('#ID_UNIDADE_ORC').focus();
+			$("#ID_SELECAO_ESTAGIO option:first").attr('selected','selected');
+			$('#ID_SELECAO_ESTAGIO').attr("disabled", true);
+			$('#ID_QUADRO_VAGAS_ESTAGIO_2').attr("disabled", false);	
+			$('#ID_QUADRO_VAGAS_ESTAGIO_2').focus();
 //			$("#NB_MES_INICIO,#NB_MES_FIM,#NB_ANO_INICIO,#NB_ANO_FIM").html('');
                         $('#SELECAO_ID').hide();
                         $('#QUADRO_ID').show();
+                        $.post("acoes.php",{
+                                identifier:'candidatoSemSelecao'
+                            },
+                            function(valor){
+                                $('#ID_PESSOA_ESTAGIARIO').html(valor);
+                            });
 		}
 	});
         //    change do  orgão solicitante -

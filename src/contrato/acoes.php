@@ -153,6 +153,18 @@ else if ($_REQUEST['identifier'] == "candidato") {
         }
     }
 }
+// Trazer todos os candidatos de uma seleção--------------------------------------------------------------------
+else if ($_REQUEST['identifier'] == "candidatoSemSelecao") {
+
+    $total = $VO->buscarEstagiarioSemSelecao();
+	echo '<option value="">Escolha...</option>';
+    if ($total) {
+        $dados = $VO->getVetor();    
+        for ($i = 0; $i < $total; $i++) {
+            echo '<option value="' . $dados['CODIGO'][$i] . '">' . $dados['TX_NOME'][$i] . '</option>';
+        }
+    }
+}
 // Busca de E/ndereço do Orgão gestor---------------------------------------------------------------------------
 else if ($_REQUEST['identifier'] == "buscarEndereco") {
 
