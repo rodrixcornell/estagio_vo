@@ -33,9 +33,9 @@ class transferenciaVO extends VO {
         return $this->repositorio->buscarQuantidade($this);
     }
 
-    /* function buscarTipo(){
+   function buscarTipo(){
       return $this->repositorio->buscarTipo($this);
-      } */
+      }
 
     function pesquisarVagasSolicitadas() {
         return $this->repositorio->pesquisarVagasSolicitadas($this);

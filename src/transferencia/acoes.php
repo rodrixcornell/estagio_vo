@@ -117,6 +117,7 @@ function gerarTabelaAlterar($param = '') {
     $dados = $VO->getVetor();
 
     $VO->buscarTipo();
+  
     $arrayTipo = $VO->getArray("TX_TIPO_VAGA_ESTAGIO");
     foreach ($arrayTipo as $key => $value) {
         ($dados['CS_TIPO_VAGA_ESTAGIO'][0] == $key) ? $selected = 'selected' : $selected = '';
@@ -129,41 +130,41 @@ function gerarTabelaAlterar($param = '') {
             $('#NB_QUANTIDADE_ALT').setMask({ mask:'999999' });
         })
     </script>
-    <table width="100%" class="dataGrid" >
+    <!--table width="100%" class="dataGrid" >
         <tr bgcolor="#E0E0E0">
             <td style="width:150px;"><strong>Tipo Transferência de Vagas</strong></td>
-          <!--  <td><?= $dados['TX_TIPO_VAGA_ESTAGIO'][0] ?></td>-->
+           <td><?= $dados['TX_TIPO_VAGA_ESTAGIO'][0] ?></td>
         </tr>
-    </table>
+    </table-->
     <br />
 
     <fieldset>
 
-        <div id="camada" style="width:210px;">
-            <strong><font color="#FF0000">*</font>Tipo</strong><br />
-            <select name="CS_TIPO_VAGA_ESTAGIO_ALT" id="CS_TIPO_VAGA_ESTAGIO_ALT" style="width:200px;"><?= $arrayTipoAlt ?></select></div>
-
+      <div id="camada" style="width:210px;">
+      <strong><font color="#FF0000">*</font>Tipo</strong><br />
+      <select name="CS_TIPO_VAGA_ESTAGIO_ALT" id="CS_TIPO_VAGA_ESTAGIO_ALT" style="width:200px;"disabled ="disabled"><?= $arrayTipoAlt ?></select></div>
+      
         <div id="camada" style="width:90px;" >
-            <strong><font color="#FF0000">*</font>Quantidade</strong><br />
-            <input type="text" name="NB_QUANTIDADE_ALT" id="NB_QUANTIDADE_ALT" value="<?= $dados['NB_QUANTIDADE'][0] ?>" style="width:80px;" /></div>
+        <strong><font color="#FF0000">*</font>Quantidade</strong><br />
+        <input type="text" name="NB_QUANTIDADE_ALT" id="NB_QUANTIDADE_ALT" value="<?= $dados['NB_QUANTIDADE'][0] ?>" style="width:80px;" /></div>
         <br />
 
         <div id="camada" style="font-family:Verdana, Geneva, sans-serif; width:360px;" >
             Usuário do Cadastro:
-            <input type="text" name="TX_FUNCIONARIO_CAD_ALT" id="TX_FUNCIONARIO_CAD_ALT" value="<?= $dados['TX_FUNCIONARIO_CAD'][0] ?>"  style="width:350px;" readonly="readonly" class="leitura"/></div>
+        <input type="text" name="TX_FUNCIONARIO_CAD_ALT" id="TX_FUNCIONARIO_CAD_ALT" value="<?= $dados['TX_FUNCIONARIO_CAD'][0] ?>"  style="width:350px;" readonly="readonly" class="leitura"/></div>
 
         <div id="camada" style="font-family:Verdana, Geneva, sans-serif; width:140px;" >
             Data do Cadastro:
-            <input type="text" name="DT_CADASTRO_ALT" id="DT_CADASTRO_ALT" value="<?= $dados['DT_CADASTRO'][0] ?>"  style="width:130px;" readonly="readonly" class="leitura"/></div>
+        <input type="text" name="DT_CADASTRO_ALT" id="DT_CADASTRO_ALT" value="<?= $dados['DT_CADASTRO'][0] ?>"  style="width:130px;" readonly="readonly" class="leitura"/></div>
 
         <br />
         <div id="camada" style="font-family:Verdana, Geneva, sans-serif; width:360px;" >
             Usuário da Atualização:
-            <input type="text" name="TX_FUNCIONARIO_ATUAL_ALT" id="TX_FUNCIONARIO_ATUAL_ALT" value="<?= $dados['TX_FUNCIONARIO_ATUAL'][0] ?>"  style="width:350px;" readonly="readonly" class="leitura"/></div>
+        <input type="text" name="TX_FUNCIONARIO_ATUAL_ALT" id="TX_FUNCIONARIO_ATUAL_ALT" value="<?= $dados['TX_FUNCIONARIO_ATUAL'][0] ?>"  style="width:350px;" readonly="readonly" class="leitura"/></div>
 
         <div id="camada" style="font-family:Verdana, Geneva, sans-serif; width:140px;" >
             Data da Atualização:
-            <input type="text" name="DT_ATUALIZACAO_ALT" id="DT_ATUALIZACAO_ALT" value="<?= $dados['DT_ATUALIZACAO'][0] ?>"  style="width:130px;" readonly="readonly" class="leitura"/></div>
+        <input type="text" name="DT_ATUALIZACAO_ALT" id="DT_ATUALIZACAO_ALT" value="<?= $dados['DT_ATUALIZACAO'][0] ?>"  style="width:130px;" readonly="readonly" class="leitura"/></div>
 
         <br /><br />
         <input type="hidden" name="CS_TIPO_VAGA_ESTAGIO_ALT" id="CS_TIPO_VAGA_ESTAGIO_ALT" value="<?= $dados['CS_TIPO_VAGA_ESTAGIO'][0] ?>" />
@@ -185,6 +186,7 @@ if ($_REQUEST['identifier'] == "tabela") {
     $VO->ID_ORGAO_SOLICITANTE = $_REQUEST['ID_ORGAO_SOLICITANTE'];
     $VO->CS_SITUACAO = $_REQUEST['CS_SITUACAO'];
     $VO->TX_COD_TRANSFERENCIA = $_REQUEST['TX_COD_SOLICITACAO'];
+   
     $page = $_REQUEST['PAGE'];
 
     $VO->preencherSessionPesquisar($_REQUEST);
@@ -210,7 +212,7 @@ if ($_REQUEST['identifier'] == "tabela") {
                 <th>Órgão Gestor</th>
                 <th>Órgão Solicitante</th>
                 <th>Òrgão Cedente</th>
-                    <th>Situação</th>';
+                <th>Situação</th>';
         //Somente ver a coluna de alterar se tiver acesso completo a tela
         //if ($acesso)
         echo '<th style="width:30px;"></th>';
@@ -252,7 +254,7 @@ if ($_REQUEST['identifier'] == "tabela") {
         echo '<div id="nao_encontrado">Nenhum registro encontrado.</div>';
     }
 
-    //--------------PASSA ORGÃO CEDENTE DO CADASTRAR-----------------------------   
+//--------------PASSA ORGÃO CEDENTE DO CADASTRAR-----------------------------   
 } else if ($_REQUEST['identifier'] == "pesquisarOrgaoCedente") {
 
     $VO->ID_ORGAO_SOLICITANTE = $_REQUEST['ID_ORGAO_SOLICITANTE'];
@@ -282,7 +284,7 @@ if ($_REQUEST['identifier'] == "tabela") {
         }
     }
 
-    //----------------BUSCA O TIPO DO DETAIL---------------------------------------   
+//----------------BUSCA O TIPO DO DETAIL---------------------------------------   
 } else if ($_REQUEST['identifier'] == "pesquisarTipoVaga") {
 
     $VO->ID_TRANSFERENCIA_ESTAGIO = $_SESSION['ID_TRANSFERENCIA_ESTAGIO'];
@@ -301,12 +303,11 @@ if ($_REQUEST['identifier'] == "tabela") {
 //------------BUSCA QUANTIDADE DO DETAIL----------------------------------------    
 } else if ($_REQUEST['identifier'] == "buscarQuantidade") {
 
-    //$VO->ID_ORGAO_ESTAGIO = $_SESSION['ID_ORGAO_ESTAGIO'];
+    $VO->ID_ORGAO_ESTAGIO = $_SESSION['ID_ORGAO_ESTAGIO'];
     $VO->ID_QUADRO_VAGAS_ESTAGIO = $_SESSION['ID_QUADRO_VAGAS_ESTAGIO'];
-    //$VO->CS_TIPO_VAGA_ESTAGIO = $_REQUEST['CS_TIPO_VAGA_ESTAGIO'];
-    //$VO->ID_CURSO_ESTAGIO = $_REQUEST['ID_CURSO_ESTAGIO'];
-    //$VO->NB_QUANTIDADE = $_REQUEST['NB_QUANTIDADE'];
-
+    $VO->CS_TIPO_VAGA_ESTAGIO = $_REQUEST['CS_TIPO_VAGA_ESTAGIO'];
+    
+    
     $VO->buscarQuantidade();
 
     $dados = $VO->getVetor();
@@ -388,15 +389,15 @@ if ($_REQUEST['identifier'] == "tabela") {
     $VO->CS_TIPO_VAGA_ESTAGIO = $_REQUEST['CS_TIPO_VAGA_ESTAGIO'];
 
     if ($acesso) {
-        if ($VO->ID_TRANSFERENCIA_ESTAGIO && $VO->NB_QUANTIDADE && $VO->CS_TIPO_VAGA_ESTAGIO) {
+      //  if ($VO->ID_TRANSFERENCIA_ESTAGIO && $VO->NB_QUANTIDADE && $VO->CS_TIPO_VAGA_ESTAGIO) {
             $retorno = $VO->alterarVagasSolicitadas();
 
             if ($retorno['code'] == '1')
                 $erro = 'Registro já existe.';
             else
                 $erro = $retorno['message'];
-        }else
-            $erro = 'Para Alterar escolha uma Quantidade.';
+       /* }else
+            $erro = 'Para Alterar escolha uma Quantidade.';*/
     }else
         $erro = "Você não tem permissão para realizar esta ação.";
 
