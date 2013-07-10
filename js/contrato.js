@@ -212,7 +212,7 @@ $(document).ready(function(){
         
     // fim Change do orgão gestor        
     $('#pesquisar').click(function(){
-        if ($('#ID_ORGAO_GESTOR_ESTAGIO').val() && $('#ID_ORGAO_ESTAGIO').val()){
+        if ($('#ID_ORGAO_GESTOR_ESTAGIO').val() && $('#ID_ORGAO_ESTAGIO').val() && ($('#CHECK_RESP').is(':checked') || $('#CHECK_RESP_2').is(':checked'))){
             showLoader();
             $('#tabela').load('acoes.php?identifier=tabela',{
                 ID_ORGAO_GESTOR_ESTAGIO:$('#ID_ORGAO_GESTOR_ESTAGIO').val(),
@@ -225,7 +225,7 @@ $(document).ready(function(){
             CHECK_RESP_2:$('#CHECK_RESP_2').is(':checked')
             }, hideLoader);
         }else
-            alert('Preencha pelo menos os campos \"Órgão Gestor e Órgão Solicitante\" para realizar pesquisa!');
+            alert('Preencha pelo menos os campos \"Órgão Gestor, Órgão Solicitante e Tipo selecao \" para realizar pesquisa!');
     });
 	
     //Paginacao
