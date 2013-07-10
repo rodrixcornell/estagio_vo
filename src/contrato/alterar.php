@@ -19,7 +19,12 @@ $VO = new contratoVO();
 if ($_SESSION['ID_CONTRATO']) {
 
     $VO->ID_CONTRATO = $_SESSION['ID_CONTRATO'];
-
+    
+    
+    $todosCSselecao=$VO->buscarCsSelecao();
+    $dadosCSSelecao=$VO->getVetor();    
+    $VO->CS_SELECAO=$dadosCSSelecao['CS_SELECAO'][0];
+    
     $VO->buscar();
     $VO->preencherVOBD($VO->getVetor());
      if ($VO->ID_ORGAO_ESTAGIO) {
@@ -43,6 +48,13 @@ if ($_SESSION['ID_CONTRATO']) {
     if ($VO->ID_SELECAO_ESTAGIO) {
         
         $VO->buscarCandidato();
+        $arrayPessoaEstagiario = $VO->getArray('TX_NOME');
+        $smarty->assign("arrayPessoaEstagiario", $arrayPessoaEstagiario);
+    }
+
+    if (!$VO->ID_SELECAO_ESTAGIO) {
+        
+        $VO->buscarEstagiarioSemSelecao();
         $arrayPessoaEstagiario = $VO->getArray('TX_NOME');
         $smarty->assign("arrayPessoaEstagiario", $arrayPessoaEstagiario);
     }
