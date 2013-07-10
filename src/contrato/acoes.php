@@ -22,7 +22,12 @@ function gerarTabela($param = '') {
     $VO->TX_TCE = $_REQUEST['TX_TCE'];
     $VO->TX_NOME = $_REQUEST['TX_NOME'];
     $VO->NB_CPF = $_REQUEST['NB_CPF'];
+    $VO->CHECK_RESP =$_REQUEST['CHECK_RESP'];
+    $VO->CHECK_RESP_2 =$_REQUEST['CHECK_RESP_2'];
 
+    echo $_REQUEST['CHECK_RESP'];
+    echo $_REQUEST['CHECK_RESP_2'];
+    
     $page = $_REQUEST['PAGE'];
 
 

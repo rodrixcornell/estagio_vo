@@ -18,6 +18,10 @@
                     <select name="ID_ORGAO_ESTAGIO" id="ID_ORGAO_ESTAGIO" style="width:400px;">
                         {html_options options=$arrayOrgaoSolicitante selected=$VO->ID_ORGAO_ESTAGIO}
                     </select><br />
+                <div id="camada" style="font-family:Verdana, Geneva, sans-serif; width:150px;" ><font color="#FF0000">*</font><strong>Tipo Seleção: </strong></div>
+                <input type="radio" name="CS_SELECAO" ID="CHECK_RESP" value="1" {if !$VO->ID_ORGAO_ESTAGIO} disabled="disabled="{/if}>Com Seleção ||<b> OU </b>||
+                <input type="radio" name="CS_SELECAO" ID="CHECK_RESP_2" value="2">Sem Seleção<font color="#FF0000"> {$validar.CS_SELECAO}</font>
+                <br />
                 <div id="camada" style="font-family:Verdana, Geneva, sans-serif; width:150px;" ><strong>Código da Seleção: </strong></div>
                     <select name="ID_SELECAO_ESTAGIO" id="ID_SELECAO_ESTAGIO" style="width:200px;">
                         {html_options options=$arrayCodSelecao selected=$VO->ID_SELECAO_ESTAGIO}
@@ -52,6 +56,8 @@ $(document).ready(function(){
 			          TX_TCE:"{$VO->TX_TCE}",
 			         TX_NOME:"{$VO->TX_NOME}",
 			          NB_CPF:"{$VO->NB_CPF}",
+			      CHECK_RESP:"{$VO->CHECK_RESP}",
+			      CHECK_RESP_2:"{$VO->CHECK_RESP_2}",
 			            PAGE:"{$VO->PAGE}"
 		}, hideLoader); 
       

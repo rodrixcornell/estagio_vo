@@ -45,8 +45,8 @@
                     </select>
                 </div>
 
-                <input type="radio" name="CS_SELECAO" ID="CHECK_RESP" value="1">Com Seleção || ou ||
-                <input type="radio" name="CS_SELECAO" ID="CHECK_RESP_2" value="2">Sem Seleção
+                    <input type="radio" name="CS_SELECAO" ID="CHECK_RESP" value="1" disabled="disabled="><font color="#FF0000">*</font>Com Seleção ||<b> OU </b>||
+                <input type="radio" name="CS_SELECAO" ID="CHECK_RESP_2" value="2"><font color="#FF0000">*</font>Sem Seleção<font color="#FF0000"> {$validar.CS_SELECAO}</font>
 
                 <br />
 

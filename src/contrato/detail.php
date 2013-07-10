@@ -21,6 +21,11 @@ if ($_SESSION['ID_CONTRATO']) {
 
     $VO->ID_CONTRATO = $_SESSION['ID_CONTRATO'];
 
+    $todosCSselecao=$VO->buscarCsSelecao();
+    $dadosCSSelecao=$VO->getVetor();
+    
+    $VO->CS_SELECAO=$dadosCSSelecao['CS_SELECAO'][0];
+    
     $total = $VO->buscar();
     $total ? $dados = $VO->getVetor() : false;
 }else

@@ -36,13 +36,17 @@ $(document).ready(function(){
     	
 	$("input[name=CS_SELECAO]").click( function() {
 		if($('#CHECK_RESP').is(':checked')){
+                   
+                    
 			$("#ID_QUADRO_VAGAS_ESTAGIO_2 option:first").attr('selected','selected');
 			$('#ID_QUADRO_VAGAS_ESTAGIO_2').attr("disabled", true);	
 			$('#ID_SELECAO_ESTAGIO').attr("disabled", false);	
 			$('#ID_SELECAO_ESTAGIO').focus();
+                        
 //			$("#NB_MES_INICIO,#NB_MES_FIM,#NB_ANO_INICIO,#NB_ANO_FIM").html('');
                      $('#QUADRO_ID').hide();
                      $('#SELECAO_ID').show();
+               
 		}else{
 			$("#ID_SELECAO_ESTAGIO option:first").attr('selected','selected');
 			$('#ID_SELECAO_ESTAGIO').attr("disabled", true);
@@ -65,6 +69,7 @@ $(document).ready(function(){
         if ($('#ID_ORGAO_ESTAGIO').val() != 0){  
             var valor = $("#ID_ORGAO_ESTAGIO").val().split('_');
             $("#ID_SELECAO_ESTAGIO,#ID_LOTACAO").val('');
+            $('#CHECK_RESP').attr("disabled", false);
             $.post("acoes.php",{
                 ID_ORGAO_ESTAGIO:valor[0], 
                 identifier:'codSelecao'
@@ -215,7 +220,9 @@ $(document).ready(function(){
                 ID_SELECAO_ESTAGIO:$('#ID_SELECAO_ESTAGIO').val(),
                 TX_TCE:$('#TX_TCE').val(),
                 TX_NOME:$('#TX_NOME').val(),
-                NB_CPF:$('#NB_CPF').val()
+                NB_CPF:$('#NB_CPF').val(),
+            CHECK_RESP:$('#CHECK_RESP').is(':checked'),
+            CHECK_RESP_2:$('#CHECK_RESP_2').is(':checked')
             }, hideLoader);
         }else
             alert('Preencha pelo menos os campos \"Órgão Gestor e Órgão Solicitante\" para realizar pesquisa!');
@@ -230,7 +237,9 @@ $(document).ready(function(){
             ID_SELECAO_ESTAGIO:$('#ID_SELECAO_ESTAGIO').val(),
             TX_TCE:$('#TX_TCE').val(),
             TX_NOME:$('#TX_NOME').val(),
-            NB_CPF:$('#NB_CPF').val()
+            NB_CPF:$('#NB_CPF').val(),
+            CHECK_RESP:$('#CHECK_RESP').is(':checked'),
+            CHECK_RESP_2:$('#CHECK_RESP_2').is(':checked')
         }, hideLoader);
         return false;
     });
