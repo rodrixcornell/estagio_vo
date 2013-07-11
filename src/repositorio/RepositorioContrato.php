@@ -524,12 +524,12 @@ class RepositorioContrato extends Repositorio {
                   WHERE 
                     A.ID_SELECAO_ESTAGIO = B.ID_SELECAO_ESTAGIO
                     AND B.ID_RECRUTAMENTO_ESTAGIO = C.ID_RECRUTAMENTO_ESTAGIO
-					AND B.NB_CANDIDATO = C.NB_CANDIDATO
-					AND B.NB_VAGAS_RECRUTAMENTO = C.NB_VAGAS_RECRUTAMENTO
+		    AND B.NB_CANDIDATO = C.NB_CANDIDATO
+		    AND B.NB_VAGAS_RECRUTAMENTO = C.NB_VAGAS_RECRUTAMENTO
                     AND C.ID_PESSOA_ESTAGIARIO = D.ID_PESSOA_ESTAGIARIO
                     AND A.CS_SITUACAO =2 
                     AND B.CS_SITUACAO =2
-                    --AND C.CS_SITUACAO =2 
+                    AND C.CS_SITUACAO =2 
                     AND B.ID_SELECAO_ESTAGIO =" . $VO->ID_SELECAO_ESTAGIO;
         return $this->sqlVetor($query);
     }
