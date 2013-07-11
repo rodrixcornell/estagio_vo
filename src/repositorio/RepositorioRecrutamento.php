@@ -41,7 +41,8 @@ class RepositorioRecrutamento extends Repositorio {
 					from SOLICITACAO_ESTAGIO a
 					where a.ID_ORGAO_ESTAGIO = '".$VO->ID_ORGAO_ESTAGIO."'
 					and a.CS_SITUACAO = 2
-					and a.ID_SOLICITACAO_ESTAGIO not in (select id_solicitacao_estagio from RECRUTAMENTO_ESTAGIO where id_orgao_estagio = '".$VO->ID_ORGAO_ESTAGIO."')";
+					and a.ID_SOLICITACAO_ESTAGIO not in (select id_solicitacao_estagio from RECRUTAMENTO_ESTAGIO where id_orgao_estagio = '".$VO->ID_ORGAO_ESTAGIO."')  
+					ORDER BY TX_COD_SOLICITACAO";
 
         return $this->sqlVetor($query);
     }

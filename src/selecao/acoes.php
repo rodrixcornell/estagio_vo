@@ -182,6 +182,30 @@ if ($_REQUEST['identifier'] == "tabela") {
     }else {
         echo '<div id="nao_encontrado">Nenhum registro encontrado.</div>';
     }
+}else if ($_REQUEST['identifier'] == "buscarSolicitante") {
+
+    $VO->ID_ORGAO_GESTOR_ESTAGIO = $_REQUEST['ID_ORGAO_GESTOR_ESTAGIO'];
+    $total = $VO->buscarSolicitante();
+
+	echo '<option value="">Escolha...</option>';
+    if ($total) {
+        $dados = $VO->getVetor();
+        for ($i = 0; $i < $total; $i++) {
+            echo '<option value="' . $dados['CODIGO'][$i] . '">' . $dados['TX_ORGAO_ESTAGIO'][$i] . '</option>';
+        }
+    }
+}else if ($_REQUEST['identifier'] == "buscarRecrutamento") {
+
+    $VO->ID_ORGAO_ESTAGIO = $_REQUEST['ID_ORGAO_ESTAGIO'];
+    $total = $VO->buscarRecrutamento();
+	
+    echo '<option value="">Escolha...</option>';
+    if ($total) {
+        $dados = $VO->getVetor();
+        for ($i = 0; $i < $total; $i++) {
+            echo '<option value="' . $dados['CODIGO'][$i] . '">' . $dados['TX_COD_RECRUTAMENTO'][$i] . '</option>';
+        }
+    }
 }else if ($_REQUEST['identifier'] == 'form_Candidatos'){
     
     $VO->ID_SELECAO_ESTAGIO      = $_SESSION['ID_SELECAO_ESTAGIO'];
@@ -323,21 +347,8 @@ if ($_REQUEST['identifier'] == "tabela") {
         $erro = "Você não tem permissão para realizar esta ação.";
 
     gerarTabela($erro);
-}//Buscar ComboBox de Codigo de Recrutamento 
-else if ($_REQUEST['identifier'] == "buscarRecrutamento") {
-
-    $VO->ID_ORGAO_ESTAGIO = $_REQUEST['ID_ORGAO_ESTAGIO'];
-
-    $total = $VO->buscarRecrutamento();
-    
-    if ($total) {
-        $dados = $VO->getVetor();
-        echo '<option value="">Escolha...</option>';
-        for ($i = 0; $i < $total; $i++) {
-            echo '<option value="' . $dados['CODIGO'][$i] . '">' . $dados['TX_COD_RECRUTAMENTO'][$i] . '</option>';
-        }
-    }
-}//Buscar ComboBox de Candidato 
+}
+//Buscar ComboBox de Candidato 
 else if ($_REQUEST['identifier'] == "pesquisarCandidatos") {
 
     $VO->ID_RECRUTAMENTO_ESTAGIO = $_REQUEST['ID_RECRUTAMENTO_ESTAGIO'];

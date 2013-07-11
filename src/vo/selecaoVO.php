@@ -8,6 +8,20 @@ class selecaoVO extends VO{
     function selecaoVO(){        
         return $this->repositorio = new RepositorioSelecao();         
     }
+	
+	function  buscarSolicitante(){    
+        return $this->repositorio->buscarSolicitante($this);
+    }
+	
+	function buscarOrgaoGestor(){        
+        return $this->repositorio->buscarOrgaoGestor($this);        
+    }
+	
+	
+	
+	
+	
+	
     
 	function  pesquisarSelecao_Estagio(){    
         return $this->repositorio->pesquisarSelecao_Estagio($this);
@@ -17,10 +31,7 @@ class selecaoVO extends VO{
         return $this->repositorio->buscarSelecao_Estagio($this);
     }
     
-    function buscarOrgaoGestor(){        
-        // Função que pega todos os orgãos Getores
-        return $this->repositorio->buscarOrgaoGestor($this);        
-    }
+    
     
     function buscarOrgaoSolicitante(){
         // Função que pega todos os Orgãos Solicitantes a qual o Usuario pertence

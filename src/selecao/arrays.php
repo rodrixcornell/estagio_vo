@@ -9,15 +9,15 @@ $VO->buscarOrgaoGestor();
 $arrayOrgaoGestor=$VO->getArray('TX_ORGAO_GESTOR_ESTAGIO');
 
 //ComboBox de Orgão Solicitante
-$VO->buscarOrgaoSolicitante();
-$arrayOrgaoSolicitante =$VO->getArray('TX_ORGAO_ESTAGIO');
+/*$VO->buscarOrgaoSolicitante();
+$arrayOrgaoSolicitante =$VO->getArray('TX_ORGAO_ESTAGIO');*/
 
-$arraySituacao = array('' => "Escolha...", 1 => "ABERTA", 2 => "FECHADA");
+$arraySituacao = array('' => "Escolha...", 1 => "Aberta", 2 => "Fechada");
 
-$arraySituacaoCandidato = array('' => "Escolha...",1 => "EM ANÁLISE",2 => "APROVADO",3 => "REPROVADO",4 => "CANCELADO");
+$arraySituacaoCandidato = array('' => "Escolha...",1 => "Em Análise",2 => "Aprovado",3 => "Reprovado",4 => "Cancelado");
 
 $smarty->assign('arrayOrgaoGestor'       ,$arrayOrgaoGestor);
-$smarty->assign('arrayOrgaoSolicitante'  ,$arrayOrgaoSolicitante);
+/*$smarty->assign('arrayOrgaoSolicitante'  ,$arrayOrgaoSolicitante);*/
 $smarty->assign("arraySituacaoCandidato" ,$arraySituacaoCandidato);
 $smarty->assign("arraySituacao"          ,$arraySituacao);
 

@@ -11,22 +11,22 @@
                 <br /><br />
 				
                 <div id="camada" style="font-family:Verdana, Geneva, sans-serif; width:180px;" ><font color="#FF0000">*</font><strong>Órgão Gestor: </strong></div>
-                    <select name="ID_ORGAO_GESTOR_ESTAGIO" id="ID_ORGAO_GESTOR_ESTAGIO" style="width:250px;">
+                    <select name="ID_ORGAO_GESTOR_ESTAGIO" id="ID_ORGAO_GESTOR_ESTAGIO" style="width:300px;">
                         {html_options options=$arrayOrgaoGestor selected=$VO->ID_ORGAO_GESTOR_ESTAGIO}
                     </select><br />
 
                 <div id="camada" style="font-family:Verdana, Geneva, sans-serif; width:180px;" ><font color="#FF0000">*</font><strong>Órgão Solicitante: </strong></div>
-                    <select name="ID_ORGAO_ESTAGIO" id="ID_ORGAO_ESTAGIO" style="width:250px;">
+                    <select name="ID_ORGAO_ESTAGIO" id="ID_ORGAO_ESTAGIO" style="width:300px;">
                         {html_options options=$arrayOrgaoSolicitante selected=$VO->ID_ORGAO_ESTAGIO}
                     </select><br />
                     
                 <div id="camada" style="font-family:Verdana, Geneva, sans-serif; width:180px;" ><strong>Situação: </strong></div>
-                    <select name="CS_SITUACAO" id="CS_SITUACAO" style="width:150px;">
+                    <select name="CS_SITUACAO" id="CS_SITUACAO" style="width:200px;">
                         {html_options options=$arraySituacao selected=$VO->CS_SITUACAO}
                     </select><br />   
 
                  <div id="camada" style="font-family:Verdana, Geneva, sans-serif; width:180px;" ><strong>Código do Recrutamento:</strong></div>
-                    <input type="text" name="TX_COD_RECRUTAMENTO" id="TX_COD_RECRUTAMENTO" value="{$VO->TX_COD_RECRUTAMENTO}" style="width:150px;" /><br />
+                    <input type="text" name="TX_COD_RECRUTAMENTO" id="TX_COD_RECRUTAMENTO" value="{$VO->TX_COD_RECRUTAMENTO}" style="width:200px;" /><br />
                     <br /><br />
                 
                 <input type="button" name="pesquisar" id="pesquisar" value="Pesquisar" />

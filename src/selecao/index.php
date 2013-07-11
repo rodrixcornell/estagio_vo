@@ -3,10 +3,10 @@ require_once "../../php/define.php";
 require_once $path."src/selecao/arrays.php";
 require_once $pathvo."selecaoVO.php";
 
-$modulo = 78;
+$modulo = 79;
 $programa = 6;
 $pasta = 'selecao';
-$current = 1;
+$current = 2;
 $titulopage = 'Seleção de Estagiário';
 
 require_once "../autenticacao/validaPermissao.php";

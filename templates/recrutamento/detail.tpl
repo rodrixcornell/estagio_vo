@@ -20,7 +20,7 @@
                         <td><strong>Quadro de Vagas</strong></td>
                         <td>{$dados.TX_CODIGO[0]}</td>
                         <td><strong>Cód. de Recrutamento</strong></td>
-                        <td style="text-align:right;">{$dados.TX_COD_RECRUTAMENTO[0]}</td>
+                        <td style="text-align:right;"><font color="#0000FF"><strong>{$dados.TX_COD_RECRUTAMENTO[0]}</strong></font></td>
                     </tr>
                     <tr bgcolor="#E0E0E0">
                         <td><strong>Motivo/Justificativa</strong></td>
