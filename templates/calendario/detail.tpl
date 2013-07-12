@@ -12,37 +12,19 @@
                 <table width="100%" class="dataGrid">
                     <tr bgcolor="#E0E0E0">
                         <td style="width:210px;"><strong>Órgão Gestor</strong></td>
-                        <td style="width:500px;">{$dados.TX_ORGAO_GESTOR_ESTAGIO[0]}</td>
-                        <td style="width:150px;"><strong>Agencia de Estágio</strong></td>
-                        <td style="width:200px;">{$dados.TX_AGENCIA_ESTAGIO[0]}</td>
+                        <td style="width:500px;"><font color="#0000FF" class="num_em"><strong>{$dados.TX_ORGAO_GESTOR_ESTAGIO[0]}</strong></font></td>
+                        <td style="width:150px;"><strong>Data do Cadastro</strong></td>
+                        <td style="width:200px; text-align:right;">{$dados.DT_CADASTRO[0]}</div></td>
                     </tr>
                     <tr bgcolor="#F0EFEF">
-                        <td><strong>Órgão Solicitante</strong></td>
-                        <td>{$dados.TX_ORGAO_ESTAGIO[0]}</td>
-                        <td><strong>Cód. da Solicitação</strong></td>
-                        <td><div id="atualizacao">{$dados.TX_COD_SOLICITACAO[0]}</div></td>
-                    </tr>
-                    <tr bgcolor="#E0E0E0">
-                        <td><strong>Quadro de Vagas de Estágio</strong></td>
-                        <td>{$dados.TX_CODIGO[0]}</td>
-                        <td><strong>Situação</strong></td>
-                        <td>{$arraySituacao[$dados.CS_SITUACAO[0]]}</td>
-                    </tr>
-                    <tr bgcolor="#F0EFEF">
-                        <td style="vertical-align:baseline; padding-top:4px;"><strong>Motivo / Justificativa</strong></td>
-                        <td colspan="3">{$dados.TX_JUSTIFICATIVA[0]}</td>
-                    </tr>
-                    <tr bgcolor="#E0E0E0">
-                        <td><strong>Cadastrado por</strong></td>
-                        <td>{$dados.TX_FUNCIONARIO_CAD[0]}</td>
-                        <td><strong>Data do Cadastro</strong></td>
-                        <td style="text-align:right;">{$dados.DT_CADASTRO[0]}</div></td>
-                    </tr>
-                    <tr bgcolor="#F0EFEF">
-                        <td><strong>Alterado por</strong></td>
-                        <td>{$dados.TX_FUNCIONARIO_ATUAL[0]}</td>
+                        <td><strong>Ano de Referência</strong></td>
+                        <td>{$dados.NB_ANO_REFERENCIA[0]}</td>
                         <td><strong>Data de Atualização</strong></td>
                         <td style="text-align:right;"><div id="atualizacao">{$dados.DT_ATUALIZACAO[0]}</div></td>
+                    </tr>
+                    <tr bgcolor="#E0E0E0">
+                        <td><strong>Mês de Referência</strong></td>
+                        <td colspan="3">{$arrayMeses[$dados.NB_MES_REFERENCIA[0]]}</td>
                     </tr>
                 </table>
 
@@ -59,31 +41,52 @@
 
         {if $acesso}
             <fieldset>
-                <legend>Cadastrar Vagas de Estátgio</legend>
+                <legend>Cadastrar Item</legend>
 
-                <div id="camada" style="width:210px;">
-                    <strong><font color="#FF0000">*</font>Tipo</strong><br />
-                    <select name="ID_CS_CODIGO" id="ID_CS_CODIGO" style="width:200px;">
-                        {html_options options=$arrayTipoVaga selected=$VO->ID_CS_CODIGO}
+                {$largura=140}
+                <div id="camada" style="width:{$largura+10}px;">
+                    <strong><font color="#FF0000">*</font>Grupo Pag.</strong><br />
+                    <select name="ID_GRUPO_PAGAMENTO" id="ID_GRUPO_PAGAMENTO" style="width:{$largura}px;">
+                        {html_options options=$arrayGrupoPagamento selected=$VO->ID_GRUPO_PAGAMENTO}
                     </select></div>
 
-                <div id="camada" style="width:110px;" >
-                    <strong><font color="#FF0000">*</font>Quantidade</strong><br />
-                    <input type="text" name="NB_QUANTIDADE" id="NB_QUANTIDADE" value="{$VO->NB_QUANTIDADE}" style="width:100px;" /></div>
+                <div id="camada" style="width:{$largura+10}px;" >
+                    <strong><font color="#FF0000">*</font>Dt. Fechamento</strong><br />
+                    <input type="text" name="DT_FECHAMENTO" id="DT_FECHAMENTO" value="{$VO->DT_FECHAMENTO}" style="width:{$largura}px;" /></div>
 
-                <div id="camada" style="width:210px;">
-                    <strong>Curso</strong><br />
-                    <select name="ID_CURSO_ESTAGIO" id="ID_CURSO_ESTAGIO" style="width:200px;">
-                        {*html_options options=$arrayUnidadeDetail selected=$VO->ID_CURSO_ESTAGIO*}
-                    </select></div>
+                <div id="camada" style="width:{$largura+10}px;" >
+                    <strong><font color="#FF0000">*</font>Dt. Encam. Doc</strong><br />
+                    <input type="text" name="DT_ENCAM_DOC" id="DT_ENCAM_DOC" value="{$VO->DT_ENCAM_DOC}" style="width:{$largura}px;" /></div>
+
+                <div id="camada" style="width:{$largura+10}px;" >
+                    <strong><font color="#FF0000">*</font>Dt. Transf. Banco</strong><br />
+                    <input type="text" name="DT_TRANSF_BANCO" id="DT_TRANSF_BANCO" value="{$VO->DT_TRANSF_BANCO}" style="width:{$largura}px;" /></div>
+
+                <div id="camada" style="width:{$largura+10}px;" >
+                    <strong><font color="#FF0000">*</font>Dt. Início Transf. Est.</strong><br />
+                    <input type="text" name="DT_INICIO_TRANSF_ESTAG" id="DT_INICIO_TRANSF_ESTAG" value="{$VO->DT_INICIO_TRANSF_ESTAG}" style="width:{$largura}px;" /></div>
+
+                <div id="camada" style="width:{$largura+10}px;" >
+                    <strong><font color="#FF0000">*</font>Dt. Fim Transf. Est.</strong><br />
+                    <input type="text" name="DT_FIM_TRANSF_ESTAG" id="DT_FIM_TRANSF_ESTAG" value="{$VO->DT_FIM_TRANSF_ESTAG}" style="width:{$largura}px;" /></div>
+
+                <div id="camada" style="width:{$largura+10}px;" >
+                    <strong><font color="#FF0000">*</font>Dt. Pagamento</strong><br />
+                    <input type="text" name="DT_PAGAMENTO" id="DT_PAGAMENTO" value="{$VO->DT_PAGAMENTO}" style="width:{$largura}px;" /></div>
 
                 <input type="button" name="inserir" id="inserir" value=" Inserir " />
-                <input type="button" name="efetivar" id="efetivar" value=" Efetivar Solicitação " style="margin-top:17px; float:right; padding:4px 8px; font-weight:bold;"/>
+                {*<input type="button" name="efetivar" id="efetivar" value=" Efetivar Solicitação " style="margin-top:17px; float:right; padding:4px 8px; font-weight:bold;"/>*}
             </fieldset>
         {/if}
 
-        <div id="tabelaVagasSolicitadas"></div>
+        <div id="tabelaItemCalendario"></div>
 
+        <div id="dialog" title="Alterar Item">
+            <div id="tabelaAlterarItemCalendario" style="text-align:left;"></div>
+            <div class="fundoForm">
+                <img src="{$urlimg}icones/loader3.gif" >
+            </div>
+        </div>
 
         <div id="botoesInferiores">
             <a href="{$url}src/{$pasta}/index.php"><img src="{$urlimg}icones/voltar.png" alt="Voltar" title="Voltar" class="voltar" /></a>

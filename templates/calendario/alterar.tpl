@@ -11,42 +11,30 @@
 
             <div id="camada" style="font-family:Verdana, Geneva, sans-serif; width:310px;" >
                 <font color="#FF0000">*</font>Órgão Gestor: <font color="#FF0000">{$validar.ID_ORGAO_GESTOR_ESTAGIO}</font>
-                <select name="ID_ORGAO_GESTOR_ESTAGIO" id="ID_ORGAO_GESTOR_ESTAGIO" style="width:300px;">
+                <select name="ID_ORGAO_GESTOR_ESTAGIO" id="ID_ORGAO_GESTOR_ESTAGIO" style="width:300px;" disabled="disabled">
                     {html_options options=$arrayOrgaoGestor selected=$VO->ID_ORGAO_GESTOR_ESTAGIO}
                 </select></div>
 
-            <div id="camada" style="font-family:Verdana, Geneva, sans-serif; width:310px;" >
-                <font color="#FF0000">*</font>Agencia de Estágio: <font color="#FF0000">{$validar.ID_AGENCIA_ESTAGIO}</font>
-                <select name="ID_AGENCIA_ESTAGIO" id="ID_AGENCIA_ESTAGIO" style="width:300px;">
-                    {html_options options=$arrayAgenciaEstagio selected=$VO->ID_AGENCIA_ESTAGIO}
+            <div id="camada" style="font-family:Verdana, Geneva, sans-serif; width:160px;" >
+                <font color="#FF0000">*</font>Ano de Referência: <font color="#FF0000">{$validar.NB_ANO_REFERENCIA}</font>
+                <select name="NB_ANO_REFERENCIA" id="NB_ANO_REFERENCIA" style="width:150px;">
+                    {html_options options=$arrayAnos selected=$VO->NB_ANO_REFERENCIA}
+                </select></div>
+
+            <div id="camada" style="font-family:Verdana, Geneva, sans-serif; width:160px;" >
+                <font color="#FF0000">*</font>Mês de Referência: <font color="#FF0000">{$validar.NB_MES_REFERENCIA}</font>
+                <select name="NB_MES_REFERENCIA" id="NB_MES_REFERENCIA" style="width:150px;">
+                    {html_options options=$arrayMeses selected=$VO->NB_MES_REFERENCIA}
                 </select></div><br />
 
-            <div id="camada" style="font-family:Verdana, Geneva, sans-serif; width:310px;" >
-                <font color="#FF0000">*</font>Órgão Solicitante: <font color="#FF0000">{$validar.ID_ORGAO_ESTAGIO}</font>
-                <select name="ID_ORGAO_ESTAGIO" id="ID_ORGAO_ESTAGIO" style="width:300px;">
-                    {html_options options=$arrayOrgaoSolicitante selected=$VO->ID_ORGAO_ESTAGIO}
-                </select></div>
+            <div id="camada" style="font-family:Verdana, Geneva, sans-serif; width:210px;" >
+                Data do Cadastro:
+                <input type="text" name="DT_CADASTRO" id="DT_CADASTRO" value="{$VO->DT_CADASTRO}"  style="width:200px;" readonly="readonly" class="leitura"/></div>
+
 
             <div id="camada" style="font-family:Verdana, Geneva, sans-serif; width:210px;" >
-                <font color="#FF0000">*</font>Código da Solicitação: <font color="#FF0000">{$validar.TX_COD_SOLICITACAO}</font>
-                <input type="text" name="TX_COD_SOLICITACAO" id="TX_COD_SOLICITACAO" value="{$VO->TX_COD_SOLICITACAO}"  style="width:200px;" /></div>
-
-            <br />
-            <div id="camada" style="font-family:Verdana, Geneva, sans-serif; width:410px;" >
-                <font color="#FF0000">*</font>Quadro de Vagas de Estágio: <font color="#FF0000">{$validar.ID_QUADRO_VAGAS_ESTAGIO}</font>
-                <select name="ID_QUADRO_VAGAS_ESTAGIO" id="ID_QUADRO_VAGAS_ESTAGIO" style="width:300px;">
-                    {html_options options=$arrayQuadroVagasEstagio selected=$VO->ID_QUADRO_VAGAS_ESTAGIO}
-                </select></div>
-
-            <!--div id="camada" style="font-family:Verdana, Geneva, sans-serif; width:210px;" >
-                <font color="#FF0000">*</font>Situação: <font color="#FF0000">{$validar.CS_SITUACAO}</font>
-                <select name="CS_SITUACAO" id="CS_SITUACAO" style="width:200px;">
-                    {html_options options=$arraySituacao selected=$VO->CS_SITUACAO}
-                </select></div--><br />
-
-            <div id="camada" style="font-family:Verdana, Geneva, sans-serif; width:630px;" >
-                Motivo / Justificativa: <font color="#FF0000">{$validar.TX_JUSTIFICATIVA}</font>
-                <textarea name="TX_JUSTIFICATIVA" id="TX_JUSTIFICATIVA" style="width:620px;" rows="2">{$VO->TX_JUSTIFICATIVA}</textarea></div>
+                Data da Atualização:
+                <input type="text" name="DT_ATUALIZACAO" id="DT_ATUALIZACAO" value="{$VO->DT_ATUALIZACAO}"  style="width:200px;" readonly="readonly" class="leitura"/></div>
 
             <br /><br />
 

@@ -1,22 +1,39 @@
 <?php
+
 require_once "../../php/define.php";
-require_once $pathvo."transferenciaVO.php";
+require_once $pathvo . "calendarioVO.php";
 
-$VO = new transferenciaVO();
-
-$arraySituacao = array(""=>"Escolha...", 1=>"Aberta", 2=>"Efetivada", 3=>"Cancelada");
+$VO = new calendarioVO();
 
 $VO->pesquisarOrgaoGestor();
-    $arrayOrgaoGestor = $VO->getArray("TX_ORGAO_GESTOR_ESTAGIO");
+$arrayOrgaoGestor = $VO->getArray("TX_ORGAO_GESTOR_ESTAGIO");
 
-$VO->pesquisarOrgaoSolicitante();
-    $arrayOrgaoSolicitante = $VO->getArray("TX_ORGAO_ESTAGIO");
+$arrayAnos = array(
+    '' => 'Escolha...',
+    //date('Y') + 8 => date('Y') + 8,
+    //date('Y') + 7 => date('Y') + 7,
+    //date('Y') + 6 => date('Y') + 6,
+    date('Y') + 5 => date('Y') + 5,
+    date('Y') + 4 => date('Y') + 4,
+    date('Y') + 3 => date('Y') + 3,
+    date('Y') + 2 => date('Y') + 2,
+    date('Y') + 1 => date('Y') + 1,
+    date('Y') => date('Y'),
+    date('Y') - 1 => date('Y') - 1,
+    date('Y') - 2 => date('Y') - 2,
+    date('Y') - 3 => date('Y') - 3,
+    date('Y') - 4 => date('Y') - 4,
+    date('Y') - 5 => date('Y') - 5,
+    //date('Y') - 6 => date('Y') - 6,
+    //date('Y') - 7 => date('Y') - 7,
+    //date('Y') - 8 => date('Y') - 8,
+);
 
-$VO->pesquisarAgenciaEstagio();
-    $arrayAgenciaEstagio = $VO->getArray("TX_AGENCIA_ESTAGIO");
+$arrayMeses = array('Escolha...', 'Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro');
 
-$smarty->assign("arraySituacao", $arraySituacao);
 $smarty->assign("arrayOrgaoGestor", $arrayOrgaoGestor);
-$smarty->assign("arrayOrgaoSolicitante", $arrayOrgaoSolicitante);
-$smarty->assign("arrayAgenciaEstagio", $arrayAgenciaEstagio);
+$smarty->assign("arrayAnos", $arrayAnos);
+$smarty->assign("arrayAnos_id", date('Y'));
+$smarty->assign("arrayMeses", $arrayMeses);
+$smarty->assign("arrayMeses_id", date('m'));
 ?>

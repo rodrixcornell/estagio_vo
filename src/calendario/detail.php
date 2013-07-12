@@ -1,37 +1,34 @@
 <?php
 
 require_once "../../php/define.php";
-require_once $path . "src/transferencia/arrays.php";
-require_once $pathvo . "transferenciaVO.php";
+require_once $path . "src/calendario/arrays.php";
+require_once $pathvo . "calendarioVO.php";
 
-$modulo = 79;
-$programa = 3;
-$pasta = 'transferencia';
-$current = 2;
-$titulopage = 'Tanferência  de Vagas';
+$modulo = 80;
+$programa = 9;
+$pasta = 'calendario';
+$current = 3;
+$titulopage = 'Calendário da Folha de Pagamento';
 
 session_start();
 require_once "../autenticacao/validaPermissao.php";
 
 // Iniciando Instância
-$VO = new transferenciaVO();
+$VO = new calendarioVO();
 
-if ($_SESSION['ID_SOLICITACAO_ESTAGIO']) {
+if ($_SESSION['ID_CALENDARIO_FOLHA_PAG']) {
 
-    $VO->ID_SOLICITACAO_ESTAGIO = $_SESSION['ID_SOLICITACAO_ESTAGIO'];
+    $VO->ID_CALENDARIO_FOLHA_PAG = $_SESSION['ID_CALENDARIO_FOLHA_PAG'];
 
     $total = $VO->buscar();
     if ($total) {
         $dados = $VO->getVetor();
 
-        $VO->ID_ORGAO_ESTAGIO = $_SESSION['ID_ORGAO_ESTAGIO'] = $dados['ID_ORGAO_ESTAGIO'][0];
-        $VO->ID_AGENCIA_ESTAGIO = $_SESSION['ID_AGENCIA_ESTAGIO'] = $dados['ID_AGENCIA_ESTAGIO'][0];
-        $VO->CS_SITUACAO = $_SESSION['CS_SITUACAO'] = $dados['CS_SITUACAO'][0];
-        $VO->TX_COD_SOLICITACAO = $_SESSION['TX_COD_SOLICITACAO'] = $dados['TX_COD_SOLICITACAO'][0];
-
-        $VO->pesquisarTipoVaga();
-        $smarty->assign("arrayTipoVaga", $VO->getArray("TX_TIPO_VAGA_ESTAGIO"));
+        $_SESSION['ID_ORGAO_GESTOR_ESTAGIO'] = $dados['ID_ORGAO_GESTOR_ESTAGIO'][0];
     }
+
+    $VO->pesquisarGrupoPagamento();
+    $smarty->assign("arrayGrupoPagamento", $VO->getArray("TX_GRUPO_PAGAMENTO"));
 }else
     header("Location: " . $url . "src/" . $pasta . "/index.php");
 

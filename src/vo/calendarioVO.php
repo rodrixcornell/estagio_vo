@@ -1,48 +1,44 @@
 <?php
 
 require_once $pathvo."VO.php";
-require_once $path."src/repositorio/RepositorioTransferencia.php";
+require_once $path."src/repositorio/RepositorioCalendario.php";
 
-class transferenciaVO extends VO{
+class calendarioVO extends VO{
 
-    function transferenciaVO(){
-        return $this->repositorio = new RepositorioTransferencia();
+    function calendarioVO(){
+        return $this->repositorio = new RepositorioCalendario();
     }
 
     function pesquisarOrgaoGestor(){
         return $this->repositorio->pesquisarOrgaoGestor($this);
     }
 
-    function pesquisarOrgaoSolicitante(){
-        return $this->repositorio->pesquisarOrgaoSolicitante($this);
+    function atualizarInf(){
+        return $this->repositorio->atualizarInf($this);
     }
 
-    function pesquisarAgenciaEstagio(){
-        return $this->repositorio->pesquisarAgenciaEstagio($this);
+    function pesquisarGrupoPagamento(){
+        return $this->repositorio->pesquisarGrupoPagamento($this);
     }
 
-    function pesquisarCodigoSilicitacao(){
-        return $this->repositorio->pesquisarCodigoSilicitacao($this);
+    function pesquisarItemCalendario(){
+        return $this->repositorio->pesquisarItemCalendario($this);
     }
 
-    function pesquisarTipoVaga(){
-        return $this->repositorio->pesquisarTipoVaga($this);
+    function inserirItemCalendario(){
+        return $this->repositorio->inserirItemCalendario($this);
     }
 
-    function buscarQuantidade(){
-        return $this->repositorio->buscarQuantidade($this);
+    function excluirItemCalendario(){
+        return $this->repositorio->excluirItemCalendario($this);
     }
 
-    function buscarCursos(){
-        return $this->repositorio->buscarCursos($this);
+    function buscarItemCalendario(){
+        return $this->repositorio->buscarItemCalendario($this);
     }
 
-    function pesquisarVagasSolicitadas(){
-        return $this->repositorio->pesquisarVagasSolicitadas($this);
-    }
-
-    function inserirVagasSolicitadas(){
-        return $this->repositorio->inserirVagasSolicitadas($this);
+    function alterarItemCalendario(){
+        return $this->repositorio->alterarItemCalendario($this);
     }
 }
 ?>
