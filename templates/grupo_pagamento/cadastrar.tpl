@@ -1,11 +1,11 @@
 <div id="centro">
     <img src="{$urlimg}icones/{$pasta}.png"  id="imgTitulo"/>
-    <div id="titulo">Nova {$titulopage}</div>
+    <div id="titulo">Novo {$titulopage}</div>
 
     <br /><br /><br /><hr />
 	
     <div id="conteudo">
-        Para uma nova cadastro de Grupo de Pagamento preencha o formulário abaixo e clique em Salvar:<br /><br />
+        Para um novo cadastro de Grupo de Pagamento preencha o formulário abaixo e clique em Salvar:<br /><br />
         <form name="form" action="{$url}src/{$pasta}/cadastrar.php" method="post">
 			
            <div id="camada" style="font-family:Verdana, Geneva, sans-serif; width:410px;">
