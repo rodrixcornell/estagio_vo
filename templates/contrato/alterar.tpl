@@ -1,6 +1,6 @@
 <div id="centro">
     <img src="{$urlimg}icones/{$pasta}.png"  id="imgTitulo"/>
-    <div id="titulo">Novo {$titulopage}</div>
+    <div id="titulo">{$titulopage}</div>
 
     <br /><br /><br /><hr />
 
@@ -44,8 +44,8 @@
                     </select>
                 </div>
 
-                <input type="radio" name="CS_SELECAO" ID="CHECK_RESP" value="1" disabled="disabled="><font color="#FF0000">*</font>Com Seleção ||<b> OU </b>||
-                <input type="radio" name="CS_SELECAO" ID="CHECK_RESP_2" value="2"><font color="#FF0000">*</font>Sem Seleção<font color="#FF0000"> {$validar.CS_SELECAO}</font>
+                <input type="radio" name="CS_SELECAO" ID="CHECK_RESP" value="1" {if $VO->CS_SELECAO==1}checked="checked"{/if} disabled="disabled="><font color="#FF0000">*</font>Com Seleção ||<b> OU </b>||
+                <input type="radio" name="CS_SELECAO" ID="CHECK_RESP_2" value="2"  {if $VO->CS_SELECAO==2}checked="checked"{/if} disabled="disabled="><font color="#FF0000">*</font>Sem Seleção<font color="#FF0000"> {$validar.CS_SELECAO}</font>
 
                 <br />
 
@@ -53,12 +53,12 @@
             <!-- FIm FildSet da Unidade Solicitante -->       
 
             <!--   FildSet para mostrar seleção caso o estagiario tenha seleção         -->
-            <fieldset id="SELECAO_ID" style="display: none;">
+            <fieldset id="SELECAO_ID"  {if $VO->CS_SELECAO!=1}style="display: none;"{/if}>
 
                 <legend>Seleção</legend>
 
                 <div id="camada" style="font-family:Verdana, Geneva, sans-serif; width:180px;" > <font color="#FF0000">*</font>Código da seleção:<font color="#FF0000">{$validar.ID_SELECAO_ESTAGIO}</font><br />
-                    <select name="ID_SELECAO_ESTAGIO" id="ID_SELECAO_ESTAGIO" style="width:170px;">
+                    <select name="ID_SELECAO_ESTAGIO" id="ID_SELECAO_ESTAGIO" style="width:170px;" disabled="disabled=">
                         {html_options options=$arrayCodSelecao selected=$VO->ID_SELECAO_ESTAGIO}
                     </select>
                 </div>
@@ -72,11 +72,11 @@
             </fieldset>
             <!--  FIM FildSet para mostrar seleção caso o estagiario tenha seleção         -->
 
-            <fieldset id="QUADRO_ID" style="display: none;">
+            <fieldset id="QUADRO_ID" {if $VO->CS_SELECAO!=2} style="display: none;"{/if}>
                 <legend>Quadro Vagas</legend>
 
                 <div id="camada" style="font-family:Verdana, Geneva, sans-serif; width:180px;" > <font color="#FF0000">*</font>Quadro Vagas Estagio:<font color="#FF0000">{$validar.ID_QUADRO_VAGAS_2}</font><br />
-                    <select name="ID_QUADRO_VAGAS_ESTAGIO_2" id="ID_QUADRO_VAGAS_ESTAGIO_2" style="width:170px;">
+                    <select name="ID_QUADRO_VAGAS_ESTAGIO_2" id="ID_QUADRO_VAGAS_ESTAGIO_2" style="width:170px;" >
                          {html_options options=$arrayQuadroVagas selected=$VO->ID_QUADRO_VAGAS_ESTAGIO_2}
                     </select>  
                 </div>

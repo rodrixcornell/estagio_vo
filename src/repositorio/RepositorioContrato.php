@@ -194,6 +194,10 @@ class RepositorioContrato extends Repositorio {
         
         if($VO->CS_SELECAO ==1){
         $query="SELECT
+            
+                        BOLSA_ESTAGIO.NB_VALOR,
+                        QUADRO_VAGAS_estagio.TX_CODIGO TX_CODIGO_QUADRO_VAGAS,
+                        contrato_estagio.cs_selecao cs_selecao,
                         V_UNIDADE_ORG_LOTACAO.ORGAO,
                         PESSOA.TX_NOME SUPERVISOR,
                         USUARIO_ATUALIZACAO_fun.TX_FUNCIONARIO FUNCIONARIO_CADASTRO,
@@ -233,6 +237,7 @@ class RepositorioContrato extends Repositorio {
                         contrato_estagio.NB_FIM_HORARIO,
                         CONTRATO_ESTAGIO.TX_EMAIL,
                         CONTRATO_ESTAGIO.ID_UNIDADE_ORG ID_LOTACAO,
+                        CONTRATO_ESTAGIO.ID_Quadro_vagas_estagio ID_Quadro_vagas_estagio,
                         CONTRATO_ESTAGIO.TX_TELEFONE,
                         CONTRATO_ESTAGIO.TX_ENDERECO,
                         CONTRATO_ESTAGIO.TX_CODIGO ,
@@ -307,7 +312,9 @@ class RepositorioContrato extends Repositorio {
         }
         else if($VO->CS_SELECAO==2){
             
-            $query="SELECT V_UNIDADE_ORG_LOTACAO.ORGAO,
+            $query="SELECT 
+                     contrato_estagio.cs_selecao cs_selecao,
+                    V_UNIDADE_ORG_LOTACAO.ORGAO,
                     PESSOA.TX_NOME SUPERVISOR,
                     USUARIO_ATUALIZACAO_fun.TX_FUNCIONARIO FUNCIONARIO_CADASTRO,
                     USUARIO_CADASTRO_FUN.TX_FUNCIONARIO FUNCIONARIO_ATUALIZACAO,
@@ -323,7 +330,6 @@ class RepositorioContrato extends Repositorio {
                     || V_UNIDADE_ORG.NB_COD_UNIDADE ID_ORGAO_ESTAGIO,
                     CONTRATO_ESTAGIO.ID_CONTRATO,
                     INSTITUICAO_ENSINO.ID_INSTITUICAO_ENSINO,
-                    QUADRO_VAGAS_ESTAGIO.ID_QUADRO_VAGAS_ESTAGIO,
                     CURSO_ESTAGIO.ID_CURSO_ESTAGIO,
                     SUPERVISOR_ESTAGIO.ID_PESSOA_SUPERVISOR,
                     SUPERVISOR_ESTAGIO.TX_CARGO,
@@ -347,6 +353,8 @@ class RepositorioContrato extends Repositorio {
                     CONTRATO_ESTAGIO.NB_FIM_HORARIO,
                     CONTRATO_ESTAGIO.TX_EMAIL,
                     CONTRATO_ESTAGIO.ID_UNIDADE_ORG ID_LOTACAO,
+                        CONTRATO_ESTAGIO.ID_Quadro_vagas_estagio ID_Quadro_vagas_estagio_2,
+                        CONTRATO_ESTAGIO.ID_PESSOA_ESTAGIARIO     ID_PESSOA_ESTAGIARIO    ,
                     CONTRATO_ESTAGIO.TX_TELEFONE,
                     CONTRATO_ESTAGIO.TX_ENDERECO,
                     CONTRATO_ESTAGIO.TX_CODIGO,
@@ -407,7 +415,7 @@ class RepositorioContrato extends Repositorio {
                     AND ID_CONTRATO=".$VO->ID_CONTRATO;
             
         }
-        
+
         return $this->sqlVetor($query);
         
     }
@@ -626,6 +634,7 @@ class RepositorioContrato extends Repositorio {
                     TX_CODIGO TX_QUADRO_VAGAS_2
                  FROM 
                     QUADRO_VAGAS_ESTAGIO";
+        
         return $this->sqlVetor($query);
         
     }
