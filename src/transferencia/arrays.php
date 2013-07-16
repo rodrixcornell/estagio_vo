@@ -25,10 +25,15 @@ $arrayQuadroVagasEstagio = $VO->getArray("TX_CODIGO");
  $VO->buscarTipo();
   $arrayTipoVaga = $VO->getArray("TX_TIPO_VAGA_ESTAGIO");
 
+  
+  // $VO->buscarQuantAtual();
+//  $arraybuscarQuantAtual = $VO->getArray("NB_QUANTIDADE_ATUAL");
+
 $smarty->assign("arraySituacao", $arraySituacao);
 $smarty->assign("arrayOrgaoGestor", $arrayOrgaoGestor);
 $smarty->assign("arrayOrgaoSolicitante", $arrayOrgaoSolicitante);
 $smarty->assign("arraypesquisarOrgaoCedente", $arraypesquisarOrgaoCedente);
 $smarty->assign("arrayQuadroVagasEstagio", $arrayQuadroVagasEstagio);
 $smarty->assign("arrayTipoVaga", $arrayTipoVaga);
+//$smarty->assign("arrayTipoVaga", $arrayTipoVaga);
 ?>

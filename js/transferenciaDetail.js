@@ -38,18 +38,55 @@ $(document).ready(function(){
     $('#NB_QUANTIDADE').setMask({
         mask:'999999'
     });
-
-//--------------Inserção no detail do tipo e quantidade---------------------------
-    $('#inserir').live('click', function(){
+//--------------------inserir --------------------------------------------------
+//------------------------------------------------------------------------ 
+ 
+ $("#CS_TIPO_VAGA_ESTAGIO").change(function(){
         
-        if (!$('#CS_TIPO_VAGA_ESTAGIO').val()){
-            alert('Para inserir escolha um Tipo de Vaga.');
-            $('#CS_TIPO_VAGA_ESTAGIO').focus();
-   
-        }else if (!$('#NB_QUANTIDADE').val()){
+        if ($("#CS_TIPO_VAGA_ESTAGIO").val() != 0){
+            var valor = $("#CS_TIPO_VAGA_ESTAGIO").val().split('_');
+            $("#NB_QUANTIDADE_ATUAL").val('');
+           //----------
+           $.post("acoes.php",{
+                ID_UNIDADE_ORG:valor[1], 
+                identifier:'buscarQuantAtual'},
+            function(valor){
+                $("#NB_QUANTIDADE_ATUAL").val(valor);}
+                );
+	//---------		
+             }else if (!$('#NB_QUANTIDADE').val()){
             alert('Para inserir escolha uma Quantidade.');
             $('#NB_QUANTIDADE').focus();
-        }else{
+    }else{
+        var valor = $("#CS_TIPO_VAGA_ESTAGIO").val().split('_');
+         showLoader();
+         
+            $("#tabelaVagasSolicitadas").load('acoes.php',{
+                NB_QUANTIDADE:$('#NB_QUANTIDADE').val(),
+                CS_TIPO_VAGA_ESTAGIO:valor[0],
+                NB_VAGAS_TRANSFERIDAS:valor[1],
+                identifier:'inserirVagasSolicitadas',
+                PAGE:$('.selecionado').text()
+            }, emptyHideLoader);
+        }
+        return false;
+    });
+//------------------------------------------------------------------------------
+//--------------Inserção no detail do tipo e quantidade-------------------------
+ $('#inserir').live('click', function(){
+        
+       if (!$('#CS_TIPO_VAGA_ESTAGIO').val()){
+         alert('Para inserir escolha um Tipo de Vaga.');
+            $('#CS_TIPO_VAGA_ESTAGIO').focus();
+        
+    //}else if (!$('#NB_QUANTIDADE_ATUAL').val()){
+      //alert('Para inserir escolha uma Quantidade.');
+       //$('#NB_QUANTIDADE_ATUAL').focus();
+       
+   }else if (!$('#NB_QUANTIDADE').val()){
+            alert('Para inserir escolha uma Quantidade.');
+            $('#NB_QUANTIDADE').focus();
+    }else{
             var valor = $('#CS_TIPO_VAGA_ESTAGIO').val().split('_');
 
             showLoader();
@@ -83,7 +120,8 @@ $(document).ready(function(){
         return false;
     });
     
-    //--------alteração do detail tipo quantidade entre outos------------
+
+//--------alteração do detail tipo quantidade entre outos-----------------------
     $('#alterar').live('click', function(){
         var href = $(this).attr('href');
 
@@ -108,10 +146,10 @@ $(document).ready(function(){
         modal: true,
         buttons:{
             "Salvar": function() {
-                if (!$('#CS_TIPO_VAGA_ESTAGIO_ALT').val()){
+               /* if (!$('#CS_TIPO_VAGA_ESTAGIO_ALT').val()){
                     alert('Para inserir escolha um Tipo Vagas.');
                     $('#CS_TIPO_VAGA_ESTAGIO_ALT').focus();
-                }else if (!$('#NB_QUANTIDADE_ALT').val()){
+                }else */if (!$('#NB_QUANTIDADE_ALT').val()){
                     alert('Para inserir escolha uma Quantidade.');
                      $('#NB_QUANTIDADE_ALT').focus();
        

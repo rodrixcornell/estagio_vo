@@ -64,22 +64,30 @@
         {if !$acessoEfetivado}
             <fieldset>
                 <legend>Cadastrar Vagas de Estágio</legend>
-
-                <div id="camada" style="width:160px;">
+                 {*-------------------------*}
+                    <div id="camada" style="width:160px;">
                     <strong><font color="#FF0000">*</font>Tipo </strong><br />
                     <select name="CS_TIPO_VAGA_ESTAGIO" id="CS_TIPO_VAGA_ESTAGIO" style="width:150px;">
                         {html_options options=$arrayTipoVaga selected=$VO->CS_TIPO_VAGA_ESTAGIO}
                     </select></div>
-
-                <div id="camada" style="width:90px;" >
+                    
+                   
+                   {*----QTD ATUAL-----*}
+                   <div id="camada" style="width:100px;" >
+                     <strong><font color="#FF0000"></font>Quant.Atual</strong><br />
+                     <input type="text" name="NB_QUANTIDADE_ATUAL" id="NB_QUANTIDADE_ATUAL" value="{$VO->NB_QUANTIDADE_ATUAL}" style="width:90px;" readonly="readonly" class="leitura"/></div>
+                   
+                  {*---QDT----*}
+                    
+                    <div id="camada" style="width:100px;" >
                     <strong><font color="#FF0000">*</font>Quantidade</strong><br />
-                    <input type="text" name="NB_QUANTIDADE" id="NB_QUANTIDADE" value="{$VO->NB_QUANTIDADE}" style="width:80px;" /></div>
+                    <input type="text" name="NB_QUANTIDADE" id="NB_QUANTIDADE" value="{$VO->NB_QUANTIDADE}" style="width:90px;" /></div>
+                   
+                    {*-----------------------*}
+                    <input type="button" name="inserir" id="inserir" value=" Inserir " />
 
-
-                <input type="button" name="inserir" id="inserir" value=" Inserir " />
-
-                <form action="{$url}src/{$pasta}/detail.php" method="post" style="display:inline;">			
-                    <input type="submit" name="efetivar" id="efetivar" value=" Efetivar Solicitação " style="margin-top:17px; float:right; padding:4px 8px; font-weight:bold;"/>
+                   <form action="{$url}src/{$pasta}/detail.php" method="post" style="display:inline;">			
+                   <input type="submit" name="efetivar" id="efetivar" value=" Efetivar Solicitação " style="margin-top:17px; float:right; padding:4px 8px; font-weight:bold;"/>
                 </form>
 
             </fieldset>

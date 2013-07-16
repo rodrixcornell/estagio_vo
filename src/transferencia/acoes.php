@@ -116,13 +116,7 @@ function gerarTabelaAlterar($param = '') {
     $VO->buscarVagasSolicitadas();
     $dados = $VO->getVetor();
 
-    $VO->buscarTipo();
-  
-    $arrayTipo = $VO->getArray("TX_TIPO_VAGA_ESTAGIO");
-    foreach ($arrayTipo as $key => $value) {
-        ($dados['CS_TIPO_VAGA_ESTAGIO'][0] == $key) ? $selected = 'selected' : $selected = '';
-        $arrayTipoAlt .= '<option value="' . $key . '" ' . $selected . '>' . $value . '</option> ';
-    }
+    
     ?>
 
     <script>
@@ -298,9 +292,27 @@ if ($_REQUEST['identifier'] == "tabela") {
         $dados = $VO->getVetor();
         for ($i = 0; $i < $total; $i++) {
             echo '<option value="' . $dados['CODIGO'][$i] . '">' . $dados['TX_TIPO_VAGA_ESTAGIO'][$i] . '</option>';
-        }
+           
+            }
     }
-//------------BUSCA QUANTIDADE DO DETAIL----------------------------------------    
+    
+ //----------------BUSCA QUANTIDADE ATUAL DETAIL------------------------------   
+   
+} else if ($_REQUEST['identifier'] == "buscarQuantAtual") {
+
+     $VO->ID_ORGAO_ESTAGIO = $_SESSION['ID_ORGAO_ESTAGIO'];
+     $VO->ID_QUADRO_VAGAS_ESTAGIO = $_SESSION['ID_QUADRO_VAGAS_ESTAGIO'];
+    // $VO->CS_TIPO_VAGA_ESTAGIO = $_REQUEST['CS_TIPO_VAGA_ESTAGIO'];
+     
+     $total = $VO->buscarQuantAtual();
+    
+        $dados = $VO->getVetor();
+            echo $dados['NB_QUANTIDADE_ATUAL'][0]; 
+    
+//------------------------------------------------------------------------------
+  
+    
+//------------ QUANTIDADE DO DETAIL----------------------------------------    
 } else if ($_REQUEST['identifier'] == "buscarQuantidade") {
 
     $VO->ID_ORGAO_ESTAGIO = $_SESSION['ID_ORGAO_ESTAGIO'];
@@ -320,31 +332,13 @@ if ($_REQUEST['identifier'] == "tabela") {
 } else if ($_REQUEST['identifier'] == "inserirVagasSolicitadas") {
 
     $VO->ID_TRANSFERENCIA_ESTAGIO = $_SESSION['ID_TRANSFERENCIA_ESTAGIO'];
-    $VO->ID_ORGAO_EST_ORIGEM = $_SESSION['ID_ORGAO_ESTAGIO'];
-    $VO->ID_ORGAO_EST_DESTINO = $_SESSION['ID_ORGAO_SOLICITANTE'];
-    $VO->ID_QUADRO_VAGAS_ESTAGIO = $_SESSION['ID_QUADRO_VAGAS_ESTAGIO'];
-    $VO->CS_TIPO_VAGA_ESTAGIO = $_REQUEST['CS_TIPO_VAGA_ESTAGIO'];
-    $VO->NB_VAGAS_TRANSFERIDAS = $_REQUEST['NB_VAGAS_TRANSFERIDAS'];
-    $VO->NB_QUANTIDADE = $_REQUEST['NB_QUANTIDADE'];
+    $VO->ID_ORGAO_EST_ORIGEM      = $_SESSION['ID_ORGAO_ESTAGIO'];
+    $VO->ID_ORGAO_EST_DESTINO     = $_SESSION['ID_ORGAO_SOLICITANTE'];
+    $VO->ID_QUADRO_VAGAS_ESTAGIO  = $_SESSION['ID_QUADRO_VAGAS_ESTAGIO'];
+    $VO->CS_TIPO_VAGA_ESTAGIO     = $_REQUEST['CS_TIPO_VAGA_ESTAGIO'];
+    $VO->NB_VAGAS_TRANSFERIDAS    = $_REQUEST['NB_VAGAS_TRANSFERIDAS'];
+    $VO->NB_QUANTIDADE            = $_REQUEST['NB_QUANTIDADE'];
 
-/*if ($acesso) {
-      if ($VO->ID_TRANSFERENCIA_ESTAGIO &&
-          $VO->ID_QUADRO_VAGAS_ESTAGIO &&
-          $VO->ID_ORGAO_EST_ORIGEM &&
-          $VO->ID_ORGAO_EST_DESTINO &&
-          $VO->NB_VAGAS_TRANSFERIDAS &&
-          $VO->NB_QUANTIDADE &&
-          $VO->CS_TIPO_VAGA_ESTAGIO){
-      $retorno = $VO->inserirVagasSolicitadas();
-
-      if ($retorno) {
-      $erro = 'Registro já existe.';
-      }
-      }else
-      $erro = 'Para inserir escolha Tipo GHSEHNSHe Quantidade.';
-      }else
-      $erro = "Você não tem permissão para realizar esta ação."; 
-*/
     if ($acesso) {
         $retorno = $VO->inserirVagasSolicitadas();
 
@@ -363,13 +357,14 @@ if ($_REQUEST['identifier'] == "tabela") {
 } else if ($_REQUEST['identifier'] == "excluirVagasSolicitadas") {
 
     $VO->ID_TRANSFERENCIA_ESTAGIO = $_SESSION['ID_TRANSFERENCIA_ESTAGIO'];
-    /* $VO->ID_QUADRO_VAGAS_ESTAGIO   = $_REQUEST['ID_QUADRO_VAGAS_ESTAGIO'];
-      $VO->ID_ORGAO_EST_ORIGEM       = $_REQUEST['ID_ORGAO_EST_ORIGEM'];
-      $VO->ID_ORGAO_EST_DESTINO      = $_REQUEST['ID_ORGAO_EST_DESTINO'];
-      $VO->NB_QUANTIDADE             = $_REQUEST['NB_QUANTIDADE'];
-      $VO->NB_VAGAS_TRANSFERIDAS     = $_REQUEST['NB_VAGAS_TRANSFERIDAS'];
-      $VO->CS_TIPO_VAGA_ESTAGIO      = $_REQUEST['CS_TIPO_VAGA_ESTAGIO'];
-     */if ($acesso) {
+    $VO->ID_ORGAO_EST_ORIGEM = $_SESSION['ID_ORGAO_ESTAGIO'];
+    $VO->ID_ORGAO_EST_DESTINO = $_SESSION['ID_ORGAO_SOLICITANTE'];
+    $VO->ID_QUADRO_VAGAS_ESTAGIO = $_SESSION['ID_QUADRO_VAGAS_ESTAGIO'];
+    $VO->CS_TIPO_VAGA_ESTAGIO = $_REQUEST['CS_TIPO_VAGA_ESTAGIO'];
+    $VO->NB_VAGAS_TRANSFERIDAS = $_REQUEST['NB_VAGAS_TRANSFERIDAS'];
+    $VO->NB_QUANTIDADE = $_REQUEST['NB_QUANTIDADE'];
+    
+     if ($acesso) {
         $retorno = $VO->excluirVagasSolicitadas();
 
         if (is_array($retorno)) {
@@ -378,16 +373,20 @@ if ($_REQUEST['identifier'] == "tabela") {
     }else
         $erro = "Você não tem permissão para realizar esta ação.";
 
-//----------------------------ALTERA DETAIL ------------------------------------
+//----------------------------ALTERA DETAIL ------------------------------------------------------------------
     gerarTabela($erro);
 } else if ($_REQUEST['identifier'] == "tabelaAlterarVagasSolicitadas") {
     gerarTabelaAlterar();
 } else if ($_REQUEST['identifier'] == "alterarVagasSolicitadas") {
 
     $VO->ID_TRANSFERENCIA_ESTAGIO = $_SESSION['ID_TRANSFERENCIA_ESTAGIO'];
-    $VO->NB_QUANTIDADE = $_REQUEST['NB_QUANTIDADE'];
+    $VO->ID_ORGAO_EST_ORIGEM = $_SESSION['ID_ORGAO_ESTAGIO'];
+    $VO->ID_ORGAO_EST_DESTINO = $_SESSION['ID_ORGAO_SOLICITANTE'];
+    $VO->ID_QUADRO_VAGAS_ESTAGIO = $_SESSION['ID_QUADRO_VAGAS_ESTAGIO'];
     $VO->CS_TIPO_VAGA_ESTAGIO = $_REQUEST['CS_TIPO_VAGA_ESTAGIO'];
-
+    $VO->NB_VAGAS_TRANSFERIDAS = $_REQUEST['NB_VAGAS_TRANSFERIDAS'];
+    $VO->NB_QUANTIDADE = $_REQUEST['NB_QUANTIDADE'];
+    
     if ($acesso) {
       //  if ($VO->ID_TRANSFERENCIA_ESTAGIO && $VO->NB_QUANTIDADE && $VO->CS_TIPO_VAGA_ESTAGIO) {
             $retorno = $VO->alterarVagasSolicitadas();
@@ -401,7 +400,7 @@ if ($_REQUEST['identifier'] == "tabela") {
     }else
         $erro = "Você não tem permissão para realizar esta ação.";
 
-//-------------ATUALIZA QUANDO FAZ AUTERAÇÃO------------------------------------
+//-------------ATUALIZA QUANDO FAZ AUTERAÇÃO------------------------------------------------------------------
     gerarTabela($erro);
 } else if ($_REQUEST['identifier'] == 'atualizarInf') {
 

@@ -29,6 +29,10 @@ class transferenciaVO extends VO {
         return $this->repositorio->pesquisarTipoVaga($this);
     }
 
+      function buscarQuantAtual() {
+        return $this->repositorio->buscarQuantAtual($this);
+    }
+
     function buscarQuantidade() {
         return $this->repositorio->buscarQuantidade($this);
     }
