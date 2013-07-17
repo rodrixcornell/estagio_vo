@@ -6,11 +6,10 @@
 
     <div id="conteudo">
 
-        <form name="form" action="{$url}src/{$pasta}/excluir.php" method="post" >
             <fieldset>
                 
                 <!-- Primeiro fieldset do detail-->
-                <legend>Solicitante</legend>
+                <legend>Solicitação</legend>
                 <table width="100%" class="dataGrid" >
                     <tr bgcolor="#E0E0E0">
                         <td style="width:150px;"><strong>Órgão Gestor</strong></td>
@@ -82,9 +81,16 @@
                         <td><strong>Data da Atualização </strong></td>
                         <td ><div id="atualizacao"> {$dados.DT_ATUALIZACAO[0]}</div></td>    
                     </tr>  
-
                 </table>
-        </form>
+				<div id="botoes">				
+					{if $acesso}                    
+							<form action="{$url}src/{$pasta}/detail.php" method="post" style="display:inline;">         
+								<input type="submit" name="efetivar" id="efetivar" value=" Efetivar Seleção "/>
+							</form>											
+                    <a href="{$url}src/{$pasta}/alterar.php"><img src="{$urlimg}icones/alterar.png"  alt="Alterar" title="Alterar" id="alterarMaster" /></a>
+                    <a href="{$url}src/{$pasta}/excluir.php"><img src="{$urlimg}icones/excluir.png"  alt="Excluir" title="Excluir" id="excluirMaster" /></a>					
+					{/if}					
+                </div>				
 
         <div id="tabelaBase"></div>
 
@@ -92,17 +98,6 @@
 
         <div id="botoesInferiores">
             <a href="{$url}src/{$pasta}/index.php"><img src="{$urlimg}icones/voltar.png" alt="Voltar" title="Voltar" class="voltar" /></a>
-            {if $acesso}
-                <div id="botoes">
-                    
-                    <form action="{$url}src/{$pasta}/detail.php" method="post" style="display:inline;">         
-                        <input type="submit" name="efetivar" id="efetivar" value=" Efetivar Seleção " />
-                    </form>
-                    
-                    <a href="{$url}src/{$pasta}/alterar.php"><img src="{$urlimg}icones/alterar.png"  alt="Alterar" title="Alterar" id="alterarMaster" /></a>
-                    <a href="{$url}src/{$pasta}/excluir.php"><img src="{$urlimg}icones/excluir.png"  alt="Excluir" title="Excluir" id="excluirMaster" /></a>
-                </div>
-            {/if}
         </div>
 
         </div>

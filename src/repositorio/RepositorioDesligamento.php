@@ -34,8 +34,8 @@ class RepositorioDesligamento extends Repositorio {
                   B.TX_ORGAO_GESTOR_ESTAGIO,
                   C.TX_ORGAO_ESTAGIO,
                   V_FUNCIONARIO_TOTAL2.TX_FUNCIONARIO SECRETARIO,
-                  DECODE(A.CS_PERIODO, 1,'1Âº Ano', 2,'2Âº Ano', 3,'3Âº Ano', 4,'4Âº Ano', 5,'5Âº Ano', 6,'1Âº Periodo', 7,'2Âº Periodo',8,'3Âº Periodo',
-                                       9,'4Âº Periodo', 10,'5Âº Periodo', 11,'6Âº Periodo', 12,'7Âº Periodo', 13,'8Âº Periodo', 14,'9Âº Periodo', 15,'10Âº Periodo') TX_PERIODO
+                  DECODE(A.CS_PERIODO, 1,'1º Ano', 2,'2º Ano', 3,'3º Ano', 4,'4º Ano', 5,'5º Ano', 6,'1º Periodo', 7,'2º Periodo',8,'3º Periodo',
+                                       9,'4º Periodo', 10,'5º Periodo', 11,'6º Periodo', 12,'7º Periodo', 13,'8º Periodo', 14,'9º Periodo', 15,'10º Periodo') TX_PERIODO
                   ,SUBSTR(T.TX_TIPO_VAGA_ESTAGIO, 0, (CASE WHEN INSTR(T.TX_TIPO_VAGA_ESTAGIO, ' ') <> 0 THEN INSTR(T.TX_TIPO_VAGA_ESTAGIO, ' ') - 1 ELSE LENGTH(T.TX_TIPO_VAGA_ESTAGIO) END)) TX_NIVEL , A.TX_TCE,
                   V_FUNCIONARIO_TOTAL.TX_FUNCIONARIO TX_FUNCIONARIO_CADASTRO, V_FUNCIONARIO_TOTAL1.TX_FUNCIONARIO TX_FUNCIONARIO_ALTERACAO,
                   DECODE(S.CS_SITUACAO, 1,'ABERTA', 2,'FECHADA') TX_SITUACAO, E.TX_AGENCIA_ESTAGIO, A.TX_CODIGO TX_CODIGO_CONTRATO, V_FUNCIONARIO_TOTAL3.TX_FUNCIONARIO TX_AGENTE_SETORIAL
@@ -119,8 +119,8 @@ class RepositorioDesligamento extends Repositorio {
                   TX_ORGAO_GESTOR_ESTAGIO,
                   TX_ORGAO_ESTAGIO,
                   V_FUNCIONARIO_TOTAL2.TX_FUNCIONARIO SECRETARIO,
-                  DECODE(A.CS_PERIODO, 1,'1Âº Ano', 2,'2Âº Ano', 3,'3Âº Ano', 4,'4Âº Ano', 5,'5Âº Ano', 6,'1Âº Periodo', 7,'2Âº Periodo',8,'3Âº Periodo',
-                                       9,'4Âº Periodo', 10,'5Âº Periodo', 11,'6Âº Periodo', 12,'7Âº Periodo', 13,'8Âº Periodo', 14,'9Âº Periodo', 15,'10Âº Periodo') PERIODO
+                  DECODE(A.CS_PERIODO, 1,'1º Ano', 2,'2º Ano', 3,'3º Ano', 4,'4º Ano', 5,'5º Ano', 6,'1º Periodo', 7,'2º Periodo',8,'3º Periodo',
+                                       9,'4º Periodo', 10,'5º Periodo', 11,'6º Periodo', 12,'7º Periodo', 13,'8º Periodo', 14,'9º Periodo', 15,'10º Periodo') PERIODO
                   ,SUBSTR(T.TX_TIPO_VAGA_ESTAGIO, 0, (CASE WHEN INSTR(T.TX_TIPO_VAGA_ESTAGIO, ' ') <> 0 THEN INSTR(T.TX_TIPO_VAGA_ESTAGIO, ' ') - 1 ELSE LENGTH(T.TX_TIPO_VAGA_ESTAGIO) END)) NIVEL , A.TX_TCE,
                   V_FUNCIONARIO_TOTAL.TX_FUNCIONARIO TX_FUNCIONARIO_CADASTRO, V_FUNCIONARIO_TOTAL1.TX_FUNCIONARIO TX_FUNCIONARIO_ALTERACAO, 
                   E.TX_AGENCIA_ESTAGIO, DECODE(S.CS_SITUACAO, 1,'ABERTA', 2,'FECHADA') TX_SITUACAO
