@@ -1,10 +1,10 @@
 <?php
 
 require_once "../../php/define.php";
-require_once $pathvo."desligamentoVO.php";
+require_once $pathvo."s_taVO.php";
 
-// instancia da classe desligamentoVO	
-$VO = new desligamentoVO();
+// instancia da classe s_taVO
+$VO = new s_taVO();
 
 //ComboBox de Orgão gestor
 $VO->buscarOrgaoGestor();
@@ -22,10 +22,10 @@ $arrayContrato=$VO->getArray('TX_CODIGO');
 $VO->buscarAgenteIntegracao();
 $arraybuscarAgenteIntegracao=$VO->getArray('TX_AGENCIA_ESTAGIO');
 
-//Apresentações dos dados no tpl 
+//Apresentações dos dados no tpl
 $smarty->assign('arrayOrgaoGestor'            ,$arrayOrgaoGestor);
 $smarty->assign('arrayOrgaoSolicitante'       ,$arrayOrgaoSolicitante);
-$smarty->assign('arrayContrato'               ,$arrayContrato);
+//$smarty->assign('arrayContrato'               ,$arrayContrato);
 $smarty->assign("arraybuscarAgenteIntegracao" ,$arraybuscarAgenteIntegracao);
 $smarty->assign("arraySituacao"               ,$arraySituacao);
 

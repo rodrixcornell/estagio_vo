@@ -1,10 +1,10 @@
 <?php
 
 include "../../php/define.php";
-require_once $pathvo . "desligamentoVO.php";
+require_once $pathvo . "s_taVO.php";
 
 $modulo = 79;
-$programa = 10;
+$programa = 11;
 
 require_once "../autenticacao/validaPermissao.php";
 
@@ -12,22 +12,22 @@ session_start();
 
 function gerarTabela($param = '') {
     include "../../php/define.php";
-    require_once $pathvo . "desligamentoVO.php";
+    require_once $pathvo . "s_taVO.php";
     $acesso = $GLOBALS['acesso']; //Acessar a Variavel global;
 
-    $VO = new desligamentoVO();
+    $VO = new s_taVO();
     $VO->ID_ORGAO_GESTOR_ESTAGIO = $_REQUEST['ID_ORGAO_GESTOR_ESTAGIO'];
     $VO->ID_ORGAO_ESTAGIO = $_REQUEST['ID_ORGAO_ESTAGIO'];
     $VO->ID_AGENCIA_ESTAGIO = $_REQUEST['ID_AGENCIA_ESTAGIO'];
     $VO->TX_CODIGO = $_REQUEST['TX_CODIGO'];
     $VO->TX_NOME = $_REQUEST['TX_NOME'];
     $VO->NB_CPF = $_REQUEST['NB_CPF'];
-    $VO->TX_COD_SELECAO = $_REQUEST['TX_COD_SELECAO'];    
+    $VO->TX_COD_SELECAO = $_REQUEST['TX_COD_SELECAO'];
 
     $page = $_REQUEST['PAGE'];
 
     $VO->preencherSessionPesquisar($_REQUEST);
-    
+
     $qtd = 15;
     !$page ? $page = 1 : false;
     $primeiro = ($page * $qtd) - $qtd;
@@ -51,7 +51,7 @@ function gerarTabela($param = '') {
                     <th>Agente de Integração</th>
                     <th>Estagiário</th>
                     <th>Situação</th>';
-        //Somente ver a coluna de alterar se tiver acesso completo a tela					
+        //Somente ver a coluna de alterar se tiver acesso completo a tela
         if ($acesso)
             echo '<th style="width:50px;"></th>';
         echo '</tr>';
@@ -63,15 +63,15 @@ function gerarTabela($param = '') {
                     <td align="center">' . $dados['TX_CODIGO'][$i] . '</td>
                     <td align="center">' . $dados['TX_ORGAO_GESTOR_ESTAGIO'][$i] . '</td>
                     <td align="center">' . $dados['TX_ORGAO_ESTAGIO'][$i] . '</td>
-                    <td align="center">' . $dados['TX_AGENCIA_ESTAGIO'][$i] . '</td>                    
+                    <td align="center">' . $dados['TX_AGENCIA_ESTAGIO'][$i] . '</td>
                     <td align="center">' . $dados['TX_NOME'][$i] . '</td>
                     <td align="center">' . $dados['TX_SITUACAO'][$i] . '</td>';
 
 
-            //Somente ver a coluna de alterar se tiver acesso completo a tela					
+            //Somente ver a coluna de alterar se tiver acesso completo a tela
             if ($acesso)
-                echo '<td align="center"> 
-                      <a href="' . $dados['ID_SOLICITACAO_DESLIG'][$i] . '" id="alterar"><img src="' . $urlimg . 'icones/editar.png" alt="itens" title="Visualizar"/></a></td>';                
+                echo '<td align="center">
+                      <a href="' . $dados['ID_SOLICITACAO_DESLIG'][$i] . '" id="alterar"><img src="' . $urlimg . 'icones/editar.png" alt="itens" title="Visualizar"/></a></td>';
                 echo '</tr>';
         }
 
@@ -101,8 +101,8 @@ function gerarTabela($param = '') {
     unset($_SESSION['STATUS']);
 }
 
-//Instancia da classe desligamentoVO();
-$VO = new desligamentoVO();
+//Instancia da classe s_taVO();
+$VO = new s_taVO();
 
 if ($_REQUEST['identifier'] == "tabela") {
     gerarTabela($erro);
@@ -120,7 +120,7 @@ if ($_REQUEST['identifier'] == "tabela") {
 
     $VO->buscarDadosContrato();
     $dados = $VO->getVetor();
-        
+
     echo $dados['TUDO'][0];
 }else if ($_REQUEST['identifier'] == "buscarAgenteSetorial"){
 
@@ -136,7 +136,7 @@ if ($_REQUEST['identifier'] == "tabela") {
        for ($i = 0; $i < $total; $i++) {
             echo '<option value="' . $dados['CODIGO'][$i] . '">' . $dados['TX_FUNCIONARIO'][$i] . '</option>';
        }
-    
+
     } else
         echo '<option value="">Nenhum registro encontrado</option>';
 
@@ -146,10 +146,10 @@ if ($_REQUEST['identifier'] == "tabela") {
 
     $VO->ID_SOLICITACAO_TR = $_SESSION['ID_SOLICITACAO_DESLIG'];
     $VO->EFETIVAR = $_REQUEST['EFETIVAR'];
-    
+
     $dados = $VO->atualizarInf();
 
     echo json_encode($dados);
-    
+
 }
 ?>

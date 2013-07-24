@@ -1,27 +1,27 @@
 <?php
 
 require_once "../../php/define.php";
-require_once $path . "src/desligamento/arrays.php";
-require_once $pathvo . "desligamentoVO.php";
+require_once $path . "src/s_ta/arrays.php";
+require_once $pathvo . "s_taVO.php";
 
 $modulo = 79;
-$programa = 10;
-$pasta = 'desligamento';
+$programa = 11;
+$pasta = 's_ta';
 $current = 2;
-$titulopage = 'Solicitação de Desligamento';
+$titulopage = 'Solicitação de TA';
 
 session_start();
 require_once "../autenticacao/validaPermissao.php";
 
 // Iniciando Instância
-$VO = new desligamentoVO();
+$VO = new s_taVO();
 
 if ($_SESSION['ID_SOLICITACAO_DESLIG']){
-    
+
     $VO->ID_SOLICITACAO_DESLIG = $_SESSION['ID_SOLICITACAO_DESLIG'];
     $VO->pesquisar();
     $VO->preencherVOBD($VO->getVetor());
-  
+
     if($_POST){
 
         $VO->configuracao();
@@ -32,12 +32,12 @@ if ($_SESSION['ID_SOLICITACAO_DESLIG']){
         if (!$validar){
             $VO->alterar();
             header("Location: ".$url."src/".$pasta."/detail.php");
-        }               
-            
+        }
+
     }
-    
+
     if ($VO->ID_ORGAO_ESTAGIO) {
-    
+
         $total = $VO->buscarAgenteSetorial();
 
         if ($total) {
@@ -46,7 +46,7 @@ if ($_SESSION['ID_SOLICITACAO_DESLIG']){
             $smarty->assign("arraybuscarAgenteSetorial", $arraybuscarAgenteSetorial);
         }else{$smarty->assign("arraybuscarAgenteSetorial", $arrayTipodesligamento[''] = 'Nenhum regisdesligamentoo encondesligamentoado...');}
     }else{$smarty->assign("arraybuscarAgenteSetorial", $arrayTipodesligamento[''] = 'Nenhum regisdesligamentoo encondesligamentoado...');}
-        
+
 }else header("Location: ".$url."src/".$pasta."/index.php");
 
 $smarty->assign("current"       , $current);
@@ -56,6 +56,6 @@ $smarty->assign("VO"			, $VO);
 $smarty->assign("titulopage"    , $titulopage);
 $smarty->assign("arquivoCSS"    , $pasta);
 $smarty->assign("arquivoJS"     , $pasta);
-$smarty->assign("nomeArquivo"   , $pasta."/".$nomeArquivo.".tpl");	
+$smarty->assign("nomeArquivo"   , $pasta."/".$nomeArquivo.".tpl");
 $smarty->display('index.tpl');
 ?>

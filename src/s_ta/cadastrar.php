@@ -1,18 +1,18 @@
 <?php
 
 require_once "../../php/define.php";
-require_once $path . "src/desligamento/arrays.php";
-require_once $pathvo . "desligamentoVO.php";
+require_once $path . "src/s_ta/arrays.php";
+require_once $pathvo . "s_taVO.php";
 
 $modulo = 79;
-$programa = 10;
-$pasta = 'desligamento';
+$programa = 11;
+$pasta = 's_ta';
 $current = 2;
-$titulopage = 'Solicitação de Desligamento';
+$titulopage = 'Solicitação de TA';
 
 require_once "../autenticacao/validaPermissao.php";
 
-$VO = new desligamentoVO();
+$VO = new s_taVO();
 unset($_SESSION['ID_SOLICITACAO_DESLIG']);
 
 if ($_POST) {
@@ -24,7 +24,7 @@ if ($_POST) {
     $validar = $VO->preencher($_POST);
 
     if ($VO->ID_ORGAO_ESTAGIO) {
-    
+
         $total = $VO->buscarAgenteSetorial();
 
         if ($total) {
@@ -33,7 +33,7 @@ if ($_POST) {
             $smarty->assign("arraybuscarAgenteSetorial", $arraybuscarAgenteSetorial);
         }else{$smarty->assign("arraybuscarAgenteSetorial", $arrayTipotr[''] = 'Nenhum registro encontrado...');}
     }else{$smarty->assign("arraybuscarAgenteSetorial", $arrayTipotr[''] = 'Nenhum registro encontrado...');}
-    
+
     if (!$validar)
         $id_pk = $VO->inserir();
 

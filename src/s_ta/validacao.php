@@ -3,10 +3,10 @@ require_once "../../php/define.php";
 
 
 $modulo = 79;
-$programa = 10;
-$pasta = 'desligamento';
+$programa = 11;
+$pasta = 's_ta';
 $current = 2;
-$titulopage = 'Solicitação de Desligamento';
+$titulopage = 'Solicitação TA';
 
 session_start();
 
