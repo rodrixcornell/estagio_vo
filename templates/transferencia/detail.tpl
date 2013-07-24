@@ -72,13 +72,13 @@
                     </select></div>
                     
                    
-                   {*----QTD ATUAL-----*}
+                   {*----QTD ATUAL-----   *}
                    <div id="camada" style="width:100px;" >
                      <strong><font color="#FF0000"></font>Quant.Atual</strong><br />
                      <input type="text" name="NB_QUANTIDADE_ATUAL" id="NB_QUANTIDADE_ATUAL" value="{$VO->NB_QUANTIDADE_ATUAL}" style="width:90px;" readonly="readonly" class="leitura"/></div>
                    
                   {*---QDT----*}
-                    
+                   
                     <div id="camada" style="width:100px;" >
                     <strong><font color="#FF0000">*</font>Quantidade</strong><br />
                     <input type="text" name="NB_QUANTIDADE" id="NB_QUANTIDADE" value="{$VO->NB_QUANTIDADE}" style="width:90px;" /></div>

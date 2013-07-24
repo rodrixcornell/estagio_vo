@@ -17,12 +17,14 @@ require_once "../autenticacao/validaPermissao.php";
 if ($_SESSION['ID_TRANSFERENCIA_ESTAGIO']) {
     $VO = new transferenciaVO();
     $VO->ID_TRANSFERENCIA_ESTAGIO = $_SESSION['ID_TRANSFERENCIA_ESTAGIO'];
-
+   
+    
     $retorno = $VO->excluir();
 
     if (!$retorno) {
         $msg = 'A ' . $titulopage . ' foi excluída com sucesso.<br><br> <a href="' . $url . 'src/' . $pasta . '/index.php">Clique aqui</a> para voltar';
-        unset($_SESSION['ID_RESP_UNID_IRP']);
+        unset($_SESSION['ID_TRANSFERENCIA_ESTAGIO']);
+        
     } else {
         $msg = 'Este registro não pode ser excluído pois possui dependentes.<br /> <a href="' . $url . 'src/' . $pasta . '/detail.php">clique aqui</a> para voltar';
     }
