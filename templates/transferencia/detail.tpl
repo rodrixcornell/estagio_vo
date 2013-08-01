@@ -74,7 +74,7 @@
                    
                    {*----QTD ATUAL-----   *}
                    <div id="camada" style="width:100px;" >
-                     <strong><font color="#FF0000"></font>Quant.Atual</strong><br />
+                     <strong><font color="#FF0000"></font>Quant.Vaga</strong><br />
                      <input type="text" name="NB_QUANTIDADE_ATUAL" id="NB_QUANTIDADE_ATUAL" value="{$VO->NB_QUANTIDADE_ATUAL}" style="width:90px;" readonly="readonly" class="leitura"/></div>
                    
                   {*---QDT----*}
@@ -96,7 +96,7 @@
 
     <div id="tabelaVagasSolicitadas"></div>
 
-    <div id="dialog" title="Alterar Vagas de Estátgio">
+    <div id="dialog" title="Alterar Vaga Transferida">
         <div id="tabelaAlterarVagasSolicitadas" style="text-align:left;"></div>
         <div class="fundoForm">
             <img src="{$urlimg}icones/loader3.gif" >

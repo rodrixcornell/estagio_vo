@@ -46,7 +46,7 @@ $(document).ready(function(){
 //----------------------------- CADASTRAR --------------------------------------
 
 $("#ID_ORGAO_SOLICITANTE").live('change', function(){
-		$("#ID_ORGAO_ESTAGIO,#ID_QUADRO_VAGAS_ESTAGIO").html(''); 
+		$("#ID_ORGAO_ESTAGIO,#ID_QUADRO_VAGAS_ESTAGIO").html('<option>Carregando...</option>'); 
        
        if ($('#ID_ORGAO_SOLICITANTE').val()){
 			$.post("acoes.php",{
@@ -61,6 +61,7 @@ $("#ID_ORGAO_SOLICITANTE").live('change', function(){
         return false;
     });
     
+//------------------------------------------------------------------------------    
 //------------------------------------------------------------------------------
     $("#ID_ORGAO_ESTAGIO").live('change', function(){
 		$("#ID_QUADRO_VAGAS_ESTAGIO").html(''); 
