@@ -8,11 +8,34 @@
         Para alterar a {$titulopage} preencha o formulário abaixo e clique em Avançar:<br /><br /><br />
 
         <form name="form" action="{$url}src/{$pasta}/alterar.php" method="post">
-           {*--------------orgão gestor estagio-------------------*}
+                                           
+              
+            
+            {*--------------orgão gestor estagio-------------------*}
             <div id="camada" style="font-family:Verdana, Geneva, sans-serif; width:310px;" >
                 Órgão Gestor
             <select name="ID_ORGAO_GESTOR_ESTAGIO" id="ID_ORGAO_GESTOR_ESTAGIO" style="width:300px;" disabled="disabled">
                {html_options options=$arrayOrgaoGestor selected=$VO->ID_ORGAO_GESTOR_ESTAGIO}
+            </select></div>
+           
+            {*----------------orgão solicitante---------------*}
+            <div id="camada" style="font-family:Verdana, Geneva, sans-serif; width:310px;" >
+              Órgao Solicitante
+            <select name="ID_ORGAO_SOLICITANTE" id="ID_ORGAO_SOLICITANTE" style="width:300px;" disabled="disabled">
+               {html_options options=$arrayOrgaoSolicitante selected=$VO->ID_ORGAO_SOLICITANTE}
+            </select></div>
+            
+            {*---------------codigo da tranferencia----------------------*} 
+            <div id="camada" style="font-family:Verdana, Geneva, sans-serif; width:150px;" >
+              Código Transferência
+            <input type="text" name="TX_COD_TRANSFERENCIA" id="TX_COD_TRANSFERENCIA" value="{$VO->TX_COD_TRANSFERENCIA}"  style="width:140px;" readonly="readonly" class="leitura"/></div>
+            <br />
+                         
+           {*-----------orgão cedente------------------------*}
+            <div id="camada" style="font-family:Verdana, Geneva, sans-serif; width:310px;" >
+             Órgão Cedente
+            <select name="ID_ORGAO_ESTAGIO" id="ID_ORGAO_ESTAGIO" style="width:300px;" disabled="disabled">
+              {html_options options=$arraypesquisarOrgaoCedente selected=$VO->ID_ORGAO_ESTAGIO}
             </select></div>
             
            {*-------------quadro de vagas------------------------*}
@@ -22,31 +45,11 @@
                 <select name="ID_QUADRO_VAGAS_ESTAGIO" id="ID_QUADRO_VAGAS_ESTAGIO" style="width:300px;" disabled="disabled">
                     {html_options options=$arrayQuadroVagasEstagio selected=$VO->ID_QUADRO_VAGAS_ESTAGIO}
                 </select></div>
-                       
-           {*---------------codigo da tranferencia----------------------*}    
-            <div id="camada" style="font-family:Verdana, Geneva, sans-serif; width:150px;" >
-              Código Transferência
-            <input type="text" name="TX_COD_TRANSFERENCIA" id="TX_COD_TRANSFERENCIA" value="{$VO->TX_COD_TRANSFERENCIA}"  style="width:140px;" readonly="readonly" class="leitura"/></div>
-            <br />
-            
-           {*----------------orgão solicitante---------------*}
-            <div id="camada" style="font-family:Verdana, Geneva, sans-serif; width:310px;" >
-              Órgao Cedente
-            <select name="ID_ORGAO_SOLICITANTE" id="ID_ORGAO_SOLICITANTE" style="width:300px;" disabled="disabled">
-               {html_options options=$arrayOrgaoSolicitante selected=$VO->ID_ORGAO_SOLICITANTE}
-            </select></div>
-            
-           {*-----------orgão cedente------------------------*}
-            <div id="camada" style="font-family:Verdana, Geneva, sans-serif; width:310px;" >
-             Órgão Solicitante
-            <select name="ID_ORGAO_ESTAGIO" id="ID_ORGAO_ESTAGIO" style="width:300px;" disabled="disabled">
-              {html_options options=$arraypesquisarOrgaoCedente selected=$VO->ID_ORGAO_ESTAGIO}
-            </select></div>
-               
+                                     
             {*--------------situação--------------------*}
             <div id="camada" style="font-family:Verdana, Geneva, sans-serif; width:150px;" >
              {if !$recrutamento}<font color="#FF0000">*</font>{/if}Situação <font color="#FF0000">{$validar.CS_SITUACAO}</font>
-             Situação
+           {*  Situaçã*}
             <select name="CS_SITUACAO" id="CS_SITUACAO" style="width:140px;" {if $recrutamento} disabled="disabled" {/if}>
                  {html_options options=$arraySituacao selected=$VO->CS_SITUACAO}
             </select></div><br />

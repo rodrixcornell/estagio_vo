@@ -24,20 +24,20 @@
     {*-----------------------------*}
     <div id="camada" style="font-family:Verdana, Geneva, sans-serif; width:150px;" >
     <font color="#FF0000">*</font><strong>Órgão Solicitante: </strong></div>
-    <select name="ID_ORGAO_ESTAGIO" id="ID_ORGAO_ESTAGIO" style="width:300px;">
-        {html_options options=$arrayOrgaoSolicitante selected=$VO->ID_ORGAO_ESTAGIO}
+    <select name="ID_ORGAO_SOLICITANTE" id="ID_ORGAO_SOLICITANTE" style="width:300px;">
+        {html_options options=$arrayOrgaoSolicitante selected=$VO->ID_ORGAO_SOLICITANTE}
     </select>
     <br />
     
     {*---------------------------*}
     <div id="camada" style="font-family:Verdana, Geneva, sans-serif; width:150px;" >
     <font color="#FF0000">*</font><strong>Órgão Cedente: </strong></div>
-    <select name="ID_ORGAO_SOLICITANTE" id="ID_ORGAO_SOLICITANTE" style="width:300px;">
-        {html_options options=$arraypesquisarOrgaoCedente selected=$VO->ID_ORGAO_SOLICITANTE}
+    <select name="ID_ORGAO_ESTAGIO" id="ID_ORGAO_ESTAGIO" style="width:300px;">
+        {html_options options=$arraypesquisarOrgaoCedente selected=$VO->ID_ORGAO_ESTAGIO}
     </select><br />
 
     {*--------------------------*}
-    {*$arraypesquisarOrgaoCedente*}
+  
     <div id="camada" style="font-family:Verdana, Geneva, sans-serif; width:150px;" >
     <strong>Situação: </strong></div>
     <select name="CS_SITUACAO" id="CS_SITUACAO" style="width:200px;">

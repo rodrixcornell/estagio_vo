@@ -95,13 +95,9 @@ function buscarQuadroVagasEstagio($VO) {
         ($VO->CS_SITUACAO) ? $query .= " and (TV.CS_SITUACAO = " . $VO->CS_SITUACAO . ") " : false;
         ($VO->TX_COD_TRANSFERENCIA) ? $query .= " and (TV.TX_COD_TRANSFERENCIA like '%" . $VO->TX_COD_TRANSFERENCIA . "%') " : false;
 
-        $query .= "order by 
-                            TV.TX_COD_TRANSFERENCIA ASC";
+        $query .= "order by TV.TX_COD_TRANSFERENCIA ASC ";
         
-        /*OGE.TX_ORGAO_GESTOR_ESTAGIO,                       
-                            OE.TX_ORGAO_ESTAGIO,
-                            OS.TX_ORGAO_ESTAGIO,
-                            TV.CS_SITUACAO,*/
+       
         if ($VO->Reg_quantidade) {
             !$VO->Reg_inicio ? $VO->Reg_inicio = 0 : false;
             $query = "SELECT * FROM (SELECT PAGING.*, ROWNUM PAGING_RN FROM (" . $query . ") PAGING WHERE (ROWNUM <= " . ($VO->Reg_quantidade + $VO->Reg_inicio) . "))  WHERE (PAGING_RN > " . $VO->Reg_inicio . ")";

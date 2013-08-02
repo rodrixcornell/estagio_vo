@@ -38,9 +38,8 @@ $(document).ready(function(){
     $('#NB_QUANTIDADE').setMask({
         mask:'999999'
     });
-//--------------------carregar a quantidade ----------------
-//------------------------------------------------------------------------------ 
- 
+//------------------------------------------------------------------------------
+//--------------------carregar a quantidade ------------------------------------
  $("#CS_TIPO_VAGA_ESTAGIO").change(function(){
      if ($("#CS_TIPO_VAGA_ESTAGIO").val() != 0){
         var valor = $("#CS_TIPO_VAGA_ESTAGIO").val().split('_');
@@ -70,8 +69,6 @@ $('#inserir').live('click', function(){
             alert('Para inserir escolha uma Quantidade.');
             $('#NB_QUANTIDADE').focus();
               
-       
-              
         }else{
             var valor = $('#CS_TIPO_VAGA_ESTAGIO').val().split('_');
 
@@ -87,8 +84,9 @@ $('#inserir').live('click', function(){
               
         return false;   
 });
-//----------------------------------------------------------
-//--------------------------------Exclusão do detail ---------------------------
+
+//------------------------------------------------------------------------------
+//-----------------Exclusão do detail ------------------------------------------
  $('#excluir').live('click', function(){
         var href = $(this).attr('href');
         var valor = href.split('_');
@@ -131,7 +129,7 @@ $('#inserir').live('click', function(){
     });
     
 //------------------------------------------------------------------------------  
-//------------------------------------------------------------------------------
+//---------- Salvar e o Cancelar  do alterar do detail -------------------------
 
     $("#dialog").dialog({
         autoOpen: false,
@@ -170,7 +168,7 @@ $('#inserir').live('click', function(){
         }
     });
 
-    //------------------------------efetivar----------------------------	
+//----------------- efetivar -----------------------------------------------	
     $( "#efetivar" ).live('click', function() {
         if ($('.icones').length){
             resp = window.confirm('Tem certeza que deseja Efetivar esta Solicitação?');
@@ -187,7 +185,7 @@ $('#inserir').live('click', function(){
     });
 
 
-    //----------Excluir Master---------------------------------------------------
+//----------Excluir Master---------------------------------------------------
     $('#excluirMaster').click(function(){
 
         if ($('.icones').length){

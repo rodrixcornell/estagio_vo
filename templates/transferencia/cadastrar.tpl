@@ -30,7 +30,7 @@
                     {*html_options options=$arraypesquisarOrgaoCedente selected=$VO->ID_ORGAO_ESTAGIO*}
                 </select></div>
                 
-               {*----------------------------------------*}
+               {*-------------------------------------------*}
                 <div id="camada" style="font-family:Verdana, Geneva, sans-serif; width:360px;" >
                 <font color="#FF0000">*</font>Quadro de Vagas de Estágio <font color="#FF0000">{$validar.ID_QUADRO_VAGAS_ESTAGIO}</font>
                 <select name="ID_QUADRO_VAGAS_ESTAGIO" id="ID_QUADRO_VAGAS_ESTAGIO" style="width:350px;">
