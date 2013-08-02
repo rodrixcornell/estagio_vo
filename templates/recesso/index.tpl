@@ -10,21 +10,21 @@
                 
                 <br /><br />
                 
-                <div id="camada" style="font-family:Verdana, Geneva, sans-serif; width:150px;" ><strong>Órgão Gestor: </strong></div>
+                <div id="camada" style="font-family:Verdana, Geneva, sans-serif; width:180px;" ><font color="#FF0000">*</font><strong>Órgão Gestor: </strong></div>
                     <select name="ID_ORGAO_GESTOR_ESTAGIO" id="ID_ORGAO_GESTOR_ESTAGIO" style="width:200px;">
                         {html_options options=$arrayOrgaoGestor selected=$VO->ID_ORGAO_GESTOR_ESTAGIO}
-                    </select><br /><br />
+                    </select><br />
 
-                <div id="camada" style="font-family:Verdana, Geneva, sans-serif; width:150px;" ><strong>Órgão Solicitante: </strong></div>
+                <div id="camada" style="font-family:Verdana, Geneva, sans-serif; width:180px;" ><font color="#FF0000">*</font><strong>Órgão Solicitante: </strong></div>
                     <select name="ID_ORGAO_ESTAGIO" id="ID_ORGAO_ESTAGIO" style="width:200px;">
                         {html_options options=$arrayOrgaoSolicitante selected=$VO->ID_ORGAO_ESTAGIO}
-                    </select><br /><br />
+                    </select><br />
 
 
-                <div id="camada" style="font-family:Verdana, Geneva, sans-serif; width:150px;" ><strong>Agente de Integração: </strong></div>
+                <div id="camada" style="font-family:Verdana, Geneva, sans-serif; width:180px;" ><strong>Agente de Integração: </strong></div>
                     <select name="ID_SETORIAL_ESTAGIO" id="ID_SETORIAL_ESTAGIO" style="width:200px;">
                         {html_options options=$arrayAgenteIntegracao selected=$VO->ID_SETORIAL_ESTAGIO}
-                    </select><br /><br />
+                    </select><br />
 
                  <div id="camada" style="font-family:Verdana, Geneva, sans-serif; width:180px;" ><strong>Código do Contrato: </strong></div>
                     <input type="text" name="TX_CODIGO_CONTRATO" id="TX_CODIGO_CONTRATO" value="{$VO->TX_CODIGO_CONTRATO}" style="width:400px;" /><br />

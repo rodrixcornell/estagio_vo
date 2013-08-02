@@ -16,25 +16,25 @@
                         <td style="width:150px;"><strong>Órgão Gestor</strong></td>
                         <td style="width:430px; text-align:left;"><font color="#0000FF"><strong>{$dados.TX_ORGAO_GESTOR[0]}</strong></font></td>
                         <td style="width:150px;"><strong>Órgão Solicitante</strong></td>
-                        <td style="text-align:right;"><font color="#0000FF"><strong>{$dados.TX_ORGAO_SOLICITANTE[0]}</strong></font></td>
+                        <td style="text-align:left;"><font color="#0000FF"><strong>{$dados.TX_ORGAO_SOLICITANTE[0]}</strong></font></td>
                     </tr>
                     <tr bgcolor="#F0EFEF">
                         <td ><strong>Secretário Órgão Gestor</strong></td>
                         <td >{$dados.TX_SECRETARIO_ORGAO_GESTOR[0]}</td>
                         <td ><strong>Código do Contrato</strong></td>
-                        <td style="text-align:right;">{$dados.TX_CONTRATO[0]}</td>    
+                        <td style="text-align:left;">{$dados.TX_CONTRATO[0]}</td>    
                     </tr>    
                     <tr bgcolor="#E0E0E0">
                         <td style="text-align:left;"><strong>Tipo de Vaga</strong></td>
                         <td style="text-align:left;">{$dados.TX_TIPO_VAGA_ESTAGIO[0]}</td>	
                         <td style="text-align:left;"><strong>TCE</strong></td>
-                        <td style="text-align:right;">{$dados.TX_TCE[0]}</td>    
+                        <td style="text-align:left;">{$dados.TX_TCE[0]}</td>    
                     </tr>
                     <tr bgcolor="#F0EFEF">                                        
                         <td><strong>Nome do Estagiário</strong></td>
                         <td>{$dados.TX_NOME_ESTAGIARIO[0]}</td>
                         <td><strong>CPF</strong></td>
-                        <td style="text-align:right;"><div id="atualizacao"> {$dados.NB_CPF[0]}</div></td>    
+                        <td style="text-align:left;"><div id="atualizacao"> {$dados.NB_CPF[0]}</div></td>    
                     </tr>
                     <tr bgcolor="#E0E0E0">
                         <td style="text-align:left;"><strong>Instituição de Ensino</strong></td>
@@ -43,7 +43,7 @@
                         <td style="text-align:left;">{$dados.TX_CURSO_ESTAGIO[0]}</td>	
                     </tr>
 
-                    <tr bgcolor="#E0E0E0">
+                    <tr bgcolor="#F0EFEF">
                         <td style="text-align:left;"><strong>Nível</strong></td>
                         <td style="text-align:left;">{$dados.TX_NIVEL[0]}</td>	
                         <td style="text-align:left;"><strong>Período</strong></td>
@@ -59,7 +59,7 @@
                     </tr>
 
 
-                    <tr bgcolor="#E0E0E0">
+                    <tr bgcolor="#F0EFEF">
                         <td style="text-align:left;"><strong>Ano de Referência</strong></td>
                         <td style="text-align:left;">{$dados.NB_ANO_REFERENCIA[0]}</td>	
                         <td style="text-align:left;"><strong>Mês de Referência</strong></td>
@@ -75,7 +75,7 @@
                     </tr>
 
 
-                    <tr bgcolor="#E0E0E0">
+                    <tr bgcolor="#F0EFEF">
                         <td style="text-align:left;"><strong>Agente Setorial</strong></td>
                         <td style="text-align:left;">{$dados.TX_AGENTE_SETORIAL[0]}</td>	
                         <td style="text-align:left;"><strong>Cargo / Função</strong></td>
@@ -91,7 +91,7 @@
                     </tr>
 
 
-                    <tr bgcolor="#E0E0E0">
+                    <tr bgcolor="#F0EFEF">
                         <td style="text-align:left;"><strong>Chefia Imediata</strong></td>
                         <td style="text-align:left;">{$dados.TX_CHEFIA_IMEDIATA[0]}</td>	
                         <td style="text-align:left;"><strong>Situação do Cadastro</strong></td>
@@ -112,13 +112,13 @@
                         <td><strong>Cadastrado por</strong></td>
                         <td>{$dados.FUNCIONARIO_CADASTRO[0]}</td>
                         <td><strong>Data de Cadastro</strong></td>
-                        <td style="text-align:right;"><div id="atualizacao"> {$dados.DT_CADASTRO[0]}</div></td>    
+                        <td style="text-align:left;"><div id="atualizacao"> {$dados.DT_CADASTRO[0]}</div></td>    
                     </tr>
                      <tr bgcolor="#E0E0E0">
                         <td style="text-align:left;"><strong>Alterado por</strong></td>
                         <td style="text-align:left;">{$dados.FUNCIONARIO_ATUALIZACAO[0]}</td>	
                         <td style="text-align:left;"><strong>Data de Atualização</strong></td>
-                        <td style="text-align:right;">{$dados.DT_ATUALIZACAO[0]}</td>    
+                        <td style="text-align:left;">{$dados.DT_ATUALIZACAO[0]}</td>    
                     </tr>
             
                 </table>
