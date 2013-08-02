@@ -22,7 +22,7 @@ $VO->buscarQuadroVagasEstagio();
 $arrayQuadroVagasEstagio = $VO->getArray("TX_CODIGO");
 
 
- $VO->buscarTipo();
+ $VO->pesquisarTipoVaga();
   $arrayTipoVaga = $VO->getArray("TX_TIPO_VAGA_ESTAGIO");
 
   

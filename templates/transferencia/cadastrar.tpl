@@ -30,18 +30,18 @@
                     {*html_options options=$arraypesquisarOrgaoCedente selected=$VO->ID_ORGAO_ESTAGIO*}
                 </select></div>
                 
-               {*----------------------------------------*}
-                <div id="camada" style="font-family:Verdana, Geneva, sans-serif; width:310px;" >
+               {*-------------------------------------------*}
+                <div id="camada" style="font-family:Verdana, Geneva, sans-serif; width:360px;" >
                 <font color="#FF0000">*</font>Quadro de Vagas de Estágio <font color="#FF0000">{$validar.ID_QUADRO_VAGAS_ESTAGIO}</font>
-                <select name="ID_QUADRO_VAGAS_ESTAGIO" id="ID_QUADRO_VAGAS_ESTAGIO" style="width:300px;">
+                <select name="ID_QUADRO_VAGAS_ESTAGIO" id="ID_QUADRO_VAGAS_ESTAGIO" style="width:350px;">
                     {*{html_options options=$arrayQuadroVagasEstagio selected=$VO->ID_QUADRO_VAGAS_ESTAGIO}*}
                 </select></div><br />
          
                 
              {*-----------justificativa-------------------*}
-              <div id="camada" style="font-family:Verdana, Geneva, sans-serif; width:630px;" >
+              <div id="camada" style="font-family:Verdana, Geneva, sans-serif; width:720px;" >
                Motivo / Justificativa: <font color="#FF0000">{$validar.TX_MOTIVO}</font>
-              <textarea name="TX_MOTIVO" id="TX_MOTIVO" style="width:620px;" rows="2">{$VO->TX_MOTIVO}</textarea></div>
+              <textarea name="TX_MOTIVO" id="TX_MOTIVO" style="width:710px;" rows="2">{$VO->TX_MOTIVO}</textarea></div>
               <br /><br />
 
             <input type="button" name="cancelar" id="cancelar" value="Cancelar" onclick="window.location.href='{$url}src/{$pasta}/index.php'" />&nbsp;&nbsp;&nbsp;&nbsp;

@@ -24,7 +24,7 @@ if ($_SESSION['ID_TRANSFERENCIA_ESTAGIO']) {
 
     $recrutamento = $VO->verificarRecrutamento();
 
-    /*if ($VO->ID_ORGAO_SOLICITANTE) { //if ($VO->ID_ORGAO_ESTAGIO) 
+    if ($VO->ID_ORGAO_SOLICITANTE) { //if ($VO->ID_ORGAO_ESTAGIO) 
       $VO->pesquisarOrgaoCedente();
       $smarty->assign("arraypesquisarOrgaoCedente", $VO->getArray("TX_ORGAO_ESTAGIO"));
 
@@ -32,7 +32,7 @@ if ($_SESSION['ID_TRANSFERENCIA_ESTAGIO']) {
       $VO->buscarQuadroVagasEstagio();
       $smarty->assign("arrayQuadroVagasEstagio", $VO->getArray("TX_CODIGO"));
       }
-      }*/
+      }
 
     if ($_POST) {
         $VO->configuracao();
