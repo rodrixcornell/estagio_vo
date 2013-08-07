@@ -21,10 +21,10 @@ if ($_SESSION['ID_RECESSO_ESTAGIO']) {
 
     $VO->ID_RECESSO_ESTAGIO = $_SESSION['ID_RECESSO_ESTAGIO'];
 
-//    $todosCSselecao=$VO->buscarCsSelecao();
-//    $dadosCSSelecao=$VO->getVetor();
+//$todosCSselecao=$VO->buscarCsSelecao();
+//$dadosCSSelecao=$VO->getVetor();
     
-//    $VO->CS_SELECAO=$dadosCSSelecao['CS_SELECAO'][0];
+//$VO->CS_SELECAO=$dadosCSSelecao['CS_SELECAO'][0];
     
     $total = $VO->buscar();
     $total ? $dados = $VO->getVetor() : false;

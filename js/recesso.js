@@ -36,28 +36,28 @@ $(document).ready(function(){
         changeYear: true
     });
 
-$('#pesquisar').click(function(){
-        if ($('#ID_ORGAO_GESTOR_ESTAGIO').val() || $('#ID_ORGAO_ESTAGIO').val() ||  $('#TX_CODIGO_CONTRATO').val() ||  $('#ID_SETORIAL_ESTAGIO').val() ||  $('#TX_NOME_ESTAGIARIO').val() ||  $('#NB_CPF').val() ||  $('#CODIGO_RECESSO').val() )
-		{
+    $('#pesquisar').click(function(){
+        if ($('#ID_ORGAO_GESTOR_ESTAGIO').val() && $('#ID_ORGAO_ESTAGIO').val()  )
+        {
             showLoader();
             $('#tabela').load('acoes.php?identifier=tabela',{
-               ID_ORGAO_GESTOR_ESTAGIO:$('#ID_ORGAO_GESTOR_ESTAGIO').val(),
-               ID_ORGAO_ESTAGIO:$('#ID_ORGAO_ESTAGIO').val(),
-               ID_SETORIAL_ESTAGIO:$('#ID_SETORIAL_ESTAGIO').val(),
-               TX_CODIGO_CONTRATO:$('#TX_CODIGO_CONTRATO').val(),
-               TX_NOME_ESTAGIARIO:$('#TX_NOME_ESTAGIARIO').val(),
-               NB_CPF:$('#NB_CPF').val(),
-               CODIGO_RECESSO:$('#CODIGO_RECESSO').val()
+                ID_ORGAO_GESTOR_ESTAGIO:$('#ID_ORGAO_GESTOR_ESTAGIO').val(),
+                ID_ORGAO_ESTAGIO:$('#ID_ORGAO_ESTAGIO').val(),
+                ID_SETORIAL_ESTAGIO:$('#ID_SETORIAL_ESTAGIO').val(),
+                TX_CODIGO_CONTRATO:$('#TX_CODIGO_CONTRATO').val(),
+                TX_NOME_ESTAGIARIO:$('#TX_NOME_ESTAGIARIO').val(),
+                NB_CPF:$('#NB_CPF').val(),
+                CODIGO_RECESSO:$('#CODIGO_RECESSO').val()
             }, hideLoader);
         }else
-            alert('Preencha pelo menos um campo para realizar a pesquisa!');
+            alert('Selecione OrgÃ£o Gestor e o OrgÃ£o Solicitante!');
     });
 	
     //Paginacao
     $("#paginacao li").live('click', function(){
         showLoader();
         $("#tabela").load('acoes.php?identifier=tabela&PAGE='+this.id,{
-           ID_ORGAO_GESTOR_ESTAGIO:$('#ID_ORGAO_GESTOR_ESTAGIO').val()
+            ID_ORGAO_GESTOR_ESTAGIO:$('#ID_ORGAO_GESTOR_ESTAGIO').val()
         }, hideLoader);
         return false;
     });
@@ -84,11 +84,11 @@ $('#pesquisar').click(function(){
         return false;
     });
 
-// Change do orgão gestor -
-    //quando o usuario clicar no combo do orgão gestor ele carrega o nome do secretario e o endereço
+    // Change do orgï¿½o gestor -
+    //quando o usuario clicar no combo do orgï¿½o gestor ele carrega o nome do secretario e o endereï¿½o
     $("#ID_ORGAO_GESTOR_ESTAGIO").change(function(){
         if ($("#ID_ORGAO_GESTOR_ESTAGIO").val() != 0){
-            $("#TX_SECRETARIO_ORGAO_GESTOR").val('');
+            $("#TX_SECRETARIO_ORGAO_GESTOR,#ID_ORGAO_ESTAGIO").val('');
             $.post("acoes.php",{
                 ID_ORGAO_GESTOR_ESTAGIO:$("#ID_ORGAO_GESTOR_ESTAGIO").val(), 
                 identifier:'buscarNome'
@@ -98,19 +98,51 @@ $('#pesquisar').click(function(){
             }
             );			            
 			
+            $.post("acoes.php",{               
+                identifier:'buscarOrgaoSolicitante'
+            },
+            function(valor){
+                $("#ID_ORGAO_ESTAGIO").html(valor);
+            }
+            );			            
+			
         }else{
-            $("#TX_SECRETARIO_ORGAO_GESTOR").val('');
+            $("#TX_SECRETARIO_ORGAO_GESTOR,#ID_ORGAO_ESTAGIO").val('');
         }
     });
+    $("#ID_ORGAO_ESTAGIO").change(function(){
+        if ($("#ID_ORGAO_ESTAGIO").val() != 0){
+            var valor = $("#ID_ORGAO_GESTOR_ESTAGIO").val().split('_');
+            $("#ID_CONTRATO").val('');
+            $.post("acoes.php",{
+                ID_ORGAO_GESTOR_ESTAGIO:valor[0], 
+                ID_ORGAO_ESTAGIO:$("#ID_ORGAO_ESTAGIO").val(), 
+                identifier:'buscarContratoCombo'
+            },
+            function(valor){
+                
+                $("#ID_CONTRATO").html(valor);
+            }
+            );			            
+			            
+			
+        }else{
+            $("#ID_CONTRATO").val('');
+        }
+    });
+    
+    
+   
 	
-	
-	
-	 // JQuery para carregar o cargo do supervisor
-    // Quando selecionar o supervisor o cargo será carregado automaticamente
+    // Change do OrgÃ£o Solicitante para carregar o combo de contrato
+        
+        
+    // JQuery para carregar o cargo do supervisor
+    // Quando selecionar o supervisor o cargo serï¿½ carregado automaticamente
     $("#ID_CONTRATO").change(function(){
         if ($("#ID_CONTRATO").val() != 0){  
-			$("#TX_NOME,#NB_CPF,#TX_TIPO_VAGA_ESTAGIO,#TX_INSTITUICAO_ENSINO,#TX_CURSO_ESTAGIO,#TX_PERIODO,#TX_NIVEL,#TX_TCE,#DT_INICIO_VIG_ESTAGIO,#DT_FIM_VIGENCIA_ESTAGIO,#ID_AGENCIA_ESTAGIO").val('');
-			$.post("acoes.php",{
+            $("#TX_NOME,#NB_CPF,#TX_TIPO_VAGA_ESTAGIO,#TX_INSTITUICAO_ENSINO,#TX_CURSO_ESTAGIO,#TX_PERIODO,#TX_NIVEL,#TX_TCE,#DT_INICIO_VIG_ESTAGIO,#DT_FIM_VIGENCIA_ESTAGIO,#ID_AGENCIA_ESTAGIO").val('');
+            $.post("acoes.php",{
                 ID_CONTRATO: $("#ID_CONTRATO").val(), 
                 identifier:'buscarDadosContrato'
             },

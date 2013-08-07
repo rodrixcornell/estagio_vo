@@ -81,10 +81,16 @@ class RepositorioRecesso extends Repositorio {
 
     function buscarContrato($VO) {
 
-        $query = "SELECT ID_CONTRATO CODIGO, ID_CONTRATO, TX_CODIGO, TX_CODIGO TX_CONTRATO FROM CONTRATO_ESTAGIO 
-		ORDER BY TX_CODIGO";
-        // 	$query;
-//		WHERE ID_ORGAO_GESTOR_ESTAGIO = ".$VO->ID_ORGAO_GESTOR_ESTAGIO. "
+        $query = "SELECT ID_CONTRATO CODIGO,
+            ID_CONTRATO,
+            TX_CODIGO,
+            TX_CODIGO TX_CONTRATO
+            FROM
+            CONTRATO_ESTAGIO 
+		
+		WHERE ID_ORGAO_GESTOR_ESTAGIO = '".$VO->ID_ORGAO_GESTOR_ESTAGIO. "'
+                and ID_ORGAO_ESTAGIO ='".$VO->ID_ORGAO_ESTAGIO."'                
+                ORDER BY TX_CODIGO";
         return $this->sqlVetor($query);
     }
 
@@ -485,53 +491,72 @@ SELECT
     }
 
     function inserir($VO) {
+         $codigoOrgaoGestor = explode('_', $VO->ID_ORGAO_GESTOR_ESTAGIO);
+        
         $queryPK = "select SEMAD.F_G_PK_RECESSO_ESTAGIO as ID_RECESSO_ESTAGIO from DUAL";
         $this->sqlVetor($queryPK);
         $CodigoPK = $this->getVetor();
         $query = "
-      INSERT INTO RECESSO_ESTAGIO  (ID_RECESSO_ESTAGIO, TX_CODIGO , TX_CARGO_AGENTE, TX_EMAIL_AGENTE, TX_TELEFONE_AGENTE, DT_INICIO_VIG_ESTAGIO, DT_FIM_VIGENCIA_ESTAGIO,
-       TX_JUSTIFICATIVA_ADIAMENTO, DT_ADIAMENTO ,  ID_CONTRATO, ID_SETORIAL_ESTAGIO, ID_AGENCIA_ESTAGIO, ID_ORGAO_ESTAGIO, DT_CADASTRO, ID_USUARIO_CADASTRO, DT_ATUALIZACAO,
-       ID_USUARIO_ATUALIZACAO, CS_SITUACAO, DT_INICIO_RECESSO, DT_FIM_RECESSO, NB_MES_REFERENCIA, NB_ANO_REFERENCIA, 
-       DT_ASSINATURA,  TX_CHEFIA_IMEDIATA,  CS_REALIZACAO )
+       INSERT INTO RECESSO_ESTAGIO
+       (ID_RECESSO_ESTAGIO,
+       TX_CODIGO ,
+       TX_CARGO_AGENTE,
+       TX_EMAIL_AGENTE,
+       TX_TELEFONE_AGENTE,
+       DT_INICIO_VIG_ESTAGIO,
+       DT_FIM_VIGENCIA_ESTAGIO,
+       TX_JUSTIFICATIVA_ADIAMENTO,
+       DT_ADIAMENTO ,
+       ID_CONTRATO,
+       ID_SETORIAL_ESTAGIO,
+       ID_AGENCIA_ESTAGIO,
+       ID_ORGAO_ESTAGIO,
+       DT_CADASTRO,
+       ID_USUARIO_CADASTRO,
+       DT_ATUALIZACAO,
+       ID_USUARIO_ATUALIZACAO,
+       CS_SITUACAO,
+       DT_INICIO_RECESSO,
+       DT_FIM_RECESSO,
+       NB_MES_REFERENCIA,
+       NB_ANO_REFERENCIA, 
+       DT_ASSINATURA,
+       TX_CHEFIA_IMEDIATA, 
+       CS_REALIZACAO,
+       ID_ORGAO_GESTOR_ESTAGIO)
 									
       values
-      (" . $CodigoPK['ID_RECESSO_ESTAGIO'][0] . ",
-	   
+      (" . $CodigoPK['ID_RECESSO_ESTAGIO'][0] . ",	   
 	   SEMAD.F_G_COD_RECESSO_ESTAGIO(),
-	   
-		      '" . $VO->TX_CARGO_AGENTE . "' ,
-		      '" . $VO->TX_EMAIL_AGENTE . "' ,
-		      '" . $VO->TX_TELEFONE_AGENTE . "' ,
-			  
-		      to_date('" . $VO->DT_INICIO_VIG_ESTAGIO . "','dd/mm/yyyy'),
-		      to_date('" . $VO->DT_FIM_VIGENCIA_ESTAGIO . "','dd/mm/yyyy'),
-			  
-			  
-		       '" . $VO->TX_JUSTIFICATIVA_ADIAMENTO . "' ,
-  	           to_date('" . $VO->DT_ADIAMENTO . "','dd/mm/yyyy'),
-		       " . $VO->ID_CONTRATO . "  ,
-		       " . $VO->ID_SETORIAL_ESTAGIO . ",
-		       " . $VO->ID_AGENCIA_ESTAGIO . ",
-		       " . $VO->ID_ORGAO_ESTAGIO . ",
-			  
-		       SYSDATE  ,
-			   
-		      " . $_SESSION['ID_USUARIO'] . " ,
-			  
-		       SYSDATE  ,
-		      " . $_SESSION['ID_USUARIO'] . " ,
-		      1 ,
-		      to_date('" . $VO->DT_INICIO_RECESSO . "','dd/mm/yyyy'),
-		      to_date('" . $VO->DT_FIM_RECESSO . "','dd/mm/yyyy'),
-		      " . $VO->NB_MES_REFERENCIA . " ,
-		      " . $VO->NB_ANO_REFERENCIA . " ,
-		      SYSDATE,
-		      '" . $VO->TX_CHEFIA_IMEDIATA . "' ,
-		      " . $VO->CS_REALIZACAO . ")   ";
+	   '" . $VO->TX_CARGO_AGENTE . "' ,
+	   '" . $VO->TX_EMAIL_AGENTE . "' ,
+	   '" . $VO->TX_TELEFONE_AGENTE . "' ,
+            to_date('" . $VO->DT_INICIO_VIG_ESTAGIO . "','dd/mm/yyyy'),
+            to_date('" . $VO->DT_FIM_VIGENCIA_ESTAGIO . "','dd/mm/yyyy'),
+	   '" . $VO->TX_JUSTIFICATIVA_ADIAMENTO . "' ,
+  	    to_date('" . $VO->DT_ADIAMENTO . "','dd/mm/yyyy'),
+	    " . $VO->ID_CONTRATO . "  ,
+	    " . $VO->ID_SETORIAL_ESTAGIO . ",
+	    " . $VO->ID_AGENCIA_ESTAGIO . ",
+	    " . $VO->ID_ORGAO_ESTAGIO . ",
+	    SYSDATE  ,
+	    " . $_SESSION['ID_USUARIO'] . " ,
+	    SYSDATE  ,
+	    " . $_SESSION['ID_USUARIO'] . " ,
+             1 ,
+	     to_date('" . $VO->DT_INICIO_RECESSO . "','dd/mm/yyyy'),
+	     to_date('" . $VO->DT_FIM_RECESSO . "','dd/mm/yyyy'),
+	     " . $VO->NB_MES_REFERENCIA . " ,
+	      " . $VO->NB_ANO_REFERENCIA . " ,
+	      SYSDATE,
+	      '" . $VO->TX_CHEFIA_IMEDIATA . "' ,
+	      " . $VO->CS_REALIZACAO . ",
+                " . $codigoOrgaoGestor[0]."  
+              )   ";
 
 
         $retorno = $this->sql($query);
-        echo $query;
+//        echo $query;
         return $retorno ? '' : $CodigoPK['ID_RECESSO_ESTAGIO'][0];
     }
 

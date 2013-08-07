@@ -14,6 +14,14 @@ require_once "../autenticacao/validaPermissao.php";
 $VO = new recessoVO();
 $VO->preencherVOSession($_SESSION);
 
+if($_SESSION['ID_ORGAO_GESTOR_ESTAGIO']){
+    
+    $VO->pesquisarOrgaoSolicitante();
+    $arrayOrgaoSolicitante = $VO->getArray("TX_ORGAO_ESTAGIO"); 
+    $smarty->assign("arrayOrgaoSolicitante"    	, $arrayOrgaoSolicitante);
+}
+
+
 $smarty->assign("current"       , $current);
 $smarty->assign("titulopage"    , $titulopage);
 $smarty->assign("pasta"         , $pasta);

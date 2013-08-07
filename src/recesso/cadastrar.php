@@ -7,7 +7,7 @@ require_once $pathvo . "recessoVO.php";
 $modulo = 79;
 $programa = 9;
 $pasta = 'recesso';
-$current = 1;
+$current = 2;
 $titulopage = 'Recesso';
 
 session_start();
@@ -23,16 +23,16 @@ if ($_POST) {
     $VO->setCaracteristica('ID_ORGAO_ESTAGIO,ID_ORGAO_GESTOR_ESTAGIO,ID_CONTRATO,TX_CARGO_AGENTE,TX_EMAIL_AGENTE,TX_TELEFONE_AGENTE,DT_INICIO_VIG_ESTAGIO,DT_FIM_VIGENCIA_ESTAGIO,ID_AGENCIA_ESTAGIO,NB_ANO_REFERENCIA,NB_MES_REFERENCIA,DT_INICIO_RECESSO,DT_FIM_RECESSO,ID_SETORIAL_ESTAGIO,TX_CHEFIA_IMEDIATA,CS_REALIZACAO', 'obrigatorios');
 
     $validar = $VO->preencher($_POST);
-	// print_r($validar);
+//	 print_r($validar);
     (!$validar) ? $id_pk = $VO->inserir() : false;
 
     if (!$validar) {
         $_SESSION['ID_RECESSO_ESTAGIO']      = $VO->ID_RECESSO_ESTAGIO;
         $_SESSION['ID_ORGAO_ESTAGIO']        = $VO->ID_ORGAO_ESTAGIO;
         $_SESSION['ID_ORGAO_GESTOR_ESTAGIO'] = $VO->ID_ORGAO_GESTOR_ESTAGIO;
-        $_SESSION['STATUS'] = '*Registro inserido com sucesso!';
-        $_SESSION['PAGE'] = '1';
-        header("Location: " . $url . "src/" . $pasta . "/index.php");
+       // $_SESSION['STATUS'] = '*Registro inserido com sucesso!';
+     //  // $_SESSION['PAGE'] = '1';
+        header("Location: " . $url . "src/" . $pasta . "/detail.php");
     }
 }
 

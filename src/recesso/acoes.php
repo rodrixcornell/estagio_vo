@@ -146,4 +146,33 @@ else if ($_REQUEST['identifier'] == "buscarDadosContrato") {
     echo $dados['TUDO'][0];
 }
 
+else if($_REQUEST['identifier'] == "buscarOrgaoSolicitante"){
+    
+    $total = $VO->pesquisarOrgaoSolicitante();
+	echo '<option value="">Escolha...</option>';
+    if ($total) {
+        $dados = $VO->getVetor();    
+        for ($i = 0; $i < $total; $i++) {
+            echo '<option value="' . $dados['CODIGO'][$i] . '">' . $dados['TX_ORGAO_ESTAGIO'][$i] . '</option>';
+        }
+    }
+    
+
+}
+else if($_REQUEST['identifier'] == "buscarContratoCombo"){
+ 
+    $VO->ID_ORGAO_GESTOR_ESTAGIO = $_REQUEST['ID_ORGAO_GESTOR_ESTAGIO'];
+    $VO->ID_ORGAO_ESTAGIO = $_REQUEST['ID_ORGAO_ESTAGIO'];
+    
+    $total = $VO->buscarContrato();
+    echo '<option value="">Escolha...</option>';
+    if ($total) {
+        $dados = $VO->getVetor();    
+        for ($i = 0; $i < $total; $i++) {
+            echo '<option value="' . $dados['CODIGO'][$i] . '">' . $dados['TX_CONTRATO'][$i] . '</option>';
+        }
+    }
+    
+}
+
 ?>

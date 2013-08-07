@@ -103,7 +103,7 @@
                 </select></div> 
 
 
-            <div id="camada" style="font-family:Verdana, Geneva, sans-serif; width:210px;" > *<font color="#FF0000"></font>Agente Setorial <font color="#FF0000">{$validar.ID_SETORIAL_ESTAGIO}</font><br />
+            <div id="camada" style="font-family:Verdana, Geneva, sans-serif; width:210px;" > <font color="#FF0000"> *</font>Agente Setorial <font color="#FF0000">{$validar.ID_SETORIAL_ESTAGIO}</font><br />
                 <select name="ID_SETORIAL_ESTAGIO" id="ID_SETORIAL_ESTAGIO" style="width:200px;">
                     {html_options options=$arrayAgenteSetorial selected=$VO->ID_SETORIAL_ESTAGIO}
                 </select>
