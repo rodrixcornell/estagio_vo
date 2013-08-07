@@ -54,8 +54,7 @@ class RepositorioTa_contrato extends Repositorio {
                 FROM UNIDADE_ORG
               WHERE (ID_UNIDADE_ORG not in ".$VO->ID_UNIDADE_ORG_ORIGEM.")
              ORDER BY TX_UNIDADE_ORG
-        ";
-        
+                 ";
         return $this->sqlVetor($query);
     }
 
@@ -104,7 +103,7 @@ function inserir($VO) {
  $CodigoPK = $this->getVetor();
         
   $query = " INSERT 
-                INTO  SOLICITACAO_TA_CP
+        INTO SOLICITACAO_TA_CP
        (ID_SOLICITACAO_TA_CP,
         TX_CODIGO,
         DT_SOLICITACAO,
@@ -119,7 +118,6 @@ function inserir($VO) {
         TX_SOLICITACAO,
         ID_UNIDADE_ORIGEM,
         ID_UNIDADE_DESTINO)
-   
 VALUES
        (" . $CodigoPK['ID_SOLICITACAO_TA_CP'][0] . ",
         '".$VO->TX_CODIGO."',
@@ -195,9 +193,8 @@ VALUES
 //------------------------------------------------------------------------------
     function excluir($VO) {
         $query = "
-            delete
-               from SOLICITACAO_ESTAGIO
-              where ID_SOLICITACAO_ESTAGIO = " . $VO->ID_SOLICITACAO_ESTAGIO;
+            delete from SOLICITACAO_ESTAGIO
+                  where ID_SOLICITACAO_ESTAGIO = " . $VO->ID_SOLICITACAO_ESTAGIO;
 
         return $this->sql($query);
     }
@@ -239,8 +236,8 @@ VALUES
     function buscarCursos($VO) {
         $query = "
             select ID_CURSO_ESTAGIO CODIGO, TX_CURSO_ESTAGIO
-               from CURSO_ESTAGIO
-              order by TX_CURSO_ESTAGIO
+              from CURSO_ESTAGIO
+          order by TX_CURSO_ESTAGIO
         ";
 
         return $this->sqlVetor($query);
@@ -280,7 +277,6 @@ VALUES
             !$VO->Reg_inicio ? $VO->Reg_inicio = 0 : false;
             $query = "SELECT * FROM (SELECT PAGING.*, ROWNUM PAGING_RN FROM (" . $query . ") PAGING WHERE (ROWNUM <= " . ($VO->Reg_quantidade + $VO->Reg_inicio) . "))  WHERE (PAGING_RN > " . $VO->Reg_inicio . ")";
         }
-
         return $this->sqlVetor($query);
     }
 
@@ -302,7 +298,6 @@ VALUES
                  " . $_SESSION['ID_USUARIO'] . ",
                  " . $_SESSION['ID_USUARIO'] . ")
         ";
-
         return $this->sql($query);
     }
 
@@ -405,11 +400,11 @@ VALUES
     
 	function efetivarSolicitacao($VO){
 
-            $query = " UPDATE solicitacao_estagio SET
-						   CS_SITUACAO = 2,
-						   ID_USUARIO_ATUALIZACAO = '" . $_SESSION['ID_USUARIO'] . "',
-						   DT_ATUALIZACAO = SYSDATE
-					   WHERE ID_SOLICITACAO_ESTAGIO = ".$VO->ID_SOLICITACAO_ESTAGIO."";
+            $query = " UPDATE SOLICITACAO_ESTAGIO SET
+			      CS_SITUACAO = 2,
+	                      ID_USUARIO_ATUALIZACAO = '" . $_SESSION['ID_USUARIO'] . "',
+			      DT_ATUALIZACAO = SYSDATE
+		              WHERE ID_SOLICITACAO_ESTAGIO = ".$VO->ID_SOLICITACAO_ESTAGIO."";
 			
         $this->sql($query);		
 		

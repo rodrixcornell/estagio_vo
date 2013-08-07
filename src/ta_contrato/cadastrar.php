@@ -45,7 +45,6 @@ if ($_POST) {
         $smarty->assign("buscarUnidadeDestino", $VO->getArray("TX_UNIDADE_ORG_DESTINO"));
          }
      }
-
 }
 
 $smarty->assign("current", $current);

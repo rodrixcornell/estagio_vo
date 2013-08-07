@@ -59,8 +59,8 @@
                         <td><div id="funcionario">{$dados.TX_FUNCIONARIO_ATUAL[0]}</div></td>
                         <td><strong>Data de Atualização</strong></td>
                         <td style="text-align:right;"><div id="atualizacao">{$dados.DT_ATUALIZACAO[0]}</div>
-                        <input type="hidden" name="ID_QUADRO_VAGAS_ESTAGIO" id="ID_QUADRO_VAGAS_ESTAGIO" value="{$dados.ID_QUADRO_VAGAS_ESTAGIO[0]}" />
-                        <input type="hidden" name="ID_ORGAO_ESTAGIO" id="ID_ORGAO_ESTAGIO" value="{$dados.ID_ORGAO_ESTAGIO[0]}" />
+                        <input type="hidden" name="ID_SOLICITACAO_TA_CP" id="ID_SOLICITACAO_TA_CP" value="{$dados.ID_SOLICITACAO_TA_CP[0]}" />
+                        <input type="hidden" name="ID_ORGAO_GESTOR_ESTAGIO" id="ID_ORGAO_GESTOR_ESTAGIO" value="{$dados.ID_ORGAO_GESTOR_ESTAGIO[0]}" />
                         </td>
                     </tr>
                 </table>
