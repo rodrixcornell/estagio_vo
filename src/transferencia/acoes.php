@@ -425,13 +425,32 @@ gerarTabela($erro);
     $VO->NB_QUANTIDADE            = $_REQUEST['NB_QUANTIDADE'];
     $VO->NB_VAGAS_TRANSFERIDAS    = $_REQUEST['NB_VAGAS_TRANSFERIDAS'];  
         
-     if ($acesso) {
+
+  if ($acesso) {
+             	
+	    
+       if (($VO->NB_QUANTIDADE) <= ($VO->NB_VAGAS_TRANSFERIDAS)&&($VO->NB_QUANTIDADE)>0){    
+            $retorno = $VO->alterarVagasSolicitadas();
+                
+                 
+               if ($retorno) {
+		   $erro = 'Registro já existe.';
+			}
+                 
+                        
+	    }else $erro = 'O valor alterado não pode ser maior que a quantidade e nem igual zero';
+      
+   }else
+       $erro = "Você não tem permissão para realizar esta ação.";    
+     
+gerarTabela($erro);     
+//if ($acesso) {
         /*if ($VO->ID_TRANSFERENCIA_ESTAGIO && 
             $VO->CS_TIPO_VAGA_ESTAGIO && 
             $VO->ID_QUADRO_VAGAS_ESTAGIO &&  
             $VO->ID_ORGAO_EST_ORIGEM &&
             $VO->ID_ORGAO_EST_DESTINO &&
-            $VO->NB_QUANTIDADE) {*/
+            $VO->NB_QUANTIDADE) {
          			
 	$VO-> buscarQuantidade();
 	$qtd = $VO->getVetor();
@@ -451,7 +470,7 @@ gerarTabela($erro);
     }else
         $erro = "Você não tem permissão para realizar esta ação.";
 
-    gerarTabela($erro);
+    gerarTabela($erro);*/
     
 //------------------------------------------------------------------------------
 //-------------ATUALIZA QUANDO FAZ AUTERAÇÃO------------------------------------

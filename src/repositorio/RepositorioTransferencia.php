@@ -414,9 +414,10 @@ WHERE  VAGAS_ESTAGIO.CS_TIPO_VAGA_ESTAGIO = TIPO_VAGA_ESTAGIO.CS_TIPO_VAGA_ESTAG
                     and (u_atual.ID_UNIDADE_GESTORA = vft_atual.ID_UNIDADE_GESTORA)
                     AND (VT.ID_TRANSFERENCIA_ESTAGIO = " . $VO->ID_TRANSFERENCIA_ESTAGIO . ")
                     AND (ID_QUADRO_VAGAS_ESTAGIO = ".$VO->ID_QUADRO_VAGAS_ESTAGIO.")
+                    AND (VT.CS_TIPO_VAGA_ESTAGIO = ".$VO->CS_TIPO_VAGA_ESTAGIO.")    
                    ";
 
-       
+      
         return $this->sqlVetor($query);
     }
 

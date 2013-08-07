@@ -116,7 +116,7 @@ $('#inserir').live('click', function(){
 
     // alert(valor);
     $("#dialog").dialog("open");
-        $('#tabelaAlterarVagasSolicitadas').html('');
+    $('#tabelaAlterarVagasSolicitadas').html('');
         showLoaderForm();
         $('#tabelaAlterarVagasSolicitadas').load('acoes.php',{ 
                                       ID_TRANSFERENCIA_ESTAGIO:valor[0],
