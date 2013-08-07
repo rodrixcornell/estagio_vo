@@ -33,7 +33,7 @@ if ($_SESSION['ID_TRANSFERENCIA_ESTAGIO']) {
     $_SESSION['ID_QUADRO_VAGAS_ESTAGIO'] = $dados['ID_QUADRO_VAGAS_ESTAGIO'][0];
     $_SESSION['ID_ORGAO_ESTAGIO'] = $dados['ID_ORGAO_ESTAGIO'][0];
     $_SESSION['ID_ORGAO_SOLICITANTE'] = $dados['ID_ORGAO_SOLICITANTE'][0];
-    
+   
 ($dados['CS_SITUACAO'][0] == 2) ? $acessoEfetivado = 1 : FALSE;
 
 
@@ -44,9 +44,7 @@ if ($_SESSION['ID_TRANSFERENCIA_ESTAGIO']) {
 
     $VO->pesquisarTipoVaga();
     $smarty->assign("arrayTipoVaga", $VO->getArray("TX_TIPO_VAGA_ESTAGIO"));
-    
-   // $VO->buscarQuantAtual();
-    //$smarty->assign("arraybuscarQuantAtual", $VO->getArray("NB_QUANTIDADE_ATUAL"));
+   
     
 }else
     header("Location: " . $url . "src/" . $pasta . "/index.php");

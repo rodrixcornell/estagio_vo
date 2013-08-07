@@ -248,7 +248,7 @@ function pesquisarTipoVaga($VO) {
     }
 
 //--------------QUANTIDADE DO DETAIL------------------
-      
+   
 function buscarQuantidade($VO) {
   $query = "select TX_TIPO_VAGA_ESTAGIO, 
                    NB_QUANTIDADE 
@@ -260,7 +260,25 @@ function buscarQuantidade($VO) {
           
         return $this->sqlVetor($query);
     }
-
+/*
+   function buscarQuantidade($VO) {
+        $query.= "SELECT 
+                     TVE.TX_TIPO_VAGA_ESTAGIO,
+                     VT.NB_QUANTIDADE
+                     
+                FROM VAGAS_TRANSFERIDAS VT,
+                     TIPO_VAGA_ESTAGIO TVE
+               WHERE VT.CS_TIPO_VAGA_ESTAGIO = TVE.CS_TIPO_VAGA_ESTAGIO
+                 AND (VT.ID_TRANSFERENCIA_ESTAGIO = " . $VO->ID_TRANSFERENCIA_ESTAGIO . ") 
+                 AND (VT.ID_QUADRO_VAGAS_ESTAGIO  = " . $VO->ID_QUADRO_VAGAS_ESTAGIO . ")
+                 AND (VT.ID_ORGAO_EST_ORIGEM      = " . $VO->ID_ORGAO_EST_ORIGEM . ") 
+                 AND (VT.ID_ORGAO_EST_DESTINO     = " . $VO->ID_ORGAO_EST_DESTINO . ") 
+                 AND (VT.CS_TIPO_VAGA_ESTAGIO     = " . $VO->CS_TIPO_VAGA_ESTAGIO . ")
+                     ";
+        
+        print_r($query);
+        return $this->sqlVetor($query);
+    }*/
 //------------------------------------------------------------------------------  
 //---------------------QUANTIDADE ATUAL DO DETAIL-------------------------------
 function buscarQuantAtual($VO) {
@@ -363,7 +381,7 @@ WHERE  VAGAS_ESTAGIO.CS_TIPO_VAGA_ESTAGIO = TIPO_VAGA_ESTAGIO.CS_TIPO_VAGA_ESTAG
               " . $_SESSION['ID_USUARIO'] . ",    
                    SYSDATE,
                    SYSDATE) ";
-        
+       
         return $this->sql($query);
 }
 
@@ -395,7 +413,8 @@ WHERE  VAGAS_ESTAGIO.CS_TIPO_VAGA_ESTAGIO = TIPO_VAGA_ESTAGIO.CS_TIPO_VAGA_ESTAG
                     and (u_atual.ID_PESSOA_FUNCIONARIO = vft_atual.ID_PESSOA_FUNCIONARIO)
                     and (u_atual.ID_UNIDADE_GESTORA = vft_atual.ID_UNIDADE_GESTORA)
                     AND (VT.ID_TRANSFERENCIA_ESTAGIO = " . $VO->ID_TRANSFERENCIA_ESTAGIO . ")
-                    AND (ID_QUADRO_VAGAS_ESTAGIO = ".$VO->ID_QUADRO_VAGAS_ESTAGIO.")";
+                    AND (ID_QUADRO_VAGAS_ESTAGIO = ".$VO->ID_QUADRO_VAGAS_ESTAGIO.")
+                   ";
 
        
         return $this->sqlVetor($query);
@@ -416,7 +435,7 @@ function alterarVagasSolicitadas($VO) {
                     AND (ID_ORGAO_EST_DESTINO     = " . $VO->ID_ORGAO_EST_DESTINO .")
                     ";
         
-     //print_r($query);
+    print_r($query);
    return $this->sql($query);
 }
 
