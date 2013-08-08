@@ -28,7 +28,7 @@ $(document).ready(function(){
 	function hideLoader(){ $('.fundo_pag').fadeOut(200); };
 	
 	
-	if ("{$VO->ID_USUARIO_RESP}" || "{$VO->TX_FUNCIONARIO}" ){
+	if (!"{$s}"){
 		showLoader();
 		$("#tabela").load('acoes.php?identifier=tabela',{
 			ID_USUARIO_RESP:"{$VO->ID_USUARIO_RESP}",

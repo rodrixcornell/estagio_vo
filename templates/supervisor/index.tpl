@@ -25,7 +25,7 @@ $(document).ready(function(){
 	function hideLoader(){ $('.fundo_pag').fadeOut(200); };
 	
 	
-	if ("{$VO->TX_NOME}" || "{$VO->TX_CARGO}"){
+	if (!"{$s}"){
         showLoader();
         $("#tabela").load('acoes.php?identifier=tabela',{			
 			TX_NOME:"{$VO->TX_NOME}",

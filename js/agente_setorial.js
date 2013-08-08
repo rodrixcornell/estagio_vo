@@ -10,15 +10,15 @@ $(document).ready(function(){
 	
 
     $('#pesquisar').click(function(){
-        if ($('#ID_USUARIO_RESP').val() || $('#TX_FUNCIONARIO').val()){
+        //if ($('#ID_USUARIO_RESP').val() || $('#TX_FUNCIONARIO').val()){
             showLoader();
             $('#tabela').load('acoes.php?identifier=tabela',{
                 ID_USUARIO_RESP:$('#ID_USUARIO_RESP').val(),
                 TX_FUNCIONARIO:$('#TX_FUNCIONARIO').val()
                
             }, hideLoader);
-        }else
-            alert('Preencha pelo menos um campo para realizar a pesquisa!');
+        //}else
+           // alert('Preencha pelo menos um campo para realizar a pesquisa!');
     });
 	
     //Paginacao
