@@ -4,6 +4,12 @@ require_once $path . "src/repositorio/Repositorio.php";
 
 class RepositorioRecesso extends Repositorio {
 
+     function efetivar($VO) {
+		  $query = "update RECESSO_ESTAGIO set CS_SITUACAO = 2 where ID_RECESSO_ESTAGIO = " . $VO->ID_RECESSO_ESTAGIO;
+		 
+		  return $this->sql($query);
+      }
+    
     function buscarAgenteSetorial($VO) {
         // fun��o que busca no banco todas as agencias de integra��o
         // utilizada no arrays.php
@@ -87,10 +93,11 @@ class RepositorioRecesso extends Repositorio {
             TX_CODIGO TX_CONTRATO
             FROM
             CONTRATO_ESTAGIO 
-		
-		WHERE ID_ORGAO_GESTOR_ESTAGIO = '".$VO->ID_ORGAO_GESTOR_ESTAGIO. "'
-                and ID_ORGAO_ESTAGIO ='".$VO->ID_ORGAO_ESTAGIO."'                
-                ORDER BY TX_CODIGO";
+	WHERE ";
+        ($VO->ID_ORGAO_GESTOR_ESTAGIO) ? $query.=" ID_ORGAO_GESTOR_ESTAGIO = '" . $VO->ID_ORGAO_GESTOR_ESTAGIO . "'" : false;
+        ($VO->ID_ORGAO_GESTOR_ESTAGIO) ? $query.="     and ($VO->ID_ORGAO_ESTAGIO) ='" . $VO->ID_ORGAO_ESTAGIO . "' " : false;
+
+        $query.="ORDER BY TX_CODIGO";
         return $this->sqlVetor($query);
     }
 
@@ -146,7 +153,7 @@ SELECT
        RECESSO_ESTAGIO.dt_inicio_vig_estagio,
        RECESSO_ESTAGIO.tx_justificativa_adiamento,
        to_char(RECESSO_ESTAGIO.dt_adiamento,'dd/mm/yyyy') dt_adiamento,
-       RECESSO_ESTAGIO.id_contrato,
+       RECESSO_ESTAGIO.id_contrato ,
        RECESSO_ESTAGIO.id_setorial_estagio,
        RECESSO_ESTAGIO.id_agencia_estagio,
        RECESSO_ESTAGIO.id_orgao_estagio,
@@ -202,8 +209,8 @@ SELECT
        V_ESTAGIARIO.NB_CPF,       
        AGENCIA_ESTAGIO.TX_AGENCIA_ESTAGIO,       
         case
-         when RECESSO_ESTAGIO.CS_SITUACAO = '2' then '2 - Fechado' 
-         when RECESSO_ESTAGIO.CS_SITUACAO = '1' then '1 - Aberto'
+         when RECESSO_ESTAGIO.CS_SITUACAO = '2' then 'Fechado' 
+         when RECESSO_ESTAGIO.CS_SITUACAO = '1' then 'Aberto'
         end 
         TX_SITUACAO,        
         case
@@ -310,7 +317,8 @@ SELECT
        RECESSO_ESTAGIO.id_contrato,
        RECESSO_ESTAGIO.id_setorial_estagio,
        RECESSO_ESTAGIO.id_agencia_estagio,
-       RECESSO_ESTAGIO.id_orgao_estagio,
+      RECESSO_ESTAGIO.id_orgao_estagio,
+       RECESSO_ESTAGIO.ID_ORGAO_GESTOR_ESTAGIO || '_' || ORGAO_ESTAGIO1.ID_UNIDADE_ORG  ID_ORGAO_GESTOR_ESTAGIO,
        to_char(RECESSO_ESTAGIO.dt_cadastro,'dd/mm/yyyy') dt_cadastro,
        to_char(RECESSO_ESTAGIO.dt_atualizacao,'dd/mm/yyyy')dt_atualizacao,
        RECESSO_ESTAGIO.id_usuario_cadastro, 
@@ -364,8 +372,8 @@ SELECT
        V_ESTAGIARIO.NB_CPF,       
        AGENCIA_ESTAGIO.TX_AGENCIA_ESTAGIO,       
         case
-         when RECESSO_ESTAGIO.CS_SITUACAO = '2' then '2 - Fechado' 
-         when RECESSO_ESTAGIO.CS_SITUACAO = '1' then '1 - Aberto'
+         when RECESSO_ESTAGIO.CS_SITUACAO = '2' then 'Fechado' 
+         when RECESSO_ESTAGIO.CS_SITUACAO = '1' then 'Aberto'
         end 
         TX_SITUACAO,        
         case
@@ -449,36 +457,22 @@ SELECT
                   set
 		      TX_CARGO_AGENTE= '" . $VO->TX_CARGO_AGENTE . "' ,
 		      TX_EMAIL_AGENTE= '" . $VO->TX_EMAIL_AGENTE . "' ,
-		      TX_TELEFONE_AGENTE= '" . $VO->TX_TELEFONE_AGENTE . "' ,
-			  
-		      DT_INICIO_VIG_ESTAGIO=  to_date('" . $VO->DT_INICIO_VIGENCIA . "','dd/mm/yyyy')
-		      DT_FIM_VIGENCIA_ESTAGIO=  to_date('" . $VO->DT_INICIO_VIGENCIA . "','dd/mm/yyyy')
-			  
-			  
+		      TX_TELEFONE_AGENTE= '" . $VO->TX_TELEFONE_AGENTE . "' ,		      
 		      TX_JUSTIFICATIVA_ADIAMENTO= '" . $VO->TX_JUSTIFICATIVA_ADIAMENTO . "' ,
 		      DT_ADIAMENTO =  to_date('" . $VO->DT_ADIAMENTO . "','dd/mm/yyyy'),
-		      ID_CONTRATO= '" . $VO->ID_CONTRATO . " ,
-		      ID_SETORIAL_ESTAGIO= '" . $VO->ID_SETORIAL_ESTAGIO . " ,
-		      ID_AGENCIA_ESTAGIO= '" . $VO->ID_AGENCIA_ESTAGIO . " ,
-		      ID_ORGAO_ESTAGIO= '" . $VO->ID_ORGAO_ESTAGIO . " ,
-			  
+		      ID_SETORIAL_ESTAGIO= '" . $VO->ID_SETORIAL_ESTAGIO . "' ,
+		      ID_AGENCIA_ESTAGIO= '" . $VO->ID_AGENCIA_ESTAGIO . "' ,
 		      DT_ATUALIZACAO= SYSDATE  ,
-		      ID_USUARIO_ATUALIZACAO= '" . $_SESSION['ID_USUARIO'] . "' ,
-			  
-			  
-		      CS_SITUACAO= " . $VO->CS_SITUACAO . " ,
-  
-		      DT_INICIO_RECESSO=  to_date('" . $VO->DT_INICIO_RECESSO . "','dd/mm/yyyy')
-		      DT_FIM_RECESSO=     to_date('" . $VO->DT_FIM_RECESSO . "','dd/mm/yyyy')
-		      NB_MES_REFERENCIA= " . $VO->NB_MES_REFERENCIA . " ,
-		      NB_ANO_REFERENCIA= " . $VO->NB_ANO_REFERENCIA . " ,
-		      DT_ASSINATURA=  to_date('" . $VO->DT_ASSINATURA . "','dd/mm/yyyy'),
-		      NB_DIAS_RESTANTES= " . $VO->NB_DIAS_RESTANTES . " ,
+		      ID_USUARIO_ATUALIZACAO= '" . $_SESSION['ID_USUARIO'] . "' ,		     
+		      DT_INICIO_RECESSO=  to_date('" . $VO->DT_INICIO_RECESSO . "','dd/mm/yyyy'),
+		      DT_FIM_RECESSO=     to_date('" . $VO->DT_FIM_RECESSO . "','dd/mm/yyyy'),
+		      NB_MES_REFERENCIA= '" . $VO->NB_MES_REFERENCIA . "' ,
+		      NB_ANO_REFERENCIA= '" . $VO->NB_ANO_REFERENCIA . "' ,
 		      TX_CHEFIA_IMEDIATA= '" . $VO->TX_CHEFIA_IMEDIATA . "' ,
 		      CS_REALIZACAO= " . $VO->CS_REALIZACAO . " 
 		   where
  			ID_RECESSO_ESTAGIO = " . $VO->ID_RECESSO_ESTAGIO;
-        echo $query;
+//        print_r($query);
         return $this->sql($query);
     }
 
@@ -491,8 +485,8 @@ SELECT
     }
 
     function inserir($VO) {
-         $codigoOrgaoGestor = explode('_', $VO->ID_ORGAO_GESTOR_ESTAGIO);
-        
+        $codigoOrgaoGestor = explode('_', $VO->ID_ORGAO_GESTOR_ESTAGIO);
+
         $queryPK = "select SEMAD.F_G_PK_RECESSO_ESTAGIO as ID_RECESSO_ESTAGIO from DUAL";
         $this->sqlVetor($queryPK);
         $CodigoPK = $this->getVetor();
@@ -551,7 +545,7 @@ SELECT
 	      SYSDATE,
 	      '" . $VO->TX_CHEFIA_IMEDIATA . "' ,
 	      " . $VO->CS_REALIZACAO . ",
-                " . $codigoOrgaoGestor[0]."  
+                " . $codigoOrgaoGestor[0] . "  
               )   ";
 
 

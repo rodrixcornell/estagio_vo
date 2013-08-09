@@ -6,9 +6,9 @@
 
     <div id="conteudo">
 
-        <form name="form" action="{$url}src/{$pasta}/excluir.php" method="post" >
+        <form name="form" action="{$url}src/{$pasta}/detail.php" method="post" >
             <fieldset>
-                
+
                 <!-- Primeiro fieldset do detail-->
                 <legend>Recesso</legend>
                 <table width="100%" class="dataGrid" >
@@ -114,38 +114,39 @@
                         <td><strong>Data de Cadastro</strong></td>
                         <td style="text-align:left;"><div id="atualizacao"> {$dados.DT_CADASTRO[0]}</div></td>    
                     </tr>
-                     <tr bgcolor="#E0E0E0">
+                    <tr bgcolor="#E0E0E0">
                         <td style="text-align:left;"><strong>Alterado por</strong></td>
                         <td style="text-align:left;">{$dados.FUNCIONARIO_ATUALIZACAO[0]}</td>	
                         <td style="text-align:left;"><strong>Data de Atualização</strong></td>
                         <td style="text-align:left;">{$dados.DT_ATUALIZACAO[0]}</td>    
                     </tr>
-            
+
                 </table>
 
                 <!-- fim Primeiro fieldset do detail-->
 
             </fieldset>
-        </form>
 
 
 
 
 
-        <div id="tabelaBase"></div>
+
+            <div id="tabelaBase"></div>
 
 
 
-        </fieldset>   
+            </fieldset>   
 
-        <div id="botoesInferiores">
-            <a href="{$url}src/{$pasta}/index.php"><img src="{$urlimg}icones/voltar.png" alt="Voltar" title="Voltar" class="voltar" /></a>
-            {if $acesso}<div id="botoes">
-                    <a href="{$url}src/{$pasta}/alterar.php"><img src="{$urlimg}icones/alterar.png"  alt="Alterar" title="Alterar" id="alterarMaster" /></a>
-                    <a href="{$url}src/{$pasta}/excluir.php"><img src="{$urlimg}icones/excluir.png"  alt="Excluir" title="Excluir" id="excluirMaster" /></a>
-                </div>{/if}
-            </div>
-
+            <div id="botoesInferiores">
+                <a href="{$url}src/{$pasta}/index.php"><img src="{$urlimg}icones/voltar.png" alt="Voltar" title="Voltar" class="voltar" /></a>
+                {if $acesso}<div id="botoes">
+                        <input type="submit" name="efetivar" id="inserir" value=" Efetivar Recesso " {if $dados.CS_SITUACAO[0] == 2}disabled="disabled"{/if} style="float:left;margin-top:3px;margin-right: 20px;" />
+                        <a href="{$url}src/{$pasta}/alterar.php"><img src="{$urlimg}icones/alterar.png"  alt="Alterar" title="Alterar" id="alterarMaster" /></a>
+                        <a href="{$url}src/{$pasta}/excluir.php"><img src="{$urlimg}icones/excluir.png"  alt="Excluir" title="Excluir" id="excluirMaster" /></a>
+                    </div>{/if}
+                </div>
+            </form>
         </div>
 
     </div>

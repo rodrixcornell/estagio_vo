@@ -13,19 +13,18 @@ $titulopage = 'Recesso de Estágio';
 session_start();
 require_once "../autenticacao/validaPermissao.php";
 
-
-
 $VO = new recessoVO();
 
 if ($_SESSION['ID_RECESSO_ESTAGIO']) {
 
     $VO->ID_RECESSO_ESTAGIO = $_SESSION['ID_RECESSO_ESTAGIO'];
 
-//$todosCSselecao=$VO->buscarCsSelecao();
-//$dadosCSSelecao=$VO->getVetor();
-    
-//$VO->CS_SELECAO=$dadosCSSelecao['CS_SELECAO'][0];
-    
+    if ($_POST['efetivar']) {
+        $VO->efetivar();
+        header("Location: " . $url . "src/" . $pasta . "/detail.php");
+        exit;
+    }
+
     $total = $VO->buscar();
     $total ? $dados = $VO->getVetor() : false;
 }else

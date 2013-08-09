@@ -10,14 +10,14 @@
         <form name="form" action="{$url}src/{$pasta}/alterar.php" method="post">
 
             <div id="camada" style="font-family:Verdana, Geneva, sans-serif; width:310px;">
-                <font color="#FF0000">*</font>Órgão Gestor <font color="#FF0000">{$validar.ID_ORGAO_GESTOR_ESTAGIO}</font><br />
-                <select name="ID_ORGAO_GESTOR_ESTAGIO" id="ID_ORGAO_GESTOR_ESTAGIO" style="width:300px;">
+              Órgão Gestor <br />
+                <select name="ID_ORGAO_GESTOR_ESTAGIO" id="ID_ORGAO_GESTOR_ESTAGIO" disabled="disabled" style="width:300px;">
                     {html_options options=$arrayOrgaoGestor selected=$VO->ID_ORGAO_GESTOR_ESTAGIO}
                 </select></div> 
 
             <div id="camada" style="font-family:Verdana, Geneva, sans-serif; width:310px;">
-                <font color="#FF0000">*</font>Órgão Solicitante<font color="#FF0000">{$validar.ID_ORGAO_ESTAGIO}</font><br />
-                <select name="ID_ORGAO_ESTAGIO" id="ID_ORGAO_ESTAGIO" style="width:300px;">
+             Órgão Solicitante<br />
+                <select name="ID_ORGAO_ESTAGIO" id="ID_ORGAO_ESTAGIO" style="width:300px;" disabled="disabled">
                     {html_options options=$arrayOrgaoSolicitante selected=$VO->ID_ORGAO_ESTAGIO}
                 </select></div> 
 
@@ -27,7 +27,7 @@
 
 
             <div id="camada" style="font-family:Verdana, Geneva, sans-serif; width:190px;" > <font color="#FF0000">*</font>Cód. Contrato <font color="#FF0000">{$validar.ID_CONTRATO}</font><br />
-                <select name="ID_CONTRATO" id="ID_CONTRATO" style="width:180px;">
+                <select name="ID_CONTRATO" id="ID_CONTRATO" style="width:180px;" disabled="disabled">
                     {html_options options=$arrayContrato selected=$VO->ID_CONTRATO}
                 </select>
             </div>                              
@@ -91,9 +91,9 @@
                 <input type="text" name="DT_FIM_RECESSO" id="DT_FIM_RECESSO" value="{$VO->DT_FIM_RECESSO}" color="#00FF00" style="width:110px;" /></div>  
 
 
-            <div id="camada" style="font-family:Verdana, Geneva, sans-serif; width:180px;">
-                <font color="#FF0000">* </font>Situação do Cadastro<font color="#FF0000"></font>
-                <input type="text" name="CS_SITUACAO" id="TX_SITUACAO" value="ABERTA" class="leitura" readonly="readonly" style="width:170px;" />  </div>  
+            <div id="camada" style="font-family:Verdana, Geneva, sans-serif;">
+               
+                <input type="hidden" name="CS_SITUACAO" id="TX_SITUACAO" value="2" class="leitura" readonly="readonly" />  </div>  
 
             <div id="camada" style="font-family:Verdana, Geneva, sans-serif; width:210px;">
                 <font color="#FF0000">*</font>Situação do Gozo<font color="#FF0000">{$validar.CS_REALIZACAO}</font><br />
@@ -102,7 +102,7 @@
                 </select></div> 
 
 
-            <div id="camada" style="font-family:Verdana, Geneva, sans-serif; width:210px;" > *<font color="#FF0000"></font>Agente Setorial <font color="#FF0000">{$validar.ID_SETORIAL_ESTAGIO}</font><br />
+            <div id="camada" style="font-family:Verdana, Geneva, sans-serif; width:210px;" > <font color="#FF0000">*</font>Agente Setorial <font color="#FF0000">{$validar.ID_SETORIAL_ESTAGIO}</font><br />
                 <select name="ID_SETORIAL_ESTAGIO" id="ID_SETORIAL_ESTAGIO" style="width:200px;">
                     {html_options options=$arrayAgenteSetorial selected=$VO->ID_SETORIAL_ESTAGIO}
                 </select>

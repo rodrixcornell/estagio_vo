@@ -92,9 +92,9 @@
                 <input type="text" name="DT_FIM_RECESSO" id="DT_FIM_RECESSO" value="{$VO->DT_FIM_RECESSO}" color="#00FF00" style="width:110px;" /></div>  
 
 
-            <div id="camada" style="font-family:Verdana, Geneva, sans-serif; width:180px;">
-                <font color="#FF0000">* </font>Situação do Cadastro<font color="#FF0000"></font>
-                <input type="text" name="CS_SITUACAO" id="TX_SITUACAO" value="ABERTA" class="leitura" readonly="readonly" />  </div>  
+            <div id="camada" style="font-family:Verdana, Geneva, sans-serif; ">
+         
+                <input type="hidden" name="CS_SITUACAO" id="TX_SITUACAO" value="ABERTA" class="leitura" readonly="readonly" />  </div>  
 
             <div id="camada" style="font-family:Verdana, Geneva, sans-serif; width:210px;">
                 <font color="#FF0000">*</font>Situação do Gozo<font color="#FF0000">{$validar.CS_REALIZACAO}</font><br />

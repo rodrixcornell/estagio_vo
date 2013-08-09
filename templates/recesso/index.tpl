@@ -50,7 +50,13 @@ $(document).ready(function(){
 	if ("{$VO->ID_ORGAO_ESTAGIO}" || "{$VO->ID_ORGAO_GESTOR_ESTAGIO}"){
 		showLoader();
 		$("#tabela").load('acoes.php?identifier=tabela',{
-			ID_RECESSO_ESTAGIO:"{$VO->ID_RECESSO_ESTAGIO}",
+			ID_ORGAO_GESTOR_ESTAGIO:"{$VO->ID_ORGAO_GESTOR_ESTAGIO}",
+			ID_ORGAO_ESTAGIO:"{$VO->ID_ORGAO_ESTAGIO}",
+			ID_SETORIAL_ESTAGIO:"{$VO->ID_SETORIAL_ESTAGIO}",
+			TX_CODIGO_CONTRATO:"{$VO->TX_CODIGO_CONTRATO}",
+			TX_NOME_ESTAGIARIO:"{$VO->TX_NOME_ESTAGIARIO}",
+			NB_CPF:"{$VO->NB_CPF}",
+			CODIGO_RECESSO:"{$VO->CODIGO_RECESSO}",
 			PAGE:"{$VO->PAGE}"
 		}, hideLoader); 
 	}

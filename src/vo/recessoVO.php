@@ -10,53 +10,55 @@ class recessoVO extends VO {
         return $this->repositorio = new RepositorioRecesso();
     }
 
-    function  pesquisarOrgaoGestor(){    
+    function pesquisarOrgaoGestor() {
         return $this->repositorio->pesquisarOrgaoGestor($this);
     }
- 
-    function  pesquisarOrgaoSolicitante(){    
+
+    function pesquisarOrgaoSolicitante() {
         return $this->repositorio->pesquisarOrgaoSolicitante($this);
     }
 
-    function  buscarContrato(){    
+    function buscarContrato() {
         return $this->repositorio->buscarContrato($this);
     }
 
-  	function buscarAgenteSetorial(){    
+    function buscarAgenteSetorial() {
         return $this->repositorio->buscarAgenteSetorial($this);
     }
 
-    function pesquisarAgenteSetorial(){    
+    function pesquisarAgenteSetorial() {
         return $this->repositorio->pesquisarAgenteSetorial($this);
     }
-	
 
-    function  inserir(){    
+    function inserir() {
         return $this->repositorio->inserir($this);
     }
-    function  excluir(){    
+
+    function excluir() {
         return $this->repositorio->excluir($this);
     }
-    function  alterar(){    
+
+    function alterar() {
         return $this->repositorio->alterar($this);
     }
-	
+
     function buscarSecretarioOrgaoGestor() {
-       return $this->repositorio->buscarSecretarioOrgaoGestor($this);
+        return $this->repositorio->buscarSecretarioOrgaoGestor($this);
     }
 
-
+    function efetivar() {
+        return $this->repositorio->efetivar($this);
+    }
 
     function buscarOrgaoGestor() {
-        // Função que pega todos os orgãos Getores
+        // Funï¿½ï¿½o que pega todos os orgï¿½os Getores
         return $this->repositorio->buscarOrgaoGestor($this);
     }
-	
-	   function buscarDadosContrato() {
-        // Função que pega todas as bolsas de estagio
+
+    function buscarDadosContrato() {
+        // Funï¿½ï¿½o que pega todas as bolsas de estagio
         return $this->repositorio->buscarDadosContrato($this);
     }
-
 
 }
 
