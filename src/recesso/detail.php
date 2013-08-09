@@ -24,9 +24,15 @@ if ($_SESSION['ID_RECESSO_ESTAGIO']) {
         header("Location: " . $url . "src/" . $pasta . "/detail.php");
         exit;
     }
-
+    
     $total = $VO->buscar();
     $total ? $dados = $VO->getVetor() : false;
+    
+    if($dados['CS_SITUACAO'][0]==2){
+      $smarty->assign("acesso", 0);
+        
+    }
+    
 }else
     header("Location: " . $url . "src/" . $pasta . "/index.php");
 
