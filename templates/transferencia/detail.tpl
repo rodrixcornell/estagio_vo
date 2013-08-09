@@ -73,15 +73,15 @@
                     
                    
                    {*----QTD ATUAL-----   *}
-                   <div id="camada" style="width:100px;" >
-                     <strong><font color="#FF0000"></font>Quant.Atual</strong><br />
-                     <input type="text" name="NB_QUANTIDADE_ATUAL" id="NB_QUANTIDADE_ATUAL" value="{$VO->NB_QUANTIDADE_ATUAL}" style="width:90px;" readonly="readonly" class="leitura"/></div>
+                   <div id="camada" style="width:150px;" >
+                     <strong><font color="#FF0000"></font>Quantidade </strong><br />
+                     <input type="text" name="NB_QUANTIDADE_ATUAL" id="NB_QUANTIDADE_ATUAL" value="{$VO->NB_QUANTIDADE_ATUAL}" style="width:140px;" readonly="readonly" class="leitura"/></div>
                    
                   {*---QDT----*}
                    
-                    <div id="camada" style="width:100px;" >
-                    <strong><font color="#FF0000">*</font>Quantidade</strong><br />
-                    <input type="text" name="NB_QUANTIDADE" id="NB_QUANTIDADE" value="{$VO->NB_QUANTIDADE}" style="width:90px;" /></div>
+                    <div id="camada" style="width:150px;" >
+                    <strong><font color="#FF0000">*</font>Qtd.Solicitada</strong><br />
+                    <input type="text" name="NB_QUANTIDADE" id="NB_QUANTIDADE" value="{$VO->NB_QUANTIDADE}" style="width:140px;" /></div>
                    
                     {*-----------------------*}
                     <input type="button" name="inserir" id="inserir" value=" Inserir " />
@@ -96,7 +96,7 @@
 
     <div id="tabelaVagasSolicitadas"></div>
 
-    <div id="dialog" title="Alterar Vagas de Estátgio">
+    <div id="dialog" title="Alterar Vaga Transferida">
         <div id="tabelaAlterarVagasSolicitadas" style="text-align:left;"></div>
         <div class="fundoForm">
             <img src="{$urlimg}icones/loader3.gif" >

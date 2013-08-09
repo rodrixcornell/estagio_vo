@@ -10,14 +10,14 @@ $(document).ready(function(){
 
 
 	$('#pesquisar').click(function(){
-		if ($('#TX_ORGAO_GESTOR_ESTAGIO').val() || $('#ID_UNIDADE_ORG').val()){
+		//if ($('#TX_ORGAO_GESTOR_ESTAGIO').val() || $('#ID_UNIDADE_ORG').val()){
 			showLoader();
 			$('#tabela').load('acoes.php?identifier=tabela',{
 					TX_ORGAO_GESTOR_ESTAGIO:$('#TX_ORGAO_GESTOR_ESTAGIO').val(),
 					ID_UNIDADE_ORG:$('#ID_UNIDADE_ORG').val()
 				}, hideLoader);
-		}else
-			alert('Preencha pelo menos um campo para realizar a pesquisa!');
+		//}else
+			//alert('Preencha pelo menos um campo para realizar a pesquisa!');
     });
 	
     //Paginacao

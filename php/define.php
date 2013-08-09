@@ -88,16 +88,6 @@ $arrayMesExtenso[12] = "dezembro";
 		."&nbsp;&nbsp;&nbsp;&nbsp;<a href='http://sistemaspmm.manaus.am.gov.br/'><img src='".$urlimg."topo/home.png' /></a>");
 	}
 
-$arraySessao = array('ID_USUARIO', 'ID_PESSOA_FUNCIONARIO', 'TX_LOGIN', 'NOME', 'ID_UNIDADE_GESTORA', 'TX_UNIDADE_ORG', 'TX_SIGLA_UNIDADE', 'TX_EMAIL_PMM', 'usuario', 'senha');
-	
-	//Limpar Session
-	if ($_REQUEST['s']){
-		while(list($key,$val) = each($_SESSION))
-			if (!in_array($key, $arraySessao))
-				unset($_SESSION[$key]);
-		$smarty -> assign("s"	,$_REQUEST['s']);
-	}
-
 @$nomeArquivo = array_shift(explode(".",array_pop(explode("/",$_SERVER['SCRIPT_FILENAME']))));
 
 
