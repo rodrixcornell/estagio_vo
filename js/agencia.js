@@ -9,12 +9,12 @@ function hideLoader() {
    
 //Pesquisar
   $('#pesquisar').click(function(){
-	 if ($('#TX_AGENCIA_ESTAGIO').val() || $('#TX_SIGLA').val()){
+	// if ($('#TX_AGENCIA_ESTAGIO').val() || $('#TX_SIGLA').val()){
         showLoader();
 	 	$('#tabela').load('acoes.php?identifier=tabela',{TX_AGENCIA_ESTAGIO:$('#TX_AGENCIA_ESTAGIO').val(),TX_SIGLA:$('#TX_SIGLA').val()}, hideLoader);
         return false;    
-	 }else
-		alert('Preencha pelo menos um campo para realizar a pesquisa!');
+	// }else
+	//	alert('Preencha pelo menos um campo para realizar a pesquisa!');
    });    
   
 //Paginacao

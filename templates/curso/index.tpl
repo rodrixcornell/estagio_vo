@@ -26,7 +26,7 @@ $(document).ready(function(){
 	function hideLoader(){ $('.fundo_pag').fadeOut(200); };
 	
 	
-	if ("{$VO->TX_CURSO_ESTAGIO}" || "{$VO->CS_AREA_CONHECIMENTO}"){
+	if (!"{$s}"){
 		showLoader();
 		$("#tabela").load('acoes.php?identifier=tabela',{
 			TX_CURSO_ESTAGIO:"{$VO->TX_CURSO_ESTAGIO}",

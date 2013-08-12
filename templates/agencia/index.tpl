@@ -26,7 +26,7 @@ $(document).ready(function(){
 	function hideLoader(){ $('.fundo_pag').fadeOut(200); };
 	
 	
-	if ("{$VO->TX_AGENCIA_ESTAGIO}" || "{$VO->TX_SIGLA}"){
+	if (!"{$s}"){
 		showLoader();
 		$("#tabela").load('acoes.php?identifier=tabela',{
 			TX_AGENCIA_ESTAGIO:"{$VO->TX_AGENCIA_ESTAGIO}",
