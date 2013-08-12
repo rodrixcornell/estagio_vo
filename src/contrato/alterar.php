@@ -57,7 +57,7 @@ if ($_SESSION['ID_CONTRATO']) {
     }
 
     if ($VO->CS_SELECAO == 2) {
-        echo 'smith';
+        
         $VO->buscarEstagiarioSemSelecao();
         $arrayPessoaEstagiario = $VO->getArray('TX_NOME');
         $smarty->assign("arrayPessoaEstagiario", $arrayPessoaEstagiario);

@@ -103,15 +103,15 @@ function hideLoader() {
     ;
 
 $('#pesquisar').click(function(){
-     if ($('#TX_NOME').val() || $('#TX_CARGO').val()){
+     //if ($('#TX_NOME').val() || $('#TX_CARGO').val()){
         showLoader();
 	 	$('#tabela').load('acoes.php?identifier=tabela',
 				{TX_NOME:$('#TX_NOME').val(),
                  TX_CARGO:$('#TX_CARGO').val()}, 
 				 hideLoader);
        	return false;    
-      }else
-          alert('Preencha pelo menos um campo para realizar a pesquisa!');
+      //}else
+       //   alert('Preencha pelo menos um campo para realizar a pesquisa!');
 });    
  
 $("#paginacao li").live('click', function(){

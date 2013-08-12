@@ -32,8 +32,14 @@
                 <select name="CS_SITUACAO" id="CS_SITUACAO" style="width:200px;">
                     {html_options options=$arraySituacao selected=$VO->CS_SITUACAO}
                 </select></div>
-
-            <br /><br />
+             
+                
+                 <div id="camada" style="font-family:Verdana, Geneva, sans-serif; width:210px;">
+                <font color="#FF0000">*</font>Contrato <font color="#FF0000">{$validar.ID_CONTRATO_CP}</font><br />
+                <select name="ID_CONTRATO_CP" id="ID_CONTRATO_CP" style="width:200px;">
+                    {html_options options=$pesquisaContrato selected=$VO->ID_CONTRATO_CP}
+                </select></div>
+                <br /><br />
 
             <input type="button" name="cancelar" id="cancelar" value="Cancelar" onclick="window.location.href='{$url}src/{$pasta}/index.php'" />&nbsp;&nbsp;&nbsp;&nbsp;
             <input type="submit" name="salvar" id="salvar" value=" Salvar " />

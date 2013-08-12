@@ -83,17 +83,28 @@
 	
 	//Telas Pesquisar
 	function preencherSessionPesquisar($request){
+		global $modulo, $programa;
+		
 		while(list($key,$val) = each($request)){
-				$_SESSION[$key] = $val;
+				$_SESSION[$modulo.$programa.'_'.$key] = $val;
 		}
 	}
 	
 	function preencherVOSession($campo){
-		global $arraySessao;
-			while(list($key,$val) = each($campo)){
-				if (!in_array($key, $arraySessao))
-					$this->$key = $val;
-			}	
+		global $smarty, $modulo, $programa;
+		
+		while(list($key,$val) = each($campo)){
+			$str = explode('_', $key, 2);
+			
+			if ($str[0] == $modulo.$programa){
+				if ($_REQUEST['s'])
+					unset($_SESSION[$key]);
+				else	
+					$this->$str[1] = $val;	
+			}
+		}
+
+		$smarty -> assign("s"	,$_REQUEST['s']);
 	}
 	
 	function preencherVOBD($campo){

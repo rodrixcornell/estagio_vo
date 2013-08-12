@@ -8,7 +8,7 @@ $(document).ready(function(){
     };
 //-----------pesquisa principal-------------------------------------------------
     $('#pesquisar').click(function(){
-        if (($('#ID_ORGAO_GESTOR_ESTAGIO').val()) && ($('#ID_ORGAO_SOLICITANTE').val()) && ($('#ID_ORGAO_ESTAGIO').val())){
+     if (($('#ID_ORGAO_GESTOR_ESTAGIO').val()) || ($('#ID_ORGAO_SOLICITANTE').val()) || ($('#ID_ORGAO_ESTAGIO').val())){
             showLoader();
             $("#tabela").load('acoes.php?identifier=tabela',{                
                 ID_ORGAO_GESTOR_ESTAGIO:$('#ID_ORGAO_GESTOR_ESTAGIO').val(),
@@ -18,7 +18,7 @@ $(document).ready(function(){
                 TX_COD_TRANSFERENCIA:$('#TX_COD_TRANSFERENCIA').val()
             }, hideLoader);
         }else
-       alert('Preencha os campos \"Órgão Gestor, Órgão Solicitante, Órgão Cedente\" para realizar pesquisa!');
+       alert('Preencha pelo menos um dos campos obrigatório para realizar pesquisa!');
     });
  
 //------------Paginacao da pesquisa------------------------------------------

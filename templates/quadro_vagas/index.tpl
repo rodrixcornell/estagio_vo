@@ -35,7 +35,14 @@
         {html_options options=$arraySituacao selected=$VO->CS_SITUACAO}
     </select>
     <br />
+    
+    <div id="camada"style="font-family:Verdana, Geneva, sans-serif; width:150px;" ><strong>Contrato:</strong></div>
+    <select name="ID_CONTRATO_CP" id="ID_CONTRATO_CP" style="width:200px;">
+        {html_options options=$pesquisaContrato selected=$VO->ID_CONTRATO_CP}
+    </select>
     <br />
+    <br />
+   
 
     <input type="button" name="pesquisar" id="pesquisar" value="Pesquisar" />
 

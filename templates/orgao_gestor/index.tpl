@@ -26,7 +26,7 @@ $(document).ready(function(){
 	function hideLoader(){ $('.fundo_pag').fadeOut(200); };
 	
 	
-	if ("{$VO->TX_ORGAO_GESTOR_ESTAGIO}" || "{$VO->ID_UNIDADE_ORG}"){
+	if (!"{$s}"){
 		showLoader();
 		$("#tabela").load('acoes.php?identifier=tabela',{
 			TX_ORGAO_GESTOR_ESTAGIO:"{$VO->TX_ORGAO_GESTOR_ESTAGIO}",
