@@ -10,32 +10,36 @@
             <fieldset>
                 <legend>Quadro de Vagas</legend>
                 <table width="100%" class="dataGrid" >
-                    <tr bgcolor="#E0E0E0">
+                    <tr>
                         <td style="width:150px;"><strong>Código</strong></td>
                         <td><font color="#0000FF"><strong>{$dados.TX_CODIGO[0]}</strong></font></td>
+                        </tr>
+                        <tr bgcolor="#F0EFEF">
                         <td style="width:140px;"><strong>Órgão Gestor</strong></td>
-                        <td style="width:250px; text-align:right;">{$dados.TX_ORGAO_GESTOR_ESTAGIO[0]}</td>
-                    </tr>
+                        <td style="width:250px; text-align:left;">{$dados.TX_ORGAO_GESTOR_ESTAGIO[0]}</td>
+                        <td><strong>Agencia de Estágio</strong></td>
+                        <td style="text-align:left;">{$dados.TX_AGENCIA_ESTAGIO[0]}</td> 
+                        </tr>
+
+                       <tr bgcolor="#E0E0E0">
+                        <td><strong>Situação</strong></td>
+                        <td style="text-align:left;">{$dados.TX_SITUACAO[0]}</td>
+                        <td><strong>Contrato</strong></td>
+                        <td style="text-align:left;">{$dados.NB_CODIGO[0]}</td>
+                        </tr>
 
                     <tr bgcolor="#F0EFEF">
-                        <td><strong>Agencia de Estágio</strong></td>
-                        <td>{$dados.TX_AGENCIA_ESTAGIO[0]}</td>
-                        <td><strong>Situação</strong></td>
-                        <td style="text-align:right;">{$dados.TX_SITUACAO[0]}</td>
-                    </tr>
-
-                    <tr bgcolor="#E0E0E0">
                         <td><strong>Cadastrado por </strong></td>
                         <td>{$dados.TX_FUNCIONARIO_CADASTRO[0]}</td>
                         <td><strong>Data de Cadastro</strong></td>
-                        <td style="text-align:right;">{$dados.DT_CADASTRO[0]}</td>
+                        <td style="text-align:left;">{$dados.DT_CADASTRO[0]}</td>
                     </tr>
 
-                    <tr bgcolor="#F0EFEF">
+                    <tr bgcolor="#E0E0E0">
                         <td><strong>Alterado por</strong></td>
                         <td><div id="funcionario">{$dados.TX_FUNCIONARIO_ATUALIZACAO[0]}</div></td>
                         <td><strong>Data de Atualização</strong></td>
-                        <td style="text-align:right;"><div id="atualizacao">{$dados.DT_ATUALIZACAO[0]}</div></td>
+                        <td style="text-align:left;"><div id="atualizacao">{$dados.DT_ATUALIZACAO[0]}</div></td>
                     </tr>
                 </table>
 

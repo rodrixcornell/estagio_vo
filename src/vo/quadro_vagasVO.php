@@ -65,6 +65,10 @@ class quadro_vagasVO extends VO {
     function pesquisarCodigo() {
         return $this->repositorio->pesquisarCodigo($this);
     }
+    
+    function pesquisaContrato(){
+        return $this->repositorio->pesquisaContrato($this);
+    }
 
 }
 
