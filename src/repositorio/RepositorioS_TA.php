@@ -8,35 +8,37 @@ class RepositorioS_TA extends Repositorio {
 
     function buscarOrgaoGestor($VO) {
 
-        $query = "SELECT
-                    ID_ORGAO_GESTOR_ESTAGIO ,
-                    ID_ORGAO_GESTOR_ESTAGIO ||'_'||ID_UNIDADE_ORG CODIGO,
-                    TX_ORGAO_GESTOR_ESTAGIO,
-                    ID_UNIDADE_ORG
-                  FROM
-                    ORGAO_GESTOR_ESTAGIO";
+        $query = "
+            select ID_ORGAO_GESTOR_ESTAGIO ||'_'||ID_UNIDADE_ORG CODIGO,
+                    ID_ORGAO_GESTOR_ESTAGIO,
+                    ID_UNIDADE_ORG,
+                    TX_ORGAO_GESTOR_ESTAGIO
+               from ORGAO_GESTOR_ESTAGIO
+              order by TX_ORGAO_GESTOR_ESTAGIO
+        ";
         return $this->sqlVetor($query);
     }
 
     function buscarOrgaoSolicitante($VO) {
 
-        $query = "SELECT DISTINCT
-                    C.ID_ORGAO_ESTAGIO ||'_'|| V_UNIDADE_ORG.NB_COD_UNIDADE CODIGO,
-                    C.TX_ORGAO_ESTAGIO,
+        $query = "
+            select distinct
+                    C.ID_ORGAO_ESTAGIO ||'_'|| B.ID_SETORIAL_ESTAGIO ||'_'|| D.NB_COD_UNIDADE CODIGO,
                     C.ID_ORGAO_ESTAGIO,
-                    V_UNIDADE_ORG.NB_COD_UNIDADE,
-                    C.ID_UNIDADE_ORG
-
-                  FROM
-                    AGENTE_SETORIAL_ESTAGIO A ,
+                    C.ID_UNIDADE_ORG,
+                    B.ID_SETORIAL_ESTAGIO,
+                    D.NB_COD_UNIDADE,
+                    C.TX_ORGAO_ESTAGIO
+               from AGENTE_SETORIAL_ESTAGIO A,
                     ORGAO_AGENTE_SETORIAL B,
                     ORGAO_ESTAGIO C,
-                    V_Unidade_org
-                  WHERE
-                    A.ID_SETORIAL_ESTAGIO = B.ID_SETORIAL_ESTAGIO
-                    AND C.ID_ORGAO_ESTAGIO = B.ID_ORGAO_ESTAGIO
-                    and V_UNidade_org.ID_UNIDADE_ORG =C.ID_UNIDADE_ORG
-                    AND A.ID_USUARIO=" . $_SESSION['ID_USUARIO'];
+                    V_UNIDADE_ORG D
+              where A.ID_SETORIAL_ESTAGIO = B.ID_SETORIAL_ESTAGIO
+                and C.ID_ORGAO_ESTAGIO = B.ID_ORGAO_ESTAGIO
+                and D.ID_UNIDADE_ORG = C.ID_UNIDADE_ORG
+                and A.ID_USUARIO = " . $_SESSION['ID_USUARIO']."
+              order by C.TX_ORGAO_ESTAGIO
+        ";
 
         return $this->sqlVetor($query);
     }
@@ -44,19 +46,26 @@ class RepositorioS_TA extends Repositorio {
     function buscarAgenteIntegracao($VO) {
         // função que busca no banco todas as agencias de integração
         // utilizada no arrays.php
-        $query = "SELECT
+        $query = "
+            select ID_AGENCIA_ESTAGIO CODIGO,
                     ID_AGENCIA_ESTAGIO,
-                    ID_AGENCIA_ESTAGIO CODIGO,
                     TX_AGENCIA_ESTAGIO
-                  FROM
-                    AGENCIA_ESTAGIO";
+               from AGENCIA_ESTAGIO
+              order by TX_AGENCIA_ESTAGIO
+        ";
 
         return $this->sqlVetor($query);
     }
 
     function buscarContrato($VO) {
 
-        $query = "SELECT ID_CONTRATO CODIGO, ID_CONTRATO, TX_CODIGO FROM CONTRATO_ESTAGIO ORDER BY TX_CODIGO";
+        $query = "
+            select ID_CONTRATO CODIGO,
+                    ID_CONTRATO,
+                    TX_CODIGO
+               from CONTRATO_ESTAGIO
+              order by TX_CODIGO desc
+        ";
         return $this->sqlVetor($query);
     }
 
