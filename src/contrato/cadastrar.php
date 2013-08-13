@@ -57,7 +57,7 @@ if ($_POST) {
         $id_pk = $VO->inserir();
     if ($id_pk) {
         $_SESSION['ID_CONTRATO_ESTAGIO'] = $id_pk;
-        header("Location: " . $url . "src/" . $pasta . "/index.php");
+        header("Location: " . $url . "src/" . $pasta . "/detail.php");
     }
 
 }

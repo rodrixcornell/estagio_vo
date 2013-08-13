@@ -54,6 +54,7 @@ if ($_SESSION['ID_CONTRATO']) {
 
         $VO->buscarQuadroVaga();
         $arrayQuadroVagas = $VO->getArray('TX_QUADRO_VAGAS');
+        $smarty->assign('arrayQuadroVagas', $arrayQuadroVagas);
     }
 
     if ($VO->CS_SELECAO == 2) {
@@ -65,6 +66,7 @@ if ($_SESSION['ID_CONTRATO']) {
         // selecionar quadro de vagas
         $VO->buscarTodosQuadrosVagas();
         $arrayQuadroVagas = $VO->getArray('TX_QUADRO_VAGAS_2');
+        $smarty->assign('arrayQuadroVagas', $arrayQuadroVagas);
     }
 
 
@@ -91,6 +93,5 @@ $smarty->assign("VO", $VO);
 $smarty->assign("arquivoCSS", $pasta);
 $smarty->assign("arquivoJS", $pasta);
 $smarty->assign("nomeArquivo", $pasta . "/" . $nomeArquivo . ".tpl");
-$smarty->assign('arrayQuadroVagas', $arrayQuadroVagas);
 $smarty->display('index.tpl');
 ?>
