@@ -136,7 +136,7 @@ class RepositorioRecrutamento extends Repositorio {
     function pesquisar($VO) {
 
         $query = "select a.ID_RECRUTAMENTO_ESTAGIO, a.TX_COD_RECRUTAMENTO, C.TX_ORGAO_GESTOR_ESTAGIO, D.TX_ORGAO_ESTAGIO, E.TX_CODIGO, 
-						 a.TX_DOC_AUTORIZACAO, DECODE(a.CS_SITUACAO, 1, 'Aberto', 2, 'Fechado') TX_SITUACAO
+						 a.TX_DOC_AUTORIZACAO, DECODE(a.CS_SITUACAO, 1, 'Aberto', 2, 'Fechado') TX_SITUACAO, B.TX_COD_SOLICITACAO
 				from RECRUTAMENTO_ESTAGIO a, SOLICITACAO_ESTAGIO B, ORGAO_GESTOR_ESTAGIO C, ORGAO_ESTAGIO D, QUADRO_VAGAS_ESTAGIO E 
 				where a.ID_SOLICITACAO_ESTAGIO = B.ID_SOLICITACAO_ESTAGIO
 				and B.ID_ORGAO_GESTOR_ESTAGIO = C.ID_ORGAO_GESTOR_ESTAGIO
@@ -148,7 +148,7 @@ class RepositorioRecrutamento extends Repositorio {
         ($VO->CS_SITUACAO)   ? $query .= " AND a.CS_SITUACAO = ".$VO->CS_SITUACAO : false;
         ($VO->TX_COD_RECRUTAMENTO)   ? $query .= " AND a.TX_COD_RECRUTAMENTO like '%".$VO->TX_COD_RECRUTAMENTO."%'" : false;
 
-        $query .= " ORDER BY a.TX_COD_RECRUTAMENTO";
+        $query .= " ORDER BY a.TX_COD_RECRUTAMENTO desc";
 
         if ($VO->Reg_quantidade) {
             !$VO->Reg_inicio ? $VO->Reg_inicio = 0 : false;

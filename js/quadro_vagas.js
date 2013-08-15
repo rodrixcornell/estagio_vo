@@ -12,7 +12,7 @@ $(document).ready(function(){
     //---------------------pequisa--------------------------------------------------
     $('#pesquisar').click(function(){
        
-        if(($('#ID_QUADRO_VAGAS_ESTAGIO').val() || $('#ID_ORGAO_GESTOR_ESTAGIO').val()) || ($('#ID_AGENCIA_ESTAGIO').val() || $('#CS_SITUACAO').val())){
+        //if(($('#ID_QUADRO_VAGAS_ESTAGIO').val() || $('#ID_ORGAO_GESTOR_ESTAGIO').val()) || ($('#ID_AGENCIA_ESTAGIO').val() || $('#CS_SITUACAO').val())){
             showLoader();
             $('#tabela').load('acoes.php?identifier=tabela',{
                 ID_QUADRO_VAGAS_ESTAGIO:$('#ID_QUADRO_VAGAS_ESTAGIO').val(),
@@ -20,8 +20,8 @@ $(document).ready(function(){
                 ID_AGENCIA_ESTAGIO:$('#ID_AGENCIA_ESTAGIO').val(),
                 CS_SITUACAO:$('#CS_SITUACAO').val()
                 },hideLoader);    
-        }else
-            alert('Preencha pelo menos um campo para realizar a pesquisa!');
+        //}else
+        //    alert('Preencha pelo menos um campo para realizar a pesquisa!');
   
     });
 

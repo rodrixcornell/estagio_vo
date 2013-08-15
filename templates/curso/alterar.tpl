@@ -6,7 +6,7 @@
     <br /><br /><br /><hr />
 	
     <div id="conteudo">
-        Para alterar o Órgão Gestor de Estágio preencha o formulário abaixo e clique em Avançar:<br /><br /><br />
+        Para alterar o Curso preencha o formulário abaixo e clique em Salvar:<br /><br />
         <form name="form" action="{$url}src/{$pasta}/alterar.php" method="post">
 				
             <div id="camada" style="font-family:Verdana, Geneva, sans-serif; width:410px;">

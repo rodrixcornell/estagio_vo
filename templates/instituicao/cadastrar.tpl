@@ -5,7 +5,7 @@
     <br /><br /><br /><hr />
 
     <div id="conteudo">
-        Para Cadastrar uma  nova Instituição de Ensino preencha o formulário abaixo e clique em Avançar:<br /><br />
+        Para Cadastrar uma  nova Instituição de Ensino preencha o formulário abaixo e clique em Salvar:<br /><br />
         <form name="form" action="{$url}src/{$pasta}/cadastrar.php" method="post">
 
 

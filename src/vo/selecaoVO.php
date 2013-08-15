@@ -17,31 +17,38 @@ class selecaoVO extends VO{
         return $this->repositorio->buscarOrgaoGestor($this);        
     }
 	
-	
-	
-	
-	
-	
-    
-	function  pesquisarSelecao_Estagio(){    
-        return $this->repositorio->pesquisarSelecao_Estagio($this);
+	function buscarSelecao(){    
+        return $this->repositorio->buscarSelecao($this);
     }
-
-    function  buscarSelecao_Estagio(){    
-        return $this->repositorio->buscarSelecao_Estagio($this);
+	
+    function  buscarEstagiarioVaga(){    
+        return $this->repositorio->buscarEstagiarioVaga($this);
     }
-    
-    
-    
+        
     function buscarOrgaoSolicitante(){
-        // Função que pega todos os Orgãos Solicitantes a qual o Usuario pertence
         return $this->repositorio->buscarOrgaoSolicitante($this);        
+    }
+	
+	 function buscarSolicitanteCad(){
+        return $this->repositorio->buscarSolicitanteCad($this);        
+    }
+	
+	function verificarSituacaoAnalise(){
+        return $this->repositorio->verificarSituacaoAnalise($this);        
+    }
+	
+	function verificarContrato(){
+        return $this->repositorio->verificarContrato($this);        
     }
     
     function buscarRecrutamento(){
         return $this->repositorio->buscarRecrutamento($this);        
     }
-
+	
+	function buscarRecrutamentoCad(){
+        return $this->repositorio->buscarRecrutamentoCad($this);        
+    }
+	
     function pesquisarCandidatos(){
         return $this->repositorio->pesquisarCandidatos($this);        
     }

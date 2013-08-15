@@ -5,7 +5,7 @@
 
     <br /><br /><br /><hr />
     <div id="conteudo">
-        Para alterar a {$titulopage} preencha o formulário abaixo e clique em Avançar:<br /><br /><br />
+        Para alterar a {$titulopage} preencha o formulário abaixo e clique em Salvar:<br /><br /><br />
 
         <form name="form" action="{$url}src/{$pasta}/alterar.php" method="post">
 

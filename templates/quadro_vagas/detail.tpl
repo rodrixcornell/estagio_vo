@@ -18,7 +18,7 @@
                     </tr>
 
                     <tr bgcolor="#F0EFEF">
-                        <td><strong>Agencia de Estágio</strong></td>
+                        <td><strong>Agência de Estágio</strong></td>
                         <td>{$dados.TX_AGENCIA_ESTAGIO[0]}</td>
                         <td><strong>Situação</strong></td>
                         <td style="text-align:right;">{$dados.TX_SITUACAO[0]}</td>

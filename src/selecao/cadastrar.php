@@ -35,7 +35,7 @@ if($_POST){
 		$smarty->assign("arrayOrgaoSolicitante", $VO->getArray("TX_ORGAO_ESTAGIO"));
 		
 		if ($VO->ID_ORGAO_ESTAGIO) {
-			$VO->buscarRecrutamento();
+			$VO->buscarRecrutamentoCad();
 			$smarty->assign("arrayRecrutamento", $VO->getArray("TX_COD_RECRUTAMENTO"));
 		}
 	}

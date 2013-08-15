@@ -6,7 +6,7 @@
     <br /><br /><br /><hr />
 	
     <div id="conteudo">
-        Para um novo Agente Setorial preencha o formulário abaixo e clique em Avançar:<br /><br />
+        Para um novo Agente Setorial preencha o formulário abaixo e clique em Salvar:<br /><br />
         <form name="form" action="{$url}src/{$pasta}/cadastrar.php" method="post">
 
             <div id="camada" style="font-family:Verdana, Geneva, sans-serif; width:210px;">

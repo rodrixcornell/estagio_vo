@@ -6,7 +6,7 @@
     <br /><br /><br /><hr />
 
     <div id="conteudo">
-        Para alterar a Instituição de Ensino preencha o formulário abaixo e clique em Avançar:<br /><br /><br />
+        Para alterar a Instituição de Ensino preencha o formulário abaixo e clique em Salvar:<br /><br />
         <form name="form" action="{$url}src/{$pasta}/alterar.php" method="post">
 
             <div id="camada" style="font-family:Verdana, Geneva, sans-serif; width:410px;">
@@ -23,7 +23,7 @@
 
             <br />
 
-            <br /><br />
+            <br />
 
             <input type="button" name="cancelar" id="cancelar" value="Cancelar" onclick="window.location.href='{$url}src/{$pasta}/index.php'" />&nbsp;&nbsp;&nbsp;&nbsp;
             <input type="submit" name="salvar" id="salvar" value=" Salvar " />
