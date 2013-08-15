@@ -24,7 +24,7 @@
     </select>
     <br />
 
-    <div id="camada" style="font-family:Verdana, Geneva, sans-serif; width:150px;" ><strong>Agencia de Estágio: </strong></div>
+    <div id="camada" style="font-family:Verdana, Geneva, sans-serif; width:150px;" ><strong>Agência de Estágio: </strong></div>
     <select name="ID_AGENCIA_ESTAGIO" id="ID_AGENCIA_ESTAGIO" style="width:500px;">
         {html_options options=$pesquisarAgenciaestagio selected=$VO->ID_AGENCIA_ESTAGIO}
     </select>

@@ -9,7 +9,7 @@
 
     <div id="conteudo">
 
-        Para um novo cadastro de Quadro de Vagas preencha o formulário abaixo e clique em Salvar:<br /><br />
+        Para cadastrar um novo Quadro de Vagas preencha o formulário abaixo e clique em Salvar:<br /><br />
 
         <form name="form" action="{$url}src/{$pasta}/cadastrar.php" method="post">
 
@@ -21,7 +21,7 @@
             <br />
 
             <div id="camada" style="font-family:Verdana, Geneva, sans-serif; width:210px;">
-                <font color="#FF0000">*</font>Agencia de Estágio <font color="#FF0000">{$validar.ID_AGENCIA_ESTAGIO}</font><br />
+                <font color="#FF0000">*</font>Agência de Estágio <font color="#FF0000">{$validar.ID_AGENCIA_ESTAGIO}</font><br />
                 <select name="ID_AGENCIA_ESTAGIO" id="ID_AGENCIA_ESTAGIO" style="width:500px;">
                     {html_options options=$pesquisarAgenciaestagio selected=$VO->ID_AGENCIA_ESTAGIO}
                 </select></div>
