@@ -6,7 +6,7 @@
 
     <div id="conteudo">
 
-        Para um Novo cadastro de Agência de Estágio preencha o formulário abaixo e clique em Salvar:<br /><br />
+        Para cadastrar uma nova Agência de Estágio preencha o formulário abaixo e clique em Salvar:<br /><br />
         {*Mostra Botao de Novo Registro Somente se Tiver Acesso Completo a Tela*}
         {if $acesso}<form name="form" action="{$url}src/{$pasta}/cadastrar.php" method="post">{/if}
 

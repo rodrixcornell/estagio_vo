@@ -6,7 +6,7 @@
     <br /><br /><br /><hr />
 	
             <div id="conteudo">
-                Para cadastrar um novo estagiário preencha o formulario abaixo e clique em Salvar:<br /><br />
+                Para cadastrar um novo Estagiário preencha o formulario abaixo e clique em Salvar:<br /><br />
 				<form name="form" action="{$url}src/{$pasta}/cadastrar.php" method="post">
 
 				

@@ -5,7 +5,7 @@
     <br /><br /><br /><hr />
 
     <div id="conteudo">
-        Para cadastrar um novo Tipo de pagamento preencha o formulario abaixo e clique em Salvar:<br /><br />
+        Para cadastrar um novo Tipo de Pagamento preencha o formulario abaixo e clique em Salvar:<br /><br />
         <form name="form" action="{$url}src/{$pasta}/cadastrar.php" method="post">
 
             <div id="camada" style="width:310px;" ><font color="#FF0000">*</font>Código<font color="#FF0000"> {$validar.CS_TIPO_PAG_ESTAGIO} </font><br />
