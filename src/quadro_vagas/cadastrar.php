@@ -20,7 +20,7 @@ $VO = new quadro_vagasVO();
 if ($_POST) {
 
     $VO->configuracao();
-    $VO->setCaracteristica('ID_ORGAO_GESTOR_ESTAGIO,ID_AGENCIA_ESTAGIO,CS_SITUACAO', 'obrigatorios');
+    $VO->setCaracteristica('ID_ORGAO_GESTOR_ESTAGIO,ID_AGENCIA_ESTAGIO,CS_SITUACAO,ID_CONTRATO_CP', 'obrigatorios');
     $validar = $VO->preencher($_POST);
 
    	if (!$validar)

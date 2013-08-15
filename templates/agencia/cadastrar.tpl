@@ -5,10 +5,9 @@
     <br /><br /><br /><hr />
 
     <div id="conteudo">
-
         Para um Novo cadastro de Agência de Estágio preencha o formulário abaixo e clique em Salvar:<br /><br />
-        
         <form name="form" action="{$url}src/{$pasta}/cadastrar.php" method="post">
+
 
 
             <div id="camada" style="width:290px;"><font color="#FF0000">*</font>Nome da Agência<font color="#FF0000"> {$validar.TX_AGENCIA_ESTAGIO} </font></br>

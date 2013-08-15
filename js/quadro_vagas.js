@@ -44,8 +44,5 @@ $(document).ready(function(){
         $(window.document.location).attr('href','validacao.php?ID='+href);
         return false;
     });
-	
 
-  
-	
 });

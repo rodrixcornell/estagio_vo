@@ -6,7 +6,7 @@
     <br /><br /><br /><hr />
 	
     <div id="conteudo">
-        Para um novo Evento de Pagamento preencha o formulário abaixo e clique em Salvar:<br /><br />
+        Para cadastrar um novo Evento de Pagamento preencha o formulário abaixo e clique em Salvar:<br /><br />
         <form name="form" action="{$url}src/{$pasta}/cadastrar.php" method="post">
 
                 <div id="camada" style="font-family:Verdana, Geneva, sans-serif; width:160px;" ><font color="#FF0000">*</font>Código:<font color="#FF0000">{$validar.TX_CODIGO}</font> 

@@ -109,21 +109,18 @@ function gerarTabelaAlterar($param = '') {
 
     $VO = new transferenciaVO();
     $VO->ID_TRANSFERENCIA_ESTAGIO = $_SESSION['ID_TRANSFERENCIA_ESTAGIO'];
-    $VO->ID_ORGAO_ESTAGIO         = $_SESSION['ID_ORGAO_ESTAGIO'];
     $VO->ID_QUADRO_VAGAS_ESTAGIO  = $_REQUEST['ID_QUADRO_VAGAS_ESTAGIO'];
     $VO->CS_TIPO_VAGA_ESTAGIO     = $_REQUEST['CS_TIPO_VAGA_ESTAGIO'];
+    $VO->ID_ORGAO_EST_ORIGEM      = $_SESSION['ID_ORGAO_ESTAGIO'];
+    $VO->ID_ORGAO_EST_DESTINO     = $_SESSION['ID_ORGAO_SOLICITANTE'];
+    $VO->NB_VAGAS_TRANSFERIDAS    = $_REQUEST['NB_VAGAS_TRANSFERIDAS'];
+    $VO->NB_QUANTIDADE            = $_REQUEST['NB_QUANTIDADE'];
+    
+    
 
     $VO->buscarVagasSolicitadas();
     $dados = $VO->getVetor();
-
-    //print_r($dados);
-    /*foreach ($arrayTipoVaga as $key => $value) {
-        ($dados['CS_TIPO_VAGA_ESTAGIO'][0] == $key) ? $selected = 'selected' : $selected = '';
-        $arrayTipoVagaAlt .= '<option value="' . $key . '" ' . $selected . '>' . $value . '</option> ';
-    }
-   */
-
-    
+       
     echo "
             <script>
                 $(document).ready(function(){
@@ -163,17 +160,13 @@ function gerarTabelaAlterar($param = '') {
      <div id="camada" style="font-family:Verdana, Geneva, sans-serif; width:210px;" >
        Data Atualização 
       <input type="text" name="DT_ATUALIZACAO_ALT" id="DT_ATUALIZACAO_ALT" value="'.$dados['DT_ATUALIZACAO'][0].'" style="width:200px;" readonly="readonly" class="leitura"/></div><br />
-	
-
-     <input type="hidden" name="NB_QUANTIDADE_ALT" id="NB_QUANTIDADE_ALT" value="'.$VO->NB_QUANTIDADE.'" />
+	    
          
      <input type="hidden" name="CS_TIPO_VAGA_ESTAGIO_ANT" id="CS_TIPO_VAGA_ESTAGIO_ANT" value="'.$VO->CS_TIPO_VAGA_ESTAGIO.'" />
           
-
-      
-
-
      ';
+    
+    /*<input type="hidden" name="NB_QUANTIDADE_ALT" id="NB_QUANTIDADE_ALT" value="'.$VO->NB_QUANTIDADE.'" />*/
     if ($param) {
         echo '<script>alert("' . $param . '");</script>';
     }
@@ -312,43 +305,39 @@ if ($_REQUEST['identifier'] == "tabela") {
             }
     }
     
- //----------------BUSCA QUANTIDADE EXISTENTE DETAIL----------------------------   
+ //----------------BUSCA QUANTIDADE VAGAS EXISTENTE DETAIL----------------------------   
    
-} else if ($_REQUEST['identifier'] == "buscarQuantAtual") {
+} else if ($_REQUEST['identifier'] == "buscarQuantExistente") {
  
     $VO->ID_ORGAO_ESTAGIO        = $_SESSION['ID_ORGAO_ESTAGIO'];
     $VO->ID_QUADRO_VAGAS_ESTAGIO = $_SESSION['ID_QUADRO_VAGAS_ESTAGIO'];
     $VO->CS_TIPO_VAGA_ESTAGIO    = $_REQUEST['CS_TIPO_VAGA_ESTAGIO'];
             
     
- $total = $VO->buscarQuantAtual();
+ $total = $VO->buscarQuantExistente();
  $dados = $VO->getVetor();
  
  
- echo $dados['NB_QUANTIDADE_ATUAL'][0];
+ echo $dados['NB_QUANT_SISTEMA'][0];
  
        
 //----------------- QUANTIDADE DO DETAIL----------------------------------------    
 } else if ($_REQUEST['identifier'] == "buscarQuantidade") {
-
-    $VO->ID_ORGAO_ESTAGIO        = $_SESSION['ID_ORGAO_ESTAGIO'];
-    $VO->ID_QUADRO_VAGAS_ESTAGIO = $_SESSION['ID_QUADRO_VAGAS_ESTAGIO'];
-    $VO->CS_TIPO_VAGA_ESTAGIO    = $_REQUEST['CS_TIPO_VAGA_ESTAGIO'];
     
-    
-   /*$VO->ID_TRANSFERENCIA_ESTAGIO = $_SESSION['ID_TRANSFERENCIA_ESTAGIO'];
+    $VO->ID_TRANSFERENCIA_ESTAGIO = $_SESSION['ID_TRANSFERENCIA_ESTAGIO'];
     $VO->ID_ORGAO_EST_ORIGEM      = $_SESSION['ID_ORGAO_ESTAGIO'];
     $VO->ID_ORGAO_EST_DESTINO     = $_SESSION['ID_ORGAO_SOLICITANTE'];
     $VO->ID_QUADRO_VAGAS_ESTAGIO  = $_SESSION['ID_QUADRO_VAGAS_ESTAGIO'];
     $VO->CS_TIPO_VAGA_ESTAGIO     = $_REQUEST['CS_TIPO_VAGA_ESTAGIO'];
     $VO->NB_VAGAS_TRANSFERIDAS    = $_REQUEST['NB_VAGAS_TRANSFERIDAS'];
-    $VO->NB_QUANTIDADE            = $_REQUEST['NB_QUANTIDADE'];*/
+    $VO->NB_QUANTIDADE            = $_REQUEST['NB_QUANTIDADE'];
     
     $VO->buscarQuantidade();
 
     $dados = $VO->getVetor();
 
     echo $dados['NB_QUANTIDADE'][0];
+
 
 //---------INSERIR TIPO, QUANTIDADE DO DETAIL-----------------------------------
 } else if ($_REQUEST['identifier'] == "tabelaVagasSolicitadas") {
@@ -368,7 +357,7 @@ if ($_REQUEST['identifier'] == "tabela") {
 	$VO-> buscarQuantidade();
 	$qtd = $VO->getVetor();
               
-	    $total = $VO->buscarQuantAtual();
+	    $total = $VO->buscarQuantExistente();
       	
 	    
             if (($VO->NB_QUANTIDADE) <= ($VO->NB_VAGAS_TRANSFERIDAS)&&($VO->NB_QUANTIDADE)>0){  
@@ -410,7 +399,6 @@ gerarTabela($erro);
 
     gerarTabela($erro);
 
-
 //------------------------------------------------------------------------------    
 //----------------------------ALTERA DETAIL ------------------------------------
 } else if ($_REQUEST['identifier'] == "tabelaAlterarVagasSolicitadas") {
@@ -427,50 +415,30 @@ gerarTabela($erro);
         
 
   if ($acesso) {
-             	
+       			
+	$VO-> buscarQuantidade();
+	$qtd = $VO->getVetor();
+              
+	    $total = $VO->buscarQuantExistente();
+      	
 	    
-       if (($VO->NB_QUANTIDADE) <= ($VO->NB_VAGAS_TRANSFERIDAS)&&($VO->NB_QUANTIDADE)>0){    
-            $retorno = $VO->alterarVagasSolicitadas();
+            if (($VO->NB_QUANTIDADE) <= ($VO->NB_VAGAS_TRANSFERIDAS)&&($VO->NB_QUANTIDADE)>0){  
+              
+                 $retorno = $VO->inserirVagasSolicitadas(); 
+                      
                 
                  
-               if ($retorno) {
+              if ($retorno) {
 		   $erro = 'Registro já existe.';
 			}
                  
                         
-	    }else $erro = 'O valor alterado não pode ser maior que a quantidade e nem igual zero';
+	       }else $erro = 'O valor inserido não pode ser maior que a quantidade e nem igual zero';
       
    }else
        $erro = "Você não tem permissão para realizar esta ação.";    
      
-gerarTabela($erro);     
-//if ($acesso) {
-        /*if ($VO->ID_TRANSFERENCIA_ESTAGIO && 
-            $VO->CS_TIPO_VAGA_ESTAGIO && 
-            $VO->ID_QUADRO_VAGAS_ESTAGIO &&  
-            $VO->ID_ORGAO_EST_ORIGEM &&
-            $VO->ID_ORGAO_EST_DESTINO &&
-            $VO->NB_QUANTIDADE) {
-         			
-	$VO-> buscarQuantidade();
-	$qtd = $VO->getVetor();
-              
-	    $total = $VO->buscarQuantAtual();
-      	
-         if (($VO->NB_QUANTIDADE_ALT) <= ($VO->NB_VAGAS_TRANSFERIDAS)){  
-            
-            $retorno = $VO->alterarVagasSolicitadas();
-
-            if ($retorno['code'] == '1')
-                $erro = 'Registro já existe.';
-            else
-                $erro = $retorno['message'];
-        }else
-            $erro = 'Para Alterar escolha  uma Quantidade.';
-    }else
-        $erro = "Você não tem permissão para realizar esta ação.";
-
-    gerarTabela($erro);*/
+gerarTabela($erro);
     
 //------------------------------------------------------------------------------
 //-------------ATUALIZA QUANDO FAZ AUTERAÇÃO------------------------------------

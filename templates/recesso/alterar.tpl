@@ -6,7 +6,7 @@
     <br /><br /><br /><hr />
 
     <div id="conteudo">
-        Para alterar o Órgão Gestor de Estágio preencha o formulário abaixo e clique em Avançar:<br /><br />
+       Para alterar  Recesso do Estagiario preencha o formulário abaixo e clique em Salvar:<br /><br />
         <form name="form" action="{$url}src/{$pasta}/alterar.php" method="post">
 
             <div id="camada" style="font-family:Verdana, Geneva, sans-serif; width:310px;">
@@ -135,7 +135,7 @@
 
             <div id="camada" style="font-family:Verdana, Geneva, sans-serif; width:410px;">
                 <font color="#FF0000"></font>Justificativa do Adiamento<font color="#FF0000">{$validar.TX_JUSTIFICATIVA_ADIAMENTO}</font><br />
-                <textarea name="TX_JUSTIFICATIVA_ADIAMENTO" name="TX_JUSTIFICATIVA_ADIAMENTO" id="TX_JUSTIFICATIVA_ADIAMENTO" value="{$VO->TX_JUSTIFICATIVA_ADIAMENTO}" style="width:920px;"  cols="45" rows="5"></textarea>  </div>
+                <textarea name="TX_JUSTIFICATIVA_ADIAMENTO" name="TX_JUSTIFICATIVA_ADIAMENTO" id="TX_JUSTIFICATIVA_ADIAMENTO"  style="width:920px;"  cols="45" rows="5">{$VO->TX_JUSTIFICATIVA_ADIAMENTO}</textarea>  </div>
             <br />
             <br />
 

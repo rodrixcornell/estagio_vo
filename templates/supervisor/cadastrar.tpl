@@ -8,6 +8,7 @@
     <div id="conteudo">
 
         Para um novo cadastro de Supervisor de Estágio preencha o formulário abaixo e clique em Salvar:<br /><br />
+
         {*Mostra Botao de Novo Registro Somente se Tiver Acesso Completo a Tela*}
         {if $acesso}<form name="form" action="{$url}src/{$pasta}/cadastrar.php" method="post">{/if} 
             

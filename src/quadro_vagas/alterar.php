@@ -24,7 +24,7 @@ if ($_SESSION['ID_QUADRO_VAGAS_ESTAGIO']) {
 
     if ($_POST) {
         $VO->configuracao();
-        $VO->setCaracteristica('ID_ORGAO_GESTOR_ESTAGIO,ID_AGENCIA_ESTAGIO,CS_SITUACAO', 'obrigatorios');
+        $VO->setCaracteristica('ID_ORGAO_GESTOR_ESTAGIO,ID_AGENCIA_ESTAGIO,CS_SITUACAO,ID_CONTRATO_CP', 'obrigatorios');
         $validar = $VO->preencher($_POST);
 
         if (!$validar) {

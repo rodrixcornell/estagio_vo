@@ -27,9 +27,9 @@
                     <!-- LINHA (3) -->
                     <tr bgcolor="#E0E0E0">
                         <td><strong>Unid. Org. Origem</strong></td>
-                        <td>{$dados.TX_UNIDADE_ORG[0]}</td>
+                        <td>{$dados.TX_UNIDADE_ORIGEM[0]}</td>
                         <td><strong>Unid. Org. Destino</strong></td>
-                        <td style="text-align:right;">{$dados.TX_UNIDADE_ORG[0]}</td>
+                        <td style="text-align:right;">{$dados.TX_UNIDADE_DESTINO[0]}</td>
                     </tr>
                     <!-- LINHA (4) -->
                     <tr bgcolor="#F0EFEF">

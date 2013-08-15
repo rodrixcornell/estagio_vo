@@ -6,7 +6,7 @@
 
     <div id="conteudo">
         <form name="form" action="{$url}src/{$pasta}/cadastrar.php" method="post">
-            Para um novo cadastro de Contrato de Estágio preencha o formulário abaixo e clique em Avançar:<br /><br />
+            Para cadastrar um novo de Contrato de Estágio preencha o formulário abaixo e clique em Avançar:<br /><br />
 
             <!-- FildSet da Unidade Solicitante -->
             <fieldset>

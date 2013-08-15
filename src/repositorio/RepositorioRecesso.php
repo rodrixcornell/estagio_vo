@@ -94,8 +94,8 @@ class RepositorioRecesso extends Repositorio {
             FROM
             CONTRATO_ESTAGIO 
 	WHERE ";
-        ($VO->ID_ORGAO_GESTOR_ESTAGIO) ? $query.=" ID_ORGAO_GESTOR_ESTAGIO = '" . $VO->ID_ORGAO_GESTOR_ESTAGIO . "'" : false;
-        ($VO->ID_ORGAO_GESTOR_ESTAGIO) ? $query.="     and ($VO->ID_ORGAO_ESTAGIO) ='" . $VO->ID_ORGAO_ESTAGIO . "' " : false;
+        ($VO->ID_ORGAO_GESTOR_ESTAGIO) ? $query.=" ID_ORGAO_GESTOR_ESTAGIO = '" . $VO->ID_ORGAO_GESTOR_ESTAGIO . "' " : false;
+        ($VO->ID_ORGAO_ESTAGIO) ? $query.="  and ($VO->ID_ORGAO_ESTAGIO) = '" . $VO->ID_ORGAO_ESTAGIO . "' " : false;
 
         $query.="ORDER BY TX_CODIGO";
         return $this->sqlVetor($query);
@@ -110,7 +110,7 @@ class RepositorioRecesso extends Repositorio {
                   I.TX_INSTITUICAO_ENSINO || '_' || 
                   CE.TX_CURSO_ESTAGIO
                   || '_' || DECODE(A.CS_PERIODO, 1,'1º Ano', 2,'2º Ano', 3,'3º Ano', 4,'4º Ano', 5,'5º Ano', 6,'1º Periodo', 7,'2º Periodo',8,'3º Periodo',
-                                       9,'4º Periodo', 10,'5� Periodo', 11,'6� Periodo', 12,'7� Periodo', 13,'8� Periodo', 14,'9� Periodo', 15,'10� Periodo')
+                                       9,'4º Periodo', 10,'5º Periodo', 11,'6º Periodo', 12,'7º Periodo', 13,'8º Periodo', 14,'9º Periodo', 15,'10º Periodo')
                   || '_' ||  SUBSTR(T.TX_TIPO_VAGA_ESTAGIO, 0, (CASE WHEN INSTR(T.TX_TIPO_VAGA_ESTAGIO, ' ') <> 0 THEN INSTR(T.TX_TIPO_VAGA_ESTAGIO, ' ') - 1 ELSE LENGTH(T.TX_TIPO_VAGA_ESTAGIO) END)) || '_' || A.TX_TCE || '_' ||
   	         to_char(A.DT_INICIO_VIGENCIA,'dd/mm/yyyy') || '_' ||  to_char(A.DT_FIM_VIGENCIA,'dd/mm/yyyy') || '_' ||  A.ID_AGENCIA_ESTAGIO TUDO 
             FROM 
@@ -128,7 +128,7 @@ class RepositorioRecesso extends Repositorio {
                   AND B.ID_ORGAO_GESTOR_ESTAGIO = A.ID_ORGAO_GESTOR_ESTAGIO
                   AND A.ID_ORGAO_ESTAGIO        = C.ID_ORGAO_ESTAGIO
                   AND A.ID_PESSOA_ESTAGIARIO    = D.ID_PESSOA_ESTAGIARIO
-                  AND F.ID_SELECAO_ESTAGIO      = A.ID_SELECAO_ESTAGIO
+                  AND F.ID_SELECAO_ESTAGIO(+)      = A.ID_SELECAO_ESTAGIO
                   AND A.CS_TIPO_VAGA_ESTAGIO    = T.CS_TIPO_VAGA_ESTAGIO
                   AND A.ID_INSTITUICAO_ENSINO   = I.ID_INSTITUICAO_ENSINO
                   AND A.ID_CURSO_ESTAGIO        = CE.ID_CURSO_ESTAGIO ";
