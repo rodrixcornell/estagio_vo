@@ -135,7 +135,7 @@
 
             <div id="camada" style="font-family:Verdana, Geneva, sans-serif; width:410px;">
                 <font color="#FF0000"></font>Justificativa do Adiamento<font color="#FF0000">{$validar.TX_JUSTIFICATIVA_ADIAMENTO}</font><br />
-                <textarea name="TX_JUSTIFICATIVA_ADIAMENTO" name="TX_JUSTIFICATIVA_ADIAMENTO" id="TX_JUSTIFICATIVA_ADIAMENTO" value="{$VO->TX_JUSTIFICATIVA_ADIAMENTO}" style="width:920px;"  cols="45" rows="5"></textarea>  </div>
+                <textarea name="TX_JUSTIFICATIVA_ADIAMENTO" name="TX_JUSTIFICATIVA_ADIAMENTO" id="TX_JUSTIFICATIVA_ADIAMENTO"  style="width:920px;"  cols="45" rows="5">{$VO->TX_JUSTIFICATIVA_ADIAMENTO}</textarea>  </div>
             <br />
             <br />
 
