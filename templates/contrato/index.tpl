@@ -19,11 +19,11 @@
                         {html_options options=$arrayOrgaoSolicitante selected=$VO->ID_ORGAO_ESTAGIO}
                     </select><br />
                 <div id="camada" style="font-family:Verdana, Geneva, sans-serif; width:150px;" ><font color="#FF0000">*</font><strong>Tipo Seleção: </strong></div>
-                <input type="radio" name="CS_SELECAO" ID="CHECK_RESP" value="1" {if !$VO->ID_ORGAO_ESTAGIO} disabled="disabled="{/if}>Com Seleção ||<b> OU </b>||
-                <input type="radio" name="CS_SELECAO" ID="CHECK_RESP_2" value="2">Sem Seleção<font color="#FF0000"> {$validar.CS_SELECAO}</font>
+                <input type="radio" name="CS_SELECAO" ID="CHECK_RESP" value="1" {if $VO->CHECK_RESP == 'true'}checked{/if} >Com Seleção ||<b> OU </b>||
+                <input type="radio" name="CS_SELECAO" ID="CHECK_RESP_2" value="2" {if $VO->CHECK_RESP_2 == 'true'}checked{/if} >Sem Seleção
                 <br />
                 <div id="camada" style="font-family:Verdana, Geneva, sans-serif; width:150px;" ><strong>Código da Seleção: </strong></div>
-                    <select name="ID_SELECAO_ESTAGIO" id="ID_SELECAO_ESTAGIO" style="width:200px;">
+                    <select name="ID_SELECAO_ESTAGIO" id="ID_SELECAO_ESTAGIO" style="width:200px;" {if $VO->CHECK_RESP != 'true'}disabled="disabled"{/if}>
                         {html_options options=$arrayCodSelecao selected=$VO->ID_SELECAO_ESTAGIO}
                     </select><br />
                 

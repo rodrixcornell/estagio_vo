@@ -33,7 +33,9 @@ class RepositorioContrato extends Repositorio {
                         C.TX_ORGAO_ESTAGIO,
                         B.TX_ORGAO_GESTOR_ESTAGIO,
                         D.TX_NOME,
-                        D.NB_CPF
+                        D.NB_CPF,
+						F.TX_COD_SELECAO,
+						a.TX_TCE
                   FROM 
                         CONTRATO_ESTAGIO A,
                         ORGAO_GESTOR_ESTAGIO B,
@@ -48,6 +50,7 @@ class RepositorioContrato extends Repositorio {
                         AND A.ID_ORGAO_ESTAGIO =C.ID_ORGAO_ESTAGIO
                         AND A.ID_PESSOA_ESTAGIARIO = D.ID_PESSOA_ESTAGIARIO
                         and F.ID_SELECAO_ESTAGIO = A.ID_SELECAO_ESTAGIO
+						AND A.CS_SELECAO = 1 
                         ";
                   $VO->ID_ORGAO_ESTAGIO ? $query .= " And A.ID_ORGAO_ESTAGIO = " . $codigoOrgaoSolicitante[0] . " " : false;
                   $VO->ID_ORGAO_GESTOR_ESTAGIO ? $query .= " And A.ID_ORGAO_GESTOR_ESTAGIO = " . $codigoOrgaoGestor[0]. " " : false;
@@ -715,6 +718,20 @@ class RepositorioContrato extends Repositorio {
 
         return $this->sqlVetor($query);
     }
+	
+	function buscarCodSelecaoIndex($VO) {
+        // Função que pega todos os Códigos das seleção referentes ao Orgão solicitante
+        // Utilizada na Index chamada pelo arrays.php
+
+        $query = "select B.ID_SELECAO_ESTAGIO CODIGO, B.TX_COD_SELECAO   
+					from CONTRATO_ESTAGIO a, SELECAO_ESTAGIO B
+					where a.ID_SELECAO_ESTAGIO = B.ID_SELECAO_ESTAGIO
+					and A.ID_ORGAO_ESTAGIO = " . $VO->ID_ORGAO_ESTAGIO;
+
+        return $this->sqlVetor($query);
+    }
+	
+	
 
     //############################ --------------- FIM Repositorio Funções dos combosBox---------------################## 
     //

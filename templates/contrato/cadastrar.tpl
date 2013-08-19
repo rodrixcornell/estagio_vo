@@ -6,7 +6,7 @@
 
     <div id="conteudo">
         <form name="form" action="{$url}src/{$pasta}/cadastrar.php" method="post">
-            Para cadastrar um novo de Contrato de Estágio preencha o formulário abaixo e clique em Avançar:<br /><br />
+            Para cadastrar um novo de Contrato de Estágio preencha o formulário abaixo e clique em Salvar:<br /><br />
 
             <!-- FildSet da Unidade Solicitante -->
             <fieldset>
@@ -18,7 +18,7 @@
                     </select>
                 </div>
                 <div id="camada" style="font-family:Verdana, Geneva, sans-serif; width:300px;" > <font color="#FF0000">*</font>Órgão Solicitante<font color="#FF0000">{$validar.ID_ORGAO_ESTAGIO}</font><br />
-                    <select name="ID_ORGAO_ESTAGIO" id="ID_ORGAO_ESTAGIO" style="width:290px;">
+                    <select name="ID_ORGAO_ESTAGIO" id="ID_ORGAO_ESTAGIO_CAD" style="width:290px;">
                         {html_options options=$arrayOrgaoSolicitante selected=$VO->ID_ORGAO_ESTAGIO}
                     </select>
                 </div>

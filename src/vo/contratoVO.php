@@ -101,12 +101,13 @@ class contratoVO extends VO {
         // Função que pega todso os codigos das seleções de orgão Solicitante
         return $this->repositorio->buscarCodSelecao($this);
     }
+	
+	function buscarCodSelecaoIndex() {
+        // Função que pega todso os codigos das seleções de orgão Solicitante
+        return $this->repositorio->buscarCodSelecaoIndex($this);
+    }
 
-    
-
-
-
-
+ 
     //############################ --------------- FIM VO Funções dos combosBox--------------------##################################
     // ###########################------------------- BUSCA ENDEREÇO ORGAO E SECRATARIO -----------################################## 
     /* UTILIZADA NA TELA DE CADASTRAR ....

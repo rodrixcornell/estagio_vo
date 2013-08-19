@@ -63,11 +63,11 @@ $(document).ready(function(){
                             });
 		}
 	});
-        //    change do  orgão solicitante -
+        //    change do  orgão solicitante - Cadastrar e Alterar
     //     quando o Usuario carregar clicar no combo carrega automaticamente o campo de codigo de seleção
-    $('#ID_ORGAO_ESTAGIO').change(function(){
-        if ($('#ID_ORGAO_ESTAGIO').val() != 0){  
-            var valor = $("#ID_ORGAO_ESTAGIO").val().split('_');
+    $('#ID_ORGAO_ESTAGIO_CAD').change(function(){
+        if ($('#ID_ORGAO_ESTAGIO_CAD').val() != 0){  
+            var valor = $("#ID_ORGAO_ESTAGIO_CAD").val().split('_');
             $("#ID_SELECAO_ESTAGIO,#ID_LOTACAO").val('');
             $('#CHECK_RESP').attr("disabled", false);
             $.post("acoes.php",{
@@ -86,6 +86,25 @@ $(document).ready(function(){
             });
         }else{
             $('#ID_SELECAO_ESTAGIO,#ID_LOTACAO').html('');
+        }
+    }); 
+	
+	//Index
+	$('#ID_ORGAO_ESTAGIO').change(function(){
+        if ($('#ID_ORGAO_ESTAGIO').val() != 0){  
+            var valor = $("#ID_ORGAO_ESTAGIO").val().split('_');
+            $("#ID_SELECAO_ESTAGIO").val('');
+            
+            $.post("acoes.php",{
+                ID_ORGAO_ESTAGIO:valor[0], 
+                identifier:'codSelecaoIndex'
+            },
+            function(valor){
+                $('#ID_SELECAO_ESTAGIO').html(valor);
+            });
+            
+        }else{
+            $('#ID_SELECAO_ESTAGIO').html('');
         }
     }); 
     
