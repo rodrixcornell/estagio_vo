@@ -31,12 +31,7 @@
                     <input type="text" name="TX_ENDERECO_SEC" id="TX_ENDERECO_SEC" value="{$VO->TX_ENDERECO_SEC}"  style="width:910px;" class="leitura" readonly="readonly" />
                 </div>
                 <br />
-                
-                <div id="camada" style="font-family:Verdana, Geneva, sans-serif; width:310px;" > <font color="#FF0000">*</font>Tipo de Vagas:<font color="#FF0000">{$validar.CS_TIPO_VAGA_ESTAGIO}</font><br />
-                    <select name="CS_TIPO_VAGA_ESTAGIO" id="CS_TIPO_VAGA_ESTAGIO" style="width:300px;">
-                        {html_options options=$arrayTipoVagas selected=$VO->CS_TIPO_VAGA_ESTAGIO}
-                    </select>
-                </div>
+              
               
                 <div id="camada" style="font-family:Verdana, Geneva, sans-serif; width:210px;" > <font color="#FF0000">*</font>Tipo de Contrato:<font color="#FF0000">{$validar.CS_TIPO}</font><br />
                     <select name="CS_TIPO" id="CS_TIPO" style="width:200px;">
@@ -80,6 +75,13 @@
                          {html_options options=$arrayQuadroVagas selected=$VO->ID_QUADRO_VAGAS_ESTAGIO_2}
                     </select>  
                 </div>
+                    
+                <div id="camada" style="font-family:Verdana, Geneva, sans-serif; width:310px;" > <font color="#FF0000">*</font>Tipo de Vagas:<font color="#FF0000">{$validar.CS_TIPO_VAGA_ESTAGIO}</font><br />
+                    <select name="CS_TIPO_VAGA_ESTAGIO" id="CS_TIPO_VAGA_ESTAGIO" style="width:300px;">
+                        {html_options options=$arrayTipoVagas selected=$VO->CS_TIPO_VAGA_ESTAGIO}
+                    </select>
+                </div>  
+                    
             </fieldset>
             <!-- FildSet do Estagiário -->
             <fieldset>

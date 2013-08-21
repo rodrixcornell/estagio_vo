@@ -225,7 +225,7 @@ $(document).ready(function(){
             );
 			
         }else{
-            $("#NB_CPF,#RG").val('');
+            $("#NB_CPF,#NB_RG").val('');
         }
     });
         
