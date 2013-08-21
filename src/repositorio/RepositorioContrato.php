@@ -474,7 +474,7 @@ class RepositorioContrato extends Repositorio {
                         
                   where 
                         ID_CONTRATO =".$VO->ID_CONTRATO;
-        
+//        print_r($query);
         return $this->sql($query);
     }
 
