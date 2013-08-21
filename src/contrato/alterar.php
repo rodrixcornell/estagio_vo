@@ -12,7 +12,6 @@ $titulopage = 'Contrato de Estágio';
 
 require_once "../autenticacao/validaPermissao.php";
 
-// Se houver valor na sessão do ID_ORGAO_ESTAGIO ENTÃO IMPRIMA NO COMBO BOX O VALOR CORRETO
 $VO = new contratoVO();
 
 if ($_SESSION['ID_CONTRATO']) {
