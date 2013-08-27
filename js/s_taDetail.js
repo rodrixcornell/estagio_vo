@@ -7,43 +7,27 @@ $(document).ready(function(){
         $('.fundo_pag').fadeOut(200);
     };
 	
-	function emptyHideLoader(){
+    function emptyHideLoader(){
         $('.fundo_pag').fadeOut(200);
 		$("#msg").html('');
 		$.getJSON('acoes.php?identifier=atualizarInf', atualizarInf);
 			
-			function atualizarInf(campo){
-					$("#atualizacao").html(campo['DT_ATUALIZACAO'][0]);
-					$("#func_atualizacao").html(campo['TX_FUNCIONARIO_ALT'][0]);
-					$("#situacao").html(campo['TX_SITUACAO'][0]);
-			}     		
+    function atualizarInf(campo){
+		$("#atualizacao").html(campo['DT_ATUALIZACAO'][0]);
+		$("#func_atualizacao").html(campo['TX_FUNCIONARIO_ALT'][0]);
+		$("#situacao").html(campo['TX_SITUACAO'][0]);
+		}     		
     };
 
-	function showLoaderForm(){
+    function showLoaderForm(){
         $('.fundoForm').fadeIn(200);
-    };
+        };
 	
-	function hideLoaderForm(){
+   function hideLoaderForm(){
         $('.fundoForm').fadeOut(200);
-    };
+         };
 	
-    $('#DT_SOLICITACAO').setMask({
-        mask:'99/99/9999'
-    });
-
-    $('#DT_DESLIGAMENTO').setMask({
-        mask:'99/99/9999'
-    });
-
-    $('#DT_SOLICITACAO').datepicker({
-        changeMonth: true,
-        changeYear: true
-    });
-
-    $('#DT_DESLIGAMENTO').datepicker({
-        changeMonth: true,
-        changeYear: true
-    });
+  
 
 	//Excluir Master
 	$('#excluirMaster').click(function(){

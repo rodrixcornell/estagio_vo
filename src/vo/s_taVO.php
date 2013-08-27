@@ -24,9 +24,37 @@ class s_taVO extends VO {
     function buscarContrato(){
         return $this->repositorio->buscarContrato($this);
     }
-//    function atualizarInf(){
-//        return $this->repositorio->atualizarInf($this);
-//    }
+    
+    function buscarDadosContrato(){
+        return $this->repositorio->buscarDadosContrato($this);
+    }
+    
+    function pesquisarSolicitacao(){
+         return $this->repositorio->pesquisarSolicitacao($this);
+    }
+    
+    function buscarASetorial(){
+         return $this->repositorio->buscarASetorial($this);
+    }
+    /*function buscaTipo(){
+         return $this->repositorio->buscaTipo($this);
+    }*/
+    
+    function atualizarInf(){
+      return $this->repositorio->atualizarInf($this);
+   }
+   
+   function buscarSecretarioOrgaoGestor(){
+     return $this->repositorio->buscarSecretarioOrgaoGestor($this);  
+   }
+   function buscaAEstagio(){
+     return $this->repositorio->buscaAEstagio($this);  
+   }
+   
+ /*  function buscarDadosAgente(){
+        return $this->repositorio->buscarDadosAgente($this);
+    }*/
+
 }
 
 ?>

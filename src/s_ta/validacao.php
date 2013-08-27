@@ -1,4 +1,5 @@
 <?php
+
 require_once "../../php/define.php";
 
 
@@ -12,8 +13,8 @@ session_start();
 
 // Iniciando Instância
 
-$_SESSION['ID_SOLICITACAO_DESLIG'] = $_REQUEST['ID'];
+$_SESSION['ID_SOLICITACAO_TA'] = $_REQUEST['ID'];
 
-header("Location: ".$url."src/".$pasta."/detail.php");
 
+header("Location: " . $url . "src/" . $pasta . "/detail.php");
 ?>

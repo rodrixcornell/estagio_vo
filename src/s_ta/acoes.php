@@ -1,6 +1,7 @@
 <?php
 
 include "../../php/define.php";
+require_once $path . "src/s_ta/arrays.php";
 require_once $pathvo . "s_taVO.php";
 
 $modulo = 79;
@@ -18,11 +19,12 @@ function gerarTabela($param = '') {
     $VO = new s_taVO();
     $VO->ID_ORGAO_GESTOR_ESTAGIO = $_REQUEST['ID_ORGAO_GESTOR_ESTAGIO'];
     $VO->ID_ORGAO_ESTAGIO = $_REQUEST['ID_ORGAO_ESTAGIO'];
-    $VO->ID_AGENCIA_ESTAGIO = $_REQUEST['ID_AGENCIA_ESTAGIO'];
-    $VO->TX_CODIGO = $_REQUEST['TX_CODIGO'];
+    $VO->ID_AGENCIA_ESTAGIO = $_SESSION['ID_AGENCIA_ESTAGIO'];
+    $VO->TX_CODIGO_CONTRATO = $_REQUEST['TX_CODIGO_CONTRATO'];
     $VO->TX_NOME = $_REQUEST['TX_NOME'];
     $VO->NB_CPF = $_REQUEST['NB_CPF'];
-    $VO->TX_COD_SELECAO = $_REQUEST['TX_COD_SELECAO'];
+    $VO->TX_CODIGO_SOLICITACAO = $_REQUEST['TX_CODIGO_SOLICITACAO'];
+    
 
     $page = $_REQUEST['PAGE'];
 
@@ -35,13 +37,16 @@ function gerarTabela($param = '') {
     $total = $VO->pesquisarSolicitacao();
 
     $total_page = ceil($total / $qtd);
-
+  
     $VO->Reg_inicio = $primeiro;
     $VO->Reg_quantidade = $qtd;
-    $tot_da_pagina = $VO->pesquisarSolicitacao();
+    $tot_da_pagina = $total; //$VO->pesquisarSolicitacao();
 
     if ($tot_da_pagina) {
         $dados = $VO->getVetor();
+      
+        
+        
         echo '<div id="status">' . $_SESSION['STATUS'] . '</div>
 		<table width="100%" class="dataGrid">
                 <tr>
@@ -50,7 +55,8 @@ function gerarTabela($param = '') {
                     <th>Órgão Solicitante</th>
                     <th>Agente de Integração</th>
                     <th>Estagiário</th>
-                    <th>Situação</th>';
+                    <th>CPF</th>
+                    <th>Situção</th>';
         //Somente ver a coluna de alterar se tiver acesso completo a tela
         if ($acesso)
             echo '<th style="width:50px;"></th>';
@@ -60,18 +66,19 @@ function gerarTabela($param = '') {
             ($bgcolor == '#E6E6E6') ? $bgcolor = '#F0EFEF' : $bgcolor = '#E6E6E6';
 
             echo '<tr bgcolor="' . $bgcolor . '">
-                    <td align="center">' . $dados['TX_CODIGO'][$i] . '</td>
+                    <td align="center">' . $dados['TX_CODIGO_SOLICITACAO'][$i] . '</td>
                     <td align="center">' . $dados['TX_ORGAO_GESTOR_ESTAGIO'][$i] . '</td>
                     <td align="center">' . $dados['TX_ORGAO_ESTAGIO'][$i] . '</td>
                     <td align="center">' . $dados['TX_AGENCIA_ESTAGIO'][$i] . '</td>
                     <td align="center">' . $dados['TX_NOME'][$i] . '</td>
+                    <td align="center">' . $dados['NB_CPF'][$i] . '</td>
                     <td align="center">' . $dados['TX_SITUACAO'][$i] . '</td>';
 
 
             //Somente ver a coluna de alterar se tiver acesso completo a tela
             if ($acesso)
                 echo '<td align="center">
-                      <a href="' . $dados['ID_SOLICITACAO_DESLIG'][$i] . '" id="alterar"><img src="' . $urlimg . 'icones/editar.png" alt="itens" title="Visualizar"/></a></td>';
+                      <a href="' . $dados['ID_SOLICITACAO_TA'][$i] . '" id="alterar"><img src="' . $urlimg . 'icones/editar.png" alt="itens" title="Visualizar"/></a></td>';
                 echo '</tr>';
         }
 
@@ -101,9 +108,11 @@ function gerarTabela($param = '') {
     unset($_SESSION['STATUS']);
 }
 
-//Instancia da classe s_taVO();
+
+//Instancia da classe desligamentoVO();
 $VO = new s_taVO();
 
+//---------busca nome do secretario--------------------
 if ($_REQUEST['identifier'] == "tabela") {
     gerarTabela($erro);
 }else if ($_REQUEST['identifier'] == "buscarNome") {
@@ -114,19 +123,23 @@ if ($_REQUEST['identifier'] == "tabela") {
     $dados = $VO->getVetor();
 
     echo $dados['TX_FUNCIONARIO'][0];
+
+//------------busca dados do contrato------------------------------    
 }else if ($_REQUEST['identifier'] == "buscarDadosContrato") {
 
     $VO->ID_CONTRATO = $_REQUEST['ID_CONTRATO'];
-
+    $VO->ID_AGENCIA_ESTAGIO = $_REQUEST['ID_AGENCIA_ESTAGIO'];
     $VO->buscarDadosContrato();
     $dados = $VO->getVetor();
-
+        
     echo $dados['TUDO'][0];
-}else if ($_REQUEST['identifier'] == "buscarAgenteSetorial"){
+    
+// --------------------------busca agente setorial------------------------------    
+}else if ($_REQUEST['identifier'] == "buscarASetorial"){
 
     $VO->ID_ORGAO_ESTAGIO = $_REQUEST['ID_ORGAO_ESTAGIO'];
 
-    $total = $VO->buscarAgenteSetorial();
+    $total = $VO->buscarASetorial();
     $dados = $VO->getVetor();
 
     if ($total) {
@@ -136,20 +149,20 @@ if ($_REQUEST['identifier'] == "tabela") {
        for ($i = 0; $i < $total; $i++) {
             echo '<option value="' . $dados['CODIGO'][$i] . '">' . $dados['TX_FUNCIONARIO'][$i] . '</option>';
        }
-
+    
     } else
         echo '<option value="">Nenhum registro encontrado</option>';
-
-
-    echo json_encode($dados);
+    
+//------------------------------------
+   echo json_encode($dados);
 }else if ($_REQUEST['identifier'] == 'atualizarInf') {
 
-    $VO->ID_SOLICITACAO_TR = $_SESSION['ID_SOLICITACAO_DESLIG'];
+    $VO->ID_SOLICITACAO_TA = $_SESSION['ID_SOLICITACAO_TA'];
     $VO->EFETIVAR = $_REQUEST['EFETIVAR'];
-
+    
     $dados = $VO->atualizarInf();
 
     echo json_encode($dados);
-
+    
 }
 ?>
