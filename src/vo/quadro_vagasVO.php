@@ -69,6 +69,16 @@ class quadro_vagasVO extends VO {
     function pesquisaContrato(){
         return $this->repositorio->pesquisaContrato($this);
     }
+    
+    
+	//Relatorio
+	function tabelaDiarias(){
+            return $this->repositorio->tabelaDiarias($this);
+    }
+	
+	function buscarItem(){
+            return $this->repositorio->buscarItem($this);
+    }
 
 }
 

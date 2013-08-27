@@ -348,6 +348,156 @@ class RepositorioQuadro_vagas extends Repositorio {
 
         return $datahora;
     }
+    
+    
+//--------------------Relatorio-----------------------------------------
+
+	
+	function buscarValores($VO){
+
+		$query = "SELECT ITEM_TAB_DIARIA.ID_TABELA_DIARIA, ITEM_TAB_DIARIA.ID_NIVEL_DIARIA, ITEM_TAB_DIARIA.NB_VALOR, ITEM_TAB_DIARIA.ID_DESTINO, ITEM_TAB_DIARIA.ID_USUARIO, 
+							to_char(Item_tab_diaria.DT_ATUALIZACAO, 'dd/mm/yyyy hh24:mi:ss') DT_ATUALIZACAO, Nivel_diaria.TX_DESCRICAO, Destino_diaria.TX_DESTINO, Usuario.TX_LOGIN
+					FROM ITEM_TAB_DIARIA Item_tab_diaria, USUARIO Usuario, DESTINO_DIARIA Destino_diaria, NIVEL_DIARIA Nivel_diaria
+					WHERE  (Item_tab_diaria.ID_NIVEL_DIARIA = Nivel_diaria.ID_NIVEL_DIARIA)  
+					   AND  (Item_tab_diaria.ID_DESTINO = Destino_diaria.ID_DESTINO)  
+					   AND  (ITEM_TAB_DIARIA.ID_USUARIO = USUARIO.ID_USUARIO) 
+					   AND  (Item_tab_diaria.ID_TABELA_DIARIA = ".$VO->ID_TABELA_DIARIA.")";
+
+		return $this->sqlVetor($query);	
+	}
+	
+	function pesquisarNivel($VO){
+
+		$query = "SELECT ID_NIVEL_DIARIA CODIGO, ID_NIVEL_DIARIA, TX_DESCRICAO
+					FROM NIVEL_DIARIA
+				  ORDER BY TX_DESCRICAO";
+
+		return $this->sqlVetor($query);	
+	}
+	
+	function pesquisarDestino($VO){
+
+		$query = "SELECT ID_DESTINO CODIGO, ID_DESTINO, TX_DESTINO
+					FROM Destino_DIARIA
+				  ORDER BY TX_DESTINO";
+
+		return $this->sqlVetor($query);	
+	}
+	
+	
+	function inserirValor($VO){
+		
+		
+		$query = "insert into ITEM_TAB_DIARIA
+  					(ID_TABELA_DIARIA, ID_NIVEL_DIARIA, NB_VALOR, ID_DESTINO, ID_USUARIO, DT_ATUALIZACAO)
+					values("
+						.$VO->ID_TABELA_DIARIA
+						.", '".$VO->ID_NIVEL_DIARIA."'"
+						.", '".$VO->moeda($VO->NB_VALOR)."'"
+						.", '".$VO->ID_DESTINO."'"
+						.", '".$VO->ID_USUARIO."'"
+						.", sysdate "
+						.")"; 
+
+		return $this->sql($query);	
+	}
+	
+	function alterarValor($VO){
+		
+		
+		$query = "update ITEM_TAB_DIARIA  set
+					 ID_NIVEL_DIARIA = '".$VO->NIVEL_DIARIA."',
+ 					 NB_VALOR = '".$VO->moeda($VO->NB_VALOR)."',
+					 ID_DESTINO = '".$VO->DESTINO."',
+					 DT_ATUALIZACAO = sysdate
+				  where ID_TABELA_DIARIA = '".$VO->ID_TABELA_DIARIA."' 
+					 and ID_NIVEL_DIARIA = '".$VO->ID_NIVEL_DIARIA."' 
+					 and ID_DESTINO = '".$VO->ID_DESTINO."'"; 
+
+		return $this->sql($query);	
+	}
+	
+	function excluirValor($VO){
+		
+		
+		$query = "delete from ITEM_TAB_DIARIA 
+					where ID_TABELA_DIARIA = '".$VO->ID_TABELA_DIARIA."'
+					and ID_NIVEL_DIARIA = '".$VO->ID_NIVEL_DIARIA."' 
+					and ID_DESTINO = '".$VO->ID_DESTINO."'";
+
+		return $this->sql($query);	
+	}
+	
+	
+	
+	
+	//Relatorio
+	function tabelaDiarias($VO) {
+		 $query = "SELECT 
+				 DISTINCT ID_TABELA_DIARIA TABELA, ID_TABELA_DIARIA CODIGO
+					 FROM V_ITEM_TAB_DIARIA Semad_v_item_tab_diaria
+				 ORDER BY ID_TABELA_DIARIA";
+   
+		return $this->sqlVetor($query);
+	 }
+	 
+	 
+	 function buscarItem($VO) { 
+                  $query = "SELECT 
+                           DISTINCT 
+                                  ID_TABELA_DIARIA, 
+                                 Semad_grupo_cargo.TX_GRUPO_CARGO,  
+                         (SELECT NB_VALOR 
+                           FROM  V_ITEM_TAB_DIARIA 
+                          WHERE  V_ITEM_TAB_DIARIA.ID_Tabela_Diaria = Semad_v_item_tab_diaria.ID_Tabela_Diaria
+                            AND  V_ITEM_TAB_DIARIA.ID_Nivel_Diaria = Semad_v_item_tab_diaria.ID_Nivel_Diaria
+                            AND  V_ITEM_TAB_DIARIA.ID_Destino = 1
+
+                         )VALOR_EXTERIOR,
+
+                         (SELECT  NB_VALOR 
+                            FROM  V_ITEM_TAB_DIARIA 
+                           WHERE  V_ITEM_TAB_DIARIA.ID_Tabela_Diaria = Semad_v_item_tab_diaria.ID_Tabela_Diaria
+                             AND  V_ITEM_TAB_DIARIA.ID_Nivel_Diaria = Semad_v_item_tab_diaria.ID_Nivel_Diaria
+                             AND  V_ITEM_TAB_DIARIA.ID_Destino = 2
+                         ) VALOR_O_UNID,
+
+                         (SELECT  NB_VALOR 
+                            FROM  V_ITEM_TAB_DIARIA 
+                           WHERE  V_ITEM_TAB_DIARIA.ID_Tabela_Diaria = Semad_v_item_tab_diaria.ID_Tabela_Diaria
+                             AND  V_ITEM_TAB_DIARIA.ID_Nivel_Diaria = Semad_v_item_tab_diaria.ID_Nivel_Diaria
+                             AND  V_ITEM_TAB_DIARIA.ID_Destino = 3
+                         
+                         )  VALOR_MUNICIPIO,
+
+                         (SELECT  NB_VALOR 
+                            FROM  V_ITEM_TAB_DIARIA 
+                           WHERE  V_ITEM_TAB_DIARIA.ID_Tabela_Diaria = Semad_v_item_tab_diaria.ID_Tabela_Diaria
+                             AND  V_ITEM_TAB_DIARIA.ID_Nivel_Diaria = Semad_v_item_tab_diaria.ID_Nivel_Diaria
+                             AND  V_ITEM_TAB_DIARIA.ID_Destino = 4
+                         
+                        ) VALOR_ZONA_RURAL
+
+                         ,TX_DESCRICAO  
+
+                         FROM V_ITEM_TAB_DIARIA Semad_v_item_tab_diaria, 
+                              CARGO_NIVEL_DIARIA Semad_cargo_nivel_diaria, 
+                              GRUPO_CARGO Semad_grupo_cargo 
+
+                         WHERE ID_TABELA_DIARIA = ".$VO->ID_TABELA_DIARIA." 
+                           AND (Semad_grupo_cargo.ID_GRUPO_CARGO = Semad_cargo_nivel_diaria.ID_GRUPO_CARGO) 
+                           AND (Semad_grupo_cargo.CS_TIPO_GRUPO_CARGO = Semad_cargo_nivel_diaria.CS_TIPO_GRUPO_CARGO) 
+                           AND ( Semad_v_item_tab_diaria.ID_Nivel_Diaria = Semad_cargo_nivel_diaria.Id_Nivel_Diaria) 
+                         GROUP BY ID_TABELA_DIARIA, 
+                                  Semad_grupo_cargo.TX_GRUPO_CARGO, 
+                                  NB_VALOR, 
+                                  ID_DESTINO, 
+                                  TX_DESCRICAO, 
+                                  Semad_v_item_tab_diaria.ID_Nivel_Diaria 
+                         ORDER BY TX_DESCRICAO, Semad_grupo_cargo.TX_GRUPO_CARGO";
+              
+                return $this->sqlVetor($query);
+	 }
 
 }
 
