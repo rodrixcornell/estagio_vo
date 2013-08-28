@@ -38,7 +38,7 @@ function Header(){
 		$h=5;
 		$b='';
                 
-                $this->Cell(20,3,'','LT',0,'C','false');
+                $this->Cell(20,3,'','LTR',0,'C','false');
 		$this->Cell(30,3,'','TR',0,'C','false');
                 $this->Cell(55,3,'','TR',0,'C','false');
 		$this->Cell(55,3,'','TR',0,'C','false');
@@ -46,7 +46,7 @@ function Header(){
 		$this->Cell(55,3,'','TR',1,'C','false');
                 
                 
-		$this->Cell(20,5,'','L',0,'C','false');
+		$this->Cell(20,5,'','LR',0,'C','false');
 	        $this->Cell(30,5,'','R',0,'C','false');
 		$this->Cell(55,5,'VAGAS  CREDENCIADAS','R',0,'C','false');
 		$this->Cell(55,5,'VAGAS  ESTABELECIDAS (Termo Aditivo)','R',0,'C','false');
@@ -54,16 +54,16 @@ function Header(){
 		$this->Cell(55,5,'VAGAS  EM ABERTO','R',1,'C','false');
         
                                
-                $this->Cell(20,3,'','BL',0,'C','false');
-		$this->Cell(30,3,'','BR',0,'C','false');
+                $this->Cell(20,3,utf8_decode('AG / INT.'),'RL',0,'C','false');
+		$this->Cell(30,3,utf8_decode('ORGÃO'),'R',0,'C','false');
                 $this->Cell(55,3,'','BR',0,'C','false');
 		$this->Cell(55,3,'','BR',0,'C','false');
                 $this->Cell(55,3,'','BR',0,'C','false');
 		$this->Cell(55,3,'','BR',1,'C','false');
                 
 		$b='';
-		$this->Cell(20,5,utf8_decode('AG / INT.'),'BRL',0,'C','false');
-		$this->Cell(30,5,utf8_decode('ORGÃO'),'BR',0,'C','false');
+		$this->Cell(20,5,'','RL',0,'C','false');
+		$this->Cell(30,5,'','R',0,'C','false');
 		$this->Cell(12,5,utf8_decode('NÍVEL'),'R',0,'C','false');
                 $this->Cell(31,5,utf8_decode('NÍVEL SUPERIOR'),'BR',0,'C','false');
 		$this->Cell(12,5,utf8_decode('TOTAL'),'R',0,'C','false');
