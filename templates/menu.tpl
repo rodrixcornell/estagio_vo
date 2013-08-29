@@ -55,6 +55,7 @@
                     <li><a href="{$url}src/relatorios/selecao/?s=1"><span>4-Seleção de Estagiário</span></a></li>
                     <li><a href="{$url}src/relatorios/contrato/?s=1"><span>5-Contrato de Estágio</span></a></li>
                     <li><a href="{$url}src/relatorios/resumo/?s=1"><span>6-Resumo de Pagamento</span></a></li>
+                    <li><a href="{$url}src/relatorios/recrutamento/?s=1"><span>7-Recrutamento</span></a></li>
                  </ul>
             </div>
         </li>
