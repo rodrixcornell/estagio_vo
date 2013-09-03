@@ -397,6 +397,49 @@ AND
         return $this->sqlVetor($query);
     }
 	 
+    
+    /*
+     * 
+     * funções para relatorio 
+     * 
+     */
+    
+    
+    
+        function buscarOrgaoSolicitanteRel($VO) {
+
+        // Função que pega todos os Orgãos Solicitantes a qual o Usuario pertence
+        // Utilizada na Index chamada pelo arrays.php
+        $query = "SELECT DISTINCT 
+                    C.ID_ORGAO_ESTAGIO ||'_'|| V_UNIDADE_ORG.NB_COD_UNIDADE CODIGO,
+                    C.TX_ORGAO_ESTAGIO,
+                    C.ID_ORGAO_ESTAGIO,
+                    V_UNIDADE_ORG.NB_COD_UNIDADE,
+                    C.ID_UNIDADE_ORG
+                    
+                  FROM 
+                    AGENTE_SETORIAL_ESTAGIO A ,
+                    ORGAO_AGENTE_SETORIAL B,
+                    ORGAO_ESTAGIO C,
+                    V_Unidade_org 
+                  WHERE 
+                    A.ID_SETORIAL_ESTAGIO = B.ID_SETORIAL_ESTAGIO
+                    AND C.ID_ORGAO_ESTAGIO = B.ID_ORGAO_ESTAGIO
+                    and V_UNidade_org.ID_UNIDADE_ORG =C.ID_UNIDADE_ORG
+                    AND A.ID_USUARIO=" . $_SESSION['ID_USUARIO'];
+
+        return $this->sqlVetor($query);
+    }
+    
+    
+    /*
+     * 
+     * Fim funções para relatorio 
+     * 
+     */
+    
+    
+    
 }
 
 ?>

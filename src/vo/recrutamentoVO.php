@@ -1,91 +1,104 @@
 <?php
 
-require_once $pathvo."VO.php";
-require_once $path."src/repositorio/RepositorioRecrutamento.php";
+require_once $pathvo . "VO.php";
+require_once $path . "src/repositorio/RepositorioRecrutamento.php";
 
-class recrutamentoVO extends VO{
-    
-    function recrutamentoVO(){
-        
-        return $this->repositorio = new RepositorioRecrutamento(); 
-        
+class recrutamentoVO extends VO {
+
+    function recrutamentoVO() {
+
+        return $this->repositorio = new RepositorioRecrutamento();
     }
-	
 
-
-    function inserirCandidato(){   
+    function inserirCandidato() {
         return $this->repositorio->inserirCandidato($this);
     }
-	
-	
-    
-	function  pesquisarOrgaoGestor(){    
+
+    function pesquisarOrgaoGestor() {
         return $this->repositorio->pesquisarOrgaoGestor($this);
     }
-	
-	function  buscarSolicitante(){    
+
+    function buscarSolicitante() {
         return $this->repositorio->buscarSolicitante($this);
     }
-	
-	function buscarSolicitacao(){   
+
+    function buscarSolicitacao() {
         return $this->repositorio->buscarSolicitacao($this);
     }
 
-    function  buscarQuadroVagas(){    
+    function buscarQuadroVagas() {
         return $this->repositorio->buscarQuadroVagas($this);
     }
-	
-    function  pesquisarTipoVagaEstagio(){    
+
+    function pesquisarTipoVagaEstagio() {
         return $this->repositorio->pesquisarTipoVagaEstagio($this);
     }
-	
+
 //	
-	function  buscarRecrutamento(){    
+    function buscarRecrutamento() {
         return $this->repositorio->buscarRecrutamento($this);
     }
 
-    function  buscarVaga(){    
+    function buscarVaga() {
         return $this->repositorio->buscarVaga($this);
     }
 
-    function  buscarCandidato(){    
+    function buscarCandidato() {
         return $this->repositorio->buscarCandidato($this);
     }
 
-    function  pesquisarEstagiario(){    
+    function pesquisarEstagiario() {
         return $this->repositorio->pesquisarEstagiario($this);
     }
 
-   function  pesquisarRecrutamento(){    
+    function pesquisarRecrutamento() {
         return $this->repositorio->pesquisarRecrutamento($this);
     }
+
 //	
-	function  inserirVaga(){    
+    function inserirVaga() {
         return $this->repositorio->inserirVaga($this);
     }
-	
-	function  atualizarInf(){    
+
+    function atualizarInf() {
         return $this->repositorio->atualizarInf($this);
     }
-	
-	function  excluirVaga(){    
+
+    function excluirVaga() {
         return $this->repositorio->excluirVaga($this);
     }
 
-	function  excluirCandidato(){    
+    function excluirCandidato() {
         return $this->repositorio->excluirCandidato($this);
     }
 
-    function  alterarVaga(){    
+    function alterarVaga() {
         return $this->repositorio->alterarVaga($this);
     }
-	function  efetivar(){    
+
+    function efetivar() {
         return $this->repositorio->efetivar($this);
     }
-	
-	function  verificarSelecao(){    
+
+    function verificarSelecao() {
         return $this->repositorio->verificarSelecao($this);
     }
 
+    /*
+     * 
+     * funções para relatorio 
+     * 
+     */
+
+    function buscarOrgaoSolicitanteRel() {
+        return $this->repositorio->buscarOrgaoSolicitanteRel($this);
+    }
+
+    /*
+     * 
+     * Fim funções para relatorio 
+     * 
+     */
 }
+
 ?>
