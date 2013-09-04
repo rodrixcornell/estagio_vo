@@ -12,19 +12,19 @@ $titulopage = 'Recrutamento de Estágio';
 require_once "../../autenticacao/validaPermissao.php";
 
 session_start();
-//$_SESSION['ID_QUADRO_VAGAS_ESTAGIO'] = '';
-//
-//if ($_POST){
-//    $VO = new quadro_vagasVO();
-//    $VO->setCaracteristica('ID_QUADRO_VAGAS_ESTAGIO','obrigatorios'); 
-//    $validar = $VO->preencher($_POST);
-//	
-//  if (!$validar){
-//      
-//       $_SESSION['ID_QUADRO_VAGAS_ESTAGIO'] = $VO->ID_QUADRO_VAGAS_ESTAGIO;
-//       header("Location: ".$url."src/relatorios/".$pasta."/relatorio.php");
-//	}
-//}
+
+
+if ($_POST){
+    $VO = new quadro_vagasVO();
+    $VO->setCaracteristica('ID_QUADRO_VAGAS_ESTAGIO','obrigatorios'); 
+    $validar = $VO->preencher($_POST);
+	
+  if (!$validar){
+      
+       $_SESSION['ID_QUADRO_VAGAS_ESTAGIO'] = $VO->ID_QUADRO_VAGAS_ESTAGIO;
+       header("Location: ".$url."src/relatorios/".$pasta."/relatorio.php");
+	}
+}
 
 $smarty->assign("current"       , $current);
 $smarty->assign("pasta"         , $pasta);
