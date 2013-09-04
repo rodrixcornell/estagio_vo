@@ -106,7 +106,7 @@
                         <td style="text-align:left;"><strong>Período</strong></td>
                         <td style="text-align:left;">{$arrayPeriodoEstagio[$dados.CS_PERIODO[0]]}</td>	
                         <td style="text-align:left;"><strong>Fim Horário do Estágio</strong></td>
-                        <td style="text-align:right;">{$dados.NB_INICIO_HORARIO[0]}</td>    
+                        <td style="text-align:right;">{$dados.NB_FIM_HORARIO[0]}</td>    
                     </tr>
                     <tr bgcolor="#F0EFEF">                                        
                         <td><strong>Horário do Curso</strong></td>
