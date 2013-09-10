@@ -29,9 +29,10 @@ class PDF extends FPDF {
         $this->Cell(270, 2, '', 'T', 1, 'L');
         // Cabe?alho Fixo
         $this->Ln(3);
-        $this->SetFillColor(220);
+        $this->SetFillColor(255);
+
         $this->SetFont('Helvetica', 'B', 7);
-        $this->SetLineWidth('0.3');
+        $this->SetLineWidth('0.2');
         /* $w=array(20,30,50,70,50,50,
           20,30,10,20,10,
           20,30,10,20,10,
@@ -40,74 +41,61 @@ class PDF extends FPDF {
         $h = 5;
         $b = '';
 
-        $this->Cell(20, 3, '', 'LTR', 0, 'C', 'false');
-        $this->Cell(30, 3, '', 'TR', 0, 'C', 'false');
-        $this->Cell(55, 3, '', 'TR', 0, 'C', 'false');
-        $this->Cell(55, 3, '', 'TR', 0, 'C', 'false');
-        $this->Cell(55, 3, '', 'TR', 0, 'C', 'false');
-        $this->Cell(55, 3, '', 'TR', 1, 'C', 'false');
+        $this->Cell(20, 5, '', 'TLR', 0, 'C');
+        $this->Cell(30, 5, '', 'TR', 0, 'C');
+        $this->Cell(55, 5, 'VAGAS  CREDENCIADAS', 'TR', 0, 'C');
+        $this->Cell(55, 5, 'VAGAS  ESTABELECIDAS (Termo Aditivo)', 'TR', 0, 'C');
+        $this->Cell(55, 5, 'VAGAS  PREENCHIDAS', 'TR', 0, 'C');
+        $this->Cell(55, 5, 'VAGAS  EM ABERTO', 'TR', 1, 'C');
 
 
-        $this->Cell(20, 5, '', 'LR', 0, 'C', 'false');
-        $this->Cell(30, 5, '', 'R', 0, 'C', 'false');
-        $this->Cell(55, 5, 'VAGAS  CREDENCIADAS', 'R', 0, 'C', 'false');
-        $this->Cell(55, 5, 'VAGAS  ESTABELECIDAS (Termo Aditivo)', 'R', 0, 'C', 'false');
-        $this->Cell(55, 5, 'VAGAS  PREENCHIDAS', 'R', 0, 'C', 'false');
-        $this->Cell(55, 5, 'VAGAS  EM ABERTO', 'R', 1, 'C', 'false');
+        $this->Cell(20, 5, utf8_decode('AG / INT.'), 'RL', 0, 'C');
+        $this->Cell(30, 5, utf8_decode('ORGÃO'), 'R', 0, 'C');
+
+        //----------
+        $this->Cell(12, 5, utf8_decode('NÍVEL'), 'TR', 0, 'C');
+        $this->Cell(31, 5, utf8_decode('NÍVEL SUPERIOR'), 'TR', 0, 'C');
+        $this->Cell(12, 5, utf8_decode('TOTAL'), 'TR', 0, 'C');
+
+        $this->Cell(12, 5, utf8_decode('NÍVEL'), 'TR', 0, 'C');
+        $this->Cell(31, 5, utf8_decode('NÍVEL SUPERIOR'), 'TR', 0, 'C');
+        $this->Cell(12, 5, utf8_decode('TOTAL'), 'TR', 0, 'C');
+
+        $this->Cell(12, 5, utf8_decode('NÍVEL'), 'TR', 0, 'C');
+        $this->Cell(31, 5, utf8_decode('NÍVEL SUPERIOR'), 'TR', 0, 'C');
+        $this->Cell(12, 5, utf8_decode('TOTAL'), 'TR', 0, 'C');
+
+        $this->Cell(12, 5, utf8_decode('NÍVEL'), 'TR', 0, 'C');
+        $this->Cell(31, 5, utf8_decode('NÍVEL SUPERIOR'), 'TR', 0, 'C');
+        $this->Cell(12, 5, utf8_decode('TOTAL'), 'TR', 1, 'C');
 
 
-        $this->Cell(20, 3, utf8_decode('AG / INT.'), 'RL', 0, 'C', 'false');
-        $this->Cell(30, 3, utf8_decode('ORGÃO'), 'R', 0, 'C', 'false');
-        $this->Cell(55, 3, '', 'BR', 0, 'C', 'false');
-        $this->Cell(55, 3, '', 'BR', 0, 'C', 'false');
-        $this->Cell(55, 3, '', 'BR', 0, 'C', 'false');
-        $this->Cell(55, 3, '', 'BR', 1, 'C', 'false');
+        $this->Cell(20, 5, '', 'LR', 0, 'C');
+        $this->Cell(30, 5, '', 'R', 0, 'C');
+        //----------
+        $this->Cell(12, 5, utf8_decode('MÉDIO'), 'R', 0, 'C');
+        $this->Cell(10, 5, '4h', 'TR', 0, 'C');
+        $this->Cell(10, 5, '5h', 'TR', 0, 'C');
+        $this->Cell(11, 5, '6h', 'TR', 0, 'C');
+        $this->Cell(12, 5, '', 'R', 0, 'C');
 
-        $b = '';
-        $this->Cell(20, 5, '', 'RL', 0, 'C', 'false');
-        $this->Cell(30, 5, '', 'R', 0, 'C', 'false');
-        $this->Cell(12, 5, utf8_decode('NÍVEL'), 'R', 0, 'C', 'false');
-        $this->Cell(31, 5, utf8_decode('NÍVEL SUPERIOR'), 'BR', 0, 'C', 'false');
-        $this->Cell(12, 5, utf8_decode('TOTAL'), 'R', 0, 'C', 'false');
-        //-----------
-        $this->Cell(12, 5, utf8_decode('NÍVEL'), 'R', 0, 'C', 'false');
-        $this->Cell(31, 5, utf8_decode('NÍVEL SUPERIOR'), 'BR', 0, 'C', 'false');
-        $this->Cell(12, 5, utf8_decode('TOTAL'), 'R', 0, 'C', 'false');
+        $this->Cell(12, 5, utf8_decode('MÉDIO'), 'R', 0, 'C');
+        $this->Cell(10, 5, '4h', 'TR', 0, 'C');
+        $this->Cell(10, 5, '5h', 'TR', 0, 'C');
+        $this->Cell(11, 5, '6h', 'TR', 0, 'C');
+        $this->Cell(12, 5, '', 'R', 0, 'C');
 
-        $this->Cell(12, 5, utf8_decode('NÍVEL'), 'R', 0, 'C', 'false');
-        $this->Cell(31, 5, utf8_decode('NÍVEL SUPERIOR'), 'BR', 0, 'C', 'false');
-        $this->Cell(12, 5, utf8_decode('TOTAL'), 'R', 0, 'C', 'false');
+        $this->Cell(12, 5, utf8_decode('MÉDIO'), 'R', 0, 'C');
+        $this->Cell(10, 5, '4h', 'TR', 0, 'C');
+        $this->Cell(10, 5, '5h', 'TR', 0, 'C');
+        $this->Cell(11, 5, '6h', 'TR', 0, 'C');
+        $this->Cell(12, 5, '', 'R', 0, 'C');
 
-        $this->Cell(12, 5, utf8_decode('NÍVEL'), 'BR', 0, 'C', 'false');
-        $this->Cell(31, 5, utf8_decode('NÍVEL SUPERIOR'), 'BR', 0, 'C', 'false');
-        $this->Cell(12, 5, utf8_decode('TOTAL'), 'R', 1, 'C', 'false');
-
-
-        $this->Cell(20, 5, '', 'LBR', 0, 'C', 'false');
-        $this->Cell(30, 5, '', 'RB', 0, 'C', 'false');
-        $this->Cell(12, 5, utf8_decode('MÉDIO'), 'BR', 0, 'C', 'false');
-        $this->Cell(10, 5, '4h', 'RB', 0, 'C', 'false');
-        $this->Cell(10, 5, '5h', 'RB', 0, 'C', 'false');
-        $this->Cell(11, 5, '6h', 'RB', 0, 'C', 'false');
-
-        $this->Cell(12, 5, '', 'BR', 0, 'C', 'false');
-        $this->Cell(12, 5, utf8_decode('MÉDIO'), 'RB', 0, 'C', 'false');
-        $this->Cell(10, 5, '4h', 'BR', 0, 'C', 'false');
-        $this->Cell(10, 5, '5h', 'BR', 0, 'C', 'false');
-        $this->Cell(11, 5, '6h', 'BR', 0, 'C', 'false');
-
-        $this->Cell(12, 5, '', 'RB', 0, 'C', 'false');
-        $this->Cell(12, 5, utf8_decode('MÉDIO'), 'RB', 0, 'C', 'false');
-        $this->Cell(10, 5, '4h', 'BR', 0, 'C', 'false');
-        $this->Cell(10, 5, '5h', 'BR', 0, 'C', 'false');
-        $this->Cell(11, 5, '6h', 'BR', 0, 'C', 'false');
-
-        $this->Cell(12, 5, '', 'BR', 0, 'C', 'false');
-        $this->Cell(12, 5, utf8_decode('MÉDIO'), 'BR', 0, 'C', 'false');
-        $this->Cell(10, 5, '4h', 'BR', 0, 'C', 'false');
-        $this->Cell(10, 5, '5h', 'RB', 0, 'C', 'false');
-        $this->Cell(11, 5, '6h', 'BR', 0, 'C', 'false');
-        $this->Cell(12, 5, '', 'BR', 1, 'C', 'false');
+        $this->Cell(12, 5, utf8_decode('MÉDIO'), 'R', 0, 'C');
+        $this->Cell(10, 5, '4h', 'TR', 0, 'C');
+        $this->Cell(10, 5, '5h', 'TR', 0, 'C');
+        $this->Cell(11, 5, '6h', 'TR', 0, 'C');
+        $this->Cell(12, 5, '', 'R', 1, 'C');
     }
 
     function Footer() {
@@ -135,66 +123,71 @@ class PDF extends FPDF {
 
             for ($j = 0; $j < $totalAgencia; $j++) {
                 $totalOrgao = $VO->buscarOrgaoEstagio();
+                //echo '<br/>'; print_r($agencias['ID_AGENCIA_ESTAGIO'][$j]); echo ' id<br/>';
 
                 if ($totalOrgao) {
                     $orgaos = $VO->getVetor();
-                    print_r($agencias['TX_AGENCIA_ESTAGIO'][$j]);
-                    echo '<br/>';
-                    for ($i = 0; $i < $totalOrgao; $i++) {
-                        print_r($orgaos['TX_ORGAO_ESTAGIO'][$i]);
-                        echo '<br/>';
+
+                    for ($l = 0; $l < $totalOrgao; $l++) {
+                        $VO->ID_AGENCIA_ESTAGIO = $agencias['ID_AGENCIA_ESTAGIO'][$j];
+                        $VO->ID_ORGAO_ESTAGIO = $orgaos['ID_ORGAO_ESTAGIO'][$l];
+                        //echo '<br/>'; print_r($orgaos['ID_ORGAO_ESTAGIO'][$l]); echo ' id<br/>';
+
+                        $VO->buscarQuadroVagas();
+
+                        $quadro = $VO->getVetor();
+
+                        $totalVagasMedio += $quadro['NB_VAGA_MEDIO'][0];
+                        $totalVagas4h += $quadro['NB_VAGA_SUP4H'][0];
+                        $totalVagas5h += $quadro['NB_VAGA_SUP5H'][0];
+                        $totalVagas6h += $quadro['NB_VAGA_SUP6H'][0];
+                        $totalVagas += $quadro['NB_VAGA_TOTAL'][0];
+
+                        //echo '<br/>'; print_r($orgaos['TX_ORGAO_ESTAGIO'][$l]); echo ' tx<br/>'; print_r($quadro['NB_VAGA_MEDIO'][0]);
+                        //echo '<br/>'; print_r($totalVagasMedio); echo ' t<br/>';
+
+                        $this->SetFont('Helvetica', '', 9);
+                        $this->SetLineWidth('0.2');
+                        //$w=array(15,80,22,25,25,25);
+
+                        $this->Cell(20, 5, $agencias['TX_AGENCIA_ESTAGIO'][$j], 'TLR', 0, 'C');
+                        $this->Cell(30, 5, $orgaos['TX_ORGAO_ESTAGIO'][$l], 'TR', 0, 'L');
+                        $this->Cell(12, 5, ($quadro['NB_VAGA_MEDIO'][0] != '') ? $quadro['NB_VAGA_MEDIO'][0] : '--', 'TR', 0, 'C');
+                        $this->Cell(10, 5, ($quadro['NB_VAGA_SUP4H'][0] != '') ? $quadro['NB_VAGA_SUP4H'][0] : '--', 'TR', 0, 'C');
+                        $this->Cell(10, 5, ($quadro['NB_VAGA_SUP5H'][0] != '') ? $quadro['NB_VAGA_SUP5H'][0] : '--', 'TR', 0, 'C');
+                        $this->Cell(11, 5, ($quadro['NB_VAGA_SUP6H'][0] != '') ? $quadro['NB_VAGA_SUP6H'][0] : '--', 'TR', 0, 'C');
+                        $this->Cell(12, 5, ($quadro['NB_VAGA_TOTAL'][0] != '') ? $quadro['NB_VAGA_TOTAL'][0] : '--', 'TR', 1, 'C');
                     }
                 }
+                $this->Cell(20, 5, '', 'TLR', 0, 'C');
+                $this->Cell(30, 5, 'TOTAL', 'TR', 0, 'C');
+                $this->Cell(12, 5, $totalVagasMedio, 'TR', 0, 'C');
+                $this->Cell(10, 5, $totalVagas4h, 'TR', 0, 'C');
+                $this->Cell(10, 5, $totalVagas5h, 'TR', 0, 'C');
+                $this->Cell(11, 5, $totalVagas6h, 'TR', 0, 'C');
+                $this->Cell(12, 5, $totalVagas, 'TR', 1, 'C');
+
+                $totalGeralVagasMedio += $totalVagasMedio;
+                $totalGeralVagas4h += $totalVagas4h;
+                $totalGeralVagas5h += $totalVagas5h;
+                $totalGeralVagas6h += $totalVagas6h;
+                $totalGeralVagas += $totalVagas;
+                $totalVagasMedio = 0;
+                $totalVagas4h = 0;
+                $totalVagas5h = 0;
+                $totalVagas6h = 0;
+                $totalVagas = 0;
             }
+
+            //print_r($totalGeralVagasMedio); echo ' t<br/>';
         }
+        //print_r($totalGeralVagasMedio); echo ' tt<br';
+        $this->Cell(50, 5, 'TOTAL GERAL', 'TLRB', 0, 'C');
+        $this->Cell(12, 5, $totalGeralVagasMedio, 'TRB', 0, 'C');
+        $this->Cell(10, 5, $totalGeralVagas4h, 'TRB', 0, 'C');
+        $this->Cell(10, 5, $totalGeralVagas5h, 'TRB', 0, 'C');
+        $this->Cell(11, 5, $totalGeralVagas6h, 'TRB', 0, 'C');
+        $this->Cell(12, 5, $totalGeralVagas, 'TRB', 1, 'C');
     }
-
-    /*
-      function conteudo(){
-      $VO = new quadro_vagasVO();
-
-      $VO->ID_QUADRO_VAGAS_ESTAGIO = $_SESSION['ID_QUADRO_VAGAS_ESTAGIO'];
-
-      $totalItem = $VO->buscarItem();
-
-      $this->SetFont('Helvetica','',9);
-      $this->SetLineWidth('0.2');
-      $w=array(15,80,22,25,25,25);
-
-      if ($totalItem){
-      $item = $VO->getVetor();
-      $h=4;
-
-      for($j=0; $j<$totalItem; $j++){
-      $b='L';
-
-      //Linha Final
-      ($item['TX_DESCRICAO'][$j] == $item['TX_DESCRICAO'][$j-1]) ? true : $this->Cell(192,0,'','T',1,'L');
-
-      ($item['TX_DESCRICAO'][$j] == $item['TX_DESCRICAO'][$j-1]) ? $descricao = '' : $descricao = $item['TX_DESCRICAO'][$j];
-      $this->Cell($w[0],$h,utf8_decode($descricao),'L',0,'C');
-
-      $this->Cell($w[1],$h,utf8_decode($item['TX_GRUPO_CARGO'][$j]),$b,0,'C');
-
-      ($item['TX_DESCRICAO'][$j] == $item['TX_DESCRICAO'][$j-1] && $item['VALOR_EXTERIOR'][$j] == $item['VALOR_EXTERIOR'][$j-1]) ? $valorExterior = '' : $valorExterior = number_format($item['VALOR_EXTERIOR'][$j], 2,',', '.');
-      $this->Cell($w[2],$h,$valorExterior,$b,0,'C');
-
-      ($item['TX_DESCRICAO'][$j] == $item['TX_DESCRICAO'][$j-1] && $item['VALOR_O_UNID'][$j] == $item['VALOR_O_UNID'][$j-1]) ? $valorUnid = '' : $valorUnid = number_format($item['VALOR_O_UNID'][$j],2, ',', '.');
-      $this->Cell($w[3],$h,$valorUnid,$b,0,'C');
-
-      ($item['TX_DESCRICAO'][$j] == $item['TX_DESCRICAO'][$j-1] && $item['VALOR_MUNICIPIO'][$j] == $item['VALOR_MUNICIPIO'][$j-1]) ? $valorMinic = '' : $valorMinic = number_format($item['VALOR_MUNICIPIO'][$j],2, ',', '.');
-      $this->Cell($w[4],$h,$valorMinic,$b,0,'C');
-
-      ($item['TX_DESCRICAO'][$j] == $item['TX_DESCRICAO'][$j-1] && $item['VALOR_ZONA_RURAL'][$j] == $item['VALOR_ZONA_RURAL'][$j-1]) ? $valorZR = '' : $valorZR = number_format($item['VALOR_ZONA_RURAL'][$j],2, ',', '.');
-      $this->Cell($w[5],$h,$valorZR,'LR',1,'C');
-
-      }
-      $this->Cell(192,0,'','T',1,'L');
-
-
-      }
-
-      } */
 }
-
 ?>
