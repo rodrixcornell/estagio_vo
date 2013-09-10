@@ -355,6 +355,7 @@ class RepositorioQuadro_vagas extends Repositorio {
     function buscarOrgaoEstagio($VO) {
         $query = "
             select distinct
+                    oe.id_orgao_estagio,
                     oe.id_orgao_estagio CODIGO,
                     oe.tx_orgao_estagio
                from ORGAO_ESTAGIO oe
@@ -367,40 +368,36 @@ class RepositorioQuadro_vagas extends Repositorio {
     function buscarQuadroVagas($VO) {
         $query = "
             select distinct
-                    ae.id_agencia_estagio,
-                    ae.tx_agencia_estagio,
-                    oe.id_orgao_estagio,
-                    oe.tx_orgao_estagio,
                     nvl(
                         (select sum(a.NB_QUANTIDADE)
                           from VAGAS_ESTAGIO a, QUADRO_VAGAS_ESTAGIO b
                          where a.ID_QUADRO_VAGAS_ESTAGIO = b.ID_QUADRO_VAGAS_ESTAGIO
-                           and a.ID_ORGAO_ESTAGIO = ".$VO->ID_ORGAO_ESTAGIO."
                            and a.CS_TIPO_VAGA_ESTAGIO = 1
+                           and a.ID_ORGAO_ESTAGIO = ".$VO->ID_ORGAO_ESTAGIO."
                            and b.ID_AGENCIA_ESTAGIO = ".$VO->ID_AGENCIA_ESTAGIO.")
                     , 0) NB_VAGA_MEDIO,
                     nvl(
                         (select sum(a.NB_QUANTIDADE)
                           from VAGAS_ESTAGIO a, QUADRO_VAGAS_ESTAGIO b
                          where a.ID_QUADRO_VAGAS_ESTAGIO = b.ID_QUADRO_VAGAS_ESTAGIO
-                           and a.ID_ORGAO_ESTAGIO = ".$VO->ID_ORGAO_ESTAGIO."
                            and a.CS_TIPO_VAGA_ESTAGIO = 2
+                           and a.ID_ORGAO_ESTAGIO = ".$VO->ID_ORGAO_ESTAGIO."
                            and b.ID_AGENCIA_ESTAGIO = ".$VO->ID_AGENCIA_ESTAGIO.")
                     , 0) NB_VAGA_SUP4H,
                     nvl(
                         (select sum(a.NB_QUANTIDADE)
                           from VAGAS_ESTAGIO a, QUADRO_VAGAS_ESTAGIO b
                          where a.ID_QUADRO_VAGAS_ESTAGIO = b.ID_QUADRO_VAGAS_ESTAGIO
-                           and a.ID_ORGAO_ESTAGIO = ".$VO->ID_ORGAO_ESTAGIO."
                            and a.CS_TIPO_VAGA_ESTAGIO = 3
+                           and a.ID_ORGAO_ESTAGIO = ".$VO->ID_ORGAO_ESTAGIO."
                            and b.ID_AGENCIA_ESTAGIO = ".$VO->ID_AGENCIA_ESTAGIO.")
                     , 0) NB_VAGA_SUP5H,
                     nvl(
                         (select sum(a.NB_QUANTIDADE)
                           from VAGAS_ESTAGIO a, QUADRO_VAGAS_ESTAGIO b
                          where a.ID_QUADRO_VAGAS_ESTAGIO = b.ID_QUADRO_VAGAS_ESTAGIO
-                           and a.ID_ORGAO_ESTAGIO = ".$VO->ID_ORGAO_ESTAGIO."
                            and a.CS_TIPO_VAGA_ESTAGIO = 4
+                           and a.ID_ORGAO_ESTAGIO = ".$VO->ID_ORGAO_ESTAGIO."
                            and b.ID_AGENCIA_ESTAGIO = ".$VO->ID_AGENCIA_ESTAGIO.")
                     , 0) NB_VAGA_SUP6H,
                     nvl(
@@ -410,16 +407,12 @@ class RepositorioQuadro_vagas extends Repositorio {
                            and a.ID_ORGAO_ESTAGIO = ".$VO->ID_ORGAO_ESTAGIO."
                            and b.ID_AGENCIA_ESTAGIO = ".$VO->ID_AGENCIA_ESTAGIO.")
                     , 0) NB_VAGA_TOTAL
-               from ORGAO_ESTAGIO oe,
-                    VAGAS_ESTAGIO ve,
+               from VAGAS_ESTAGIO ve,
                     QUADRO_VAGAS_ESTAGIO qve
-              where oe.id_orgao_estagio = ve.id_orgao_estagio
-                    and oe.ID_ORGAO_ESTAGIO = ".$VO->ID_ORGAO_ESTAGIO."
-                    and ve.ID_QUADRO_VAGAS_ESTAGIO = qve.ID_QUADRO_VAGAS_ESTAGIO
-                    and qve.ID_AGENCIA_ESTAGIO = ".$VO->ID_AGENCIA_ESTAGIO."
-             order by oe.tx_orgao_estagio
-        ";
-
+              where ve.ID_QUADRO_VAGAS_ESTAGIO = qve.ID_QUADRO_VAGAS_ESTAGIO
+                and ve.ID_ORGAO_ESTAGIO = ".$VO->ID_ORGAO_ESTAGIO."
+                and qve.ID_AGENCIA_ESTAGIO = ".$VO->ID_AGENCIA_ESTAGIO;
+        //print_r($query);
         return $this->sqlVetor($query);
     }
 }
