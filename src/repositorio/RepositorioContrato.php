@@ -518,6 +518,7 @@ class RepositorioContrato extends Repositorio {
                  FROM 
                     BOLSA_ESTAGIO";
         $VO->ID_BOLSA_ESTAGIO ? $query .= " WHERE ID_BOLSA_ESTAGIO = " . $VO->ID_BOLSA_ESTAGIO . " " : false;
+        $query.= " order by tx_bolsa_estagio ";
 
         return $this->sqlVetor($query);
     }
@@ -544,7 +545,7 @@ class RepositorioContrato extends Repositorio {
 
         // função utilizada para trazer do banco todos os candidatos de uma seleção
         // Utilizada no arquivo acoes.php
-        $query = "SELECT 
+        $query = "SELECT Distinct
                     D.ID_PESSOA_ESTAGIARIO
                     ||'_'
                     || C.NB_CANDIDATO
@@ -583,7 +584,8 @@ class RepositorioContrato extends Repositorio {
                     AND A.CS_SITUACAO             =2
                     AND B.CS_SITUACAO             =2
                     AND C.CS_SITUACAO             =2
-                    AND G.DT_DESLIGAMENTO is not null
+               
+                    AND  D.ID_PESSOA_ESTAGIARIO  not in (select H.ID_PESSOA_ESTAGIARIO from contrato_estagio h where H.DT_DESLIGAMENTO is null )
                     AND B.ID_SELECAO_ESTAGIO =" . $VO->ID_SELECAO_ESTAGIO;
         return $this->sqlVetor($query);
     }
