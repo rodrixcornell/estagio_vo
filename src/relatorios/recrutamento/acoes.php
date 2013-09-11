@@ -2,9 +2,13 @@
 include "../../../php/define.php";
 require_once $pathvo."recrutamentoVO.php";
 
+
+
 $VO = new recrutamentoVO();
-	
-	$VO->ID_RECRUTAMENTO_ESTAGIO	= $_REQUEST['ID_RECRUTAMENTO_ESTAGIO'];
+
+$VO->ID_RECRUTAMENTO_ESTAGIO = $_REQUEST['ID_RECRUTAMENTO_ESTAGIO'];
+
+	$VO->ID_ORGAO_ESTAGIO	= $_REQUEST['ID_ORGAO_ESTAGIO'];
 	
 	$total = $VO->buscarRecrutamentoRel();
         
