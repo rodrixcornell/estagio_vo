@@ -7,8 +7,7 @@
     <div id="conteudo">
         Para um novo cadastro de {$titulopage} preencha o formulário abaixo e clique em Salvar <br /><br />
           
-         <!-- Fieldset da solicitacao -->
-         <fieldset>
+         <fieldset> <!-- Fieldset da solicitacao -->
               <legend>Solicitação</legend>
         
         <form name="form" action="{$url}src/{$pasta}/cadastrar.php" method="post">
@@ -64,8 +63,7 @@
                  <font color="#FF0000">*</font>Texto da solicitação <font color="#FF0000">{$validar.TX_SOLICITACAO}</font>
                 <textarea name="TX_SOLICITACAO" id="TX_SOLICITACAO" style="width:910px; height:110px;" >{$VO->TX_SOLICITACAO}</textarea></div>
 
-             </fieldset>
-             <!-- Fim do Fieldset da solicitacao -->
+             </fieldset><!-- Fim do Fieldset da solicitacao -->
                 
             <br /><br />
 

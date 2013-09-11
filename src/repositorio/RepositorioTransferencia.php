@@ -217,7 +217,7 @@ function inserir($VO) {
         return $this->sql($query);
     }
 
-//-------------PESQUISA TIPO VAGAS DO DETAIL-------------------------------
+//-------------PESQUISA TIPO VAGAS DO DETAIL------------------------------------
 function pesquisarTipoVaga($VO) {
  $query = "
     select distinct C.CS_TIPO_VAGA_ESTAGIO ||'_'|| B.NB_QUANTIDADE CODIGO,
