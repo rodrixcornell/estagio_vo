@@ -20,7 +20,7 @@
             </select><br />
 
             <div id="camada" style="font-family:Verdana, Geneva, sans-serif; width:180px;" > <font color="#FF0000">*</font>Situação:</div><br />
-            <select name="CS_SITUACAO" id="CS_SITUACAO" style="width:200px;" disabled="disabled">
+            <select name="CS_SITUACAO" id="CS_SITUACAO" style="width:200px;" >
                 {html_options options=$arraySituacao selected=$VO->CS_SITUACAO}
             </select><br />   
 

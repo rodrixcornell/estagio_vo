@@ -603,7 +603,7 @@ class RepositorioContrato extends Repositorio {
                     CONTRATO_ESTAGIO B
                 WHERE 
                     A.ID_PESSOA_ESTAGIARIO = B.ID_PESSOA_ESTAGIARIO(+)
-                    AND B.DT_DESLIGAMENTO IS NOT NULL
+                    And A.ID_PESSOA_ESTAGIARIO not in (select H.ID_PESSOA_ESTAGIARIO from contrato_estagio h where H.DT_DESLIGAMENTO is null )
                     AND A.ID_PESSOA_ESTAGIARIO NOT IN
                     (SELECT C.ID_PESSOA_ESTAGIARIO FROM estagiario_vaga C
                     )";
