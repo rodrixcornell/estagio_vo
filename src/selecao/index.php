@@ -14,6 +14,17 @@ require_once "../autenticacao/validaPermissao.php";
 $VO = new selecaoVO();
 $VO->preencherVOSession($_SESSION);
 
+if($VO->ID_ORGAO_GESTOR_ESTAGIO =  $_SESSION[$modulo.$programa.'_ID_ORGAO_GESTOR_ESTAGIO']){
+	
+	$VO->buscarSolicitante();
+	$smarty->assign('arrayOrgaoSolicitante',	$VO->getArray('TX_ORGAO_ESTAGIO'));
+	
+	if($VO->ID_ORGAO_ESTAGIO = $_SESSION[$modulo.$programa.'_ID_ORGAO_ESTAGIO']){
+		$VO->buscarRecrutamento();
+		$smarty->assign('arrayRecrutamento',	$VO->getArray('TX_COD_RECRUTAMENTO'));
+	}
+}
+
 $smarty->assign("current"       , $current);
 $smarty->assign("pasta"         , $pasta);
 $smarty->assign("titulopage"    , $titulopage);

@@ -6,18 +6,19 @@
     <br /><br /><br /><hr />
 	
     <div id="conteudo">
-        Para um nova Seleção de Estagiário preencha o formulário abaixo e clique em Avançar:<br /><br />
+        Para uma nova Seleção de Estagiário preencha o formulário abaixo e clique em Salvar:<br /><br />
+
         <form name="form" action="{$url}src/{$pasta}/cadastrar.php" method="post">
 
             <div id="camada" style="font-family:Verdana, Geneva, sans-serif; width:310px;" >
                 <font color="#FF0000">*</font>Órgão Gestor<font color="#FF0000"> {$validar.ID_ORGAO_GESTOR_ESTAGIO}</font>
-                <select name="ID_ORGAO_GESTOR_ESTAGIO" id="ID_ORGAO_GESTOR_ESTAGIO" style="width:300px;">
+                <select name="ID_ORGAO_GESTOR_ESTAGIO" id="ID_ORGAO_GESTOR_ESTAGIO_CAD" style="width:300px;">
                     {html_options options=$arrayOrgaoGestor selected=$VO->ID_ORGAO_GESTOR_ESTAGIO}
                 </select></div>
                 
             <div id="camada" style="font-family:Verdana, Geneva, sans-serif; width:310px;" >
             	<font color="#FF0000">*</font>Órgão Solicitante<font color="#FF0000"> {$validar.ID_ORGAO_ESTAGIO}</font>
-                <select name="ID_ORGAO_ESTAGIO" id="ID_ORGAO_ESTAGIO" style="width:300px;">
+                <select name="ID_ORGAO_ESTAGIO" id="ID_ORGAO_ESTAGIO_CAD" style="width:300px;">
                     {html_options options=$arrayOrgaoSolicitante selected=$VO->ID_ORGAO_ESTAGIO}
                 </select></div><br />
 

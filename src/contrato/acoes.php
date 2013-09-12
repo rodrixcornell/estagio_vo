@@ -16,20 +16,16 @@ function gerarTabela($param = '') {
     $acesso = $GLOBALS['acesso']; //Acessar a Variavel global; --------------------------------------------------------------------------------
 
     $VO = new contratoVO();
-    $VO->ID_ORGAO_GESTOR_ESTAGIO = $_REQUEST['ID_ORGAO_GESTOR_ESTAGIO'];
-    $VO->ID_ORGAO_ESTAGIO = $_REQUEST['ID_ORGAO_ESTAGIO'];
-    $VO->ID_SELECAO_ESTAGIO = $_REQUEST['ID_SELECAO_ESTAGIO'];
-    $VO->TX_TCE = $_REQUEST['TX_TCE'];
-    $VO->TX_NOME = $_REQUEST['TX_NOME'];
-    $VO->NB_CPF = $_REQUEST['NB_CPF'];
-    $VO->CHECK_RESP =$_REQUEST['CHECK_RESP'];
-    $VO->CHECK_RESP_2 =$_REQUEST['CHECK_RESP_2'];
-
-
+    $VO->ID_ORGAO_GESTOR_ESTAGIO 	= $_REQUEST['ID_ORGAO_GESTOR_ESTAGIO'];
+    $VO->ID_ORGAO_ESTAGIO 			= $_REQUEST['ID_ORGAO_ESTAGIO'];
+    $VO->ID_SELECAO_ESTAGIO 		= $_REQUEST['ID_SELECAO_ESTAGIO'];
+    $VO->TX_TCE 					= $_REQUEST['TX_TCE'];
+    $VO->TX_NOME 					= $_REQUEST['TX_NOME'];
+    $VO->NB_CPF 					= $_REQUEST['NB_CPF'];
+    $VO->CHECK_RESP 				= $_REQUEST['CHECK_RESP'];
+    $VO->CHECK_RESP_2 				= $_REQUEST['CHECK_RESP_2'];
     
     $page = $_REQUEST['PAGE'];
-
-
 
     $VO->preencherSessionPesquisar($_REQUEST);
 
@@ -50,15 +46,17 @@ function gerarTabela($param = '') {
         echo '<div id="status">' . $_SESSION['STATUS'] . '</div>
 		<table width="100%" class="dataGrid">
                 <tr>
-                    <th>Código do Contrato</th>
-                    <th>Órgão Gestor</th>
-                    <th>Agente de Integração</th>
-                    <th>Agente Solicitante</th>
+                    <th style="width:75px;">Código Contrato</th>
+					<th style="width:75px;">Código Seleção</th>
+                    <th style="width:100px;">Órgão Gestor</th>
+                    <th style="width:100px;">Órgão Solicitante</th>
+					<th style="width:80px;">Agente de Integração</th>
+					<th style="width:80px;">TCE</th>
                     <th>Estagiário</th>
-                    <th>CPF</th>';
+                    <th style="width:80px;">CPF</th>';
         //Somente ver a coluna de alterar se tiver acesso completo a tela --------------------------------------------------------------------------------					
         if ($acesso)
-            echo '<th style="width:50px;"></th>';
+            echo '<th style="width:30px;"></th>';
         echo '</tr>';
 
         for ($i = 0; $i < $tot_da_pagina; $i++) {
@@ -66,9 +64,11 @@ function gerarTabela($param = '') {
 
             echo '<tr bgcolor="' . $bgcolor . '">
                     <td align="center">' . $dados['TX_CODIGO'][$i] . '</td>
+					<td align="center">' . $dados['TX_COD_SELECAO'][$i] . '</td>
                     <td align="center">' . $dados['TX_ORGAO_GESTOR_ESTAGIO'][$i] . '</td>
                     <td align="center">' . $dados['TX_ORGAO_ESTAGIO'][$i] . '</td>
                     <td align="center">' . $dados['TX_AGENCIA_ESTAGIO'][$i] . '</td>
+					<td align="center">' . $dados['TX_TCE'][$i] . '</td>
                     <td align="center">' . $dados['TX_NOME'][$i] . '</td>
                     <td align="center">' . $dados['NB_CPF'][$i] . '</td>';
 
@@ -119,6 +119,20 @@ else if ($_REQUEST['identifier'] == "codSelecao") {
     $VO->ID_ORGAO_ESTAGIO = $_REQUEST['ID_ORGAO_ESTAGIO'];
 
     $total = $VO->buscarCodSelecao();
+    echo '<option value="">Escolha...</option>';
+
+    if ($total) {
+        $dados = $VO->getVetor();
+        for ($i = 0; $i < $total; $i++) {
+            echo '<option value="' . $dados['CODIGO'][$i] . '">' . $dados['TX_COD_SELECAO'][$i] . '</option>';
+        }
+    }
+}
+else if ($_REQUEST['identifier'] == "codSelecaoIndex") {
+
+    $VO->ID_ORGAO_ESTAGIO = $_REQUEST['ID_ORGAO_ESTAGIO'];
+
+    $total = $VO->buscarCodSelecaoIndex();
     echo '<option value="">Escolha...</option>';
 
     if ($total) {

@@ -13,7 +13,7 @@ table.dataGrid td{
 	height: 22px;
 }
 
-#inserir{
+#inserir,#efetivar{
 	padding:4px 8px;
 	font-weight:bold;	
 }
@@ -24,20 +24,15 @@ table.dataGrid td{
 	font-weight:bold;	
 }
 
-#efetivar{
-	padding:4px 8px;
-	margin:16px 0 0 0;
-	font-weight:bold;	
-}
 
-#tabelaCandidato
+#tabelaItens
 {
 	margin-top:3px;
 	border-collapse: collapse;
 	border: solid 1px #CCC;
 }
 
-#tabelaCandidato th
+#tabelaItens th
 {
 	font-size: 12px;
 	color:#3F3F3F;
@@ -49,7 +44,7 @@ table.dataGrid td{
 	background-image:url(../img/background/fundoTabela2.png);
 }
 
-#tabelaCandidato td{
+#tabelaItens td{
 	font-size: 11px;
 	/*background-color:#F0F0F0;*/
 	border: 1px #CCC solid;
@@ -129,23 +124,21 @@ div.simpleTabsContent.currentTab { display:block; }
 	float:left;
 }
 
-.ui-tooltip {
-	font-size:9px;
-	text-align:left;
+.fundoForm{
+	display: none;
+	height:140px;
+	position: absolute;
+	padding-top:90px;
+	text-align: center;
+	text-decoration: none;
+	width: 500px;
 }
 
-#form_candidatos{
+#addCand{
+	cursor:pointer;	
+}
+#tabelaCand{
 	font-family:Verdana, Geneva, sans-serif;
 	font-size:12px;
 	text-align:left;
-}
-
-.fundoForm{
-	display: none;
-	height:120px;
-	position: absolute;
-	padding-top:80px;
-	text-align: center;
-	text-decoration: none;
-	width: 900px;
 }

@@ -1,7 +1,7 @@
 <style>	.ui-combobox input{	width: 410px;} </style>
 <div id="centro">
     <img src="{$urlimg}icones/{$pasta}.png"  id="imgTitulo"/>
-    <div id="titulo"> {$titulopage}</div>
+    <div id="titulo">Alterar {$titulopage}</div>
 
     <br /><br /><br /><hr />
 

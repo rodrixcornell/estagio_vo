@@ -5,7 +5,7 @@
 
     <br /><br /><br /><hr />
     <div id="conteudo">
-        Para uma nova {$titulopage} preencha o formulário abaixo e clique em Salvar:<br /><br />
+        Para cadastrar uma nova {$titulopage} preencha o formulário abaixo e clique em Salvar:<br /><br />
 
         <form name="form" action="{$url}src/{$pasta}/cadastrar.php" method="post">
                           

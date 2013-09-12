@@ -6,7 +6,7 @@
 
     <div id="conteudo">
         <form name="form" action="{$url}src/{$pasta}/cadastrar.php" method="post">
-            Para um novo cadastro de Contrato de Estágio preencha o formulário abaixo e clique em Avançar:<br /><br />
+            Para cadastrar um novo de Contrato de Estágio preencha o formulário abaixo e clique em Salvar:<br /><br />
 
             <!-- FildSet da Unidade Solicitante -->
             <fieldset>
@@ -18,7 +18,7 @@
                     </select>
                 </div>
                 <div id="camada" style="font-family:Verdana, Geneva, sans-serif; width:300px;" > <font color="#FF0000">*</font>Órgão Solicitante<font color="#FF0000">{$validar.ID_ORGAO_ESTAGIO}</font><br />
-                    <select name="ID_ORGAO_ESTAGIO" id="ID_ORGAO_ESTAGIO" style="width:290px;">
+                    <select name="ID_ORGAO_ESTAGIO" id="ID_ORGAO_ESTAGIO_CAD" style="width:290px;">
                         {html_options options=$arrayOrgaoSolicitante selected=$VO->ID_ORGAO_ESTAGIO}
                     </select>
                 </div>
@@ -32,11 +32,6 @@
                 </div>
                 <br />
 
-                <div id="camada" style="font-family:Verdana, Geneva, sans-serif; width:310px;" > <font color="#FF0000">*</font>Tipo de Vagas:<font color="#FF0000">{$validar.CS_TIPO_VAGA_ESTAGIO}</font><br />
-                    <select name="CS_TIPO_VAGA_ESTAGIO" id="CS_TIPO_VAGA_ESTAGIO" style="width:300px;">
-                        {html_options options=$arrayTipoVagas selected=$VO->CS_TIPO_VAGA_ESTAGIO}
-                    </select>
-                </div>
 
 
                 <div id="camada" style="font-family:Verdana, Geneva, sans-serif; width:210px;" > <font color="#FF0000">*</font>Tipo de Contrato:<font color="#FF0000">{$validar.CS_TIPO}</font><br />
@@ -45,7 +40,7 @@
                     </select>
                 </div>
 
-                    <input type="radio" name="CS_SELECAO" ID="CHECK_RESP" value="1" disabled="disabled="><font color="#FF0000">*</font>Com Seleção ||<b> OU </b>||
+                <input type="radio" name="CS_SELECAO" ID="CHECK_RESP" value="1" disabled="disabled="><font color="#FF0000">*</font>Com Seleção ||<b> OU </b>||
                 <input type="radio" name="CS_SELECAO" ID="CHECK_RESP_2" value="2"><font color="#FF0000">*</font>Sem Seleção<font color="#FF0000"> {$validar.CS_SELECAO}</font>
 
                 <br />
@@ -78,9 +73,15 @@
 
                 <div id="camada" style="font-family:Verdana, Geneva, sans-serif; width:180px;" > <font color="#FF0000">*</font>Quadro Vagas Estagio:<font color="#FF0000">{$validar.ID_QUADRO_VAGAS_2}</font><br />
                     <select name="ID_QUADRO_VAGAS_ESTAGIO_2" id="ID_QUADRO_VAGAS_ESTAGIO_2" style="width:170px;">
-                         {html_options options=$arrayQuadroVagas selected=$VO->ID_QUADRO_VAGAS_ESTAGIO_2}
+                        {html_options options=$arrayQuadroVagas selected=$VO->ID_QUADRO_VAGAS_ESTAGIO_2}
                     </select>  
                 </div>
+                <div id="camada" style="font-family:Verdana, Geneva, sans-serif; width:310px;" > <font color="#FF0000">*</font>Tipo de Vagas:<font color="#FF0000">{$validar.CS_TIPO_VAGA_ESTAGIO}</font><br />
+                    <select name="CS_TIPO_VAGA_ESTAGIO" id="CS_TIPO_VAGA_ESTAGIO" style="width:300px;">
+                        {html_options options=$arrayTipoVagas selected=$VO->CS_TIPO_VAGA_ESTAGIO}
+                    </select>
+                </div>
+                
             </fieldset>
 
             <!-- FildSet do Estagiário -->

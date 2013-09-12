@@ -5,7 +5,7 @@
 
     <br /><br /><br /><hr />
     <div id="conteudo">
-        Para um novo cadastro de {$titulopage} preencha o formulário abaixo e clique em Salvar <br /><br />
+        Para cadastrar uma nova {$titulopage} preencha o formulário abaixo e clique em Salvar <br /><br />
           
          <fieldset> <!-- Fieldset da solicitacao -->
               <legend>Solicitação</legend>

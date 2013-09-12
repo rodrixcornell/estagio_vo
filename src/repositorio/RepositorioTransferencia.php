@@ -512,5 +512,4 @@ function excluirVagasSolicitadas($VO) {
     }
 
 }
-
 ?>

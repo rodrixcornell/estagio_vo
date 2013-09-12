@@ -33,7 +33,9 @@ class RepositorioContrato extends Repositorio {
                         C.TX_ORGAO_ESTAGIO,
                         B.TX_ORGAO_GESTOR_ESTAGIO,
                         D.TX_NOME,
-                        D.NB_CPF
+                        D.NB_CPF,
+						F.TX_COD_SELECAO,
+						a.TX_TCE
                   FROM 
                         CONTRATO_ESTAGIO A,
                         ORGAO_GESTOR_ESTAGIO B,
@@ -48,6 +50,7 @@ class RepositorioContrato extends Repositorio {
                         AND A.ID_ORGAO_ESTAGIO =C.ID_ORGAO_ESTAGIO
                         AND A.ID_PESSOA_ESTAGIARIO = D.ID_PESSOA_ESTAGIARIO
                         and F.ID_SELECAO_ESTAGIO = A.ID_SELECAO_ESTAGIO
+						AND A.CS_SELECAO = 1 
                         ";
                   $VO->ID_ORGAO_ESTAGIO ? $query .= " And A.ID_ORGAO_ESTAGIO = " . $codigoOrgaoSolicitante[0] . " " : false;
                   $VO->ID_ORGAO_GESTOR_ESTAGIO ? $query .= " And A.ID_ORGAO_GESTOR_ESTAGIO = " . $codigoOrgaoGestor[0]. " " : false;
@@ -193,8 +196,8 @@ class RepositorioContrato extends Repositorio {
     function buscar($VO){
         
         if($VO->CS_SELECAO ==1){
-        $query="SELECT
-            
+        $query="SELECT 
+                   DISTINCT
                         BOLSA_ESTAGIO.NB_VALOR,
                         QUADRO_VAGAS_estagio.TX_CODIGO TX_CODIGO_QUADRO_VAGAS,
                         contrato_estagio.cs_selecao cs_selecao,
@@ -206,9 +209,24 @@ class RepositorioContrato extends Repositorio {
                         FUNC.TX_FUNCIONARIO TX_FUNCIONARIO,
                         V_END_UNID_ORG.TX_ENDERECO TX_ENDERECO_ORG_GESTOR,
                         V_END_UNID_ORG.TX_ENDERECO TX_ENDERECO_SEC,
-                        ORGAO_GESTOR_ESTAGIO.ID_ORGAO_GESTOR_ESTAGIO ||'_'||ORGAO_GESTOR_ESTAGIO.ID_UNIDADE_ORG ID_ORGAO_GESTOR_ESTAGIO,
-                        ORGAO_ESTAGIO.ID_ORGAO_ESTAGIO ||'_'|| V_UNIDADE_ORG.NB_COD_UNIDADE  ID_ORGAO_ESTAGIO,
-                        V_ESTAGIARIO.ID_PESSOA_ESTAGIARIO||'_'|| ESTAGIARIO_VAGA.NB_CANDIDATO ||'_'||   ESTAGIARIO_VAGA.NB_VAGAS_RECRUTAMENTO||'_'|| ESTAGIARIO_VAGA.ID_RECRUTAMENTO_ESTAGIO ID_PESSOA_ESTAGIARIO,
+                        ORGAO_GESTOR_ESTAGIO.ID_ORGAO_GESTOR_ESTAGIO
+                        ||'_'
+                        ||ORGAO_GESTOR_ESTAGIO.ID_UNIDADE_ORG ID_ORGAO_GESTOR_ESTAGIO,
+                        ORGAO_ESTAGIO.ID_ORGAO_ESTAGIO
+                        ||'_'
+                        || V_UNIDADE_ORG.NB_COD_UNIDADE ID_ORGAO_ESTAGIO,
+                        V_ESTAGIARIO.ID_PESSOA_ESTAGIARIO
+                        ||'_'
+                        || ESTAGIARIO_VAGA.NB_CANDIDATO
+                        ||'_'
+                        || ESTAGIARIO_VAGA.NB_VAGAS_RECRUTAMENTO
+                        ||'_'
+                        || ESTAGIARIO_VAGA.ID_RECRUTAMENTO_ESTAGIO 
+                        ||'_'
+                        || CONTRATO_ESTAGIO.CS_TIPO_VAGA_ESTAGIO
+                        ||'_' 
+                        || TIPO_VAGA_ESTAGIO.TX_TIPO_VAGA_ESTAGIO
+                        ID_PESSOA_ESTAGIARIO,
                         CONTRATO_ESTAGIO.ID_CONTRATO,
                         INSTITUICAO_ENSINO.ID_INSTITUICAO_ENSINO,
                         QUADRO_VAGAS_ESTAGIO.ID_QUADRO_VAGAS_ESTAGIO,
@@ -217,8 +235,8 @@ class RepositorioContrato extends Repositorio {
                         CURSO_ESTAGIO.ID_CURSO_ESTAGIO,
                         SUPERVISOR_ESTAGIO.ID_PESSOA_SUPERVISOR,
                         SUPERVISOR_ESTAGIO.TX_CARGO,
-                        AGENCIA_ESTAGIO.ID_AGENCIA_ESTAGIO,  
-                        AGENCIA_ESTAGIO.TX_AGENCIA_ESTAGIO,  
+                        AGENCIA_ESTAGIO.ID_AGENCIA_ESTAGIO,
+                        AGENCIA_ESTAGIO.TX_AGENCIA_ESTAGIO,
                         BOLSA_ESTAGIO.ID_BOLSA_ESTAGIO,
                         TIPO_VAGA_ESTAGIO.CS_TIPO_VAGA_ESTAGIO,
                         ORGAO_GESTOR_ESTAGIO.TX_ORGAO_GESTOR_ESTAGIO,
@@ -227,7 +245,7 @@ class RepositorioContrato extends Repositorio {
                         TIPO_VAGA_ESTAGIO.TX_TIPO_VAGA_ESTAGIO,
                         AGENCIA_ESTAGIO.TX_AGENCIA_ESTAGIO,
                         INSTITUICAO_ENSINO.TX_INSTITUICAO_ENSINO,
-                        QUADRO_VAGAS_ESTAGIO.TX_CODIGO TX_VAGAS, 
+                        QUADRO_VAGAS_ESTAGIO.TX_CODIGO TX_VAGAS,
                         V_ESTAGIARIO.TX_NOME TX_NOME_ESTAGIARIO,
                         CONTRATO_ESTAGIO.TX_TCE,
                         CONTRATO_ESTAGIO.CS_TIPO,
@@ -246,10 +264,11 @@ class RepositorioContrato extends Repositorio {
                         CONTRATO_ESTAGIO.TX_PLANO_ATIVIDADE,
                         TO_CHAR(CONTRATO_ESTAGIO.DT_CADASTRO,'dd/mm/yyyy') DT_CADASTRO,
                         TO_CHAR(CONTRATO_ESTAGIO.DT_ATUALIZACAO,'dd/mm/yyyy') DT_ATUALIZACAO,
-                        to_char(CONTRATO_ESTAGIO.DT_DESLIGAMENTO,'dd/mm/yyyy') DT_DESLIGAMENTO,
-                        to_char(CONTRATO_ESTAGIO.DT_INICIO_VIGENCIA,'dd/mm/yyyy') DT_INICIO_VIGENCIA,
-                        to_char(CONTRATO_ESTAGIO.DT_FIM_VIGENCIA,'dd/mm/yyyy') DT_FIM_VIGENCIA
-                FROM 
+                        TO_CHAR(CONTRATO_ESTAGIO.DT_DESLIGAMENTO,'dd/mm/yyyy') DT_DESLIGAMENTO,
+                        TO_CHAR(CONTRATO_ESTAGIO.DT_INICIO_VIGENCIA,'dd/mm/yyyy') DT_INICIO_VIGENCIA,
+                        TO_CHAR(CONTRATO_ESTAGIO.DT_FIM_VIGENCIA,'dd/mm/yyyy') DT_FIM_VIGENCIA
+
+                    FROM 
                         CONTRATO_ESTAGIO,
                         ORGAO_GESTOR_ESTAGIO,
                         CURSO_ESTAGIO,
@@ -274,45 +293,53 @@ class RepositorioContrato extends Repositorio {
                         V_FUNCIONARIO_TOTAL USUARIO_ATUALIZACAO_fun,
                         PESSOA_FISICA ,
                         PESSOA ,
-                        V_UNIDADE_ORG  V_UNIDADE_ORG_LOTACAO
-                WHERE 
-                            CONTRATO_ESTAGIO.ID_ORGAO_GESTOR_ESTAGIO        = ORGAO_GESTOR_ESTAGIO.ID_ORGAO_GESTOR_ESTAGIO
-                        AND CONTRATO_ESTAGIO.NB_VAGAS_RECRUTAMENTO          = ESTAGIARIO_VAGA.NB_VAGAS_RECRUTAMENTO 
-                        AND CONTRATO_ESTAGIO.ID_RECRUTAMENTO_ESTAGIO        = ESTAGIARIO_VAGA.ID_RECRUTAMENTO_ESTAGIO  
-                        AND CONTRATO_ESTAGIO.NB_CANDIDATO                   = ESTAGIARIO_VAGA.NB_CANDIDATO
-                        AND CURSO_ESTAGIO.ID_CURSO_ESTAGIO                  = CONTRATO_ESTAGIO.ID_CURSO_ESTAGIO
-                        AND CONTRATO_ESTAGIO.ID_INSTITUICAO_ENSINO          = INSTITUICAO_ENSINO.ID_INSTITUICAO_ENSINO
-                        AND CONTRATO_ESTAGIO.ID_QUADRO_VAGAS_ESTAGIO        = QUADRO_VAGAS_ESTAGIO.ID_QUADRO_VAGAS_ESTAGIO
-                        AND CONTRATO_ESTAGIO.ID_SELECAO_ESTAGIO             = SELECAO_ESTAGIO.ID_SELECAO_ESTAGIO
-                        --AND CONTRATO_ESTAGIO.NB_VAGAS_RECRUTAMENTO          = SELECAO_ESTAGIO.ID_SELECAO_ESTAGIO
-                        AND SELECAO_ESTAGIO.ID_SELECAO_ESTAGIO              = ESTAGIARIO_SELECAO.ID_SELECAO_ESTAGIO
-                        AND CONTRATO_ESTAGIO.ID_RECRUTAMENTO_ESTAGIO        = ESTAGIARIO_SELECAO.ID_RECRUTAMENTO_ESTAGIO
-                        AND ESTAGIARIO_SELECAO.ID_RECRUTAMENTO_ESTAGIO      = ESTAGIARIO_VAGA.ID_RECRUTAMENTO_ESTAGIO
-                        AND CONTRATO_ESTAGIO.ID_ORGAO_ESTAGIO               = ORGAO_ESTAGIO.ID_ORGAO_ESTAGIO
-                        AND V_ESTAGIARIO.ID_PESSOA_ESTAGIARIO               = CONTRATO_ESTAGIO.ID_PESSOA_ESTAGIARIO
-                        AND CONTRATO_ESTAGIO.CS_TIPO_VAGA_ESTAGIO           = TIPO_VAGA_ESTAGIO.CS_TIPO_VAGA_ESTAGIO
-                        AND CONTRATO_ESTAGIO.ID_PESSOA_SUPERVISOR           = SUPERVISOR_ESTAGIO.ID_PESSOA_SUPERVISOR
-                        AND CONTRATO_ESTAGIO.ID_AGENCIA_ESTAGIO             = AGENCIA_ESTAGIO.ID_AGENCIA_ESTAGIO
-                        AND V_UNIDADE_ORG.ID_UNIDADE_ORG                    = ORGAO_ESTAGIO.ID_UNIDADE_ORG
-                        AND CONTRATO_ESTAGIO.ID_BOLSA_ESTAGIO               = BOLSA_ESTAGIO.ID_BOLSA_ESTAGIO
-                        AND V_END_UNID_ORG.ID_UNIDADE_ORG                   = ORGAO_GESTOR_ESTAGIO.ID_UNIDADE_ORG
-                        AND RESPONSAVEL_UNID_ORG.ID_PESSOA_FUNCIONARIO      = FUNC.ID_PESSOA_FUNCIONARIO
-                        AND RESPONSAVEL_UNID_ORG.ID_UNIDADE_ORG             = ORGAO_GESTOR_ESTAGIO.ID_UNIDADE_ORG
-                        AND USUARIO_CADASTRO.ID_USUARIO                     = CONTRATO_ESTAGIO.ID_USUARIO_CADASTRO
-                        AND USUARIO_CADASTRO.ID_PESSOA_FUNCIONARIO          = USUARIO_CADASTRO_FUN.ID_PESSOA_FUNCIONARIO
-                        AND USUARIO_CADASTRO.ID_UNIDADE_GESTORA             = USUARIO_CADASTRO_FUN.ID_UNIDADE_GESTORA 
-                        AND USUARIO_ATUALIZACAO.ID_USUARIO                  = CONTRATO_ESTAGIO.ID_USUARIO_CADASTRO
-                        AND USUARIO_ATUALIZACAO.ID_PESSOA_FUNCIONARIO       = USUARIO_ATUALIZACAO_FUN .ID_PESSOA_FUNCIONARIO
-                        AND USUARIO_ATUALIZACAO.ID_UNIDADE_GESTORA          = USUARIO_ATUALIZACAO_fun .ID_UNIDADE_GESTORA 
-                        AND SUPERVISOR_ESTAGIO.ID_PESSOA_SUPERVISOR         = PESSOA_FISICA.ID_PESSOA
-                        AND PESSOA_FISICA.ID_PESSOA                         = PESSOA.ID_PESSOA
-                        AND V_UNIDADE_ORG_LOTACAO.ID_UNIDADE_ORG            = CONTRATO_ESTAGIO.ID_UNIDADE_ORG
+                        V_UNIDADE_ORG V_UNIDADE_ORG_LOTACAO,
+
+                        VAGAS_RECRUTAMENTO 
+                    WHERE 
+
+
+                    VAGAS_RECRUTAMENTO.ID_RECRUTAMENTO_ESTAGIO = ESTAGIARIO_SELECAO.ID_RECRUTAMENTO_ESTAGIO
+                    AND VAGAS_RECRUTAMENTO.NB_VAGAS_RECRUTAMENTO = ESTAGIARIO_SELECAO.NB_VAGAS_RECRUTAMENTO
+                    AND VAGAS_RECRUTAMENTO.CS_TIPO_VAGA_ESTAGIO =TIPO_VAGA_ESTAGIO.CS_TIPO_VAGA_ESTAGIO
+                    AND CONTRATO_ESTAGIO.ID_ORGAO_GESTOR_ESTAGIO = ORGAO_GESTOR_ESTAGIO.ID_ORGAO_GESTOR_ESTAGIO
+                    AND CONTRATO_ESTAGIO.NB_VAGAS_RECRUTAMENTO     = ESTAGIARIO_VAGA.NB_VAGAS_RECRUTAMENTO
+                    AND CONTRATO_ESTAGIO.ID_RECRUTAMENTO_ESTAGIO   = ESTAGIARIO_VAGA.ID_RECRUTAMENTO_ESTAGIO
+                    AND CONTRATO_ESTAGIO.NB_CANDIDATO              = ESTAGIARIO_VAGA.NB_CANDIDATO
+                    AND CURSO_ESTAGIO.ID_CURSO_ESTAGIO             = CONTRATO_ESTAGIO.ID_CURSO_ESTAGIO
+                    AND CONTRATO_ESTAGIO.ID_INSTITUICAO_ENSINO     = INSTITUICAO_ENSINO.ID_INSTITUICAO_ENSINO
+                    AND CONTRATO_ESTAGIO.ID_QUADRO_VAGAS_ESTAGIO   = QUADRO_VAGAS_ESTAGIO.ID_QUADRO_VAGAS_ESTAGIO
+                    AND CONTRATO_ESTAGIO.ID_SELECAO_ESTAGIO        = SELECAO_ESTAGIO.ID_SELECAO_ESTAGIO
+                    --AND CONTRATO_ESTAGIO.NB_VAGAS_RECRUTAMENTO          = SELECAO_ESTAGIO.ID_SELECAO_ESTAGIO
+                    AND SELECAO_ESTAGIO.ID_SELECAO_ESTAGIO         = ESTAGIARIO_SELECAO.ID_SELECAO_ESTAGIO
+                    AND CONTRATO_ESTAGIO.ID_RECRUTAMENTO_ESTAGIO   = ESTAGIARIO_SELECAO.ID_RECRUTAMENTO_ESTAGIO
+                    AND ESTAGIARIO_SELECAO.ID_RECRUTAMENTO_ESTAGIO = ESTAGIARIO_VAGA.ID_RECRUTAMENTO_ESTAGIO
+                    AND CONTRATO_ESTAGIO.ID_ORGAO_ESTAGIO          = ORGAO_ESTAGIO.ID_ORGAO_ESTAGIO
+                    AND V_ESTAGIARIO.ID_PESSOA_ESTAGIARIO          = CONTRATO_ESTAGIO.ID_PESSOA_ESTAGIARIO
+                    AND CONTRATO_ESTAGIO.CS_TIPO_VAGA_ESTAGIO      = TIPO_VAGA_ESTAGIO.CS_TIPO_VAGA_ESTAGIO
+                    AND CONTRATO_ESTAGIO.ID_PESSOA_SUPERVISOR      = SUPERVISOR_ESTAGIO.ID_PESSOA_SUPERVISOR
+                    AND CONTRATO_ESTAGIO.ID_AGENCIA_ESTAGIO        = AGENCIA_ESTAGIO.ID_AGENCIA_ESTAGIO
+                    AND V_UNIDADE_ORG.ID_UNIDADE_ORG               = ORGAO_ESTAGIO.ID_UNIDADE_ORG
+                    AND CONTRATO_ESTAGIO.ID_BOLSA_ESTAGIO          = BOLSA_ESTAGIO.ID_BOLSA_ESTAGIO
+                    AND V_END_UNID_ORG.ID_UNIDADE_ORG              = ORGAO_GESTOR_ESTAGIO.ID_UNIDADE_ORG
+                    AND RESPONSAVEL_UNID_ORG.ID_PESSOA_FUNCIONARIO = FUNC.ID_PESSOA_FUNCIONARIO
+                    AND RESPONSAVEL_UNID_ORG.ID_UNIDADE_ORG        = ORGAO_GESTOR_ESTAGIO.ID_UNIDADE_ORG
+                    AND USUARIO_CADASTRO.ID_USUARIO                = CONTRATO_ESTAGIO.ID_USUARIO_CADASTRO
+                    AND USUARIO_CADASTRO.ID_PESSOA_FUNCIONARIO     = USUARIO_CADASTRO_FUN.ID_PESSOA_FUNCIONARIO
+                    AND USUARIO_CADASTRO.ID_UNIDADE_GESTORA        = USUARIO_CADASTRO_FUN.ID_UNIDADE_GESTORA
+                    AND USUARIO_ATUALIZACAO.ID_USUARIO             = CONTRATO_ESTAGIO.ID_USUARIO_CADASTRO
+                    AND USUARIO_ATUALIZACAO.ID_PESSOA_FUNCIONARIO  = USUARIO_ATUALIZACAO_FUN .ID_PESSOA_FUNCIONARIO
+                    AND USUARIO_ATUALIZACAO.ID_UNIDADE_GESTORA     = USUARIO_ATUALIZACAO_fun .ID_UNIDADE_GESTORA
+                    AND SUPERVISOR_ESTAGIO.ID_PESSOA_SUPERVISOR    = PESSOA_FISICA.ID_PESSOA
+                    AND PESSOA_FISICA.ID_PESSOA                    = PESSOA.ID_PESSOA
+                    AND V_UNIDADE_ORG_LOTACAO.ID_UNIDADE_ORG       = CONTRATO_ESTAGIO.ID_UNIDADE_ORG
                         AND CONTRATO_ESTAGIO.ID_CONTRATO                    = ".$VO->ID_CONTRATO;
         
         }
         else if($VO->CS_SELECAO==2){
             
             $query="SELECT 
+                BOLSA_ESTAGIO.NB_VALOR,
                      contrato_estagio.cs_selecao cs_selecao,
                     V_UNIDADE_ORG_LOTACAO.ORGAO,
                     PESSOA.TX_NOME SUPERVISOR,
@@ -450,7 +477,7 @@ class RepositorioContrato extends Repositorio {
                         
                   where 
                         ID_CONTRATO =".$VO->ID_CONTRATO;
-        
+//        print_r($query);
         return $this->sql($query);
     }
 
@@ -491,6 +518,7 @@ class RepositorioContrato extends Repositorio {
                  FROM 
                     BOLSA_ESTAGIO";
         $VO->ID_BOLSA_ESTAGIO ? $query .= " WHERE ID_BOLSA_ESTAGIO = " . $VO->ID_BOLSA_ESTAGIO . " " : false;
+        $query.= " order by tx_bolsa_estagio ";
 
         return $this->sqlVetor($query);
     }
@@ -517,27 +545,47 @@ class RepositorioContrato extends Repositorio {
 
         // função utilizada para trazer do banco todos os candidatos de uma seleção
         // Utilizada no arquivo acoes.php
-        $query = "SELECT 
-                    D.ID_PESSOA_ESTAGIARIO||'_'|| C.NB_CANDIDATO ||'_'||   C.NB_VAGAS_RECRUTAMENTO||'_'||  C.ID_RECRUTAMENTO_ESTAGIO CODIGO,
+        $query = "SELECT Distinct
+                    D.ID_PESSOA_ESTAGIARIO
+                    ||'_'
+                    || C.NB_CANDIDATO
+                    ||'_'
+                    || C.NB_VAGAS_RECRUTAMENTO
+                    ||'_'
+                    || C.ID_RECRUTAMENTO_ESTAGIO
+                    ||'_'
+                    || F.CS_TIPO_VAGA_ESTAGIO
+                    ||'_' 
+                    || F.TX_TIPO_VAGA_ESTAGIO CODIGO,
                     D.ID_PESSOA_ESTAGIARIO,
                     D.TX_NOME,
                     C.NB_CANDIDATO,
                     C.NB_VAGAS_RECRUTAMENTO,
                     C.ID_RECRUTAMENTO_ESTAGIO
+                    
                   FROM 
-                    SELECAO_ESTAGIO A  ,
+                    SELECAO_ESTAGIO A ,
                     ESTAGIARIO_SELECAO B ,
-                    ESTAGIARIO_VAGA C , 
-                    V_ESTAGIARIO D
+                    ESTAGIARIO_VAGA C ,
+                    V_ESTAGIARIO D,
+                    VAGAS_RECRUTAMENTO E,
+                    TIPO_VAGA_ESTAGIO F,
+                      CONTRATO_ESTAGIO G
                   WHERE 
-                    A.ID_SELECAO_ESTAGIO = B.ID_SELECAO_ESTAGIO
+                    D.ID_PESSOA_ESTAGIARIO = G.ID_PESSOA_ESTAGIARIO (+)
+                    AND A.ID_SELECAO_ESTAGIO    = B.ID_SELECAO_ESTAGIO
                     AND B.ID_RECRUTAMENTO_ESTAGIO = C.ID_RECRUTAMENTO_ESTAGIO
-		    AND B.NB_CANDIDATO = C.NB_CANDIDATO
-		    AND B.NB_VAGAS_RECRUTAMENTO = C.NB_VAGAS_RECRUTAMENTO
-                    AND C.ID_PESSOA_ESTAGIARIO = D.ID_PESSOA_ESTAGIARIO
-                    AND A.CS_SITUACAO =2 
-                    AND B.CS_SITUACAO =2
-                    AND C.CS_SITUACAO =2 
+                    AND B.NB_CANDIDATO            = C.NB_CANDIDATO
+                    AND B.NB_VAGAS_RECRUTAMENTO   = C.NB_VAGAS_RECRUTAMENTO
+                    AND C.ID_PESSOA_ESTAGIARIO    = D.ID_PESSOA_ESTAGIARIO
+                    AND B.ID_RECRUTAMENTO_ESTAGIO = E.ID_RECRUTAMENTO_ESTAGIO
+                    AND B.NB_VAGAS_RECRUTAMENTO  = E.NB_VAGAS_RECRUTAMENTO
+                    AND E.CS_TIPO_VAGA_ESTAGIO   =F.CS_TIPO_VAGA_ESTAGIO
+                    AND A.CS_SITUACAO             =2
+                    AND B.CS_SITUACAO             =2
+                    AND C.CS_SITUACAO             =2
+               
+                    AND  D.ID_PESSOA_ESTAGIARIO  not in (select H.ID_PESSOA_ESTAGIARIO from contrato_estagio h where H.DT_DESLIGAMENTO is null )
                     AND B.ID_SELECAO_ESTAGIO =" . $VO->ID_SELECAO_ESTAGIO;
         return $this->sqlVetor($query);
     }
@@ -546,14 +594,19 @@ class RepositorioContrato extends Repositorio {
 
 
     function  buscarEstagiarioSemSelecao($VO){
-        $query ="SELECT 
-                        ID_PESSOA_ESTAGIARIO CODIGO,
-                        ID_PESSOA_ESTAGIARIO ,
-                        TX_NOME
+        $query ="SELECT
+                    A.ID_PESSOA_ESTAGIARIO CODIGO,
+                    A.ID_PESSOA_ESTAGIARIO ,
+                    A.TX_NOME
                  FROM 
-                        V_ESTAGIARIO
-                 WHERE 
-                 ID_PESSOA_ESTAGIARIO NOT IN (SELECT ID_PESSOA_ESTAGIARIO FROM estagiario_vaga)";
+                    V_ESTAGIARIO A,
+                    CONTRATO_ESTAGIO B
+                WHERE 
+                    A.ID_PESSOA_ESTAGIARIO = B.ID_PESSOA_ESTAGIARIO(+)
+                    AND B.DT_DESLIGAMENTO IS NOT NULL
+                    AND A.ID_PESSOA_ESTAGIARIO NOT IN
+                    (SELECT C.ID_PESSOA_ESTAGIARIO FROM estagiario_vaga C
+                    )";
         return $this->sqlVetor($query);
         
     }
@@ -715,6 +768,20 @@ class RepositorioContrato extends Repositorio {
 
         return $this->sqlVetor($query);
     }
+	
+	function buscarCodSelecaoIndex($VO) {
+        // Função que pega todos os Códigos das seleção referentes ao Orgão solicitante
+        // Utilizada na Index chamada pelo arrays.php
+
+        $query = "select B.ID_SELECAO_ESTAGIO CODIGO, B.TX_COD_SELECAO   
+					from CONTRATO_ESTAGIO a, SELECAO_ESTAGIO B
+					where a.ID_SELECAO_ESTAGIO = B.ID_SELECAO_ESTAGIO
+					and A.ID_ORGAO_ESTAGIO = " . $VO->ID_ORGAO_ESTAGIO;
+
+        return $this->sqlVetor($query);
+    }
+	
+	
 
     //############################ --------------- FIM Repositorio Funções dos combosBox---------------################## 
     //

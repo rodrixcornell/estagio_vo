@@ -19,11 +19,11 @@ switch ($srv){
     case 3: // Producao
         $projeto 		= "/estagio/";
         $url 			= 'http://'.$_SERVER[SERVER_NAME].$projeto;
-        $path 			= $_SERVER['DOCUMENT_ROOT'].$projeto;
+        $path 			= $_SERVER['DOCUMENT_ROOT']."estagio/";
         break;
 }
 
-    $titulo 		= 'Gestão de Estágiarios - Prefeitura de Manaus';
+    $titulo 		= 'Gestão de Estágio Remunerado - Prefeitura de Manaus';
 	$urlcss 		= $url.'css/';
 	$urlimg 		= $url.'img/';
 	$pathvo 		= $path.'src/vo/';

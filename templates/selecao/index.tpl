@@ -22,6 +22,7 @@
 
                 <div id="camada" style="font-family:Verdana, Geneva, sans-serif; width:180px;" ><strong>Código do Recrutamento: </strong></div>
                     <select name="ID_RECRUTAMENTO_ESTAGIO" id="ID_RECRUTAMENTO_ESTAGIO" style="width:200px;">
+                    	{html_options options=$arrayRecrutamento selected=$VO->ID_RECRUTAMENTO_ESTAGIO}
                     </select><br />
 
                 <div id="camada" style="font-family:Verdana, Geneva, sans-serif; width:180px;" ><strong>Situação da Seleção: </strong></div>
@@ -42,11 +43,14 @@ $(document).ready(function(){
 	function hideLoader(){ $('.fundo_pag').fadeOut(200); };
 	
 	
-	if ("{$VO->ID_USUARIO_RESP}" || "{$VO->TX_FUNCIONARIO}" ){
+	if ("{$VO->ID_ORGAO_GESTOR_ESTAGIO}" && "{$VO->ID_ORGAO_ESTAGIO}" ){
 		showLoader();
 		$("#tabela").load('acoes.php?identifier=tabela',{
-			ID_USUARIO_RESP:"{$VO->ID_USUARIO_RESP}",
-			TX_FUNCIONARIO:"{$VO->TX_FUNCIONARIO}",
+			ID_ORGAO_GESTOR_ESTAGIO:"{$VO->ID_ORGAO_GESTOR_ESTAGIO}",
+			ID_ORGAO_ESTAGIO:"{$VO->ID_ORGAO_ESTAGIO}",
+			ID_RECRUTAMENTO_ESTAGIO:"{$VO->ID_RECRUTAMENTO_ESTAGIO}",
+			CS_SITUACAO:"{$VO->CS_SITUACAO}",
+			TX_COD_SELECAO:"{$VO->TX_COD_SELECAO}",
 			PAGE:"{$VO->PAGE}"
 		}, hideLoader); 
 	}

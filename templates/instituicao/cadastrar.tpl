@@ -5,7 +5,8 @@
     <br /><br /><br /><hr />
 
     <div id="conteudo">
-        Para Cadastrar uma  nova Instituição de Ensino preencha o formulário abaixo e clique em Avançar:<br /><br />
+        Para Cadastrar uma  nova Instituição de Ensino preencha o formulário abaixo e clique em Salvar:<br /><br />
+
         <form name="form" action="{$url}src/{$pasta}/cadastrar.php" method="post">
 
 
@@ -16,7 +17,7 @@
             <br />
 
             <div id="camada" style="font-family:Verdana, Geneva, sans-serif; width:210px;">
-                <font color="#FF0000">*</font>Sigla da instituição <font color="#FF0000">{$validar.TX_SIGLA}</font><br />
+                <font color="#FF0000">*</font>Sigla da Instituição <font color="#FF0000">{$validar.TX_SIGLA}</font><br />
                 <input type="text" name="TX_SIGLA" id="TX_SIGLA" value="{$VO->TX_SIGLA}" style="width:200px;" /></div>
 
             <br />

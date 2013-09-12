@@ -6,7 +6,7 @@
     <br /><br /><br /><hr />
 	
             <div id="conteudo">
-                Para alterar um estagiário preencha o formulario abaixo e clique em Salvar:<br /><br /><br />
+                Para alterar um Estagiário preencha o formulário abaixo e clique em Salvar:<br /><br /><br />
 				<form name="form" action="{$url}src/{$pasta}/alterar.php" method="post">
 
                 <div id="camada" style="width:390px;"><font color="#FF0000">*</font>Nome<font color="#FF0000"> {$validar.TX_NOME} </font></br>

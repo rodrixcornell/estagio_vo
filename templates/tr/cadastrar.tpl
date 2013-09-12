@@ -6,7 +6,7 @@
 
     <div id="conteudo">
         <form name="form" action="{$url}src/{$pasta}/cadastrar.php" method="post">
-            Para um novo cadastro de Solicitação de TR preencha o formulário abaixo e clique em Avançar:<br /><br />
+            Para cadastrar uma nova Solicitação de TR preencha o formulário abaixo e clique em Avançar:<br /><br />
             <fieldset>
                 <legend>Solicitante</legend>
 

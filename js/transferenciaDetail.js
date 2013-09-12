@@ -10,7 +10,7 @@ $(document).ready(function(){
     function emptyHideLoader(){
         $('.fundo_pag').fadeOut(200);
         //$('#NB_QUANTIDADE').val('');
-        $("#NB_QUANTIDADE,#NB_QUANTIDADE_ATUAL").val('');
+        $("#NB_QUANTIDADE,#NB_QUANT_SISTEMA").val('');
         //$('#CS_TIPO_VAGA_ESTAGIO').html('');
         //$('#CS_TIPO_VAGA_ESTAGIO option:first').attr('selected','selected');
 
@@ -40,19 +40,19 @@ $(document).ready(function(){
         mask:'999999'
     });
 //------------------------------------------------------------------------------
-//--------------------carregar a quantidade ----------------
+//--------------------carregar a quantidade EXISTENTE DO SISTEMA----------------
 //------------------------------------------------------------------------------ 
  
  $("#CS_TIPO_VAGA_ESTAGIO").change(function(){
      if ($("#CS_TIPO_VAGA_ESTAGIO").val() != 0){
         var valor = $("#CS_TIPO_VAGA_ESTAGIO").val().split('_');
        
-         $("#NB_QUANTIDADE_ATUAL").val('');
+         $("#NB_QUANT_SISTEMA").val('');
          $.post("acoes.php",{CS_TIPO_VAGA_ESTAGIO:valor[0], 
-                             NB_QUANTIDADE_ATUAL:valor[1],
-                             identifier:'buscarQuantAtual'},
+                             NB_QUANT_SISTEMA:valor[1],
+                             identifier:'buscarQuantExistente'},
                          function(valor){
-                $("#NB_QUANTIDADE_ATUAL").val(valor);}
+                $("#NB_QUANT_SISTEMA").val(valor);}
     );
         
  }
@@ -122,9 +122,9 @@ $('#inserir').live('click', function(){
                                       ID_TRANSFERENCIA_ESTAGIO:valor[0],
                                       CS_TIPO_VAGA_ESTAGIO:valor[1],
                                       ID_QUADRO_VAGAS_ESTAGIO:$('#ID_QUADRO_VAGAS_ESTAGIO').val(),  
-                                      ID_ORGAO_EST_ORIGEM:$('#ID_ORGAO_EST_ORIGEM').val(), 
-                                      ID_ORGAO_EST_DESTINO:$('#ID_ORGAO_EST_DESTINO').val(), 
-                                      NB_QUANTIDADE:$('#NB_QUANTIDADE').val(),
+                                      //ID_ORGAO_EST_ORIGEM:$('#ID_ORGAO_EST_ORIGEM').val(), 
+                                      //ID_ORGAO_EST_DESTINO:$('#ID_ORGAO_EST_DESTINO').val(), 
+                                      NB_QUANTIDADE:$('#NB_QUANTIDADE_ALT').val(),
                                     identifier:'tabelaAlterarVagasSolicitadas'
                         }, hideLoaderForm);
         return false;
@@ -149,11 +149,10 @@ $('#inserir').live('click', function(){
                      
                     showLoader();
          $("#tabelaVagasSolicitadas").load('acoes.php',{
-                                       ID_TRANSFERENCIA_ESTAGIO:$('#ID_TRANSFERENCIA_ESTAGIO').val(),
-                                       ID_QUADRO_VAGAS_ESTAGIO:$('#ID_QUADRO_VAGAS_ESTAGIO').val(), 
+                                        ID_QUADRO_VAGAS_ESTAGIO:$('#ID_QUADRO_VAGAS_ESTAGIO').val(), 
                                         CS_TIPO_VAGA_ESTAGIO:$('#CS_TIPO_VAGA_ESTAGIO_ANT').val(),
-                                       ID_ORGAO_EST_ORIGEM:$('#ID_ORGAO_EST_ORIGEM').val(), 
-                                       ID_ORGAO_EST_DESTINO:$('#ID_ORGAO_EST_DESTINO').val(), 
+                                        ID_ORGAO_EST_ORIGEM:$('#ID_ORGAO_EST_ORIGEM').val(), 
+                                        ID_ORGAO_EST_DESTINO:$('#ID_ORGAO_EST_DESTINO').val(), 
                                         NB_QUANTIDADE:$('#NB_QUANTIDADE_ALT').val(),
                                         identifier:'alterarVagasSolicitadas',
                                         PAGE:$('.selecionado').text()

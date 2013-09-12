@@ -1,12 +1,12 @@
 <style>	.ui-combobox input{	width: 100px;} </style>
 <div id="centro">
     <img src="{$urlimg}icones/{$pasta}.png"  id="imgTitulo"/>
-    <div id="titulo">{$titulopage}</div>
+    <div id="titulo">Novo {$titulopage}</div>
 
     <br /><br /><br /><hr />
 	
             <div id="conteudo">
-                Para cadastrar um novo estagiário preencha o formulario abaixo e clique em Salvar:<br /><br />
+                Para cadastrar um novo Estagiário preencha o formulário abaixo e clique em Salvar:<br /><br />
 				<form name="form" action="{$url}src/{$pasta}/cadastrar.php" method="post">
 
 				

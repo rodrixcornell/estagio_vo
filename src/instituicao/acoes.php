@@ -41,7 +41,7 @@ function gerarTabela($param=''){
 		<table width="100%" class="dataGrid">
                             <tr>
                             <th>Nome da Instituição</th>
-			    <th>Siglas da Instituição</th>';
+			    <th>Sigla da Instituição</th>';
 			//Somente ver a coluna de alterar se tiver acesso completo a tela					
 			if ($acesso) 
 				echo '<th style="width:50px;"></th>';
@@ -51,7 +51,7 @@ function gerarTabela($param=''){
                     ($bgcolor == '#E6E6E6') ? $bgcolor = '#F0EFEF' : $bgcolor = '#E6E6E6';
 
                     echo '<tr bgcolor="'.$bgcolor.'">
-                            <td align="center">'.$dados['TX_INSTITUICAO_ENSINO'][$i].'</td>
+                            <td align="left">'.$dados['TX_INSTITUICAO_ENSINO'][$i].'</td>
                             <td align="center">'.$dados['TX_SIGLA'][$i].'</td>';
 							
 		//Somente ver a coluna de alterar se tiver acesso completo a tela					

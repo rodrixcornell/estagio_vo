@@ -10,14 +10,14 @@ $(document).ready(function(){
 
 
     $('#pesquisar').click(function(){
-        if ($('#TX_CURSO_ESTAGIO').val() || $('#CS_AREA_CONHECIMENTO').val()){
+        //if ($('#TX_CURSO_ESTAGIO').val() || $('#CS_AREA_CONHECIMENTO').val()){
             showLoader();
             $('#tabela').load('acoes.php?identifier=tabela',{
                TX_CURSO_ESTAGIO:$('#TX_CURSO_ESTAGIO').val(),
                CS_AREA_CONHECIMENTO:$('#CS_AREA_CONHECIMENTO').val()
             }, hideLoader);
-        }else
-            alert('Preencha pelo menos um campo para realizar a pesquisa!');
+       // }else
+       //     alert('Preencha pelo menos um campo para realizar a pesquisa!');
     });
 	
     //Paginacao

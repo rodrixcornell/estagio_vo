@@ -6,7 +6,7 @@
     <br /><br /><br /><hr />
 
     <div id="conteudo">
-        Para alterar o Recrutamento de Estagiário preencha o formulário abaixo e clique em Avançar:<br /><br /><br />
+        Para alterar o Recrutamento de Estagiário preencha o formulário abaixo e clique em Salvar:<br /><br />
         <form name="form" action="{$url}src/{$pasta}/alterar.php" method="post">
                 
             <div id="camada" style="font-family:Verdana, Geneva, sans-serif; width:310px;">

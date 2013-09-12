@@ -334,7 +334,8 @@ if ($_REQUEST['identifier'] == "tabela") {
         $dados = $VO->getVetor();
 
         echo '<table width="100%" class="dataGrid">
-             <th>Código</th>
+             <th>Código Recrutamento</th>
+			 <th>Código Seleção</th>
              <th>Órgão Gestor</th>
              <th>Órgão Solicitante</th>
              <th>Quadro de Vagas</th>
@@ -350,6 +351,7 @@ if ($_REQUEST['identifier'] == "tabela") {
 
             echo '<tr bgcolor="' . $bgcolor . '">
                 <td align="center">' . $dados['TX_COD_RECRUTAMENTO'][$i] . '</td>
+				<td align="center">' . $dados['TX_COD_SOLICITACAO'][$i] . '</td>
                 <td align="center">' . $dados['TX_ORGAO_GESTOR_ESTAGIO'][$i] . '</td>
                 <td align="center">' . $dados['TX_ORGAO_ESTAGIO'][$i] . '</td>
                 <td align="center">' . $dados['TX_CODIGO'][$i] . '</td>

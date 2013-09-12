@@ -1,14 +1,13 @@
 <div id="centro">
     <img src="{$urlimg}icones/{$pasta}.png"  id="imgTitulo"/>
-    <div id="titulo">{$titulopage}</div>
+    <div id="titulo">Nova {$titulopage}</div>
 
     <br /><br /><br /><hr />
 
     <div id="conteudo">
-
         Para um Novo cadastro de Agência de Estágio preencha o formulário abaixo e clique em Salvar:<br /><br />
-        {*Mostra Botao de Novo Registro Somente se Tiver Acesso Completo a Tela*}
-        {if $acesso}<form name="form" action="{$url}src/{$pasta}/cadastrar.php" method="post">{/if}
+        <form name="form" action="{$url}src/{$pasta}/cadastrar.php" method="post">
+
 
 
             <div id="camada" style="width:290px;"><font color="#FF0000">*</font>Nome da Agência<font color="#FF0000"> {$validar.TX_AGENCIA_ESTAGIO} </font></br>

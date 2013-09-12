@@ -42,10 +42,10 @@ class quadro_vagasVO extends VO {
         return $this->repositorio->orgao_Solicitante($this);
     }
 
-	function alterarVaga() {
+    function alterarVaga() {
         return $this->repositorio->alterarVaga($this);
     }
-	
+
     function excluirUnidade() {
         return $this->repositorio->excluirUnidade($this);
     }
@@ -66,6 +66,18 @@ class quadro_vagasVO extends VO {
         return $this->repositorio->pesquisarCodigo($this);
     }
 
+    function pesquisaContrato() {
+        return $this->repositorio->pesquisaContrato($this);
+    }
+
+    //Relatorio
+    function buscarOrgaoEstagio() {
+        return $this->repositorio->buscarOrgaoEstagio($this);
+    }
+
+    function buscarQuadroVagas() {
+        return $this->repositorio->buscarQuadroVagas($this);
+    }
 }
 
 ?>

@@ -14,23 +14,21 @@ require_once "../autenticacao/validaPermissao.php";
 $VO = new contratoVO();
 $VO->preencherVOSession($_SESSION);
 
-
 // Se houver valor na sessão do ID_ORGAO_ESTAGIO ENTÃO IMPRIMA NO COMBO BOX O VALOR CORRETO
-if($_SESSION['ID_ORGAO_ESTAGIO']){
+if($VO->ID_ORGAO_ESTAGIO){
 		$codigo = explode('_', $VO->ID_ORGAO_ESTAGIO);
 		$VO->ID_ORGAO_ESTAGIO = $codigo[0];
 
-        $VO->buscarCodSelecao();
-        $arrayCodSelecao =$VO->getArray('TX_COD_SELECAO');
+        $VO->buscarCodSelecaoIndex();
+		$smarty->assign('arrayCodSelecao', $VO->getArray('TX_COD_SELECAO'));
 
-		 $VO->ID_ORGAO_ESTAGIO = implode('_', $codigo);
-        $smarty->assign('arrayCodSelecao',$arrayCodSelecao);
+		$VO->ID_ORGAO_ESTAGIO = implode('_', $codigo);
 }
 
 $smarty->assign("current"       , $current);
 $smarty->assign("pasta"         , $pasta);
 $smarty->assign("titulopage"    , $titulopage);
-$smarty->assign("VO"      	, $VO);
+$smarty->assign("VO"      		, $VO);
 $smarty->assign("arquivoCSS"    , $pasta);
 $smarty->assign("arquivoJS"     , $pasta);
 $smarty->assign("nomeArquivo"   , $pasta."/".$nomeArquivo.".tpl");	

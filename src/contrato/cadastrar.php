@@ -18,7 +18,7 @@ unset($_SESSION['ID_CONTRATO']);
 if ($_POST) {
 
     $VO->configuracao();
-    $VO->setCaracteristica('CS_SELECAO,ID_BOLSA_ESTAGIO,ID_ORGAO_GESTOR_ESTAGIO,ID_ORGAO_ESTAGIO,ID_QUADRO_VAGAS_ESTAGIO,CS_PERIODO,CS_TIPO_VAGA_ESTAGIO,CS_TIPO,ID_PESSOA_ESTAGIARIO,TX_TELEFONE,TX_ENDERECO,DT_INICIO_VIGENCIA,DT_FIM_VIGENCIA,NB_INICIO_HORARIO,NB_FIM_HORARIO,ID_INSTITUICAO_ENSINO,ID_CURSO_ESTAGIO,CS_HORARIO_CURSO,ID_AGENCIA_ESTAGIO,ID_PESSOA_SUPERVISOR,ID_LOTACAO,TX_TCE,TX_PLANO_ATIVIDADE', 'obrigatorios');
+    $VO->setCaracteristica('CS_SELECAO,ID_BOLSA_ESTAGIO,ID_ORGAO_GESTOR_ESTAGIO,ID_ORGAO_ESTAGIO,ID_QUADRO_VAGAS_ESTAGIO,CS_PERIODO,CS_TIPO,ID_PESSOA_ESTAGIARIO,TX_TELEFONE,TX_ENDERECO,DT_INICIO_VIGENCIA,DT_FIM_VIGENCIA,NB_INICIO_HORARIO,NB_FIM_HORARIO,ID_INSTITUICAO_ENSINO,ID_CURSO_ESTAGIO,CS_HORARIO_CURSO,ID_AGENCIA_ESTAGIO,ID_PESSOA_SUPERVISOR,ID_LOTACAO,TX_TCE,TX_PLANO_ATIVIDADE', 'obrigatorios');
     $VO->setCaracteristica('DT_FIM_VIGENCIA,DT_INICIO_VIGENCIA', 'datas');
     $VO->setCaracteristica('NB_INICIO_HORARIO,NB_FIM_HORARIO', 'horas');
 
@@ -42,24 +42,30 @@ if ($_POST) {
     }
 
     if ($VO->ID_SELECAO_ESTAGIO) {
-        
+
         $VO->buscarCandidato();
         $arrayPessoaEstagiario = $VO->getArray('TX_NOME');
         $smarty->assign("arrayPessoaEstagiario", $arrayPessoaEstagiario);
     }
-    
-    if($VO->ID_QUADRO_VAGAS_ESTAGIO_2){
-        $VO->ID_QUADRO_VAGAS_ESTAGIO=  $VO->ID_QUADRO_VAGAS_ESTAGIO_2;
-        
+
+    if ($VO->ID_QUADRO_VAGAS_ESTAGIO_2) {
+        $VO->ID_QUADRO_VAGAS_ESTAGIO = $VO->ID_QUADRO_VAGAS_ESTAGIO_2;
     }
 
-    if (!$validar)
+    if ($VO->CS_SELECAO == 1) {
+
+        $codigo = explode('_', $VO->ID_PESSOA_ESTAGIARIO);
+        $VO->CS_TIPO_VAGA_ESTAGIO = $codigo[4];
+        $VO->ID_PESSOA_ESTAGIARIO = implode('_', $codigo);
+    }
+
+    if (!$validar) {
         $id_pk = $VO->inserir();
-    if ($id_pk) {
-        $_SESSION['ID_CONTRATO_ESTAGIO'] = $id_pk;
-        header("Location: " . $url . "src/" . $pasta . "/index.php");
+        if ($id_pk) {
+            $_SESSION['ID_CONTRATO_ESTAGIO'] = $id_pk;
+            header("Location: " . $url . "src/" . $pasta . "/detail.php");
+        }
     }
-
 }
 
 

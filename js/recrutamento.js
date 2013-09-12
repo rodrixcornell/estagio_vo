@@ -26,11 +26,11 @@ $(document).ready(function(){
     $("#paginacao li").live('click', function(){
         showLoader();
         $("#tabela").load('acoes.php?identifier=tabela&PAGE='+this.id,{
-                ID_ORGAO_GESTOR_ESTAGIO:$('#ID_ORGAO_GESTOR_ESTAGIO').val(),
-                ID_ORGAO_ESTAGIO:$('#ID_ORGAO_ESTAGIO').val(),
-                CS_SITUACAO:$('#CS_SITUACAO').val(),
-                TX_COD_RECRUTAMENTO:$('#TX_COD_RECRUTAMENTO').val()
-            }, hideLoader);
+            ID_ORGAO_GESTOR_ESTAGIO:$('#ID_ORGAO_GESTOR_ESTAGIO').val(),
+            ID_ORGAO_ESTAGIO:$('#ID_ORGAO_ESTAGIO').val(),
+            CS_SITUACAO:$('#CS_SITUACAO').val(),
+            TX_COD_RECRUTAMENTO:$('#TX_COD_RECRUTAMENTO').val()
+        }, hideLoader);
         return false;
     });
 	
@@ -45,15 +45,15 @@ $(document).ready(function(){
 	
 	
 	
-	$("#ID_ORGAO_GESTOR_ESTAGIO").live('change', function(){
-		$("#ID_ORGAO_ESTAGIO,#ID_SOLICITACAO_ESTAGIO,#ID_QUADRO_VAGAS_ESTAGIO").html(''); 
+    $("#ID_ORGAO_GESTOR_ESTAGIO").live('change', function(){
+        $("#ID_ORGAO_ESTAGIO,#ID_SOLICITACAO_ESTAGIO,#ID_QUADRO_VAGAS_ESTAGIO").html(''); 
         if ($('#ID_ORGAO_GESTOR_ESTAGIO').val()){
-			$("#ID_ORGAO_ESTAGIO").html('<option>Carregando...</option>');
-			$.post("acoes.php",{
-                				ID_ORGAO_GESTOR_ESTAGIO:$('#ID_ORGAO_GESTOR_ESTAGIO').val(),
-                				identifier:'buscarSolicitante'
-            					}, 
-			function(valor){
+            $("#ID_ORGAO_ESTAGIO").html('<option>Carregando...</option>');
+            $.post("acoes.php",{
+                ID_ORGAO_GESTOR_ESTAGIO:$('#ID_ORGAO_GESTOR_ESTAGIO').val(),
+                identifier:'buscarSolicitante'
+            }, 
+            function(valor){
                 $("#ID_ORGAO_ESTAGIO").html(valor);
             });
 			 
@@ -62,35 +62,48 @@ $(document).ready(function(){
     });
 	
 	
-	$("#ID_ORGAO_ESTAGIO").live('change', function(){
-		$("#ID_SOLICITACAO_ESTAGIO,#ID_QUADRO_VAGAS_ESTAGIO").html(''); 
+    $("#ID_ORGAO_ESTAGIO").live('change', function(){
+        $("#ID_SOLICITACAO_ESTAGIO,#ID_QUADRO_VAGAS_ESTAGIO").html(''); 
         if ($('#ID_ORGAO_ESTAGIO').val()){
-			$("#ID_SOLICITACAO_ESTAGIO").html('<option>Carregando...</option>');
-			$.post("acoes.php",{
-				ID_ORGAO_ESTAGIO:$('#ID_ORGAO_ESTAGIO').val(),
-				identifier:'buscarSolicitacao'
-				}, 
-			function(valor){
+            $("#ID_SOLICITACAO_ESTAGIO").html('<option>Carregando...</option>');
+            $.post("acoes.php",{
+                ID_ORGAO_ESTAGIO:$('#ID_ORGAO_ESTAGIO').val(),
+                identifier:'buscarSolicitacao'
+            }, 
+            function(valor){
                 $("#ID_SOLICITACAO_ESTAGIO").html(valor);
             });
         }
         return false;
     });
 	
-	$("#ID_SOLICITACAO_ESTAGIO").live('change', function(){
-		$("#ID_QUADRO_VAGAS_ESTAGIO").html(''); 
+    $("#ID_SOLICITACAO_ESTAGIO").live('change', function(){
+        $("#ID_QUADRO_VAGAS_ESTAGIO").html(''); 
         if ($('#ID_SOLICITACAO_ESTAGIO').val()){
-			$("#ID_QUADRO_VAGAS_ESTAGIO").html('<option>Carregando...</option>');
-			$.post("acoes.php",{
-				ID_SOLICITACAO_ESTAGIO:$('#ID_SOLICITACAO_ESTAGIO').val(),
-				identifier:'buscarQuadroVagas'
-				}, 
-			function(valor){
+            $("#ID_QUADRO_VAGAS_ESTAGIO").html('<option>Carregando...</option>');
+            $.post("acoes.php",{
+                ID_SOLICITACAO_ESTAGIO:$('#ID_SOLICITACAO_ESTAGIO').val(),
+                identifier:'buscarQuadroVagas'
+            }, 
+            function(valor){
                 $("#ID_QUADRO_VAGAS_ESTAGIO").html(valor);
             });
         }
         return false;
     });
-
+       
+    /*
+     * 
+     * funções para relatorio 
+     * 
+     */
+    
+    
+    /*
+     * 
+     * Fim funções para relatorio 
+     * 
+     */
+    
 	
 });
