@@ -345,8 +345,8 @@ class RepositorioContrato extends Repositorio {
         else if($VO->CS_SELECAO==2){
             
             $query="SELECT 
-                BOLSA_ESTAGIO.NB_VALOR,
-                     contrato_estagio.cs_selecao cs_selecao,
+                    BOLSA_ESTAGIO.NB_VALOR,
+                    contrato_estagio.cs_selecao cs_selecao,
                     V_UNIDADE_ORG_LOTACAO.ORGAO,
                     PESSOA.TX_NOME SUPERVISOR,
                     USUARIO_ATUALIZACAO_fun.TX_FUNCIONARIO FUNCIONARIO_CADASTRO,
