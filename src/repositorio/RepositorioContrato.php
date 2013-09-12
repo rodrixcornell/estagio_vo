@@ -69,7 +69,8 @@ class RepositorioContrato extends Repositorio {
                         C.TX_ORGAO_ESTAGIO,
                         B.TX_ORGAO_GESTOR_ESTAGIO,
                         D.TX_NOME,
-                        D.NB_CPF
+                        D.NB_CPF,
+                        a.TX_TCE
                   FROM 
                         CONTRATO_ESTAGIO A,
                         ORGAO_GESTOR_ESTAGIO B,
