@@ -69,7 +69,8 @@ class RepositorioContrato extends Repositorio {
                         C.TX_ORGAO_ESTAGIO,
                         B.TX_ORGAO_GESTOR_ESTAGIO,
                         D.TX_NOME,
-                        D.NB_CPF
+                        D.NB_CPF,
+                        a.TX_TCE
                   FROM 
                         CONTRATO_ESTAGIO A,
                         ORGAO_GESTOR_ESTAGIO B,
@@ -95,21 +96,24 @@ class RepositorioContrato extends Repositorio {
         }
         
         
-        
+//        print_r($query);
         return $this->sqlVetor($query);
     }
 
     function inserir($VO) {
 
+        $queryPK = "select SEMAD.F_G_PK_Contrato_Estagio as ID_CONTRATO from DUAL";
+        $this->sqlVetor($queryPK);
+        $CodigoPK = $this->getVetor();
+        
+        
         $codigoOrgaoSolicitante = explode('_', $VO->ID_ORGAO_ESTAGIO);
 
         $codigoOrgaoGestor = explode('_', $VO->ID_ORGAO_GESTOR_ESTAGIO);
 
         $codigoCandidato = explode('_', $VO->ID_PESSOA_ESTAGIARIO);
 
-        $queryPK = "select SEMAD. F_G_PK_Contrato_Estagio as ID_CONTRATO_ESTAGIO from DUAL";
-        $this->sqlVetor($queryPK);
-        $CodigoPK = $this->getVetor();
+       
 
         $query = "INSERT INTO 
                   CONTRATO_ESTAGIO
@@ -152,7 +156,7 @@ class RepositorioContrato extends Repositorio {
                     VALUES
                     (
                         '" . $codigoCandidato[0] . "',
-                        '" . $CodigoPK['ID_CONTRATO_ESTAGIO'][0] . "',                      
+                        '" . $CodigoPK['ID_CONTRATO'][0] . "',                      
                         '" . $codigoOrgaoGestor[0] . "',
                         '" . $codigoOrgaoSolicitante[0] . "',
                         '" . $VO->ID_QUADRO_VAGAS_ESTAGIO . "',
@@ -189,8 +193,10 @@ class RepositorioContrato extends Repositorio {
                     ";
 //        print_r($query);
 
-        $retorno = $this->sql($query);
-        return $retorno ? '' : $CodigoPK['ID_CONTRATO_ESTAGIO'][0];
+         $retorno = $this->sql($query);
+        if (!$retorno) {
+        return  $CodigoPK['ID_CONTRATO'][0];
+         }
     }
     
     function buscar($VO){
@@ -339,8 +345,8 @@ class RepositorioContrato extends Repositorio {
         else if($VO->CS_SELECAO==2){
             
             $query="SELECT 
-                BOLSA_ESTAGIO.NB_VALOR,
-                     contrato_estagio.cs_selecao cs_selecao,
+                    BOLSA_ESTAGIO.NB_VALOR,
+                    contrato_estagio.cs_selecao cs_selecao,
                     V_UNIDADE_ORG_LOTACAO.ORGAO,
                     PESSOA.TX_NOME SUPERVISOR,
                     USUARIO_ATUALIZACAO_fun.TX_FUNCIONARIO FUNCIONARIO_CADASTRO,
@@ -603,7 +609,7 @@ class RepositorioContrato extends Repositorio {
                     CONTRATO_ESTAGIO B
                 WHERE 
                     A.ID_PESSOA_ESTAGIARIO = B.ID_PESSOA_ESTAGIARIO(+)
-                    AND B.DT_DESLIGAMENTO IS NOT NULL
+                    And A.ID_PESSOA_ESTAGIARIO not in (select H.ID_PESSOA_ESTAGIARIO from contrato_estagio h where H.DT_DESLIGAMENTO is null )
                     AND A.ID_PESSOA_ESTAGIARIO NOT IN
                     (SELECT C.ID_PESSOA_ESTAGIARIO FROM estagiario_vaga C
                     )";
