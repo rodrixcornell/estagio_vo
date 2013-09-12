@@ -122,6 +122,8 @@ class RepositorioSelecao extends Repositorio {
 	   $VO->CS_SITUACAO ? $query .= " AND a.CS_SITUACAO = ".$VO->CS_SITUACAO."" : false;                       
        $VO->TX_COD_SELECAO ? $query .= " AND UPPER(a.TX_COD_SELECAO) LIKE UPPER('%" .$VO->TX_COD_SELECAO."%')" : false;
 	   
+         $query .= " ORDER by A.DT_REALIZACAO desc";
+         
 	   if ($VO->Reg_quantidade) {
             !$VO->Reg_inicio ? $VO->Reg_inicio = 0 : false;
             $query = "SELECT * FROM (SELECT PAGING.*, ROWNUM PAGING_RN FROM (" . $query . ") PAGING WHERE (ROWNUM <= " . ($VO->Reg_quantidade + $VO->Reg_inicio) . "))  WHERE (PAGING_RN > " . $VO->Reg_inicio . ")";

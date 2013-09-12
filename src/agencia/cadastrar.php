@@ -18,8 +18,8 @@ $VO = new agenciaVO();
 
 if($_POST){
     $VO->configuracao();
-    $VO->setCaracteristica('TX_AGENCIA_ESTAGIO,TX_SIGLA,TX_CNPJ','obrigatorios');
- 
+    $VO->setCaracteristica('TX_AGENCIA_ESTAGIO,TX_SIGLA','obrigatorios');
+    $VO->setCaracteristica('TX_CNPJ','numeros');
    $validar = $VO->preencher($_POST);
     
     if (!$validar) {

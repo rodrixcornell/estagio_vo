@@ -21,7 +21,7 @@ class RepositorioOrgao_Gestor extends Repositorio{
 		($VO->TX_ORGAO_GESTOR_ESTAGIO) ? $query .= " AND upper(a.TX_ORGAO_GESTOR_ESTAGIO) like upper('%".$VO->TX_ORGAO_GESTOR_ESTAGIO."%') "  : false;
 		($VO->ID_UNIDADE_ORG) ? $query .= " AND a.ID_UNIDADE_ORG = '".$VO->ID_UNIDADE_ORG."' "  : false;
         
-        $query .= " ORDER BY a.TX_ORGAO_GESTOR_ESTAGIO";
+        $query .= " ORDER BY a.DT_CADASTRO desc";
 
         if ($VO->Reg_quantidade){
             !$VO->Reg_inicio? $VO->Reg_inicio = 0: false;
