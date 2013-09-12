@@ -17,15 +17,16 @@ require_once "../autenticacao/validaPermissao.php";
 
 $VO = new contratoVO();
 
-if ($_SESSION['ID_CONTRATO']) {
+if ($_SESSION['ID_CONTRATO'] && $_SESSION['CS_SELECAO']) {
 
     $VO->ID_CONTRATO = $_SESSION['ID_CONTRATO'];
+    $VO->CS_SELECAO = $_SESSION['CS_SELECAO'];
 
-    $todosCSselecao=$VO->buscarCsSelecao();
-    $dadosCSSelecao=$VO->getVetor();
+//    $todosCSselecao=$VO->buscarCsSelecao();
+//    $dadosCSSelecao=$VO->getVetor();
     
-    $VO->CS_SELECAO=$dadosCSSelecao['CS_SELECAO'][0];
-    
+//    $VO->CS_SELECAO=$dadosCSSelecao['CS_SELECAO'][0];
+//    
     $total = $VO->buscar();
     $total ? $dados = $VO->getVetor() : false;
 }else
