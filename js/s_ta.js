@@ -5,6 +5,7 @@ $(document).ready(function(){
     function hideLoader(){
         $('.fundo_pag').fadeOut(200);
     };
+        $('#TX_FONE_AGENTE').setMask({ mask:'9999-999999' });
 /*-------------FORMATO----------------------------*/
  
 $('#NB_VALOR_BOLSA').maskMoney({
@@ -164,8 +165,10 @@ $("#ID_CONTRATO").change(function(){
                  $('input[name=DT_INICIO_RECESSO]').attr('disabled',true);
                  $('input[name=DT_FIM_RECESSO]').attr('disabled',true);
                  $('input[name=NB_MES]').attr('disabled',true);
-                  }
-                });   
+              
+                   } 
+                    
+            });  
         //----------------JORNADA-------------------------------
         $("input[name=JORNADA]").click( function() {
                 if($('input[name=JORNADA]').is(':checked')){    
