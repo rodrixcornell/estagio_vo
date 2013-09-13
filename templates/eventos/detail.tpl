@@ -25,13 +25,13 @@
                     <tr bgcolor="#E0E0E0">
                     	<td style="text-align:left;"><strong>Situação</strong></td>
                         <td style="text-align:left;">{$dados.TX_SITUACAO[0]}</td>	
-                        <td style="text-align:left;"><strong>Data de Realização</strong></td>
+                        <td style="text-align:left;"><strong>Data Realização</strong></td>
                         <td style="text-align:right;">{$dados.DT_CADASTRO[0]}</td>    
                     </tr>
                     <tr bgcolor="#F0EFEF">                                        
-                        <td><strong>Data de Cadastro</strong></td>
+                        <td><strong>Data Cadastro</strong></td>
                         <td>{$dados.DT_CADASTRO[0]}</td>
-                        <td><strong>Data de Atualização</strong></td>
+                        <td><strong>Data Atualização</strong></td>
                         <td style="text-align:right;"><div id="atualizacao"> {$dados.DT_ATUALIZACAO[0]}</div></td>    
                     </tr>
                 </table>
@@ -56,11 +56,11 @@
                     <input type="text" name="NB_VALOR_BASE" id="NB_VALOR_BASE" value="{$VO->NB_VALOR_BASE}"  style="width:120px; text-align:center;" />
                 </div>
                 
-                <div id="camada" style="font-family:Verdana, Geneva, sans-serif; width:140px;" ><font color="#FF0000">*</font><strong>Início de Vigência </strong>
+                <div id="camada" style="font-family:Verdana, Geneva, sans-serif; width:140px;" ><font color="#FF0000">*</font><strong>Início Vigência </strong>
                     <input type="text" name="DT_INICIO_VIGENCIA" id="DT_INICIO_VIGENCIA" value="{$VO->DT_INICIO_VIGENCIA}"  style="width:130px; text-align:center;" />
                 </div>
                 
-                <div id="camada" style="font-family:Verdana, Geneva, sans-serif; width:150px;" ><font color="#FF0000">*</font><strong>Fim de Vigência </strong>
+                <div id="camada" style="font-family:Verdana, Geneva, sans-serif; width:150px;" ><font color="#FF0000">*</font><strong>Fim Vigência </strong>
                     <input type="text" name="DT_FIM_VIGENCIA" id="DT_FIM_VIGENCIA" value="{$VO->DT_FIM_VIGENCIA}"  style="width:140px; text-align:center;" />
                 </div>
                     
