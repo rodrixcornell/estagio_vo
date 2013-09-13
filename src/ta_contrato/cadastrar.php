@@ -19,7 +19,7 @@ $VO = new ta_contratoVO();
 
 if ($_POST) {
     $VO->configuracao();
-    $VO->setCaracteristica('ID_ORGAO_GESTOR_ESTAGIO,ID_CONTRATO_CP,ID_UNIDADE_ORG_ORIGEM,ID_UNIDADE_ORG_DESTINO,TX_ASSUNTO,TX_SOLICITACAO,DT_SOLICITACAO','obrigatorios');
+    $VO->setCaracteristica('ID_ORGAO_GESTOR_ESTAGIO,ID_CONTRATO_CP,ID_UNIDADE_ORG_ORIGEM,ID_UNIDADE_ORG_DESTINO,TX_ASSUNTO,DT_SOLICITACAO','obrigatorios');
     $VO->setCaracteristica('DT_SOLICITACAO', 'datas');
    
     $validar = $VO->preencher($_POST);
@@ -31,7 +31,7 @@ if ($_POST) {
      }else if (!$validar) {
         $id_pk = $VO->inserir();
     
-        print_r(inserir);
+        //print_r($id_pk);
         
         if ($id_pk) {
             $_SESSION['ID_SOLICITACAO_TA_CP'] = $id_pk;
@@ -45,7 +45,6 @@ if ($_POST) {
         $smarty->assign("buscarUnidadeDestino", $VO->getArray("TX_UNIDADE_ORG_DESTINO"));
          }
      }
-
 }
 
 $smarty->assign("current", $current);
