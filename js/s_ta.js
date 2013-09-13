@@ -5,15 +5,16 @@ $(document).ready(function(){
     function hideLoader(){
         $('.fundo_pag').fadeOut(200);
     };
-    /*-------------FORMATO----------------------------*/
-
-    $('#NB_VALOR_BOLSA').maskMoney({
-        showSymbol:false,
-        symbol:"R$",
-        decimal:",",
-        thousands:".",
-        allowZero:false,
-        allowNegative:false,
+        $('#TX_FONE_AGENTE').setMask({ mask:'9999-999999' });
+/*-------------FORMATO----------------------------*/
+ 
+$('#NB_VALOR_BOLSA').maskMoney({
+        showSymbol:false, 
+        symbol:"R$", 
+        decimal:",", 
+        thousands:".", 
+        allowZero:false, 
+        allowNegative:false, 
         defaultZero:false
     });
     //----------FORMATO DAS HORAS -------------------------------------------

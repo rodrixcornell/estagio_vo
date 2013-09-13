@@ -6,7 +6,7 @@ function hideLoader() {
         $('.fundo_pag').fadeOut(200);
     }
     
-    $('#TX_CNPJ').setMask({ mask:'99999999999' });
+    $('#TX_CNPJ').setMask({ mask:'999999999999999' });
     
 //Pesquisar
   $('#pesquisar').click(function(){
