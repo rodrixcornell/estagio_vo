@@ -220,7 +220,9 @@ function inserir($VO) {
 //-------------PESQUISA TIPO VAGAS DO DETAIL------------------------------------
 function pesquisarTipoVaga($VO) {
  $query = "
-    select distinct C.CS_TIPO_VAGA_ESTAGIO ||'_'|| B.NB_QUANTIDADE CODIGO,
+    select distinct 
+                    C.CS_TIPO_VAGA_ESTAGIO ||'_'
+  || B.NB_QUANTIDADE  CODIGO,
                     C.TX_TIPO_VAGA_ESTAGIO,
                     B.NB_QUANTIDADE
                from QUADRO_VAGAS_ESTAGIO A,
@@ -228,30 +230,38 @@ function pesquisarTipoVaga($VO) {
                     TIPO_VAGA_ESTAGIO C
               where A.ID_QUADRO_VAGAS_ESTAGIO = B.ID_QUADRO_VAGAS_ESTAGIO
                     and B.CS_TIPO_VAGA_ESTAGIO = C.CS_TIPO_VAGA_ESTAGIO
-                    and B.ID_ORGAO_ESTAGIO = " . $VO->ID_ORGAO_ESTAGIO . "
+                    and B.ID_ORGAO_ESTAGIO =' " . $VO->ID_ORGAO_ESTAGIO . "'
                     and a.id_quadro_vagas_estagio = '".$VO->ID_QUADRO_VAGAS_ESTAGIO."'
                     and A.CS_SITUACAO = 1
-                    and B.CS_TIPO_VAGA_ESTAGIO not in (select cs_tipo_vaga_estagio
-					                 from vagas_transferidas
-					                 where ID_TRANSFERENCIA_ESTAGIO =  '".$VO->ID_TRANSFERENCIA_ESTAGIO."'
-						           and ID_QUADRO_VAGAS_ESTAGIO =  '".$VO->ID_QUADRO_VAGAS_ESTAGIO."'
-						           and ID_ORGAO_EST_ORIGEM = '".$VO->ID_ORGAO_ESTAGIO."')
-                    and B.CS_TIPO_VAGA_ESTAGIO in (select cs_tipo_vaga_estagio
-                                                     from vagas_estagio
-                                                    where ID_QUADRO_VAGAS_ESTAGIO =  '".$VO->ID_QUADRO_VAGAS_ESTAGIO."'
-						           and ID_ORGAO_ESTAGIO = '".$VO->ID_ORGAO_SOLICITANTE."')
+                    and B.CS_TIPO_VAGA_ESTAGIO not in 
+                                    (select
+                                        cs_tipo_vaga_estagio
+                                     from 
+                                        vagas_transferidas
+                                     where 
+                                        ID_TRANSFERENCIA_ESTAGIO =  '".$VO->ID_TRANSFERENCIA_ESTAGIO."'
+                                        and ID_QUADRO_VAGAS_ESTAGIO =  '".$VO->ID_QUADRO_VAGAS_ESTAGIO."'
+                                        and ID_ORGAO_EST_ORIGEM = '".$VO->ID_ORGAO_ESTAGIO."')
+                    and B.CS_TIPO_VAGA_ESTAGIO in 
+                                    (select 
+                                            cs_tipo_vaga_estagio
+                                     from 
+                                            vagas_estagio
+                                     where 
+                                            ID_QUADRO_VAGAS_ESTAGIO =  '".$VO->ID_QUADRO_VAGAS_ESTAGIO."'
+                                            and ID_ORGAO_ESTAGIO = '".$VO->ID_ORGAO_SOLICITANTE."')
 
 
                    order by C.TX_TIPO_VAGA_ESTAGIO desc";
-        print_r($query);
+//        print_r($query);
         return $this->sqlVetor($query);
     }
 
 //--------------QUANTIDADE DO DETAIL------------------
 
 function buscarQuantidade($VO) {
-  $query = "select TX_TIPO_VAGA_ESTAGIO,
-                   NB_QUANTIDADE
+  $query = "select 
+                   VAGAS_ESTAGIO.NB_QUANTIDADE
                      from VAGAS_ESTAGIO, TIPO_VAGA_ESTAGIO
              WHERE  VAGAS_ESTAGIO.CS_TIPO_VAGA_ESTAGIO = TIPO_VAGA_ESTAGIO.CS_TIPO_VAGA_ESTAGIO
                and ID_ORGAO_ESTAGIO = " . $VO->ID_ORGAO_ESTAGIO . "
