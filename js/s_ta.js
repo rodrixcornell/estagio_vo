@@ -23,24 +23,43 @@ $('#NB_VALOR_BOLSA').maskMoney({
     $('#TX_INICIO_HORARIO,#TX_FIM_HORARIO').setMask({
         mask:'99:99'
     });
-
-    //-------------FORMATO DA DATA--------------------
-    $('#DT_INICIO_PRORROGACAO,#DT_FIM_PRORROGACAO,#DT_INICIO_RECESSO,#DT_FIM_RECESSO,#DT_INICIO_JORNADA,#DT_INICIO_PAG_BOLSA').setMask({
+ 
+ //-------------FORMATO DA DATA--------------------
+$('#DT_INICIO_PRORROGACAO,#DT_FIM_PRORROGACAO,#DT_INICIO_RECESSO,#DT_FIM_RECESSO,#DT_INICIO_JORNADA,#DT_INICIO_PAG_BOLSA').setMask({
         mask:'99/99/9999'
-    });
+    }); 
 
-    //------------CALENDARIO---------------------------------------------------
-    $('#DT_INICIO_PRORROGACAO,#DT_FIM_PRORROGACAO,#DT_INICIO_RECESSO,#DT_FIM_RECESSO,#DT_INICIO_JORNADA,#DT_INICIO_PAG_BOLSA').datepicker({
+//------------CALENDARIO---------------------------------------------------
+    $('#DT_INICIO_PRORROGACAO').datepicker({
         changeMonth: true,
         changeYear: true
-    });
-
-    //---------------------------------
-    $('#NB_QUANTIDADE').setMask({
+    }); 
+    $('#DT_FIM_PRORROGACAO').datepicker({
+        changeMonth: true,
+        changeYear: true
+    }); 
+    $('#DT_INICIO_RECESSO').datepicker({
+        changeMonth: true,
+        changeYear: true
+    }); 
+    $('#DT_FIM_RECESSO').datepicker({
+        changeMonth: true,
+        changeYear: true
+    }); 
+    $('#DT_INICIO_JORNADA').datepicker({
+        changeMonth: true,
+        changeYear: true
+    }); 
+    $('#DT_INICIO_PAG_BOLSA').datepicker({
+        changeMonth: true,
+        changeYear: true
+    }); 
+//---------------------------------
+$('#NB_QUANTIDADE').setMask({
         mask:'999999'
     });
-    //--------------------------------------------------------------------------
-    //---------------se orgao gestor seleciona o secretario------------------------
+//--------------------------------------------------------------------------
+//---------------se orgao gestor seleciona o secretario------------------------
     $("#ID_ORGAO_GESTOR_ESTAGIO").change(function(){
 
         if ($("#ID_ORGAO_GESTOR_ESTAGIO").val() != 0){
@@ -59,14 +78,14 @@ $('#NB_VALOR_BOLSA').maskMoney({
             $("#TX_FUNCIONARIO").val('');
         }
     });
-    //-------------------------------------------------
-    /*--------------cadastrar seleciona o agente setorial---------------------------*/
+//-------------------------------------------------
+/*--------------cadastrar seleciona o agente setorial---------------------------*/
     $('#ID_ORGAO_ESTAGIO').change(function(){
         if ($('#ID_ORGAO_ESTAGIO').val() != 0){
             var valor = $("#ID_ORGAO_ESTAGIO").val().split('_');
             $("#ID_SETORIAL_ESTAGIO option:first").attr('selected','selected');
             $.post("acoes.php",{
-                ID_ORGAO_ESTAGIO:valor[0],
+                ID_ORGAO_ESTAGIO:valor[0], 
                 identifier:'buscarASetorial'
             },
             function(valor){
@@ -75,23 +94,23 @@ $('#NB_VALOR_BOLSA').maskMoney({
         }else{
             $('#ID_SETORIAL_ESTAGIO').html('');
         }
-    });
-
-    //--------------------COISAS DO CONTRATO--------------
-    $("#ID_CONTRATO").change(function(){
-        if ($("#ID_CONTRATO").val() != 0){
-
-            var valor = $('#ID_CONTRATO').val().split('_');
-            // alert(valor);
-
+    }); 
+    
+//--------------------COISAS DO CONTRATO--------------    
+$("#ID_CONTRATO").change(function(){
+        if ($("#ID_CONTRATO").val() != 0){  
+           
+           var valor = $('#ID_CONTRATO').val().split('_');
+              // alert(valor);
+            
             $("#TX_NOME,#NB_CPF,#TX_TIPO_VAGA_ESTAGIO,#TX_INSTITUICAO_ENSINO,#TX_CURSO_ESTAGIO,#TX_PERIODO,#TX_TCE,#TX_AGENCIA_ESTAGIO").val('');
-            $.post("acoes.php",{
-                ID_CONTRATO: valor[0],
-                ID_AGENCIA_ESTAGIO:valor[1],
+	    $.post("acoes.php",{
+               ID_CONTRATO: valor[0], 
+               ID_AGENCIA_ESTAGIO:valor[1], 
                 identifier:'buscarDadosContrato'
             },
             function(valor){
-
+                
                 dados = valor.split('_');
                 $("#TX_NOME").val(dados[0]);
                 $("#NB_CPF").val(dados[1]);
@@ -99,8 +118,8 @@ $('#NB_VALOR_BOLSA').maskMoney({
                 $("#TX_INSTITUICAO_ENSINO").val(dados[3]);
                 $("#TX_CURSO_ESTAGIO").val(dados[4]);
                 $("#TX_PERIODO").val(dados[5]);
-                $("#TX_TCE").val(dados[6]);
-                $("#TX_AGENCIA_ESTAGIO").val(dados[7]);
+                $("#TX_TCE").val(dados[6]);   
+                $("#TX_AGENCIA_ESTAGIO").val(dados[7]);                            
             });
         }else{
             $('#TX_NOME').val('');
@@ -109,8 +128,8 @@ $('#NB_VALOR_BOLSA').maskMoney({
             $("#TX_INSTITUICAO_ENSINO").val('');
             $("#TX_CURSO_ESTAGIO").val('');
             $("#TX_PERIODO").val('');
-            $("#TX_TCE").val('');
-            $("#TX_AGENCIA_ESTAGIO").val('');
+            $("#TX_TCE").val('');  
+            $("#TX_AGENCIA_ESTAGIO").val('');                       
         }
     });
 
@@ -226,7 +245,7 @@ $('#NB_VALOR_BOLSA').maskMoney({
 
     //---------------------PESQUISA---------------------------------------
     $('#pesquisar').click(function(){
-        if ($('#ID_ORGAO_GESTOR_ESTAGIO').val() && $('#ID_ORGAO_ESTAGIO').val()){
+     if ($('#ID_ORGAO_GESTOR_ESTAGIO').val() || $('#ID_ORGAO_ESTAGIO').val()){
             showLoader();
             $('#tabela').load('acoes.php?identifier=tabela',{
                 ID_ORGAO_GESTOR_ESTAGIO:$('#ID_ORGAO_GESTOR_ESTAGIO').val(),
@@ -237,11 +256,11 @@ $('#NB_VALOR_BOLSA').maskMoney({
                 NB_CPF:$('#NB_CPF').val(),
                 TX_CODIGO_SOLICITACAO:$('#TX_CODIGO_SOLICITACAO').val()
             }, hideLoader);
-        }else
-            alert('Preencha os campos obrigatório para realizar a pesquisa!');
+      }else
+         alert('Preencha os campos obrigatório para realizar a pesquisa!');
     });
 
-    //--------PAGINAÇÃO DA PESQUISA-------------------------------------
+//--------PAGINAÇÃO DA PESQUISA-------------------------------------
     $("#paginacao li").live('click', function(){
         showLoader();
         $("#tabela").load('acoes.php?identifier=tabela&PAGE='+this.id,{
@@ -252,7 +271,7 @@ $('#NB_VALOR_BOLSA').maskMoney({
             TX_NOME:$('#TX_NOME').val(),
             NB_CPF:$('#NB_CPF').val(),
             TX_CODIGO_SOLICITACAO:$('#TX_CODIGO_SOLICITACAO').val()
-
+           
         }, hideLoader);
         return false;
     });

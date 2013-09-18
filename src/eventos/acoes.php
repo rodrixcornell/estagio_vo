@@ -34,8 +34,8 @@ function gerarTabela($param=''){
 	echo '<table width="100%" id="tabelaItens" >
 			<tr>
 				<th style="width:150px;">Valor</th>
-				<th style="width:150px;">Início Vigência</th>
-                <th style="width:150px;">Fim Vigência</th>
+				<th style="width:150px;">Início de Vigência</th>
+                <th style="width:150px;">Fim de Vigência</th>
                 <th>Data Cadastro</th>
                 <th>Data Atualização</th>';
 	
@@ -117,12 +117,12 @@ if ($_REQUEST['identifier'] == "tabela"){
 		echo '<table width="100%" class="dataGrid">
                             <tr>
                                 <th>Código</th>
-				<th>Descrição</th>
-				<th>Sigla</th>
-				<th>Situação</th>
+								<th>Descrição</th>
+								<th>Sigla</th>
+								<th>Situação</th>
                                 <th>Tipo</th>
-                                <th>Data Cadastro</th>
-                                <th>Data Atualização</th>
+                                <th>Dt. Cadastro</th>
+                                <th>Dt. Atualização</th>
                                 <th></th>
               ';
 			//Somente ver a coluna de alterar se tiver acesso completo a tela					

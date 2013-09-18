@@ -75,7 +75,7 @@
                    {*----QTD  DO SISTEMA-----   *}
                    <div id="camada" style="width:150px;" >
                      <strong><font color="#FF0000"></font>Quantidade </strong><br />
-                     <input type="text" name="NB_QUANT_SISTEMA" id="NB_QUANT_SISTEMA" value="{$dados.NB_QUANT_SISTEMA[0]}" style="width:140px;" readonly="readonly" class="leitura"/></div>
+                     <input type="text" name="NB_QUANT_SISTEMA" id="NB_QUANT_SISTEMA" value="{$VO->NB_QUANT_SISTEMA}" style="width:140px;" readonly="readonly" class="leitura"/></div>
                    
                   {*---QDT----*}
                    

@@ -4,6 +4,8 @@ require_once $pathvo."ta_contratoVO.php";
 
 $VO = new ta_contratoVO();
 
+$arraySituacao = array(""=>"Escolha...", 1=>"Aberta", 2=>"Efetivada", 3=>"Cancelada");
+
 $VO->pesquisarOrgaoGestor();
     $arrayOrgaoGestor = $VO->getArray("TX_ORGAO_GESTOR_ESTAGIO");
 
@@ -18,11 +20,7 @@ $VO->buscarUnidadeOrigem();
     
 $VO->buscarUnidadeDestino();
     $arraybuscarUnidadeDestino = $VO->getArray("TX_UNIDADE_DESTINO");
-    
-$VO->pesquisarTipoVaga();
-    $arrayTipoVaga = $VO->getArray("TX_TIPO_VAGA_ESTAGIO");
 
-$arraySituacao = array(""=>"Escolha...", 1=>"ABERTA", 2=>"EFETIVADA", 3=>"CANCELADA");
     
 $smarty->assign("arraySituacao", $arraySituacao);
 $smarty->assign("arrayOrgaoGestor", $arrayOrgaoGestor);
@@ -30,6 +28,5 @@ $smarty->assign("arrayCodigoContrato", $arrayCodigoContrato);
 $smarty->assign("arrayCodTermoAditivo", $arrayCodTermoAditivo);
 $smarty->assign("arraybuscarUnidadeOrigem", $arraybuscarUnidadeOrigem);
 $smarty->assign("arraybuscarUnidadeDestino", $arraybuscarUnidadeDestino);
-$smarty->assign("arrayTipoVaga", $arrayTipoVaga);
 
 ?>

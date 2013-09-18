@@ -13,19 +13,19 @@ $titulopage = 'Contrato de Estágio';
 session_start();
 require_once "../autenticacao/validaPermissao.php";
 
+
+
 $VO = new contratoVO();
 
 if ($_SESSION['ID_CONTRATO']) {
 
     $VO->ID_CONTRATO = $_SESSION['ID_CONTRATO'];
 
-    $todosCSselecao = $VO->buscarCsSelecao();
-    $dadosCSSelecao = $VO->getVetor();
-
-    $VO->CS_SELECAO = $dadosCSSelecao['CS_SELECAO'][0];
-    if ($_SESSION['CS_SELECAO'][0] ==2 ) {
-        $VO->CS_SELECAO = $_SESSION['CS_SELECAO'];
-    }
+    $todosCSselecao=$VO->buscarCsSelecao();
+    $dadosCSSelecao=$VO->getVetor();
+    
+    $VO->CS_SELECAO=$dadosCSSelecao['CS_SELECAO'][0];
+    
     $total = $VO->buscar();
     $total ? $dados = $VO->getVetor() : false;
 }else

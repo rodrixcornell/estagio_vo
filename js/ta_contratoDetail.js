@@ -12,9 +12,9 @@ $(document).ready(function(){
         $('.fundo_pag').fadeOut(200);
         $('#NB_QUANTIDADE').val('');
 		$('#CS_TIPO_VAGA_ESTAGIO').html('');
-        $('#ID_SOLICITACAO_TA_CP option:first').attr('selected','selected');
+        $('#ID_CURSO_ESTAGIO option:first').attr('selected','selected');
 
-        $.post("acoes.php?identifier=pesquisarTipoVaga",{ID_SOLICITACAO_TA_CP:$('#ID_SOLICITACAO_TA_CP').val()},TipoVaga);		
+        $.post("acoes.php?identifier=pesquisarTipoVaga",{ID_QUADRO_VAGAS_ESTAGIO:$('#ID_QUADRO_VAGAS_ESTAGIO').val(), ID_ORGAO_ESTAGIO:$('#ID_ORGAO_ESTAGIO').val()},TipoVaga);		
 		function TipoVaga(valor){
 			$("#CS_TIPO_VAGA_ESTAGIO").html(valor);
 		}
@@ -38,7 +38,8 @@ $(document).ready(function(){
         mask:'999999'
     });
 
-//------------------------INSERIR VAGAS SOLICITADAS----------------------------------
+
+    // Inserção de Vagas de Estágio
     $('#inserir').live('click', function(){
         if (!$('#CS_TIPO_VAGA_ESTAGIO').val()){
             alert('Para inserir escolha um Tipo de Vaga.');
@@ -50,40 +51,19 @@ $(document).ready(function(){
             showLoader();
             $("#tabelaVagasSolicitadas").load('acoes.php',
 				{
-				CS_TIPO_VAGA_ESTAGIO:$('#CS_TIPO_VAGA_ESTAGIO').val(),
-				NB_QUANTIDADE:$('#NB_QUANTIDADE').val(),
-                                NB_TAXA_ADMINISTRATIVA:$('#NB_TAXA_ADMINISTRATIVA').val(),
-                                NB_AUXILIO_TRANSPORTE:$('#NB_AUXILIO_TRANSPORTE').val(),
-                                NB_BOLSA_AUXILIO:$('#NB_BOLSA_AUXILIO').val(),
-				identifier:'inserirVagasSolicitadas',
-				PAGE:$('.selecionado').text()
+					ID_QUADRO_VAGAS_ESTAGIO:$('#ID_QUADRO_VAGAS_ESTAGIO').val(),
+					ID_ORGAO_ESTAGIO:$('#ID_ORGAO_ESTAGIO').val(),
+					CS_TIPO_VAGA_ESTAGIO:$('#CS_TIPO_VAGA_ESTAGIO').val(),
+					NB_QUANTIDADE:$('#NB_QUANTIDADE').val(),
+					ID_CURSO_ESTAGIO:$('#ID_CURSO_ESTAGIO').val(),
+					identifier:'inserirVagasSolicitadas',
+					PAGE:$('.selecionado').text()
 				}, emptyHideLoader);
         }
         return false;
     });
-    
-    //----------------------------ALTERAR VAGAS SOLICITADAS---------------------
-    $('#alterar').live('click', function(){
-        var href = $(this).attr('href');
-
-        $("#dialog").dialog("open");
-
-        $('#tabelaAlterarVagasSolicitadas').html('');
-        showLoaderForm();
-        $('#tabelaAlterarVagasSolicitadas').load('acoes.php',
-			{
-			CS_TIPO_VAGA_ESTAGIO:href,
-			ID_SOLICITACAO_TA_CP:$('#ID_SOLICITACAO_TA_CP').val(), 
-                        NB_QUANTIDADE:$('#NB_QUANTIDADE').val(),
-                        NB_TAXA_ADMINISTRATIVA:$('#NB_TAXA_ADMINISTRATIVA').val(),
-                        NB_AUXILIO_TRANSPORTE:$('#NB_AUXILIO_TRANSPORTE').val(),
-			NB_BOLSA_AUXILIO:$('#NB_BOLSA_AUXILIO').val(),
-			identifier:'tabelaAlterarVagasSolicitadas'
-			}, hideLoaderForm);
-        return false;
-    });
-    
-//------------------------EXCLUIR VAGAS SOLICITADAS-----------------------------
+ 
+    //Exclusão de Vagas de Estágio
     $('#excluir').live('click', function(){
         var href = $(this).attr('href');
 
@@ -93,15 +73,31 @@ $(document).ready(function(){
             $("#tabelaVagasSolicitadas").load('acoes.php',
             {
                 CS_TIPO_VAGA_ESTAGIO:href,
-				ID_SOLICITACAO_TA_CP:$('#ID_SOLICITACAO_TA_CP').val(), 
-			
+				ID_QUADRO_VAGAS_ESTAGIO:$('#ID_QUADRO_VAGAS_ESTAGIO').val(), 
+				ID_ORGAO_ESTAGIO:$('#ID_ORGAO_ESTAGIO').val(),
                 identifier:'excluirVagasSolicitadas',
                 PAGE:$('.selecionado').text()
             }, emptyHideLoader);
         }
         return false;
     });
-    
+
+    $('#alterar').live('click', function(){
+        var href = $(this).attr('href');
+
+        $("#dialog").dialog("open");
+
+        $('#tabelaAlterarVagasSolicitadas').html('');
+        showLoaderForm();
+        $('#tabelaAlterarVagasSolicitadas').load('acoes.php',
+			{
+				CS_TIPO_VAGA_ESTAGIO:href,
+				ID_QUADRO_VAGAS_ESTAGIO:$('#ID_QUADRO_VAGAS_ESTAGIO').val(), 
+				ID_ORGAO_ESTAGIO:$('#ID_ORGAO_ESTAGIO').val(),
+				identifier:'tabelaAlterarVagasSolicitadas'
+			}, hideLoaderForm);
+        return false;
+    });
 
     $("#dialog").dialog({
         autoOpen: false,
@@ -110,20 +106,20 @@ $(document).ready(function(){
         modal: true,
         buttons:{
             "Salvar": function() {
-                if (!$('#NB_QUANTIDADE').val()){
+                if (!$('#NB_QUANTIDADE_ALT').val()){
                     alert('Para inserir escolha uma Quantidade.');
-                    $('#NB_QUANTIDADE').focus();
+                    $('#NB_QUANTIDADE_ALT').focus();
                 }else{
                     showLoader();
                     $("#tabelaVagasSolicitadas").load('acoes.php',
 							{	
-							CS_TIPO_VAGA_ESTAGIO:$('#CS_TIPO_VAGA_ESTAGIO_ALT').val(),
-							NB_QUANTIDADE:$('#NB_QUANTIDADE_ALT').val(),
-							NB_TAXA_ADMINISTRATIVA:$('#NB_TAXA_ADMINISTRATIVA').val(),
-                                                        NB_AUXILIO_TRANSPORTE:$('#NB_AUXILIO_TRANSPORTE').val(),
-                                                        NB_BOLSA_AUXILIO:$('#NB_BOLSA_AUXILIO').val(),
-							identifier:'alterarVagasSolicitadas',
-							PAGE:$('.selecionado').text()
+								ID_QUADRO_VAGAS_ESTAGIO:$('#ID_QUADRO_VAGAS_ESTAGIO').val(), 
+								ID_ORGAO_ESTAGIO:$('#ID_ORGAO_ESTAGIO').val(),
+								CS_TIPO_VAGA_ESTAGIO:$('#CS_TIPO_VAGA_ESTAGIO_ALT').val(),
+								NB_QUANTIDADE:$('#NB_QUANTIDADE_ALT').val(),
+								ID_CURSO_ESTAGIO:$('#ID_CURSO_ESTAGIO_ALT').val(),
+								identifier:'alterarVagasSolicitadas',
+								PAGE:$('.selecionado').text()
 							}, emptyHideLoader);
                     $( this ).dialog("close");
                 };
@@ -134,8 +130,7 @@ $(document).ready(function(){
             }
         }
     });
-    
-//------------------------------EFETIVAR VAGAS----------------------------------	
+	
 	$( "#efetivar" ).live('click', function() {
 		if ($('.icones').length){
 			resp = window.confirm('Tem certeza que deseja Efetivar esta Solicitação?');
@@ -148,11 +143,13 @@ $(document).ready(function(){
 			alert('Para Efetivar uma Solicitação adicione pelo menos uma vaga de estágio.');
 			return false;	
 		}			  
+        
     });
 
 
-//------------------------------EXCLUIR MASTER----------------------------------
+    //Excluir Master
     $('#excluirMaster').click(function(){
+
         if ($('.icones').length){
             alert('Este registro não pode ser excluído pois possui dependentes.');
             return false;
