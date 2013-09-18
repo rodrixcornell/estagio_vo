@@ -33,7 +33,7 @@ $(document).ready(function(){
 
     $('#DT_DESLIGAMENTO').setMask({
         mask:'99/99/9999'
-  });
+    });
 
     $('#DT_SOLICITACAO').datepicker({
         changeMonth: true,
@@ -42,7 +42,7 @@ $(document).ready(function(){
 
     $('#DT_DESLIGAMENTO').datepicker({
         changeMonth: true,
-       changeYear: true
+        changeYear: true
     });
 
 	//Excluir Master

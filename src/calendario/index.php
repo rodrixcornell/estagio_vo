@@ -8,7 +8,7 @@ $modulo = 80;
 $programa = 9;
 $pasta = 'calendario';
 $current = 3;
-$titulopage = 'Calendário da Folha de Pagamento de Estágio';
+$titulopage = 'Calendário da Folha de Pagamento';
 
 require_once "../autenticacao/validaPermissao.php";
 

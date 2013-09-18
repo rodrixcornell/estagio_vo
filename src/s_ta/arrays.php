@@ -34,7 +34,7 @@ $arraybuscarAgenteIntegracao=$VO->getArray('TX_AGENCIA_ESTAGIO');
 $smarty->assign('arrayOrgaoGestor'             ,$arrayOrgaoGestor);
 $smarty->assign('arrayOrgaoSolicitante'        ,$arrayOrgaoSolicitante);
 $smarty->assign('arrayContrato'                ,$arrayContrato);
-//$smarty->assign("buscarASetorial"              ,$buscarASetorial);
+$smarty->assign("buscarASetorial"              ,$buscarASetorial);
 $smarty->assign("arraySituacao"                ,$arraySituacao);
 $smarty->assign("arraybuscarAgenteIntegracao"  ,$arraybuscarAgenteIntegracao);
 $smarty->assign("arraybuscaTipo"               ,$arraybuscaTipo);

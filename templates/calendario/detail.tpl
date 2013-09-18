@@ -13,13 +13,13 @@
                     <tr bgcolor="#E0E0E0">
                         <td style="width:210px;"><strong>Órgão Gestor</strong></td>
                         <td style="width:500px;"><font color="#0000FF" class="num_em"><strong>{$dados.TX_ORGAO_GESTOR_ESTAGIO[0]}</strong></font></td>
-                        <td style="width:150px;"><strong>Data Cadastro</strong></td>
+                        <td style="width:150px;"><strong>Data do Cadastro</strong></td>
                         <td style="width:200px; text-align:right;">{$dados.DT_CADASTRO[0]}</div></td>
                     </tr>
                     <tr bgcolor="#F0EFEF">
                         <td><strong>Ano de Referência</strong></td>
                         <td>{$dados.NB_ANO_REFERENCIA[0]}</td>
-                        <td><strong>Data Atualização</strong></td>
+                        <td><strong>Data de Atualização</strong></td>
                         <td style="text-align:right;"><div id="atualizacao">{$dados.DT_ATUALIZACAO[0]}</div></td>
                     </tr>
                     <tr bgcolor="#E0E0E0">
@@ -43,38 +43,38 @@
             <fieldset>
                 <legend>Cadastrar Item</legend>
 
-                {$largura=150}
-                <div id="camada" style="width:{$largura+20}px;">
-                    <strong><font color="#FF0000">*</font>Grupo Pagamento</strong><br />
+                {$largura=140}
+                <div id="camada" style="width:{$largura+10}px;">
+                    <strong><font color="#FF0000">*</font>Grupo Pag.</strong><br />
                     <select name="ID_GRUPO_PAGAMENTO" id="ID_GRUPO_PAGAMENTO" style="width:{$largura}px;">
                         {html_options options=$arrayGrupoPagamento selected=$VO->ID_GRUPO_PAGAMENTO}
                     </select></div>
 
-                <div id="camada" style="width:{$largura+20}px;" >
-                    <strong><font color="#FF0000">*</font>Data Fechamento</strong><br />
+                <div id="camada" style="width:{$largura+10}px;" >
+                    <strong><font color="#FF0000">*</font>Dt. Fechamento</strong><br />
                     <input type="text" name="DT_FECHAMENTO" id="DT_FECHAMENTO" value="{$VO->DT_FECHAMENTO}" style="width:{$largura}px;" /></div>
 
                 <div id="camada" style="width:{$largura+10}px;" >
-                    <strong><font color="#FF0000">*</font>Data Encaminhamento do Documento</strong><br />
+                    <strong><font color="#FF0000">*</font>Dt. Encam. Doc</strong><br />
                     <input type="text" name="DT_ENCAM_DOC" id="DT_ENCAM_DOC" value="{$VO->DT_ENCAM_DOC}" style="width:{$largura}px;" /></div>
 
                 <div id="camada" style="width:{$largura+10}px;" >
-                    <strong><font color="#FF0000">*</font>Data Transferência Banco</strong><br />
+                    <strong><font color="#FF0000">*</font>Dt. Transf. Banco</strong><br />
                     <input type="text" name="DT_TRANSF_BANCO" id="DT_TRANSF_BANCO" value="{$VO->DT_TRANSF_BANCO}" style="width:{$largura}px;" /></div>
 
                 <div id="camada" style="width:{$largura+10}px;" >
-                    <strong><font color="#FF0000">*</font>Data Início Transferência</strong><br />
+                    <strong><font color="#FF0000">*</font>Dt. Início Transf. Est.</strong><br />
                     <input type="text" name="DT_INICIO_TRANSF_ESTAG" id="DT_INICIO_TRANSF_ESTAG" value="{$VO->DT_INICIO_TRANSF_ESTAG}" style="width:{$largura}px;" /></div>
 
-                <div id="camada" style="width:{$largura+20}px;" >
-                    <strong><font color="#FF0000">*</font>Data Fim Transferência</strong><br />
+                <div id="camada" style="width:{$largura+10}px;" >
+                    <strong><font color="#FF0000">*</font>Dt. Fim Transf. Est.</strong><br />
                     <input type="text" name="DT_FIM_TRANSF_ESTAG" id="DT_FIM_TRANSF_ESTAG" value="{$VO->DT_FIM_TRANSF_ESTAG}" style="width:{$largura}px;" /></div>
 
                 <div id="camada" style="width:{$largura+10}px;" >
-                    <strong><font color="#FF0000">*</font>Data Pagamento</strong><br />
+                    <strong><font color="#FF0000">*</font>Dt. Pagamento</strong><br />
                     <input type="text" name="DT_PAGAMENTO" id="DT_PAGAMENTO" value="{$VO->DT_PAGAMENTO}" style="width:{$largura}px;" /></div>
 
-                    &nbsp;&nbsp;&nbsp;<input type="button" name="inserir" id="inserir" value=" Inserir " />
+                <input type="button" name="inserir" id="inserir" value=" Inserir " />
                 {*<input type="button" name="efetivar" id="efetivar" value=" Efetivar Solicitação " style="margin-top:17px; float:right; padding:4px 8px; font-weight:bold;"/>*}
             </fieldset>
         {/if}

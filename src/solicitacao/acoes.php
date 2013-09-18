@@ -47,7 +47,7 @@ function gerarTabela($param = '') {
         <table width="100%" id="tabelaItens" >
             <tr>
                 <th style="width:210px;">Órgão Gestor</th>
-                <th style="width:210px;">Agência de Estágio</th>
+                <th style="width:210px;">Agencia de Estágio</th>
                 <th>Tipo</th>
                 <th style="width:70px;">Quantidade</th>
                 <th style="width:210px;">Curso</th>';
@@ -210,7 +210,7 @@ if ($_REQUEST['identifier'] == "tabela") {
                     <th>Código</th>
                     <th>Órgão Gestor</th>
                     <th>Órgão Solicitante</th>
-                    <th>Agência de Estágio</th>
+                    <th>Agencia de Estágio</th>
                     <th>Situação</th>';
         //Somente ver a coluna de alterar se tiver acesso completo a tela
         //if ($acesso)
@@ -232,7 +232,7 @@ if ($_REQUEST['identifier'] == "tabela") {
             //if ($acesso)
             echo '
                 <td align="center">
-                    <a href="' . $dados['ID_SOLICITACAO_ESTAGIO'][$i] . '_' . $dados['ID_ORGAO_ESTAGIO'][$i] . '" id="alterar"><img src="' . $urlimg . 'icones/editar.png" alt="itens" title="Visualizar"/></a></td>';
+                    <a href="' . $dados['ID_SOLICITACAO_ESTAGIO'][$i] . '_' . $dados['ID_ORGAO_ESTAGIO'][$i] . '" id="alterar"><img src="' . $urlimg . 'icones/editar.png" alt="itens" title="Alterar"/></a></td>';
             echo '</tr>';
         }
 

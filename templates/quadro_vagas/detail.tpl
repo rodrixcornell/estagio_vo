@@ -52,9 +52,9 @@
             {if $acesso}<fieldset>
                     <legend>Vagas</legend>
 
-                    <div id="camada" style="font-family:Verdana, Geneva, sans-serif; width:210px;">
+                    <div id="camada" style="font-family:Verdana, Geneva, sans-serif; width:310px;">
                         <font color="#FF0000">*</font>Órgão Solicitante <font color="#FF0000">{$validar.ID_ORGAO_ESTAGIO}</font><br />
-                        <select name="ID_ORGAO_ESTAGIO" id="ID_ORGAO_ESTAGIO" style="width:200px;">
+                        <select name="ID_ORGAO_ESTAGIO" id="ID_ORGAO_ESTAGIO" style="width:300px;">
                             {html_options options=$orgao_Solicitante selected=$VO->ID_ORGAO_ESTAGIO}
                         </select></div>
 
@@ -65,14 +65,14 @@
                             {html_options options=$pesquisarTipo selected=$VO->CS_TIPO_VAGA_ESTAGIO}
                         </select></div>
 
-                    <div id="camada" style="width:110px;"><font color="#FF0000">*</font>Quantidade:<font color="#FF0000"> {$validar.NB_QUANTIDADE} </font><br />
+                    <div id="camada" style="width:110px;"><font color="#FF0000">*</font>Quantidade:<font color="#FF0000"> {$validar.NB_QUANTIDADE} </font><br />     
                         <input type="text" name="NB_QUANTIDADE" id="NB_QUANTIDADE" value="{$VO->NB_QUANTIDADE}" style="width:100px; text-align:center;"  />
                     </div>
 
 
-                    <div id="camada" style="font-family:Verdana, Geneva, sans-serif; width:210px;">
+                    <div id="camada" style="font-family:Verdana, Geneva, sans-serif; width:310px;">
                         <font color="#FF0000">*</font>Curso <font color="#FF0000">{$validar.ID_CURSO_ESTAGIO}</font><br />
-                        <select name="ID_CURSO_ESTAGIO" id="ID_CURSO_ESTAGIO" style="width:200px;">
+                        <select name="ID_CURSO_ESTAGIO" id="ID_CURSO_ESTAGIO" style="width:300px;">
                             {html_options options=$pesquisaCursos selected=$VO->ID_CURSO_ESTAGIO}
                         </select></div>
 

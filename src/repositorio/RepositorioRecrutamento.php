@@ -430,14 +430,8 @@ AND
 
         return $this->sqlVetor($query);
     }
-    function  buscarRecrutamentoRel($VO){
-        
-        $query = "";
-        return $this->sqlVetor($query);
-        
-    }
-
-
+    
+    
     /*
      * 
      * Fim funções para relatorio 

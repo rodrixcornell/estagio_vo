@@ -15,13 +15,13 @@ session_start();
 
 
 if ($_POST){
-    $VO = new recrutamentoVO();
-    $VO->setCaracteristica('ID_RECRUTAMENTO_ESTAGIO','obrigatorios'); 
+    $VO = new quadro_vagasVO();
+    $VO->setCaracteristica('ID_QUADRO_VAGAS_ESTAGIO','obrigatorios'); 
     $validar = $VO->preencher($_POST);
 	
   if (!$validar){
       
-       $_SESSION['ID_RECRUTAMENTO_ESTAGIO'] = $VO->ID_RECRUTAMENTO_ESTAGIO;
+       $_SESSION['ID_QUADRO_VAGAS_ESTAGIO'] = $VO->ID_QUADRO_VAGAS_ESTAGIO;
        header("Location: ".$url."src/relatorios/".$pasta."/relatorio.php");
 	}
 }
