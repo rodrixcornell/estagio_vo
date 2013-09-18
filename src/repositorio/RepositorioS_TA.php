@@ -66,42 +66,44 @@ class RepositorioS_TA extends Repositorio {
 
         return $this->sqlVetor($query);
     }
-    
- 
+
+
 //-------------------buscarContrato--------------------
     function buscarContrato($VO) {
 
         $codigoContrato = explode('_', $VO->ID_AGENCIA_ESTAGIO);
 
         $query = "select ID_CONTRATO ||'_'|| CE.ID_AGENCIA_ESTAGIO CODIGO,
-                    TX_CODIGO       
+                    TX_CODIGO
                from CONTRATO_ESTAGIO CE,
                     AGENCIA_ESTAGIO AE
               where CE.ID_AGENCIA_ESTAGIO = AE.ID_AGENCIA_ESTAGIO
            order by TX_CODIGO DESC";
 
         return $this->sqlVetor($query);
-    } 
-    
-        
+    }
+
+
 //-------------buscarAgenteSetorial  OSMUNDO------------------
     function buscarASetorial($VO) {
 
             $codigo = explode('_', $VO->ID_ORGAO_ESTAGIO);
-        
-        $query = "SELECT 
-                    C.ID_SETORIAL_ESTAGIO  CODIGO,
-                    A.TX_FUNCIONARIO  TX_FUNCIONARIO
-                FROM 
-                    V_FUNCIONARIO_TOTAL A,
-                    USUARIO B ,
-                    AGENTE_SETORIAL_ESTAGIO  C,
+
+        $query = "
+            select distinct
+                    C.ID_SETORIAL_ESTAGIO CODIGO,
+                    A.TX_FUNCIONARIO TX_FUNCIONARIO
+               from V_FUNCIONARIO_TOTAL A,
+                    USUARIO B,
+                    AGENTE_SETORIAL_ESTAGIO C,
                     ORGAO_AGENTE_SETORIAL O
-                    WHERE B.ID_USUARIO = C.ID_USUARIO
-                    AND A.ID_UNIDADE_GESTORA = B.ID_UNIDADE_GESTORA
-                    AND A.ID_PESSOA_FUNCIONARIO = B.ID_PESSOA_FUNCIONARIO
-                    AND C.ID_SETORIAL_ESTAGIO = O.ID_SETORIAL_ESTAGIO
-                    AND O.ID_ORGAO_ESTAGIO = NVL('" .$codigo[0]."',0)";
+              where B.ID_USUARIO = C.ID_USUARIO
+                    and A.ID_UNIDADE_GESTORA = B.ID_UNIDADE_GESTORA
+                    and A.ID_PESSOA_FUNCIONARIO = B.ID_PESSOA_FUNCIONARIO
+                    and C.ID_SETORIAL_ESTAGIO = O.ID_SETORIAL_ESTAGIO ";
+        ($codigo[0] != 0) ? $query .=  " and O.ID_ORGAO_ESTAGIO = '" .$codigo[0]." '" : FALSE;
+        $query .= "
+              order by A.TX_FUNCIONARIO";
 
         return $this->sqlVetor($query);
     }
@@ -113,7 +115,7 @@ class RepositorioS_TA extends Repositorio {
 
         $codigoOrgaoGestor = explode('_', $VO->ID_ORGAO_GESTOR_ESTAGIO);
 
-       
+
 
         $query = "SELECT ST.ID_SOLICITACAO_TA,
                             B.ID_ORGAO_GESTOR_ESTAGIO,
@@ -135,6 +137,7 @@ class RepositorioS_TA extends Repositorio {
                             V_FUNCIONARIO_TOTAL.TX_FUNCIONARIO TX_FUNCIONARIO_CADASTRO,
                             V_FUNCIONARIO_TOTAL1.TX_FUNCIONARIO TX_FUNCIONARIO_ALTERACAO,
                             E.TX_AGENCIA_ESTAGIO,
+                            A.TX_CODIGO,
                             A.TX_CODIGO TX_CODIGO_CONTRATO,
                             V_FUNCIONARIO_TOTAL3.TX_FUNCIONARIO TX_AGENTE_SETORIAL,
                             ST.TX_CODIGO  TX_CODIGO_SOLICITACAO,
@@ -153,7 +156,7 @@ class RepositorioS_TA extends Repositorio {
                             ST.TX_FIM_HORARIO,
                             ST.NB_VALOR_BOLSA,
                             TO_CHAR(ST.DT_INICIO_PAG_BOLSA,'DD/MM/YYYY') DT_INICIO_PAG_BOLSA,
-                            ST.CS_SITUACAO, 
+                            ST.CS_SITUACAO,
                             ST.TX_MOTIVO_SITUACAO,
                             ST.TX_OUTRAS_ALTERACOES,
                             ST.ID_USUARIO_ATUALIZACAO,
@@ -207,11 +210,11 @@ class RepositorioS_TA extends Repositorio {
                             AND AG.ID_USUARIO                   = USUARIO3.ID_USUARIO
                             AND USUARIO3.ID_PESSOA_FUNCIONARIO  = V_FUNCIONARIO_TOTAL3.ID_PESSOA_FUNCIONARIO
                             AND USUARIO3.ID_UNIDADE_GESTORA     = V_FUNCIONARIO_TOTAL3.ID_UNIDADE_GESTORA
-                            AND ST.ID_ORGAO_ESTAGIO = " . $codigoOrgaoSolicitante[0] . " 
-                            AND ST.ID_ORGAO_GESTOR_ESTAGIO = " . $codigoOrgaoGestor[0] . " 
+                            AND ST.ID_ORGAO_ESTAGIO = " . $codigoOrgaoSolicitante[0] . "
+                            AND ST.ID_ORGAO_GESTOR_ESTAGIO = " . $codigoOrgaoGestor[0] . "
                          ";
 
-        // $VO->ID_ORGAO_GESTOR_ESTAGIO ? $query .= "  AND ST.ID_ORGAO_GESTOR_ESTAGIO = ".$VO->ID_ORGAO_GESTOR_ESTAGIO." " : false;      
+        // $VO->ID_ORGAO_GESTOR_ESTAGIO ? $query .= "  AND ST.ID_ORGAO_GESTOR_ESTAGIO = ".$VO->ID_ORGAO_GESTOR_ESTAGIO." " : false;
         //$VO->ID_ORGAO_ESTAGIO ? $query .= "  AND ST.ID_ORGAO_ESTAGIO = ".$VO->ID_ORGAO_ESTAGIO." " : false;
         $VO->ID_AGENCIA_ESTAGIO ? $query .= " AND  ST.ID_AGENCIA_ESTAGIO = " . $VO->ID_AGENCIA_ESTAGIO . " " : false;
         $VO->TX_CODIGO_CONTRATO ? $query .= " AND UPPER(TX_CODIGO_CONTRATO) LIKE '%" . $VO->TX_CODIGO_CONTRATO . "%' " : false;
@@ -221,7 +224,7 @@ class RepositorioS_TA extends Repositorio {
 
         $query .=" ORDER BY TX_CODIGO_SOLICITACAO";
 
-       
+
 
         if ($VO->Reg_quantidade) {
             !$VO->Reg_inicio ? $VO->Reg_inicio = 0 : false;
@@ -260,6 +263,7 @@ class RepositorioS_TA extends Repositorio {
                         V_FUNCIONARIO_TOTAL.TX_FUNCIONARIO TX_FUNCIONARIO_CADASTRO,
                         V_FUNCIONARIO_TOTAL1.TX_FUNCIONARIO TX_FUNCIONARIO_ALTERACAO,
                         E.TX_AGENCIA_ESTAGIO,
+                        A.TX_CODIGO,
                         A.TX_CODIGO TX_CODIGO_CONTRATO,
                         V_FUNCIONARIO_TOTAL3.TX_FUNCIONARIO TX_AGENTE_SETORIAL,
                         ST.TX_CODIGO TX_CODIGO_SOLICITACAO,
@@ -284,7 +288,7 @@ class RepositorioS_TA extends Repositorio {
                         ST.ID_USUARIO_ATUALIZACAO,
                         ST.ID_ORGAO_ESTAGIO,
                         ST.ID_USUARIO_CADASTRO,
-                        
+
                         ST.ID_ORGAO_ESTAGIO,
                         ST.ID_ORGAO_GESTOR_ESTAGIO,
                         ST.ID_SETORIAL_ESTAGIO,
@@ -333,14 +337,14 @@ class RepositorioS_TA extends Repositorio {
                         AND USUARIO3.ID_PESSOA_FUNCIONARIO  = V_FUNCIONARIO_TOTAL3.ID_PESSOA_FUNCIONARIO
                         AND USUARIO3.ID_UNIDADE_GESTORA     = V_FUNCIONARIO_TOTAL3.ID_UNIDADE_GESTORA
                         AND ST.ID_SOLICITACAO_TA         = " . $_SESSION['ID_SOLICITACAO_TA'];
-        
+
         return $this->sqlVetor($query);
     }
 
-//-----------inserir------------------------------------------------    
+//-----------inserir------------------------------------------------
     function inserir($VO) {
 
-       
+
         $codigoOrgaoSolicitante = explode('_', $VO->ID_ORGAO_ESTAGIO);
 
         $codigoOrgaoGestor = explode('_', $VO->ID_ORGAO_GESTOR_ESTAGIO);
@@ -353,7 +357,7 @@ class RepositorioS_TA extends Repositorio {
         $this->sqlVetor($queryPK);
         $CodigoPK = $this->getVetor();
 
-        $query = "INSERT 
+        $query = "INSERT
                     INTO SOLICITACAO_TA(
                     ID_SOLICITACAO_TA,
                     TX_CODIGO,
@@ -389,28 +393,27 @@ class RepositorioS_TA extends Repositorio {
                      SYSDATE,
                   '" . $VO->TX_FONE_AGENTE . "',
                   '" . $VO->TX_CARGO_AGENTE . "',
-                  '" . $VO->TX_EMAIL_AGENTE . "',    
+                  '" . $VO->TX_EMAIL_AGENTE . "',
                   TO_DATE('" . $VO->DT_INICIO_PRORROGACAO . "','DD/MM/YYYY'),
                   TO_DATE('" . $VO->DT_FIM_PRORROGACAO . "','DD/MM/YYYY'),
                   TO_DATE('" . $VO->DT_INICIO_RECESSO . "','DD/MM/YYYY'),
                   TO_DATE('" . $VO->DT_FIM_RECESSO . "','DD/MM/YYYY'),
                   TO_DATE('" . $VO->DT_INICIO_JORNADA . "','DD/MM/YYYY'),
-                  '" . $VO->TX_HORAS_JORNADA . "',  
-                  '" . $VO->TX_INICIO_HORARIO . "',  
-                  '" . $VO->TX_FIM_HORARIO . "',  
+                  '" . $VO->TX_HORAS_JORNADA . "',
+                  '" . $VO->TX_INICIO_HORARIO . "',
+                  '" . $VO->TX_FIM_HORARIO . "',
                   '" . $VO->NB_VALOR_BOLSA . "',
-                  TO_DATE('" . $VO->DT_INICIO_PAG_BOLSA . "','DD/MM/YYYY'),    
+                  TO_DATE('" . $VO->DT_INICIO_PAG_BOLSA . "','DD/MM/YYYY'),
                   '" . $_SESSION['ID_USUARIO'] . "',
-                 '" . $codigoContrato[0] . "', 
+                  '" . $codigoContrato[0] . "',
                   '" . $_SESSION['ID_USUARIO'] . "',
                   '" . $codigoAgencia[0] . "',
-                  '" . $codigoOrgaoSolicitante[0] . "',    
+                  '" . $codigoOrgaoSolicitante[0] . "',
                   '" . $codigoOrgaoGestor[0] . "',
-                  '" . $VO->ID_SETORIAL_ESTAGIO . "',        
+                  '" . $VO->ID_SETORIAL_ESTAGIO . "',
                   1,
-                  '" . $VO->TX_MOTIVO_SITUACAO . "',  
+                  '" . $VO->TX_MOTIVO_SITUACAO . "',
                   '" . $VO->TX_OUTRAS_ALTERACOES . "') ";
-
 
           $retorno = $this->sql($query);
 
@@ -420,18 +423,18 @@ class RepositorioS_TA extends Repositorio {
 
 //-------------------alterar-----------------------------------------------------
     function alterar($VO) {
-        $query = "UPDATE SOLICITACAO_TA SET                  
+        $query = "UPDATE SOLICITACAO_TA SET
                  DT_INICIO_PRORROGACAO  = TO_DATE('" . $VO->DT_INICIO_PRORROGACAO . "','DD/MM/YYYY'),
                  DT_FIM_PRORROGACAO     = TO_DATE('" . $VO->DT_FIM_PRORROGACAO . "','DD/MM/YYYY'),
                  DT_INICIO_RECESSO      = TO_DATE('" . $VO->DT_INICIO_RECESSO . "','DD/MM/YYYY'),
                  DT_FIM_RECESSO         = TO_DATE('" . $VO->DT_FIM_RECESSO . "','DD/MM/YYYY'),
                  DT_INICIO_JORNADA      = TO_DATE('" . $VO->DT_INICIO_JORNADA . "','DD/MM/YYYY'),
                  DT_INICIO_PAG_BOLSA    = TO_DATE('" . $VO->DT_INICIO_PAG_BOLSA . "','DD/MM/YYYY'),
-                 TX_HORAS_JORNADA       = '" . $VO->TX_HORAS_JORNADA . "',  
-                 TX_INICIO_HORARIO      = '" . $VO->TX_INICIO_HORARIO . "',  
-                 TX_FIM_HORARIO         = '" . $VO->TX_FIM_HORARIO . "',  
-                 NB_VALOR_BOLSA         = '" . $VO->NB_VALOR_BOLSA . "', 
-                 TX_MOTIVO_SITUACAO     = '" . $VO->TX_MOTIVO_SITUACAO . "',  
+                 TX_HORAS_JORNADA       = '" . $VO->TX_HORAS_JORNADA . "',
+                 TX_INICIO_HORARIO      = '" . $VO->TX_INICIO_HORARIO . "',
+                 TX_FIM_HORARIO         = '" . $VO->TX_FIM_HORARIO . "',
+                 NB_VALOR_BOLSA         = '" . $VO->NB_VALOR_BOLSA . "',
+                 TX_MOTIVO_SITUACAO     = '" . $VO->TX_MOTIVO_SITUACAO . "',
                  TX_OUTRAS_ALTERACOES   = '" . $VO->TX_OUTRAS_ALTERACOES . "',
                  DT_ATUALIZACAO         = SYSDATE,
                  ID_USUARIO_ATUALIZACAO =" . $_SESSION['ID_USUARIO'] . "
@@ -460,23 +463,23 @@ class RepositorioS_TA extends Repositorio {
         $codigoOrgaoGestor = explode('_', $VO->ID_ORGAO_GESTOR_ESTAGIO);
 
         $codigoContrato = explode('_', $VO->ID_AGENCIA_ESTAGIO);
-        $query = "SELECT   
+        $query = "SELECT
                   A.ID_CONTRATO CODIGO,
                   A.ID_CONTRATO,
-                  D.TX_NOME || '_' || 
-                  D.NB_CPF || '_' || 
-                  T.TX_TIPO_VAGA_ESTAGIO || '_' || 
-                  I.TX_INSTITUICAO_ENSINO || '_' || 
-                  CE.TX_CURSO_ESTAGIO || '_' || 
-            DECODE(A.CS_PERIODO, 1,'1º Ano', 2,'2º Ano', 
-                                 3,'3º Ano', 4,'4º Ano', 
-                                 5,'5º Ano', 6,'1º Periodo', 
+                  D.TX_NOME || '_' ||
+                  D.NB_CPF || '_' ||
+                  T.TX_TIPO_VAGA_ESTAGIO || '_' ||
+                  I.TX_INSTITUICAO_ENSINO || '_' ||
+                  CE.TX_CURSO_ESTAGIO || '_' ||
+            DECODE(A.CS_PERIODO, 1,'1º Ano', 2,'2º Ano',
+                                 3,'3º Ano', 4,'4º Ano',
+                                 5,'5º Ano', 6,'1º Periodo',
                                  7,'2º Periodo',8,'3º Periodo',
-                                 9,'4º Periodo', 10,'5º Periodo', 
-                                 11,'6º Periodo', 12,'7º Periodo', 
+                                 9,'4º Periodo', 10,'5º Periodo',
+                                 11,'6º Periodo', 12,'7º Periodo',
                                  13,'8º Periodo', 14,'9º Periodo', 15,'10º Periodo')
               || '_' || A.TX_TCE || '_' || E.TX_AGENCIA_ESTAGIO TUDO
-            FROM 
+            FROM
                   CONTRATO_ESTAGIO A,
                   ORGAO_GESTOR_ESTAGIO B,
                   ORGAO_ESTAGIO C,
@@ -486,7 +489,7 @@ class RepositorioS_TA extends Repositorio {
                   TIPO_VAGA_ESTAGIO T,
                   INSTITUICAO_ENSINO I,
                   CURSO_ESTAGIO CE
-            WHERE 
+            WHERE
                       A.ID_AGENCIA_ESTAGIO      = E.ID_AGENCIA_ESTAGIO
                   AND B.ID_ORGAO_GESTOR_ESTAGIO = A.ID_ORGAO_GESTOR_ESTAGIO
                   AND A.ID_ORGAO_ESTAGIO        = C.ID_ORGAO_ESTAGIO
@@ -494,7 +497,7 @@ class RepositorioS_TA extends Repositorio {
                   AND F.ID_SELECAO_ESTAGIO(+)   = A.ID_SELECAO_ESTAGIO
                   AND A.CS_TIPO_VAGA_ESTAGIO    = T.CS_TIPO_VAGA_ESTAGIO
                   AND A.ID_INSTITUICAO_ENSINO   = I.ID_INSTITUICAO_ENSINO
-                  AND A.ID_CURSO_ESTAGIO        = CE.ID_CURSO_ESTAGIO 
+                  AND A.ID_CURSO_ESTAGIO        = CE.ID_CURSO_ESTAGIO
                  ";
 
         $VO->ID_CONTRATO ? $query .= " AND ID_CONTRATO = " . $VO->ID_CONTRATO . " " : false;
