@@ -169,7 +169,7 @@
             {if $acesso}<div id="botoes">
 
                     <form action="{$url}src/{$pasta}/detail.php" method="post" style="display:inline;">         
-                        <input type="submit" name="efetivar" id="efetivar" value=" Efetivar Seleção "/>
+                        <input type="submit" name="efetivar" id="efetivar" value=" Efetivar Solicitação "/>
                     </form>	
                     <a href="{$url}src/{$pasta}/alterar.php"><img src="{$urlimg}icones/alterar.png"  alt="Alterar" title="Alterar" id="alterarMaster" /></a>
                     <a href="{$url}src/{$pasta}/excluir.php"><img src="{$urlimg}icones/excluir.png"  alt="Excluir" title="Excluir" id="excluirMaster" /></a>

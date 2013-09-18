@@ -5,9 +5,11 @@ $(document).ready(function(){
     function hideLoader(){
         $('.fundo_pag').fadeOut(200);
     };
-    /*-------------FORMATO----------------------------*/
 
-    $('#NB_VALOR_BOLSA').maskMoney({
+
+/*-------------FORMATO----------------------------*/
+
+$('#NB_VALOR_BOLSA').maskMoney({
         showSymbol:false,
         symbol:"R$",
         decimal:",",
@@ -16,6 +18,8 @@ $(document).ready(function(){
         allowNegative:false,
         defaultZero:false
     });
+
+$('#TX_FONE_AGENTE').setMask({ mask:'9999-999999' });
     //----------FORMATO DAS HORAS -------------------------------------------
 
     $('#TX_INICIO_HORARIO,#TX_FIM_HORARIO').timepicker();
@@ -112,7 +116,6 @@ $(document).ready(function(){
             $("#TX_AGENCIA_ESTAGIO").val('');
         }
     });
-
 
     //--------------check VIGENCIA-----------------------
     //----------traz inativo ---------------
