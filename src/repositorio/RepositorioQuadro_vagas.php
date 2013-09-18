@@ -86,7 +86,7 @@ class RepositorioQuadro_vagas extends Repositorio {
             $query .= " AND CP.NB_CODIGO = " . $VO->NB_CODIGO . " ";
         }
 
-        $query .=" ORDER BY TX_AGENCIA_ESTAGIO,DT_CADASTRO";
+        $query .=" ORDER BY DT_ATUALIZACAO desc, DT_CADASTRO desc, QVE.TX_CODIGO";
 
 
         if ($VO->Reg_quantidade) {
