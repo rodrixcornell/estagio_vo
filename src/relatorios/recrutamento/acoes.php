@@ -1,22 +1,23 @@
 <?php
 include "../../../php/define.php";
-require_once $pathvo . "recrutamentoVO.php";
+require_once $pathvo."recrutamentoVO.php";
 
 
 
 $VO = new recrutamentoVO();
 
-$VO->CS_SITUACAO = $_REQUEST['CS_SITUACAO'];
+$VO->ID_RECRUTAMENTO_ESTAGIO = $_REQUEST['ID_RECRUTAMENTO_ESTAGIO'];
 
-$VO->ID_ORGAO_ESTAGIO = $_REQUEST['ID_ORGAO_ESTAGIO'];
+	$VO->ID_ORGAO_ESTAGIO	= $_REQUEST['ID_ORGAO_ESTAGIO'];
+	
+	$total = $VO->buscarRecrutamentoRel();
+        
+        $dados = $VO->getVetor();
 
-$total = $VO->buscarRecrutamentoRel();
+		echo '<option value="">Escolha...</option>';
+		for ($i=0; $i<$total; $i++){
+			echo '<option value="'.$dados['ID_INVENTARIO_PATRIMONIO'][$i].'">'.$dados['NB_INVENTARIO_PATRIMONIO'][$i].'</option>';
+		}		
+	
 
-$dados = $VO->getVetor();
-
-
-echo '<option value="">Escolha...</option>';
-for ($i = 0; $i < $total; $i++) {
-    echo '<option value="' . $dados['ID_RECRUTAMENTO_ESTAGIO'][$i] . '">' . $dados['TX_COD_RECRUTAMENTO'][$i] . '</option>';
-}
 ?>

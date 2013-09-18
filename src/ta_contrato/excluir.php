@@ -14,9 +14,9 @@ session_start();
 require_once "../autenticacao/validaPermissao.php";
 
 // Iniciando Instância
-if ($_SESSION['ID_SOLICITACAO_ESTAGIO']){
+if ($_SESSION['ID_SOLICITACAO_TA_CP']){
 	$VO = new ta_contratoVO();
-	$VO->ID_SOLICITACAO_ESTAGIO = $_SESSION['ID_SOLICITACAO_ESTAGIO'];
+	$VO->ID_SOLICITACAO_TA_CP = $_SESSION['ID_SOLICITACAO_TA_CP'];
 
 	$retorno = $VO->excluir();
 

@@ -53,20 +53,20 @@
 
             <br />
             <div id="camada" style="font-family:Verdana, Geneva, sans-serif; width:565px;" >
-                Funcionário do Cadastro
+                Funcionário Cadastro
                 <input type="text" name="TX_FUNCIONARIO_CAD" id="TX_FUNCIONARIO_CAD" value="{$VO->TX_FUNCIONARIO_CAD}"  style="width:555px;" readonly="readonly" class="leitura"/></div>
 
             <div id="camada" style="font-family:Verdana, Geneva, sans-serif; width:210px;" >
-                Data do Cadastro
+                Data Cadastro
                 <input type="text" name="DT_CADASTRO" id="DT_CADASTRO" value="{$VO->DT_CADASTRO}"  style="width:200px;" readonly="readonly" class="leitura"/></div>
 
             <br />
             <div id="camada" style="font-family:Verdana, Geneva, sans-serif; width:565px;" >
-                Funcionário da Atualização
+                Funcionário Atualização
                 <input type="text" name="TX_FUNCIONARIO_ATUAL" id="TX_FUNCIONARIO_ATUAL" value="{$VO->TX_FUNCIONARIO_ATUAL}"  style="width:555px;" readonly="readonly" class="leitura"/></div>
 
             <div id="camada" style="font-family:Verdana, Geneva, sans-serif; width:210px;" >
-                Data da Atualização
+                Data Atualização
                 <input type="text" name="DT_ATUALIZACAO" id="DT_ATUALIZACAO" value="{$VO->DT_ATUALIZACAO}"  style="width:200px;" readonly="readonly" class="leitura"/></div>
 
             <br /><br />

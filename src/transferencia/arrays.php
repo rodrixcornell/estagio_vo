@@ -21,9 +21,9 @@ $arraypesquisarOrgaoCedente = $VO->getArray("TX_ORGAO_ESTAGIO");
 $VO->buscarQuadroVagasEstagio();
 $arrayQuadroVagasEstagio = $VO->getArray("TX_CODIGO");
 
-
- $VO->pesquisarTipoVaga();
-  $arrayTipoVaga = $VO->getArray("TX_TIPO_VAGA_ESTAGIO");
+//
+// $VO->pesquisarTipoVaga();
+//  $arrayTipoVaga = $VO->getArray("TX_TIPO_VAGA_ESTAGIO");
 
   
   // $VO->buscarQuantAtual();
@@ -34,6 +34,6 @@ $smarty->assign("arrayOrgaoGestor", $arrayOrgaoGestor);
 $smarty->assign("arrayOrgaoSolicitante", $arrayOrgaoSolicitante);
 $smarty->assign("arraypesquisarOrgaoCedente", $arraypesquisarOrgaoCedente);
 $smarty->assign("arrayQuadroVagasEstagio", $arrayQuadroVagasEstagio);
-$smarty->assign("arrayTipoVaga", $arrayTipoVaga);
+//$smarty->assign("arrayTipoVaga", $arrayTipoVaga);
 //$smarty->assign("arrayTipoVaga", $arrayTipoVaga);
 ?>

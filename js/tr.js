@@ -5,12 +5,14 @@ $(document).ready(function(){
     function hideLoader(){
         $('.fundo_pag').fadeOut(200);
     };
-
+    $('#TX_TELEFONE_AGENTE').setMask({ mask:'9999-9999999' });
     $('#DT_TERMINO_ESTAGIO').setMask({
         mask:'99/99/9999'
     });
+    
+    
 
-    $('#DT_TERMINO_ESTAGIO').datepicker({
+    $('#DT_TERMINO_ESTAGIO,NB_INICIO_HORARIO,NB_FIM_HORARIO').datepicker({
         changeMonth: true,
         changeYear: true
     });
@@ -96,7 +98,7 @@ $(document).ready(function(){
                 TX_CODIGO:$('#TX_CODIGO').val()                
             }, hideLoader);
         }else
-            alert('Preencha pelo menos um campo para realizar a pesquisa!');
+            alert('Preencha todos os campos obrigatórios!!');
     });
 	
     $("#paginacao li").live('click', function(){

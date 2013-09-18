@@ -5,7 +5,7 @@
     <br /><br /><br /><hr />
 
     <div id="conteudo">
-        Para cadastrar um novo Termo Aditivo de Contrato preencha o formulário abaixo e clique em Avançar:<br /><br />
+        Para cadastrar um novo Termo Aditivo de Contrato preencha o formulário abaixo e clique em Salvar:<br /><br />
         <form name="form" action="{$url}src/{$pasta}/cadastrar.php" method="post">
 
             <div id="camada" style="font-family:Verdana, Geneva, sans-serif; width:180px;" >
@@ -21,13 +21,13 @@
                 </select><br /></div>
 
             <div id="camada" style="font-family:Verdana, Geneva, sans-serif; width:200px;" >
-                <font color="#FF0000">*</font>Agencia de Estágio de Estágio <font color="#FF0000">{$validar.ID_AGENCIA_ESTAGIO}</font><br />
+                <font color="#FF0000">*</font>Agência de Estágio <font color="#FF0000">{$validar.ID_AGENCIA_ESTAGIO}</font><br />
                 <select name="ID_AGENCIA_ESTAGIO" id="ID_AGENCIA_ESTAGIO" style="width:220px;">
                     {html_options options=$pesquisarAgenciaDeEstagio selected=$VO->ID_AGENCIA_ESTAGIO}
                 </select><br /></div>
             <br />
 
-            <div id="camada" style="width:180px;"> <font color="#FF0000">*</font>Dt. do TA<font color="#FF0000"> {$validar.DT_ADITIVO} </font><br />
+            <div id="camada" style="width:180px;"> <font color="#FF0000">*</font>Data do TA<font color="#FF0000"> {$validar.DT_ADITIVO} </font><br />
                 <input type="text" name="DT_ADITIVO" id="DT_ADITIVO" value="{$VO->DT_ADITIVO}" style="width:160px;" /></div>
 
             <div id="camada" style="width:180px;"> <font color="#FF0000">*</font>Termo Aditivo Contrato<font color="#FF0000"> {$validar.TX_TERMO_ADITIVO} </font><br />
@@ -36,10 +36,10 @@
             <div id="camada" style="width:170px;"> <font color="#FF0000">*</font>Valor Estimado<font color="#FF0000"> {$validar.NB_VALOR_ESTIMADO} </font><br />
                 <input type="text" name="NB_VALOR_ESTIMADO" id="NB_VALOR_ESTIMADO" value="{$VO->NB_VALOR_ESTIMADO}" style="width:160px;" /></div>
             <br />
-            <div id="camada" style="width:180px;"> <font color="#FF0000">*</font>Dt. Inicio Vigência<font color="#FF0000"> {$validar.DT_INICIO_VIGENCIA} </font><br />
+            <div id="camada" style="width:180px;"> <font color="#FF0000">*</font>Data Inicio Vigência<font color="#FF0000"> {$validar.DT_INICIO_VIGENCIA} </font><br />
                 <input type="text" name="DT_INICIO_VIGENCIA" id="DT_INICIO_VIGENCIA" value="{$VO->DT_INICIO_VIGENCIA}" style="width:160px;" /></div>
 
-            <div id="camada" style="width:170px;"> <font color="#FF0000">*</font>Dt. Fim Vigência<font color="#FF0000"> {$validar.DT_FIM_VIGENCIA} </font><br />
+            <div id="camada" style="width:170px;"> <font color="#FF0000">*</font>Data Fim Vigência<font color="#FF0000"> {$validar.DT_FIM_VIGENCIA} </font><br />
                 <input type="text" name="DT_FIM_VIGENCIA" id="DT_FIM_VIGENCIA" value="{$VO->DT_FIM_VIGENCIA}" style="width:160px;" /></div>
 
             <br />

@@ -97,37 +97,9 @@ $(document).ready(function(){
      * funções para relatorio 
      * 
      */
-    $('#ID_ORGAO_ESTAGIO_REL').change(function(){
-        if($('#ID_ORGAO_ESTAGIO_REL').val()){
-            $("#CS_SITUACAO_REL option:first").attr('selected','selected');
-            $("#CS_SITUACAO_REL").attr("disabled",false);
-        }else {
-            $("#CS_SITUACAO_REL option:first").attr('selected','selected');
-            $("#CS_SITUACAO_REL").attr("disabled",true);
-              
-        }
-    });
-    $('#CS_SITUACAO_REL').change(function(){
-        if($('#CS_SITUACAO_REL').val()){
-            $("#ID_RECRUTAMENTO_ESTAGIO_REL option:first").attr('selected','selected');
-            $("#ID_RECRUTAMENTO_ESTAGIO_REL").attr("disabled",false);
-            var valor = $('#ID_ORGAO_ESTAGIO_REL').val().split('_');
-            $.post("acoes.php",{
-                ID_ORGAO_ESTAGIO:valor[0],
-                CS_SITUACAO:$('#CS_SITUACAO_REL').val()
     
-            }, 
-            function(valor){
-                $("#ID_RECRUTAMENTO_ESTAGIO_REL").html(valor);
-            });
-        }
-        if (!$('#CS_SITUACAO_REL').val()){
-            $("#ID_RECRUTAMENTO_ESTAGIO_REL option:first").attr('selected','selected');
-            $("#ID_RECRUTAMENTO_ESTAGIO_REL").attr("disabled",true);
-              
-        }
-    });
-/*
+    
+    /*
      * 
      * Fim funções para relatorio 
      * 
