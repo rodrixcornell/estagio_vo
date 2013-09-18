@@ -22,14 +22,14 @@ if ($_SESSION['ID_SOLICITACAO_TA']){
     $total = $VO->pesquisar();
     $dados = $VO->getVetor();
 
-    
-    
+
+
     $_SESSION['CS_SITUACAO'] = $dados['CS_SITUACAO'][0];
     $_SESSION['ID_CONTRATO'] = $dados['ID_CONTRATO'][0];
-    $_SESSION['ID_ORGAO_ESTAGIO'] = $dados['ID_ORGAO_ESTAGIO'][0];
+    //$_SESSION['ID_ORGAO_ESTAGIO'] = $dados['ID_ORGAO_ESTAGIO'][0];
     $_SESSION['ID_SETORIAL_ESTAGIO'] = $dados['ID_SETORIAL_ESTAGIO'][0];
     $_SESSION['ID_AGENCIA_ESTAGIO'] =$dados['ID_AGENCIA_ESTAGIO'][0];
-    
+
 	if ($dados['CS_SITUACAO'][0] == 2){
 	  $acesso = 0;
 	}
