@@ -44,7 +44,7 @@ if ($_POST) {
 
         if ($VO->ID_ORGAO_ESTAGIO) {
             $VO->buscarQuadroVagasEstagio();
-            $smarty->assign("arrayQuadroVagasEstagio", $VO->getArray("TX_CODIGO"));//
+            $smarty->assign("arrayQuadroVagasEstagio", $VO->getArray("TX_CODIGO"));
         }
     }
 }

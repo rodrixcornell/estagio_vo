@@ -416,6 +416,7 @@ AND
         return $this->sqlVetor($query);
     }
 
+
     function buscarRecrutamentoRel($VO) {
 
         $query = "SELECT 

@@ -10,19 +10,17 @@ class RepositorioTipo_Pagamento extends Repositorio {
                          TX_TIPO_PAG_ESTAGIO
                     FROM TIPO_PAG_ESTAGIO";
 
-        
         $query .= " ORDER BY CS_TIPO_PAG_ESTAGIO";
         return $this->sqlVetor($query);
     }
 
 //PESQUISAR
     function pesquisar($VO) {
-        $query = "SELECT CS_TIPO_PAG_ESTAGIO CODIGO,
-                         CS_TIPO_PAG_ESTAGIO, 
+        $query = "SELECT CS_TIPO_PAG_ESTAGIO, 
                          TX_TIPO_PAG_ESTAGIO
                   FROM TIPO_PAG_ESTAGIO ";
 					
-		$VO->CS_TIPO_PAG_ESTAGIO ? $query .= " WHERE CS_TIPO_PAG_ESTAGIO = " . $VO->CS_TIPO_PAG_ESTAGIO. " " : false;
+		$VO->CS_TIPO_PAG_ESTAGIO ? $query .= " WHERE (CS_TIPO_PAG_ESTAGIO = " . $VO->CS_TIPO_PAG_ESTAGIO. ") " : false;
 
         $query .= " ORDER BY CS_TIPO_PAG_ESTAGIO";
 

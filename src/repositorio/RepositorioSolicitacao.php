@@ -87,7 +87,13 @@ class RepositorioSolicitacao extends Repositorio {
         ($VO->TX_COD_SOLICITACAO) ? $query .= " and (se.TX_COD_SOLICITACAO like '%" . $VO->TX_COD_SOLICITACAO . "%') " : false;
 
         $query .= "
-              order by se.DT_CADASTRO desc";
+              order by se.DT_ATUALIZACAO,
+                    se.DT_CADASTRO,
+                    se.TX_COD_SOLICITACAO,
+                    oe.TX_ORGAO_ESTAGIO,
+                    oge.TX_ORGAO_GESTOR_ESTAGIO,
+                    ae.TX_AGENCIA_ESTAGIO
+        ";
 
         if ($VO->Reg_quantidade) {
             !$VO->Reg_inicio ? $VO->Reg_inicio = 0 : false;

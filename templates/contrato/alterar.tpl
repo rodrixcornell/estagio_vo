@@ -6,7 +6,7 @@
 
     <div id="conteudo">
         <form name="form" action="{$url}src/{$pasta}/alterar.php" method="post">
-            Para alterar Contrato de Estágio preencha o formulário abaixo e clique em Salvar:<br /><br />
+            Para alterar Contrato de Estágio preencha o formulário abaixo e clique em Avançar:<br /><br />
 
             <!-- FildSet da Unidade Solicitante -->
             <fieldset>

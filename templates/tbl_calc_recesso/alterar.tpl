@@ -5,7 +5,7 @@
 
     <br /><br /><br /><hr />
     <div id="conteudo">
-        Para alterar a {$titulopage} preencha o formulário abaixo e clique em Salvar:<br /><br /><br />
+        Para alterar a {$titulopage} preencha o formulário abaixo e clique em Avançar:<br /><br /><br />
 
         <form name="form" action="{$url}src/{$pasta}/alterar.php" method="post">
 
@@ -24,23 +24,23 @@
                 <input type="text" name="DT_INICIO_VIGENCIA" id="DT_INICIO_VIGENCIA" value="{$VO->DT_INICIO_VIGENCIA}" style="width:120px;" /></div><br />
 
             <div id="camada" style="font-family:Verdana, Geneva, sans-serif; width:310px;" >
-                Data Fim Vigência:<br />
+                Data Fim de Vigência:<br />
                 <input type="text" name="DT_FIM_VIGENCIA" id="DT_FIM_VIGENCIA" value="{$VO->DT_FIM_VIGENCIA}" style="width:120px;" /></div><br />
 
             <div id="camada" style="font-family:Verdana, Geneva, sans-serif; width:360px;" >
-                Usuário Cadastro:
+                Usuário do Cadastro:
                 <input type="text" name="TX_FUNCIONARIO_CAD" id="TX_FUNCIONARIO_CAD" value="{$VO->TX_FUNCIONARIO_CAD}"  style="width:350px;" readonly="readonly" class="leitura"/></div><br />
 
             <div id="camada" style="font-family:Verdana, Geneva, sans-serif; width:210px;" >
-                Data Cadastro:
+                Data do Cadastro:
                 <input type="text" name="DT_CADASTRO" id="DT_CADASTRO" value="{$VO->DT_CADASTRO}"  style="width:200px;" readonly="readonly" class="leitura"/></div><br />
 
             <div id="camada" style="font-family:Verdana, Geneva, sans-serif; width:360px;" >
-                Usuário Atualização:
+                Usuário da Atualização:
                 <input type="text" name="TX_FUNCIONARIO_ATUAL" id="TX_FUNCIONARIO_ATUAL" value="{$VO->TX_FUNCIONARIO_ATUAL}"  style="width:350px;" readonly="readonly" class="leitura"/></div><br />
 
             <div id="camada" style="font-family:Verdana, Geneva, sans-serif; width:210px;" >
-                Data Atualização:
+                Data da Atualização:
                 <input type="text" name="DT_ATUALIZACAO" id="DT_ATUALIZACAO" value="{$VO->DT_ATUALIZACAO}"  style="width:200px;" readonly="readonly" class="leitura"/></div><br />
 
             <br />

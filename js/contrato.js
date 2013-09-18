@@ -5,10 +5,6 @@ $(document).ready(function(){
     function hideLoader(){
         $('.fundo_pag').fadeOut(200);
     };
-    
-    $('#TX_TCE').setMask({ mask:'99999999999999999999' });
-    $('#TX_TELEFONE').setMask({ mask:'9999-9999999' });
-    
     $('#NB_VALOR').maskMoney({
         showSymbol:false, 
         symbol:"R$", 

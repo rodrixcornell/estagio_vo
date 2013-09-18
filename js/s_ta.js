@@ -165,10 +165,8 @@ $("#ID_CONTRATO").change(function(){
                  $('input[name=DT_INICIO_RECESSO]').attr('disabled',true);
                  $('input[name=DT_FIM_RECESSO]').attr('disabled',true);
                  $('input[name=NB_MES]').attr('disabled',true);
-              
-                   } 
-                    
-            });  
+                  }
+                });   
         //----------------JORNADA-------------------------------
         $("input[name=JORNADA]").click( function() {
                 if($('input[name=JORNADA]').is(':checked')){    

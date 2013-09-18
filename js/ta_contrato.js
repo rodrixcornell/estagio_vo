@@ -22,13 +22,12 @@ $(document).ready(function(){
             $("#tabela").load('acoes.php?identifier=tabela',
             {
                 ID_ORGAO_GESTOR_ESTAGIO:$('#ID_ORGAO_GESTOR_ESTAGIO').val(),
-                ID_SOLICITACAO_TA_CP:$('#ID_SOLICITACAO_TA_CP').val(),
                 ID_ADITIVO_CONTRATO_CP:$('#ID_ADITIVO_CONTRATO_CP').val(),
                 ID_CONTRATO_CP:$('#ID_CONTRATO_CP').val(),
                 TX_CODIGO:$('#TX_CODIGO').val()
             }, hideLoader);
-      //  }else
-          //  alert('Preencha pelo menos os campos \"Órgão Gestor\" para realizar pesquisa!');
+       // }else
+         //   alert('Preencha pelo menos os campos \"Órgão Gestor\" para realizar pesquisa!');
     });
 
     //PAGINACAO
@@ -83,9 +82,27 @@ $("#ID_UNIDADE_ORG_ORIGEM").live('change', function(){
     });*/
 //------------------------------------------------------------------------------
 
- 
- 
-
+   /* $("#ID_ORGAO_GESTOR_ESTAGIO,#ID_ORGAO_ESTAGIO").live('change', function(){
+        if (!$('#ID_ORGAO_GESTOR_ESTAGIO').val()){
+            //alert('Para escolher Quadro de Vagas\n escolha um Agencia de Estágio.');
+            $('#ID_ORGAO_GESTOR_ESTAGIO').focus();
+        }else if (!$('#ID_ORGAO_ESTAGIO').val()){
+            //alert('Para escolher Quadro de Vagas\n escolha um Órgão Solicitante.');
+            $('#ID_ORGAO_ESTAGIO').focus();
+        }else{
+            $.post("acoes.php",
+            {
+                ID_ORGAO_GESTOR_ESTAGIO:$('#ID_ORGAO_GESTOR_ESTAGIO').val(),
+                ID_ORGAO_ESTAGIO:$('#ID_ORGAO_ESTAGIO').val(),
+                identifier:'pesquisarQuadroVagasEstagio'
+            }, function(valor){
+                //alert(valor);
+                $("#ID_QUADRO_VAGAS_ESTAGIO").html(valor);
+            });
+        }
+        return false;
+    });
+*/
   /*  $("#ID_QUADRO_VAGAS_ESTAGIO").live('click', function(){
         //alert("Key: " + event.which);
         if (!$('#ID_ORGAO_GESTOR_ESTAGIO').val()){
@@ -113,5 +130,9 @@ $("#ID_UNIDADE_ORG_ORIGEM").live('change', function(){
         return false;
     });*/
 
-}); 
- 
+});/* 
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
+

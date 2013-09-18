@@ -18,7 +18,7 @@ class RepositorioInstituicao extends Repositorio {
         if ($VO->TX_SIGLA) {
             $query .= " AND UPPER(INSTITUICAO_ENSINO.TX_SIGLA) LIKE UPPER('%" . $VO->TX_SIGLA . "%') ";
         }
-        $query .="  order by TX_INSTITUICAO_ENSINO";
+        $query .="  order by ID_INSTITUICAO_ENSINO";
 
 
         if ($VO->Reg_quantidade) {

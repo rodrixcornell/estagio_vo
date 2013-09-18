@@ -1,5 +1,4 @@
 <?php
-
 include "../../../php/define.php";
 require_once $pathvo . "recrutamentoVO.php";
 
@@ -14,6 +13,7 @@ $VO->ID_ORGAO_ESTAGIO = $_REQUEST['ID_ORGAO_ESTAGIO'];
 $total = $VO->buscarRecrutamentoRel();
 
 $dados = $VO->getVetor();
+
 
 echo '<option value="">Escolha...</option>';
 for ($i = 0; $i < $total; $i++) {

@@ -13,25 +13,25 @@
                     <tr bgcolor="#E0E0E0">
                         <td style="width:210px;"><strong>Nome da  Tabela</strong></td>
                         <td style="width:450px;"><font color="#0000FF" class="num_em"><strong>{$dados.TX_TABELA[0]}</strong></font></td>
-                        <td style="width:210px;"><strong>Data Início Vigência</strong></td>
+                        <td style="width:210px;"><strong>Data Início de Vigência</strong></td>
                         <td style="width:200px; text-align:right;">{$dados.DT_INICIO_VIGENCIA[0]}</td>
                     </tr>
                     <tr bgcolor="#F0EFEF">
                         <td><strong>Órgão Gestor</strong></td>
                         <td>{$dados.TX_ORGAO_GESTOR_ESTAGIO[0]}</td>
-                        <td><strong>Data Fim Vigência</strong></td>
+                        <td><strong>Data Fim de Vigência</strong></td>
                         <td style="text-align:right;">{$dados.DT_FIM_VIGENCIA[0]}</td>
                     </tr>
                     <tr bgcolor="#E0E0E0">
                         <td><strong>Cadastrado por</strong></td>
                         <td>{$dados.TX_FUNCIONARIO_CAD[0]}</td>
-                        <td><strong>Data Cadastro</strong></td>
+                        <td><strong>Data do Cadastro</strong></td>
                         <td style="text-align:right;">{$dados.DT_CADASTRO[0]}</div></td>
                     </tr>
                     <tr bgcolor="#F0EFEF">
                         <td><strong>Alterado por</strong></td>
                         <td><div id="funcionario">{$dados.TX_FUNCIONARIO_ATUAL[0]}</div></td>
-                        <td><strong>Data Atualização</strong></td>
+                        <td><strong>Data de Atualização</strong></td>
                         <td style="text-align:right;"><div id="atualizacao">{$dados.DT_ATUALIZACAO[0]}</div></td>
                     </tr>
                 </table>

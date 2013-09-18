@@ -10,7 +10,6 @@ $pasta = 'contrato';
 $current = 2;
 $titulopage = 'Contrato de Estágio';
 
-session_start();
 require_once "../autenticacao/validaPermissao.php";
 
 $VO = new contratoVO();
@@ -19,7 +18,7 @@ unset($_SESSION['ID_CONTRATO']);
 if ($_POST) {
 
     $VO->configuracao();
-    $VO->setCaracteristica('CS_SELECAO,ID_BOLSA_ESTAGIO,ID_ORGAO_GESTOR_ESTAGIO,ID_ORGAO_ESTAGIO,CS_PERIODO,CS_TIPO,ID_PESSOA_ESTAGIARIO,TX_TELEFONE,TX_ENDERECO,DT_INICIO_VIGENCIA,DT_FIM_VIGENCIA,NB_INICIO_HORARIO,NB_FIM_HORARIO,ID_INSTITUICAO_ENSINO,ID_CURSO_ESTAGIO,CS_HORARIO_CURSO,ID_AGENCIA_ESTAGIO,ID_PESSOA_SUPERVISOR,ID_LOTACAO,TX_TCE,TX_PLANO_ATIVIDADE', 'obrigatorios');
+    $VO->setCaracteristica('CS_SELECAO,ID_BOLSA_ESTAGIO,ID_ORGAO_GESTOR_ESTAGIO,ID_ORGAO_ESTAGIO,ID_QUADRO_VAGAS_ESTAGIO,CS_PERIODO,CS_TIPO,ID_PESSOA_ESTAGIARIO,TX_TELEFONE,TX_ENDERECO,DT_INICIO_VIGENCIA,DT_FIM_VIGENCIA,NB_INICIO_HORARIO,NB_FIM_HORARIO,ID_INSTITUICAO_ENSINO,ID_CURSO_ESTAGIO,CS_HORARIO_CURSO,ID_AGENCIA_ESTAGIO,ID_PESSOA_SUPERVISOR,ID_LOTACAO,TX_TCE,TX_PLANO_ATIVIDADE', 'obrigatorios');
     $VO->setCaracteristica('DT_FIM_VIGENCIA,DT_INICIO_VIGENCIA', 'datas');
     $VO->setCaracteristica('NB_INICIO_HORARIO,NB_FIM_HORARIO', 'horas');
 
@@ -59,16 +58,13 @@ if ($_POST) {
         $VO->CS_TIPO_VAGA_ESTAGIO = $codigo[4];
         $VO->ID_PESSOA_ESTAGIARIO = implode('_', $codigo);
     }
-    $id_pk = $VO->inserir();
-    if (!$validar) {
-    
-      
-        $_SESSION['ID_CONTRATO'] = $id_pk;
 
-        $_SESSION['CS_SELECAO'] = $VO->CS_SELECAO;
-         
-        header("Location: ".$url."src/".$pasta."/detail.php");
-  
+    if (!$validar) {
+        $id_pk = $VO->inserir();
+        if ($id_pk) {
+            $_SESSION['ID_CONTRATO_ESTAGIO'] = $id_pk;
+            header("Location: " . $url . "src/" . $pasta . "/detail.php");
+        }
     }
 }
 

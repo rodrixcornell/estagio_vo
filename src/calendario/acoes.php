@@ -37,12 +37,12 @@ function gerarTabela($param = '') {
         <table width="100%" id="tabelaItens" >
             <tr>
                 <th>Grupo</th>
-                <th>Data Fechamento</th>
-                <th>Data Encaminhamento de Documento</th>
-                <th>Data Transferância Banco</th>
-                <th>Data Início Transferência</th>
-                <th>Data Fim Transferência</th>
-                <th>Data Pagamento</th>';
+                <th>Dt. Fechamento</th>
+                <th>Dt. Encam. Doc</th>
+                <th>Dt. Transf. Banco</th>
+                <th>Dt. Início Transf. Est.</th>
+                <th>Dt. Fim Transf. Est.</th>
+                <th>Dt. Pagamento</th>';
 
     //Somente ver a coluna de alterar se tiver acesso completo a tela
     if ($acesso)
@@ -138,31 +138,31 @@ function gerarTabelaAlterar($param = '') {
         <fieldset>
 
             <div id="camada" style="width:'.  $largura_div  .'px;">
-                <strong><font color="#FF0000">*</font>Grupo Pagamento</strong><br />
+                <strong><font color="#FF0000">*</font>Grupo Pag.</strong><br />
                 <select name="ID_GRUPO_PAGAMENTO_ALT" id="ID_GRUPO_PAGAMENTO_ALT" style="width:'.  $largura  .'px;">'.  $arrayGrupoPagamentoAlt  .'</select></div>
 
             <div id="camada" style="width:'.  $largura_div  .'px;" >
-                <strong><font color="#FF0000">*</font>Data Fechamento</strong><br />
+                <strong><font color="#FF0000">*</font>Dt. Fechamento</strong><br />
                 <input type="text" name="DT_FECHAMENTO_ALT" id="DT_FECHAMENTO_ALT" value="'.  $dados['DT_FECHAMENTO'][0]  .'" style="width:'.  $largura  .'px;" /></div>
 
             <div id="camada" style="width:'.  $largura_div  .'px;" >
-                <strong><font color="#FF0000">*</font>Data Encaminhamento de Documento</strong><br />
+                <strong><font color="#FF0000">*</font>Dt. Encam. Doc</strong><br />
                 <input type="text" name="DT_ENCAM_DOC_ALT" id="DT_ENCAM_DOC_ALT" value="'.  $dados['DT_ENCAM_DOC'][0]  .'" style="width:'.  $largura  .'px;" /></div>
 
             <div id="camada" style="width:'.  $largura_div  .'px;" >
-                <strong><font color="#FF0000">*</font>Data Transferência Banco</strong><br />
+                <strong><font color="#FF0000">*</font>Dt. Transf. Banco</strong><br />
                 <input type="text" name="DT_TRANSF_BANCO_ALT" id="DT_TRANSF_BANCO_ALT" value="'.  $dados['DT_TRANSF_BANCO'][0]  .'" style="width:'.  $largura  .'px;" /></div>
 
             <div id="camada" style="width:'.  $largura_div  .'px;" >
-                <strong><font color="#FF0000">*</font>Data Início Transferência</strong><br />
+                <strong><font color="#FF0000">*</font>Dt. Início Transf. Est.</strong><br />
                 <input type="text" name="DT_INICIO_TRANSF_ESTAG_ALT" id="DT_INICIO_TRANSF_ESTAG_ALT" value="'.  $dados['DT_INICIO_TRANSF_ESTAG'][0]  .'" style="width:'.  $largura  .'px;" /></div>
 
             <div id="camada" style="width:'.  $largura_div  .'px;" >
-                <strong><font color="#FF0000">*</font>Data Fim Transferência</strong><br />
+                <strong><font color="#FF0000">*</font>Dt. Fim Transf. Est.</strong><br />
                 <input type="text" name="DT_FIM_TRANSF_ESTAG_ALT" id="DT_FIM_TRANSF_ESTAG_ALT" value="'.  $dados['DT_FIM_TRANSF_ESTAG'][0]  .'" style="width:'.  $largura  .'px;" /></div>
 
             <div id="camada" style="width:'.  $largura_div  .'px;" >
-                <strong><font color="#FF0000">*</font>Data Pagamento</strong><br />
+                <strong><font color="#FF0000">*</font>Dt. Pagamento</strong><br />
                 <input type="text" name="DT_PAGAMENTO_ALT" id="DT_PAGAMENTO_ALT" value="'.  $dados['DT_PAGAMENTO'][0]  .'" style="width:'.  $largura  .'px;" /></div>
 
             <br /><br />
@@ -210,8 +210,8 @@ if ($_REQUEST['identifier'] == "tabela") {
                     <th>Órgão Gestor</th>
                     <th style="width:132px;">Ano de Referência</th>
                     <th style="width:132px;">Mês de Referência</th>
-                    <th style="width:132px;">Data Cadastro</th>
-                    <th style="width:132px;">Data Atualização</th>';
+                    <th style="width:132px;">Data de Cadastro</th>
+                    <th style="width:132px;">Data de Atualização</th>';
         //Somente ver a coluna de alterar se tiver acesso completo a tela
         //if ($acesso)
         echo '<th style="width:30px;"></th>';

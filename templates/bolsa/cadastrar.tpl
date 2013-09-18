@@ -5,7 +5,7 @@
     <br /><br /><br /><hr />
 	
     <div id="conteudo">
-        Para cadastrar uma nova Bolsa de Estágio preencha o formulário abaixo e clique em Salvar:<br /><br />
+        Para cadastrar uma nova Bolsa de Estágio preencha o formulário abaixo e clique em Avançar:<br /><br />
         <form name="form" action="{$url}src/{$pasta}/cadastrar.php" method="post">
 			
             <div id="camada" style="font-family:Verdana, Geneva, sans-serif; width:410px;">

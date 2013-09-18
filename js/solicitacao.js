@@ -19,7 +19,7 @@ $(document).ready(function(){
                 TX_COD_SOLICITACAO:$('#TX_COD_SOLICITACAO').val()
             }, hideLoader);
         }else
-            alert('Preencha todos os campos obrigatórios!');
+            alert('Preencha pelo menos os campos \"Órgão Gestor e Órgão Solicitante\" para realizar pesquisa!');
     });
 
     //Paginacao

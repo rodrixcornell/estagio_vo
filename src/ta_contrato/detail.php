@@ -29,18 +29,18 @@ if ($_SESSION['ID_SOLICITACAO_TA_CP']) {
 	
 	if ($dados['CS_SITUACAO'][0] == 2){
 	   $acessoEfetivado = 1;
-	}
-        //print_r
-	($acessoEfetivado);
+	} 	
+	
 	$VO->preencherVOBD($dados);
 	
  	$VO->pesquisarTipoVaga();
 	$smarty->assign("arrayTipoVaga", $VO->getArray("TX_TIPO_VAGA_ESTAGIO"));
 	
+	//$VO->buscarCursos();
+	//$smarty->assign("arrayCurso", $VO->getArray("TX_CURSO_ESTAGIO"));
 }else
     header("Location: " . $url . "src/" . $pasta . "/detail.php");
 
-//print_r($_SESSION);
 
 $smarty->assign("current", $current);
 $smarty->assign("pasta", $pasta);

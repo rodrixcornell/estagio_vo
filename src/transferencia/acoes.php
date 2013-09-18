@@ -314,12 +314,10 @@ if ($_REQUEST['identifier'] == "tabela") {
     $VO->CS_TIPO_VAGA_ESTAGIO    = $_REQUEST['CS_TIPO_VAGA_ESTAGIO'];
             
     
- $total = $VO->buscarQuantidade();
-
+ $total = $VO->buscarQuantExistente();
  $dados = $VO->getVetor();
-// print_r($dados);
-// 
-//  echo json_encode($dados);
+ 
+ 
  echo $dados['NB_QUANT_SISTEMA'][0];
  
        

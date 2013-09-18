@@ -8,7 +8,7 @@
         Para alterar o Tipo de Pagamento preencha o formulário abaixo e clique em Salvar:<br /><br />
         <form name="form" action="{$url}src/{$pasta}/alterar.php" method="post">
 
-            <div id="camada" style="width:310px;" >Código<font color="#FF0000"> {$validar.CS_TIPO_PAG_ESTAGIO} </font><br />
+            <div id="camada" style="width:310px;" ><font color="#FF0000">*</font>Código<font color="#FF0000"> {$validar.CS_TIPO_PAG_ESTAGIO} </font><br />
                 <input type="text" name="CS_TIPO_PAG_ESTAGIO" id="CS_TIPO_PAG_ESTAGIO" value="{$VO->CS_TIPO_PAG_ESTAGIO}" disabled="disabled" style="width:100px;" /><br />
 
                 <div id="camada" style="width:310px;" ><font color="#FF0000">*</font>Descriçâo<font color="#FF0000"> {$validar.TX_TIPO_PAG_ESTAGIO}</font><br />
