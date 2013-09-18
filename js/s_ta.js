@@ -17,10 +17,9 @@ $('#NB_VALOR_BOLSA').maskMoney({
         allowNegative:false, 
         defaultZero:false
     });
-    //----------FORMATO DAS HORAS -------------------------------------------
-
-    $('#TX_INICIO_HORARIO,#TX_FIM_HORARIO').timepicker();
-    $('#TX_INICIO_HORARIO,#TX_FIM_HORARIO').setMask({
+ //----------FORMATO DAS HORAS -------------------------------------------
+ 
+  $('#TX_INICIO_HORARIO,#TX_FIM_HORARIO').setMask({
         mask:'99:99'
     });
  
@@ -132,118 +131,80 @@ $("#ID_CONTRATO").change(function(){
             $("#TX_AGENCIA_ESTAGIO").val('');                       
         }
     });
+ 
+    
+//--------------check VIGENCIA-----------------------
+//----------traz inativo ---------------
+       $('input[name=DT_INICIO_PRORROGACAO]').attr('disabled',true);
+       $('input[name=DT_FIM_PRORROGACAO]').attr('disabled',true);
+       $('input[name=DT_INICIO_RECESSO]').attr('disabled',true);
+       $('input[name=DT_FIM_RECESSO]').attr('disabled',true);
+       $('input[name=NB_MES]').attr('disabled',true);
 
-
-    //--------------check VIGENCIA-----------------------
-    //----------traz inativo ---------------
-//    $('input[name=DT_INICIO_PRORROGACAO]').attr('disabled',true);
-//    $('input[name=DT_FIM_PRORROGACAO]').attr('disabled',true);
-//    $('input[name=DT_INICIO_RECESSO]').attr('disabled',true);
-//    $('input[name=DT_FIM_RECESSO]').attr('disabled',true);
-//    $('input[name=NB_MES]').attr('disabled',true);
-//
-//    $('input[name=DT_INICIO_JORNADA]').attr('disabled',true);
-//    $('input[name=TX_HORAS_JORNADA]').attr('disabled',true);
-//    $('input[name=TX_INICIO_HORARIO]').attr('disabled',true);
-//    $('input[name=TX_FIM_HORARIO]').attr('disabled',true);
-//
-//    $('input[name=DT_INICIO_PAG_BOLSA]').attr('disabled',true);
-//    $('input[name=NB_VALOR_BOLSA]').attr('disabled',true);
-//
-//    $('textarea[name=TX_OUTRAS_ALTERACOES]').attr('disabled',true);
-
-    //-------------------------VIGENCIA---------------------------------
-    $("#NB_VIGENCIA").click( function() {
-        if($('#NB_VIGENCIA').is(':checked')){
-            $('#DT_INICIO_PRORROGACAO').attr('disabled',false);
-            $('#DT_FIM_PRORROGACAO').attr('disabled',false);
-            $('#DT_INICIO_RECESSO').attr('disabled',false);
-            $('#DT_FIM_RECESSO').attr('disabled',false);
-            $('#NB_MES').attr('disabled',false);
-        }else{
-            $('#DT_INICIO_PRORROGACAO').attr('disabled',true);
-            $('#DT_FIM_PRORROGACAO').attr('disabled',true);
-            $('#DT_INICIO_RECESSO').attr('disabled',true);
-            $('#DT_FIM_RECESSO').attr('disabled',true);
-            $('#NB_MES').attr('disabled',true);
-        }
-    });
-    if($('#NB_VIGENCIA').is(':checked')){
-            $('#DT_INICIO_PRORROGACAO').attr('disabled',false);
-            $('#DT_FIM_PRORROGACAO').attr('disabled',false);
-            $('#DT_INICIO_RECESSO').attr('disabled',false);
-            $('#DT_FIM_RECESSO').attr('disabled',false);
-            $('#NB_MES').attr('disabled',false);
-        }else{
-            $('#DT_INICIO_PRORROGACAO').attr('disabled',true);
-            $('#DT_FIM_PRORROGACAO').attr('disabled',true);
-            $('#DT_INICIO_RECESSO').attr('disabled',true);
-            $('#DT_FIM_RECESSO').attr('disabled',true);
-            $('#NB_MES').attr('disabled',true);
-        }
-    //----------------JORNADA-------------------------------
-    $("#NB_JORNADA").click( function() {
-        if($('#NB_JORNADA').is(':checked')){
-
-            $('#DT_INICIO_JORNADA').attr('disabled',false);
-            $('#TX_HORAS_JORNADA').attr('disabled',false);
-            $('#TX_INICIO_HORARIO').attr('disabled',false);
-            $('#TX_FIM_HORARIO').attr('disabled',false);
-        }else{
-            $('#DT_INICIO_JORNADA').attr('disabled',true);
-            $('#TX_HORAS_JORNADA').attr('disabled',true);
-            $('#TX_INICIO_HORARIO').attr('disabled',true);
-            $('#TX_FIM_HORARIO').attr('disabled',true);
-        }
-    });
-    if($('#NB_JORNADA').is(':checked')){
-
-            $('#DT_INICIO_JORNADA').attr('disabled',false);
-            $('#TX_HORAS_JORNADA').attr('disabled',false);
-            $('#TX_INICIO_HORARIO').attr('disabled',false);
-            $('#TX_FIM_HORARIO').attr('disabled',false);
-        }else{
-            $('#DT_INICIO_JORNADA').attr('disabled',true);
-            $('#TX_HORAS_JORNADA').attr('disabled',true);
-            $('#TX_INICIO_HORARIO').attr('disabled',true);
-            $('#TX_FIM_HORARIO').attr('disabled',true);
-        }
-    //---------------BOLSA------------------
-    $("#NB_BOLSA").click( function() {
-        if($('#NB_BOLSA').is(':checked')){
-            $('#DT_INICIO_PAG_BOLSA').attr('disabled',false);
-            $('#NB_VALOR_BOLSA').attr('disabled',false);
-        }else{
-            $('#DT_INICIO_PAG_BOLSA').attr('disabled',true);
-            $('#NB_VALOR_BOLSA').attr('disabled',true);
-        }
-    });
-    if($('#NB_BOLSA').is(':checked')){
-            $('#DT_INICIO_PAG_BOLSA').attr('disabled',false);
-            $('#NB_VALOR_BOLSA').attr('disabled',false);
-        }else{
-            $('#DT_INICIO_PAG_BOLSA').attr('disabled',true);
-            $('#NB_VALOR_BOLSA').attr('disabled',true);
-        }
-    //-------ALTERACOES---------
-    $("#NB_ALTERACOES").click( function(){
-        if($('#NB_ALTERACOES').is(':checked')){
-            $('#TX_OUTRAS_ALTERACOES').attr('disabled',false);
-        }else{
-            $('#TX_OUTRAS_ALTERACOES').attr('disabled',true);
-        }
-    });
-    if($('#NB_ALTERACOES').is(':checked')){
-        $('#TX_OUTRAS_ALTERACOES').attr('disabled',false);
-    }else{
-        $('#TX_OUTRAS_ALTERACOES').attr('disabled',true);
-    }
-
-    //alert("O checkbox esta checado? " + $("#NB_ALTERACOES").is(":checked"));
-
-
-
-    //---------------------PESQUISA---------------------------------------
+      $('input[name=DT_INICIO_JORNADA]').attr('disabled',true);
+      $('input[name=TX_HORAS_JORNADA]').attr('disabled',true);
+      $('input[name=TX_INICIO_HORARIO]').attr('disabled',true);
+      $('input[name=TX_FIM_HORARIO]').attr('disabled',true);      
+   
+      $('input[name=DT_INICIO_PAG_BOLSA]').attr('disabled',true);
+      $('input[name=NB_VALOR_BOLSA]').attr('disabled',true);
+                    
+      $('textarea[name=TX_OUTRAS_ALTERACOES]').attr('disabled',true);
+      
+//-------------------------VIGENCIA---------------------------------      
+        $("input[name=VIGENCIA]").click( function() {
+              if($('input[name=VIGENCIA]').is(':checked')){
+                $('input[name=DT_INICIO_PRORROGACAO]').attr('disabled',false);
+                $('input[name=DT_FIM_PRORROGACAO]').attr('disabled',false);
+                $('input[name=DT_INICIO_RECESSO]').attr('disabled',false);
+                $('input[name=DT_FIM_RECESSO]').attr('disabled',false);
+                $('input[name=NB_MES]').attr('disabled',false);
+                }else{
+                 $('input[name=DT_INICIO_PRORROGACAO]').attr('disabled',true);
+                 $('input[name=DT_FIM_PRORROGACAO]').attr('disabled',true);
+                 $('input[name=DT_INICIO_RECESSO]').attr('disabled',true);
+                 $('input[name=DT_FIM_RECESSO]').attr('disabled',true);
+                 $('input[name=NB_MES]').attr('disabled',true);
+                  }
+                });   
+        //----------------JORNADA-------------------------------
+        $("input[name=JORNADA]").click( function() {
+                if($('input[name=JORNADA]').is(':checked')){    
+                
+                $('input[name=DT_INICIO_JORNADA]').attr('disabled',false);
+                $('input[name=TX_HORAS_JORNADA]').attr('disabled',false);
+                $('input[name=TX_INICIO_HORARIO]').attr('disabled',false);
+                $('input[name=TX_FIM_HORARIO]').attr('disabled',false);
+                }else{    
+                 $('input[name=DT_INICIO_JORNADA]').attr('disabled',true);
+                 $('input[name=TX_HORAS_JORNADA]').attr('disabled',true);
+                 $('input[name=TX_INICIO_HORARIO]').attr('disabled',true);
+                 $('input[name=TX_FIM_HORARIO]').attr('disabled',true);      
+                    }
+                });
+        //---------------BOLSA------------------
+        $("input[name=BOLSA]").click( function() {         
+                if($('input[name=BOLSA]').is(':checked')){
+                $('input[name=DT_INICIO_PAG_BOLSA]').attr('disabled',false);
+                $('input[name=NB_VALOR_BOLSA]').attr('disabled',false);
+                }else{   
+                 $('input[name=DT_INICIO_PAG_BOLSA]').attr('disabled',true);
+                 $('input[name=NB_VALOR_BOLSA]').attr('disabled',true);
+                  }
+                }); 
+        //-------ALTERACOES---------
+        $("input[name=ALTERACOES]").click( function() {    
+                if($('input[name=ALTERACOES]').is(':checked')){    
+                 $('textarea[name=TX_OUTRAS_ALTERACOES]').attr('disabled',false);
+                }else{
+                 $('textarea[name=TX_OUTRAS_ALTERACOES]').attr('disabled',true);
+                
+            }
+        });    
+       
+        
+        
+//---------------------PESQUISA---------------------------------------
     $('#pesquisar').click(function(){
      if ($('#ID_ORGAO_GESTOR_ESTAGIO').val() || $('#ID_ORGAO_ESTAGIO').val()){
             showLoader();
