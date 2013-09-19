@@ -16,7 +16,7 @@ if ($_SESSION['ID_RECRUTAMENTO_ESTAGIO']){
     $pdf->tamanho = '16';
     $pdf->AliasNbPages();
     $pdf->AddPage();
-    $pdf->conteudo();
+//    $pdf->conteudo();
     $pdf->Output();
     
 }else

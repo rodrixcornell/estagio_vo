@@ -16,7 +16,7 @@ session_start();
 
 if ($_POST){
     $VO = new recrutamentoVO();
-    $VO->setCaracteristica('ID_RECRUTAMENTO_ESTAGIO','obrigatorios'); 
+    $VO->setCaracteristica('ID_RECRUTAMENTO_ESTAGIO,ID_ORGAO_ESTAGIO,CS_SITUACAO','obrigatorios'); 
     $validar = $VO->preencher($_POST);
 	
   if (!$validar){
