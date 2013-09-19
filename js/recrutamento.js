@@ -116,8 +116,16 @@ $(document).ready(function(){
             $.post("acoes.php",{
                 ID_ORGAO_ESTAGIO:valor[0],
                 CS_SITUACAO:$('#CS_SITUACAO_REL').val()  
+             }, 
+             function(valor){
+                $("#ID_RECRUTAMENTO_ESTAGIO_REL").html(valor);
+                
+            });
 
     
+            }
+            });
+
     
     /*
      * 
