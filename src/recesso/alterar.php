@@ -53,8 +53,8 @@ if ($_SESSION['ID_RECESSO_ESTAGIO']) {
         if (!$validar) {
             $VO->alterar();
             $_SESSION['ID_RECESSO_ESTAGIO'] = $VO->ID_RECESSO_ESTAGIO;
-//            $_SESSION['STATUS'] = '*Registro alterado com sucesso!';
-//            $_SESSION['PAGE'] = '1';
+            $_SESSION['STATUS'] = '*Registro alterado com sucesso!';
+            $_SESSION['PAGE'] = '1';
             header("Location: " . $url . "src/" . $pasta . "/detail.php");
         }
     }

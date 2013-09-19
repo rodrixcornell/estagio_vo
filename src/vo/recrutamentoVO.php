@@ -93,6 +93,10 @@ class recrutamentoVO extends VO {
     function buscarOrgaoSolicitanteRel() {
         return $this->repositorio->buscarOrgaoSolicitanteRel($this);
     }
+    
+    function buscarRecrutamentoRel() {
+        return $this->repositorio->buscarRecrutamentoRel($this);
+    }
 
     /*
      * 

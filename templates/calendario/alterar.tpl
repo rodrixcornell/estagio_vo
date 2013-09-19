@@ -5,7 +5,7 @@
 
     <br /><br /><br /><hr />
     <div id="conteudo">
-        Para alterar a {$titulopage} preencha o formulário abaixo e clique em Avançar:<br /><br /><br />
+        Para alterar a {$titulopage} preencha o formulário abaixo e clique em Salvar:<br /><br /><br />
 
         <form name="form" action="{$url}src/{$pasta}/alterar.php" method="post">
 
@@ -28,12 +28,12 @@
                 </select></div><br />
 
             <div id="camada" style="font-family:Verdana, Geneva, sans-serif; width:210px;" >
-                Data do Cadastro:
+                Data Cadastro:
                 <input type="text" name="DT_CADASTRO" id="DT_CADASTRO" value="{$VO->DT_CADASTRO}"  style="width:200px;" readonly="readonly" class="leitura"/></div>
 
 
             <div id="camada" style="font-family:Verdana, Geneva, sans-serif; width:210px;" >
-                Data da Atualização:
+                Data Atualização:
                 <input type="text" name="DT_ATUALIZACAO" id="DT_ATUALIZACAO" value="{$VO->DT_ATUALIZACAO}"  style="width:200px;" readonly="readonly" class="leitura"/></div>
 
             <br /><br />

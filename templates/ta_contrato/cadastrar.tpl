@@ -35,20 +35,20 @@
            
             <!-- DATA DA SOLICITACAO -->  
             <div id="camada" style="font-family:Verdana, Geneva, sans-serif; width:150px;" >
-            <font color="#FF0000">*</font> Data da Solicitação <br />
+            <font color="#FF0000">*</font> Data Solicitação <br />
             <input type="text" name="DT_SOLICITACAO" id="DT_SOLICITACAO" value="{$VO->DT_SOLICITACAO}"  style="width:145px;" /><br />
             </div>
             
             <!-- UNIDADE ORGAO ORIGEM -->   
             <div id="camada" style="font-family:Verdana, Geneva, sans-serif; width:370px;" >
-            <font color="#FF0000">*</font>Unidade Org.Origem<font color="#FF0000">{$validar.ID_UNIDADE_ORG_ORIGEM}</font>
+            <font color="#FF0000">*</font>Unidade Organizacional de Origem<font color="#FF0000">{$validar.ID_UNIDADE_ORG_ORIGEM}</font>
             <select name="ID_UNIDADE_ORG_ORIGEM" id="ID_UNIDADE_ORG_ORIGEM" style="width:360px;">
                {html_options options=$arraybuscarUnidadeOrigem selected=$VO->ID_UNIDADE_ORG_ORIGEM}
             </select></div>
                
             <!-- UNIDADE ORGAO DESTINO -->  
             <div id="camada" style="font-family:Verdana, Geneva, sans-serif; width:320px;" >
-                <font color="#FF0000">*</font>Unidade Org. Destino<font color="#FF0000">{$validar.ID_UNIDADE_ORG_DESTINO}</font>
+                <font color="#FF0000">*</font>Unidade Organizacional de Destino<font color="#FF0000">{$validar.ID_UNIDADE_ORG_DESTINO}</font>
                 <select name="ID_UNIDADE_ORG_DESTINO" id="ID_UNIDADE_ORG_DESTINO" style="width:385px;">
                     {html_options options=$arraybuscarUnidadeDestino selected=$VO->ID_UNIDADE_ORG_DESTINO}
                 </select></div><br/>

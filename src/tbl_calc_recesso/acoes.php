@@ -38,8 +38,8 @@ function gerarTabela($param = '') {
                 <th>Tempo de Estágio (Mês)</th>
                 <th>Duração do Recesso (Dia)</th>
                 <th>Fórmula</th>
-                <th>Data de Cadastro</th>
-                <th>Data de Atualização</th>';
+                <th>Data Cadastro</th>
+                <th>Data Atualização</th>';
 
     //Somente ver a coluna de alterar se tiver acesso completo a tela
     if ($acesso)
@@ -133,20 +133,20 @@ function gerarTabelaAlterar($param = '') {
 
             <br />
             <div id="camada" style="width:360px;" >
-                Usuário do Cadastro:
+                Usuário Cadastro:
                 <input type="text" name="TX_FUNCIONARIO_CAD_ALT" id="TX_FUNCIONARIO_CAD_ALT" value="'. $dados['TX_FUNCIONARIO_CAD'][0] .'"  style="width:350px;" readonly="readonly" class="leitura"/></div>
 
             <div id="camada" style="width:140px;" >
-                Data do Cadastro:
+                Data Cadastro:
                 <input type="text" name="DT_CADASTRO_ALT" id="DT_CADASTRO_ALT" value="'. $dados['DT_CADASTRO'][0] .'"  style="width:130px;" readonly="readonly" class="leitura"/></div>
 
             <br />
             <div id="camada" style="width:360px;" >
-                Usuário da Atualização:
+                Usuário Atualização:
                 <input type="text" name="TX_FUNCIONARIO_ATUAL_ALT" id="TX_FUNCIONARIO_ATUAL_ALT" value="'. $dados['TX_FUNCIONARIO_ATUAL'][0] .'"  style="width:350px;" readonly="readonly" class="leitura"/></div>
 
             <div id="camada" style="width:140px;" >
-                Data da Atualização:
+                Data Atualização:
                 <input type="text" name="DT_ATUALIZACAO_ALT" id="DT_ATUALIZACAO_ALT" value="'. $dados['DT_ATUALIZACAO'][0] .'"  style="width:130px;" readonly="readonly" class="leitura"/></div>
 
             <br /><br />
@@ -193,10 +193,10 @@ if ($_REQUEST['identifier'] == "tabela") {
                 <tr>
                     <th>Órgão Gestor</th>
                     <th>Nome da Tabela</th>
-                    <th>Início de Vigência</th>
-                    <th>Fim de Vigência</th>
-                    <th>Data de Cadastro</th>
-                    <th>Data de Alteração</th>';
+                    <th>Início Vigência</th>
+                    <th>Fim Vigência</th>
+                    <th>Data Cadastro</th>
+                    <th>Data Atualização</th>';
         //Somente ver a coluna de alterar se tiver acesso completo a tela
         //if ($acesso)
         echo '<th style="width:30px;"></th>';
@@ -219,7 +219,7 @@ if ($_REQUEST['identifier'] == "tabela") {
             echo '
                 <td align="center">
                     <a href="' . $dados['ID_TABELA_RECESSO'][$i] . '_' . $dados['ID_ORGAO_GESTOR_ESTAGIO'][$i] . '" id="alterar">
-                        <img src="' . $urlimg . 'icones/editar.png" alt="itens" title="Alterar"/></a></td>';
+                        <img src="' . $urlimg . 'icones/editar.png" alt="itens" title="Visualizar"/></a></td>';
             echo '</tr>';
         }
 

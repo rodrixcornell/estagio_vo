@@ -17,7 +17,7 @@ require_once "../autenticacao/validaPermissao.php";
 $VO = new transferenciaVO();
 
 if ($_SESSION['ID_TRANSFERENCIA_ESTAGIO']) {
-
+    
     $VO->ID_TRANSFERENCIA_ESTAGIO = $_SESSION['ID_TRANSFERENCIA_ESTAGIO'];
 
 
@@ -35,7 +35,6 @@ if ($_SESSION['ID_TRANSFERENCIA_ESTAGIO']) {
     $_SESSION['ID_ORGAO_SOLICITANTE'] = $dados['ID_ORGAO_SOLICITANTE'][0];
    
 ($dados['CS_SITUACAO'][0] == 2) ? $acessoEfetivado = 1 : FALSE;
-
 
 
     //print_r($_SESSION);

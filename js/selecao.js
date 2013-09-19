@@ -104,7 +104,7 @@ $(document).ready(function(){
                 TX_COD_SELECAO:$('#TX_COD_SELECAO').val()                               
             }, hideLoader);
         }else
-            alert('Preencha pelo menos os dois campos obrigatórios para realizar a pesquisa!');
+            alert('Preencha todos os campos obrigatórios!');
     });
 	
     //Paginacao

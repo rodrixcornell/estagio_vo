@@ -7,7 +7,7 @@ $modulo = 80;
 $programa = 7;
 $pasta = 'ta_contrato';
 $current = 3;
-$titulopage = 'Solicitação de Termo de Aditivo de Contrato';
+$titulopage = 'Solicitação de Termo Aditivo de Contrato';
 
 session_start();
 require_once "../autenticacao/validaPermissao.php";

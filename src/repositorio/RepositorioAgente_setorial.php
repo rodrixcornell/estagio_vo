@@ -14,7 +14,7 @@ class RepositorioAgente_setorial extends Repositorio {
                         FROM
                             V_PERFIL_USUARIO,
                             USUARIO,
-                            PESSOA 
+                            PESSOA
                         WHERE
                             V_PERFIL_USUARIO.ID_USUARIO = USUARIO.ID_USUARIO
                             and USUARIO.ID_PESSOA_FUNCIONARIO = PESSOA.ID_PESSOA
@@ -25,17 +25,17 @@ class RepositorioAgente_setorial extends Repositorio {
         return $this->sqlVetor($query);
     }
 
-  
+
     function pesquisar($VO) {
 
-        $query = "SELECT 
+        $query = "SELECT
                     C.ID_USUARIO ID_USUARIO_RESP,
                     C.ID_SETORIAL_ESTAGIO  ID_SETORIAL_ESTAGIO,
                     B.TX_LOGIN  TX_LOGIN,
                     A.TX_FUNCIONARIO  TX_FUNCIONARIO,
                     to_char(C.DT_CADASTRO,'dd/mm/yyyy')  DT_CADASTRO,
                     to_char(C.DT_ATULIZACAO,'dd/mm/yyyy') DT_ATULIZACAO
-                 FROM 
+                 FROM
                             V_FUNCIONARIO_TOTAl A,
                             USUARIO B ,
                             AGENTE_SETORIAL_ESTAGIO  C
@@ -49,7 +49,7 @@ class RepositorioAgente_setorial extends Repositorio {
         ($VO->TX_FUNCIONARIO) ? $query .= " AND upper(A.TX_FUNCIONARIO) like upper('%" . $VO->TX_FUNCIONARIO . "%') " : false;
 
 
-        $query .= " ORDER BY A.TX_FUNCIONARIO";
+        $query .= " ORDER BY c.DT_ATULIZACAO desc, c.DT_CADASTRO desc, A.TX_FUNCIONARIO";
 
 
         if ($VO->Reg_quantidade) {
@@ -80,7 +80,7 @@ class RepositorioAgente_setorial extends Repositorio {
 
     function buscar($VO) {
 
-        $query = "SELECT 
+        $query = "SELECT
                     USUARIO.ID_USUARIO ID_USUARIO_RESP,
                     V_FUNCIONARIO_TOTAL.TX_FUNCIONARIO TX_FUNCIONARIO,
                     USUARIO.TX_LOGIN TX_LOGIN ,
@@ -88,7 +88,7 @@ class RepositorioAgente_setorial extends Repositorio {
                     USUARIO_CADASTRADO.TX_LOGIN TX_LOGIN_ATU,
                     TO_CHAR(AGENTE_SETORIAL_ESTAGIO.DT_ATULIZACAO,'dd/mm/yyyy hh24:mi:ss') DT_ATULIZACAO,
                     to_char(AGENTE_SETORIAL_ESTAGIO.DT_CADASTRO,'dd/mm/yyyy hh24:mi:ss') DT_CADASTRO
-            FROM 
+            FROM
                     AGENTE_SETORIAL_ESTAGIO  AGENTE_SETORIAL_ESTAGIO ,
                     USUARIO USUARIO ,
                     USUARIO USUARIO_CADASTRADO,
@@ -107,15 +107,15 @@ class RepositorioAgente_setorial extends Repositorio {
 
     function buscarUnidades($VO) {
 
-        $query = "SELECT 
+        $query = "SELECT
                     B.ID_SETORIAL_ESTAGIO ID_SETORIAL_ESTAGIO,
                     A.TX_UNIDADE_ORG,
                     C.ID_ORGAO_ESTAGIO ID_ORGAO_ESTAGIO,
                     C.TX_ORGAO_ESTAGIO,
                     TO_CHAR(B.DT_ATUALIZACAO,'dd/mm/yyyy hh24:mi:ss') DT_ATUALIZACAO
                     FROM ORGAO_ESTAGIO C ,ORGAO_AGENTE_SETORIAL B,UNIDADE_ORG A
-                    WHERE C.ID_ORGAO_ESTAGIO =B.ID_ORGAO_ESTAGIO 
-                    and A.ID_UNIDADE_ORG = C.ID_UNIDADE_ORG 
+                    WHERE C.ID_ORGAO_ESTAGIO =B.ID_ORGAO_ESTAGIO
+                    and A.ID_UNIDADE_ORG = C.ID_UNIDADE_ORG
                     and B.ID_SETORIAL_ESTAGIO = " . $VO->ID_SETORIAL_ESTAGIO;
 
         if ($VO->Reg_quantidade) {
@@ -137,7 +137,7 @@ class RepositorioAgente_setorial extends Repositorio {
         return $this->sqlVetor($query);
     }
 
-    
+
       function inserirOrgao($VO) {
 
       $query = "
@@ -160,7 +160,7 @@ class RepositorioAgente_setorial extends Repositorio {
       $this->sql($query);
 
       $data = "SELECT usuario.tx_login tx_login_atu,TO_CHAR(AGENTE_SETORIAL_ESTAGIO.DT_ATULIZACAO, 'dd/mm/yyyy hh24:mi:ss') AS DT_ATULIZACAO
-      FROM AGENTE_SETORIAL_ESTAGIO,usuario      
+      FROM AGENTE_SETORIAL_ESTAGIO,usuario
       WHERE usuario.id_usuario=agente_setorial_estagio.id_usuario and
       ID_SETORIAL_ESTAGIO = '" . $VO->ID_SETORIAL_ESTAGIO . "'";
 
@@ -189,7 +189,7 @@ class RepositorioAgente_setorial extends Repositorio {
       where
      ID_SETORIAL_ESTAGIO = " . $VO->ID_SETORIAL_ESTAGIO;
 //      print_r($query);
-        
+
       return $this->sql($query);
       }
 
@@ -202,7 +202,7 @@ class RepositorioAgente_setorial extends Repositorio {
 
       return $this->sql($query);
       }
-    
+
 }
 
 ?>

@@ -3,12 +3,12 @@
 require_once $path . "src/repositorio/Repositorio.php";
 
 class RepositorioOrgao_solicitante extends Repositorio {
-     
+
     function pesquisarOrgaoSolicitante($VO) {
 
-        $query = "select ID_UNIDADE_ORG CODIGO, TX_SIGLA_UNIDADE ||' - '|| TX_UNIDADE_ORG TX_UNIDADE_ORG  
-			FROM UNIDADE_ORG WHERE ID_SISTEMA_GESTAO = 2 
-                        AND CS_ATIVA = 0 AND LENGTH(NB_CODIGO_UNIDADE) = 5 
+        $query = "select ID_UNIDADE_ORG CODIGO, TX_SIGLA_UNIDADE ||' - '|| TX_UNIDADE_ORG TX_UNIDADE_ORG
+			FROM UNIDADE_ORG WHERE ID_SISTEMA_GESTAO = 2
+                        AND CS_ATIVA = 0 AND LENGTH(NB_CODIGO_UNIDADE) = 5
                         AND CS_TIPO_UNID_ORG = 1 ORDER BY TX_UNIDADE_ORG";
 
         return $this->sqlVetor($query);
@@ -17,19 +17,18 @@ class RepositorioOrgao_solicitante extends Repositorio {
 
     function pesquisar($VO) {
 
-        $query = "select a.ID_ORGAO_ESTAGIO, a.TX_ORGAO_ESTAGIO, 
-				   TO_CHAR(a.DT_CADASTRO, 'dd/mm/yyyy hh24:mi:ss') DT_CADASTRO, 
+        $query = "select a.ID_ORGAO_ESTAGIO, a.TX_ORGAO_ESTAGIO,
+				   TO_CHAR(a.DT_CADASTRO, 'dd/mm/yyyy hh24:mi:ss') DT_CADASTRO,
 				   to_char(a.DT_ATUALIZACAO, 'dd/mm/yyyy hh24:mi:ss') DT_ATUALIZACAO,
-				   B.TX_UNIDADE_ORG    
-       
+				   B.TX_UNIDADE_ORG
+
    				from ORGAO_ESTAGIO a, UNIDADE_ORG B
  				where a.ID_UNIDADE_ORG = B.ID_UNIDADE_ORG ";
 
         ($VO->ID_UNIDADE_ORG) ? $query .= " AND a.ID_UNIDADE_ORG = '" . $VO->ID_UNIDADE_ORG . "' " : false;
         ($VO->TX_ORGAO_ESTAGIO) ? $query .= " AND upper(a.TX_ORGAO_ESTAGIO) like upper('%" . $VO->TX_ORGAO_ESTAGIO . "%') " : false;
 
-        $query .= " ORDER by a.TX_ORGAO_ESTAGIO, b.TX_UNIDADE_ORG";
-
+        $query .= "order by a.dt_atualizacao desc, a.dt_cadastro desc";
 
         if ($VO->Reg_quantidade) {
             !$VO->Reg_inicio ? $VO->Reg_inicio = 0 : false;
@@ -55,9 +54,9 @@ class RepositorioOrgao_solicitante extends Repositorio {
                   ID_UNIDADE_ORG,
                   ID_USUARIO_CADASTRO,
                   ID_USUARIO_ATUALIZACAO)
-                  
+
 values  (" . $CodigoPK['ID_ORGAO_ESTAGIO'][0] . ",
-        
+
         '" . $VO->TX_ORGAO_ESTAGIO . "',
          SYSDATE,
          SYSDATE,

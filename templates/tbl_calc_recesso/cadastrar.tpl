@@ -20,11 +20,11 @@
                 <input type="text" name="TX_TABELA" id="TX_TABELA" value="{$VO->TX_TABELA}"  style="width:200px;" /></div><br />
 
             <div id="camada" style="font-family:Verdana, Geneva, sans-serif; width:310px;" >
-                <font color="#FF0000">*</font>Data Início de Vigência: <font color="#FF0000">{$validar.DT_INICIO_VIGENCIA}</font><br />
+                <font color="#FF0000">*</font>Data Início Vigência: <font color="#FF0000">{$validar.DT_INICIO_VIGENCIA}</font><br />
                 <input type="text" name="DT_INICIO_VIGENCIA" id="DT_INICIO_VIGENCIA" value="{$VO->DT_INICIO_VIGENCIA}" style="width:120px;" /></div><br />
 
             <div id="camada" style="font-family:Verdana, Geneva, sans-serif; width:310px;" >
-                Data Fim de Vigência:<br />
+                Data Fim Vigência:<br />
                 <input type="text" name="DT_FIM_VIGENCIA" id="DT_FIM_VIGENCIA" value="{$VO->DT_FIM_VIGENCIA}" style="width:120px;" /></div><br />
 
             <br />

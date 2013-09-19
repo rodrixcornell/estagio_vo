@@ -11,7 +11,7 @@ $(document).ready(function(){
     });
 
     $('#DT_DESLIGAMENTO').setMask({
-        mask:'99/99/9999'
+      mask:'99/99/9999'
     });
 
     $('#DT_SOLICITACAO').datepicker({
@@ -19,9 +19,9 @@ $(document).ready(function(){
         changeYear: true
     });
 
-    $('#DT_DESLIGAMENTO').datepicker({
-        changeMonth: true,
-        changeYear: true
+   $('#DT_DESLIGAMENTO').datepicker({
+      changeMonth: true,
+      changeYear: true
     });
     
     $('#ID_ORGAO_ESTAGIO').change(function(){

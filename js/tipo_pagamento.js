@@ -13,7 +13,7 @@ $(document).ready(function() {
     $('#pesquisar').click(function() {
 		showLoader();
 		$('#tabela').load('acoes.php?identifier=tabela', {
-			ID_GRUPO_PAGAMENTO: $('#ID_GRUPO_PAGAMENTO').val()
+			CS_TIPO_PAG_ESTAGIO: $('#CS_TIPO_PAG_ESTAGIO').val()
 		}, hideLoader);
     });
 
@@ -22,7 +22,7 @@ $(document).ready(function() {
     $("#paginacao li").live('click', function() {
         showLoader();
         $("#tabela").load('acoes.php?identifier=tabela&PAGE=' + this.id, {
-            ID_GRUPO_PAGAMENTO: $('#ID_GRUPO_PAGAMENTO').val()
+           CS_TIPO_PAG_ESTAGIO: $('#CS_TIPO_PAG_ESTAGIO').val()
         }, hideLoader);
         return false;
     });

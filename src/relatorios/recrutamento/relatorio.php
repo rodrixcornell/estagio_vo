@@ -16,8 +16,9 @@ if ($_SESSION['ID_RECRUTAMENTO_ESTAGIO']){
     $pdf->tamanho = '16';
     $pdf->AliasNbPages();
     $pdf->AddPage();
-//    $pdf->conteudo();
-    $pdf->Output();    
+    $pdf->conteudo();
+    $pdf->Output();
+    
 }else
    header("Location: ".$url."src/relatorios/".$pasta."/index.php");	
 

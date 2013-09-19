@@ -1,9 +1,10 @@
 <?php
 
 include "../../../php/define.php";
-require_once $pathvo . "recrutamentoVO.php";
+require_once $pathvo."recrutamentoVO.php";
 
 $VO = new recrutamentoVO();
+
 
     $VO->CS_SITUACAO = $_REQUEST['CS_SITUACAO'];
 

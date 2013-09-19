@@ -23,7 +23,7 @@
     </select><br />
 
     <div id="camada" style="font-family:Verdana, Geneva, sans-serif; width:180px;" >
-        <strong>Agencia de Estágio: </strong></div>
+        <strong>Agência de Estágio: </strong></div>
     <select name="ID_AGENCIA_ESTAGIO" id="ID_AGENCIA_ESTAGIO" style="width:300px;">
         {html_options options=$arrayAgenciaEstagio selected=$VO->ID_AGENCIA_ESTAGIO}
     </select><br />
