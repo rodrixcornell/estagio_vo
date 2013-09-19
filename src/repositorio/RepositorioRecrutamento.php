@@ -421,7 +421,7 @@ AND
 
         $query = "SELECT 
                         ID_RECRUTAMENTO_ESTAGIO codigo,
-                        ID_RECRUTAMENTO_ESTAGIO,
+                        ID_RECRUTAMENTO_ESTAGIO ID_RECRUTAMENTO_ESTAGIO,
                         TX_COD_RECRUTAMENTO
                   FROM
                         RECRUTAMENTO_ESTAGIO

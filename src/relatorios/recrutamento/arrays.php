@@ -3,9 +3,9 @@ require_once "../../../php/define.php";
 require_once $pathvo."recrutamentoVO.php";
 	
 $VO = new recrutamentoVO();
-
-$VO->pesquisarOrgaoGestor();
-    $arrayOrgaoGestor = $VO->getArray("TX_ORGAO_GESTOR_ESTAGIO");  
+//
+//$VO->pesquisarOrgaoGestor();
+//    $arrayOrgaoGestor = $VO->getArray("TX_ORGAO_GESTOR_ESTAGIO");  
 	
 $VO->buscarOrgaoSolicitanteRel();
     $arrayOrgaoSolicitanteRel = $VO->getArray("TX_ORGAO_ESTAGIO"); 
@@ -19,7 +19,7 @@ $arraySituacao[2] 	= 'Fechado';
 
 //$smarty->assign("arrayQuadroVagas"    	    , $arrayQuadroVagas);
 $smarty->assign("arrayOrgaoSolicitanteRel"    	, $arrayOrgaoSolicitanteRel);
-$smarty->assign("arrayOrgaoGestor"          , $arrayOrgaoGestor);
+//$smarty->assign("arrayOrgaoGestor"          , $arrayOrgaoGestor);
 $smarty->assign("arraySituacao"			    , $arraySituacao);
 
 ?>

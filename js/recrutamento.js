@@ -97,7 +97,7 @@ $(document).ready(function(){
      * funções para relatorio 
      * 
      */
-    $('#ID_ORGAO_ESTAGIO_REL').change(function(){
+   $('#ID_ORGAO_ESTAGIO_REL').change(function(){
         if($('#ID_ORGAO_ESTAGIO_REL').val()){
             $("#CS_SITUACAO_REL option:first").attr('selected','selected');
             $("#CS_SITUACAO_REL").attr("disabled",false);
@@ -114,7 +114,7 @@ $(document).ready(function(){
             var valor = $('#ID_ORGAO_ESTAGIO_REL').val().split('_');
             $.post("acoes.php",{
                 ID_ORGAO_ESTAGIO:valor[0],
-                CS_SITUACAO:$('#CS_SITUACAO_REL').val()
+                CS_SITUACAO:$('#CS_SITUACAO_REL').val()  
     
             }, 
             function(valor){
