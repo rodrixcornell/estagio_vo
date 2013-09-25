@@ -61,12 +61,12 @@
                 <div id="camada" style="font-family:Verdana, Geneva, sans-serif; width:110px;" >Período/Ano
                     <input type="text" name="TX_PERIODO" id="TX_PERIODO" value="{$VO->TX_PERIODO}"  style="width:105px;" class="leitura" readonly="readonly" />
                 </div> <br />
-      {*--------------------------------------------*}
+                {*--------------------------------------------*}
                 <div id="camada" style="font-family:Verdana, Geneva, sans-serif; width:310px;" >Agente Setorial
                     <input type="text" name="TX_AGENTE_SETORIAL" id="TX_AGENTE_SETORIAL" value="{$VO->TX_AGENTE_SETORIAL}"  style="width:305px;" class="leitura" readonly="readonly" />
                 </div>
 
-      {*---------------------------------------------------*}
+                {*---------------------------------------------------*}
                 <div id="camada" style="font-family:Verdana, Geneva, sans-serif; width:160px;" >Cargo / Função
                     <input type="text" name="TX_CARGO_AGENTE" id="TX_CARGO_AGENTE" value="{$VO->TX_CARGO_AGENTE}"  style="width:156px;" class="leitura" readonly="readonly" />
                 </div>

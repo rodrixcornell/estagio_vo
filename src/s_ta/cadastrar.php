@@ -27,7 +27,6 @@ if ($_POST) {
     $validar = $VO->preencher($_POST);
 
     //fieldset Solicitante
-
 //    if ($VO->ID_CONTRATO) {
 //
 //        $codigo = explode('_', $VO->ID_CONTRATO);
@@ -45,12 +44,13 @@ if ($_POST) {
     if ($VO->ID_ORGAO_ESTAGIO) {
         //$VO->ID_ORGAO_ESTAGIO = $_SESSION['ID_ORGAO_ESTAGIO'];
         $VO->buscarASetorial();
-        $buscarASetorial=$VO->getArray('TX_FUNCIONARIO');
-        $smarty->assign("buscarASetorial",$buscarASetorial);
+        $buscarASetorial = $VO->getArray('TX_FUNCIONARIO');
+        $smarty->assign("buscarASetorial", $buscarASetorial);
     }
 
     $tamanho_just1 = strlen($_POST['TX_MOTIVO_SITUACAO']);
-    if ($tamanho_just1 > 255) $validar['TX_MOTIVO_SITUACAO'] = 'Valor máximo de 255 caracteres, atual de: ' . $tamanho_just1;
+    if ($tamanho_just1 > 255)
+        $validar['TX_MOTIVO_SITUACAO'] = 'Valor máximo de 255 caracteres, atual de: ' . $tamanho_just1;
 
     //fieldset Alterações
 
@@ -68,7 +68,8 @@ if ($_POST) {
     }
 
     $tamanho_just2 = strlen($_POST['TX_OUTRAS_ALTERACOES']);
-    if ($tamanho_just2 > 2000) $validar['TX_OUTRAS_ALTERACOES'] = 'Valor máximo de 2000 caracteres, atual de: ' . $tamanho_just2;
+    if ($tamanho_just2 > 2000)
+        $validar['TX_OUTRAS_ALTERACOES'] = 'Valor máximo de 2000 caracteres, atual de: ' . $tamanho_just2;
 
     // Teste de Validação
     if (!$_POST['NB_VIGENCIA'] && !$_POST['NB_JORNADA'] && !$_POST['NB_BOLSA'] && !$_POST['NB_ALTERACOES']) {

@@ -72,7 +72,6 @@ class RepositorioAgente_setorial extends Repositorio {
             VALUES
 	(" . $CodigoPK['ID_SETORIAL_ESTAGIO'][0] . ", " . $VO->ID_USUARIO_RESP . ", SYSDATE, SYSDATE," . $_SESSION['ID_USUARIO'] . "," . $_SESSION['ID_USUARIO'] . ") ";
 
-        print_r($query);
 
         $retorno = $this->sql($query);
         return $retorno ? '' : $CodigoPK['ID_SETORIAL_ESTAGIO'][0];

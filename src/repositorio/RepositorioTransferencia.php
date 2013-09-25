@@ -261,10 +261,13 @@ function pesquisarTipoVaga($VO) {
 
 function buscarQuantidade($VO) {
   $query = "select 
-                   VAGAS_ESTAGIO.NB_QUANTIDADE
+                   VAGAS_ESTAGIO.NB_QUANTIDADE - (SELECT COUNT(ID_CONTRATO) FROM CONTRATO_ESTAGIO
+                                                  WHERE ID_ORGAO_ESTAGIO = " . $VO->ID_ORGAO_ESTAGIO . "
+                                                  AND ID_QUADRO_VAGAS_ESTAGIO = " . $VO->ID_QUADRO_VAGAS_ESTAGIO . "
+                                                  AND CS_TIPO_VAGA_ESTAGIO = '" . $VO->CS_TIPO_VAGA_ESTAGIO . "') NB_QUANTIDADE
                      from VAGAS_ESTAGIO, TIPO_VAGA_ESTAGIO
              WHERE  VAGAS_ESTAGIO.CS_TIPO_VAGA_ESTAGIO = TIPO_VAGA_ESTAGIO.CS_TIPO_VAGA_ESTAGIO
-               and ID_ORGAO_ESTAGIO = " . $VO->ID_ORGAO_ESTAGIO . "
+			   and ID_ORGAO_ESTAGIO = " . $VO->ID_ORGAO_ESTAGIO . "
                and ID_QUADRO_VAGAS_ESTAGIO = " . $VO->ID_QUADRO_VAGAS_ESTAGIO . "
                and (VAGAS_ESTAGIO.CS_TIPO_VAGA_ESTAGIO = '" . $VO->CS_TIPO_VAGA_ESTAGIO . "') ";
 
@@ -446,7 +449,6 @@ function alterarVagasSolicitadas($VO) {
                     AND (ID_ORGAO_EST_DESTINO     = " . $VO->ID_ORGAO_EST_DESTINO .")
                     ";
 
-    print_r($query);
    return $this->sql($query);
 }
 
@@ -520,6 +522,15 @@ function excluirVagasSolicitadas($VO) {
 
         $this->sql($query);
     }
+	
+	function AtualizarQuantidade($VO){
+
+            $query = "BEGIN SEMAD.SP_UPDATE_QTD_TRANSF_VAGAS(".$_SESSION['ID_TRANSFERENCIA_ESTAGIO'].",".$_SESSION['ID_QUADRO_VAGAS_ESTAGIO'].",".$_SESSION['ID_ORGAO_ESTAGIO'].",".$_SESSION['ID_ORGAO_SOLICITANTE'].",".$_SESSION['CS_TIPO_VAGA_ESTAGIO'].");END;";
+		
+		echo($query);	
+        $this->sql($query);		
+		
+    }	
 
 }
 ?>

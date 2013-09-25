@@ -18,8 +18,8 @@ $arraypesquisarOrgaoCedente = $VO->getArray("TX_ORGAO_ESTAGIO");
 
 
 
-$VO->buscarQuadroVagasEstagio();
-$arrayQuadroVagasEstagio = $VO->getArray("TX_CODIGO");
+/*$VO->buscarQuadroVagasEstagio();
+$arrayQuadroVagasEstagio = $VO->getArray("TX_CODIGO");*/
 
 //
 // $VO->pesquisarTipoVaga();
