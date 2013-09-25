@@ -15,7 +15,7 @@ require_once "../autenticacao/validaPermissao.php";
 // Iniciando Instância
 $VO = new transferenciaVO();
 $VO->preencherVOSession($_SESSION);
-
+print_r($_SESSION);
 if ($_SESSION['ID_ORGAO_SOLICITANTE']) {
     $VO->ID_ORGAO_SOLICITANTE = $_SESSION['ID_ORGAO_SOLICITANTE'];
     $VO->pesquisarOrgaoCedente();

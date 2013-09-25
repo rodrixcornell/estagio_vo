@@ -8,7 +8,7 @@ $(document).ready(function(){
     };
 //-----------pesquisa principal-------------------------------------------------
     $('#pesquisar').click(function(){
-     if (($('#ID_ORGAO_GESTOR_ESTAGIO').val()) || ($('#ID_ORGAO_SOLICITANTE').val()) || ($('#ID_ORGAO_ESTAGIO').val())){
+     if (($('#ID_ORGAO_GESTOR_ESTAGIO').val()) && ($('#ID_ORGAO_SOLICITANTE').val()) && ($('#ID_ORGAO_ESTAGIO').val())){
             showLoader();
             $("#tabela").load('acoes.php?identifier=tabela',{                
                 ID_ORGAO_GESTOR_ESTAGIO:$('#ID_ORGAO_GESTOR_ESTAGIO').val(),
