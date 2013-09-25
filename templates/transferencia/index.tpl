@@ -56,7 +56,7 @@
             function showLoader(){ $('.fundo_pag').fadeIn(200); }
             function hideLoader(){ $('.fundo_pag').fadeOut(200); };
 
-            if ("{$VO->ID_ORGAO_GESTOR_ESTAGIO}" && "{$VO->ID_ORGAO_ESTAGIO}" || ("{$VO->ID_ORGAO_SOLICITANTE}" || "{$VO->CS_SITUACAO}" || $.trim("{$VO->TX_COD_TRANSFERENCIA}"))){
+            if ("{$VO->ID_ORGAO_GESTOR_ESTAGIO}" && "{$VO->ID_ORGAO_ESTAGIO}" || ("{$VO->ID_ORGAO_SOLICITANTE}")){
                 showLoader();
                 //alert('ok: {$VO->ID_ORGAO_GESTOR_ESTAGIO}, {$VO->ID_ORGAO_ESTAGIO}, {$VO->ID_ORGAO_SOLICITANTE}, {$VO->CS_SITUACAO}, {$VO->TX_COD_TRANSFERENCIA}.');
                 $("#tabela").load('acoes.php?identifier=tabela',{
