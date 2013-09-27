@@ -3,10 +3,10 @@ require_once "../../php/define.php";
 require_once $path . "src/quadro_vagas/arrays.php";
 require_once $pathvo . "quadro_vagasVO.php";
 
-$modulo = 79;
-$programa = 1;
+$modulo = 78;
+$programa = 9;
 $pasta = 'quadro_vagas';
-$current = 2;
+$current = 1;
 $titulopage = 'Quadro de Vagas';
 
 session_start();

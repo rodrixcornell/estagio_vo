@@ -3,8 +3,8 @@
 include "../../php/define.php";
 require_once $pathvo . "quadro_vagasVO.php";
 
-$modulo = 79;
-$programa = 1;
+$modulo = 78;
+$programa = 9;
 
 require_once "../autenticacao/validaPermissao.php";
 

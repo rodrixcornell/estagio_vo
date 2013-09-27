@@ -11,15 +11,16 @@
                     <li><a href="{$url}src/instituicao/?s=1"><span>6-Instituição de Ensino</span></a></li>
                     <li><a href="{$url}src/agencia/?s=1"><span>7-Agência de Estágio</span></a></li>
                     <li><a href="{$url}src/supervisor/?s=1"><span>8-Supervisor de Estágio</span></a></li>
+                    <li><a href="{$url}src/quadro_vagas/?s=1" ><span>9-Quadro de Vagas</span></a></li>
                  </ul>
             </div>
         </li>
 
         <li {if $current == 2}class="current"{/if}><a href="#"><span>Gestão de Estagiário</span></a>
             <div><ul>
-                    <li><a href="{$url}src/quadro_vagas/?s=1" ><span>1-Quadro de Vagas</span></a></li>
+                    
                     <li><a href="{$url}src/estagiario/?s=1"><span>2-Estagiário</span></a></li>
-                    <li><a href="{$url}src/solicitacao/?s=1"><span>3-Solicitação de Estagiário</span></a></li>
+                    <li><a href="{$url}src/solicitacao/?s=1"><span>3-Oferta de Vaga</span></a></li>
                     <li><a href="{$url}src/transferencia/?s=1"><span>4-Transferência de Vagas</span></a></li>
                     <li><a href="{$url}src/recrutamento/?s=1"><span>5-Recrutamento de Estagiário</span></a></li>
                     <li><a href="{$url}src/selecao/?s=1"><span>6-Seleção de Estagiário</span></a></li>
