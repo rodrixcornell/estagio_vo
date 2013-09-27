@@ -17,6 +17,11 @@
                     <select name="ID_UNIDADE_ORG" id="ID_UNIDADE_ORG" style="width:500px;">
                         {html_options options=$pesquisarOrgaoSolicitante selected=$VO->ID_UNIDADE_ORG}
                     </select><br />
+                    
+                    <div id="camada" style="font-family:Verdana, Geneva, sans-serif; width:200px;" ><strong>Situação: </strong></div>
+                    <select name="CS_STATUS" id="CS_STATUS" style="width:200px;">
+                        {html_options options=$pesquisarSituacao selected=$VO->CS_STATUS}
+                    </select><br />
          
                 <input type="button" name="pesquisar" id="pesquisar" value="Pesquisar" />
                 
