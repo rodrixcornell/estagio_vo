@@ -18,9 +18,11 @@
 				
                 <br />
                    
-                <div id="camada" style="width:300px;"> <font color="#FF0000">*</font>CNPJ<font color="#FF0000">{$validar.TX_CNPJ}</font><br />
+                <div id="camada" style="width:160px;"> <font color="#FF0000">*</font>CNPJ<font color="#FF0000">{$validar.TX_CNPJ}</font><br />
                     <input type="text" name="TX_CNPJ" id="TX_CNPJ" value="{$VO->TX_CNPJ}" style="width:150px;"/></div>
 
+                <div id="camada" style="width:290px;"> <font color="#FF0000">*</font>EMAIL<font color="#FF0000"> {$validar.TX_EMAIL} </font><br />
+                    <input type="text" name="TX_EMAIL" id="TX_EMAIL"  value="{$VO->TX_EMAIL}" style="width:280px;"/></div>
                 </br>
             	<div id="camada" style="width:290px;">Usuário do Cadastrado<font color="#FF0000">{$validar.USUARIO_ATUALIZACAO}</font></br>
                 	<input type="text" name="USUARIO_ATUALIZACAO" id="USUARIO_ATUALIZACAO"  value="{$VO->USUARIO_ATUALIZACAO}" style="width:280px;" disabled="disabled"/></div>

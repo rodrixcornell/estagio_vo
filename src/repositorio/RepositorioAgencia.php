@@ -16,6 +16,7 @@ class RepositorioAgencia extends Repositorio {
         ID_USUARIO_CADASTRO,
         ID_USUARIO_ATUALIZACAO,
         TX_CNPJ,
+        AGENCIA_ESTAGIO.TX_EMAIL,
 		USU_CAD.TX_LOGIN USUARIO_CADASTRO,
 		USU_ATU.TX_LOGIN USUARIO_ATUALIZACAO
         FROM AGENCIA_ESTAGIO, USUARIO USU_CAD, USUARIO USU_ATU
@@ -43,9 +44,9 @@ class RepositorioAgencia extends Repositorio {
    function inserir($VO){
 
         $query = "
-            INSERT INTO AGENCIA_ESTAGIO(ID_AGENCIA_ESTAGIO,TX_AGENCIA_ESTAGIO,DT_CADASTRO,DT_ATUALIZACAO,TX_SIGLA,TX_CNPJ,ID_USUARIO_CADASTRO,ID_USUARIO_ATUALIZACAO) 
+            INSERT INTO AGENCIA_ESTAGIO(ID_AGENCIA_ESTAGIO,TX_AGENCIA_ESTAGIO,DT_CADASTRO,DT_ATUALIZACAO,TX_SIGLA,TX_CNPJ,ID_USUARIO_CADASTRO,ID_USUARIO_ATUALIZACAO,TX_EMAIL) 
 						values
-	(SEMAD.F_G_PK_AGENCIA_ESTAGIO(),'".$VO->TX_AGENCIA_ESTAGIO."',sysdate,sysdate,'".$VO->TX_SIGLA."','".$VO->TX_CNPJ."','".$_SESSION["ID_USUARIO"]."','".$_SESSION["ID_USUARIO"]."') ";
+	(SEMAD.F_G_PK_AGENCIA_ESTAGIO(),'".$VO->TX_AGENCIA_ESTAGIO."',sysdate,sysdate,'".$VO->TX_SIGLA."','".$VO->TX_CNPJ."','".$_SESSION["ID_USUARIO"]."','".$_SESSION["ID_USUARIO"]."','".mb_strtolower($VO->TX_EMAIL)."') ";
 
         return $this->sql($query);
       
@@ -58,7 +59,8 @@ class RepositorioAgencia extends Repositorio {
                                            TX_SIGLA = '".$VO->TX_SIGLA."',
                                            TX_CNPJ = '".$VO->TX_CNPJ."',
                                            DT_ATUALIZACAO = SYSDATE,
-										   ID_Usuario_Atualizacao = '".$_SESSION["ID_USUARIO"]."'
+					ID_Usuario_Atualizacao = '".$_SESSION["ID_USUARIO"]."',
+                                            TX_EMAIL= '".mb_strtolower($VO->TX_EMAIL)."'
 			            WHERE  ID_AGENCIA_ESTAGIO = '".$VO->ID_AGENCIA_ESTAGIO."'";
         return $this->sql($query);
     }

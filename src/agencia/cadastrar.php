@@ -1,6 +1,7 @@
 <?php
+
 require_once "../../php/define.php";
-require_once $pathvo."agenciaVO.php";
+require_once $pathvo . "agenciaVO.php";
 
 $modulo = 78;
 $programa = 7;
@@ -16,20 +17,21 @@ unset($_SESSION['ID_AGENCIA_ESTAGIO']);
 // Iniciando Instância
 $VO = new agenciaVO();
 
-if($_POST){
+if ($_POST) {
     $VO->configuracao();
-    $VO->setCaracteristica('TX_AGENCIA_ESTAGIO,TX_SIGLA','obrigatorios');
-    $VO->setCaracteristica('TX_CNPJ','numeros');
-   $validar = $VO->preencher($_POST);
-    
+    $VO->setCaracteristica('TX_AGENCIA_ESTAGIO,TX_SIGLA', 'obrigatorios');
+    $VO->setCaracteristica('TX_CNPJ', 'cnpjs');
+    $VO->setCaracteristica('TX_EMAIL', 'emails');
+    $validar = $VO->preencher($_POST);
+
     if (!$validar) {
         $VO->inserir();
         $_SESSION['TX_AGENCIA_ESTAGIO'] = $VO->TX_AGENCIA_ESTAGIO;
         $_SESSION['TX_SIGLA'] = $VO->TX_SIGLA;
         $_SESSION['STATUS'] = '*Registro inserido com sucesso!';
         $_SESSION['PAGE'] = '1';
-        
-     header("Location: ".$url."src/".$pasta."/index.php");
+
+        header("Location: " . $url . "src/" . $pasta . "/index.php");
     }
 }
 $smarty->assign("current", $current);

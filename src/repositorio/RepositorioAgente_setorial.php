@@ -186,7 +186,7 @@ class RepositorioAgente_setorial extends Repositorio {
       ID_USUARIO = " . $VO->ID_USUARIO_RESP . " ,
       DT_ATULIZACAO = SYSDATE ,
       ID_USUARIO_ATUALIZACAO =".$_SESSION['ID_USUARIO'].",
-      TX_EMAIL = '".$VO->TX_EMAIL."'
+      TX_EMAIL = '".mb_strtolower($VO->TX_EMAIL)."'
       where
      ID_SETORIAL_ESTAGIO = " . $VO->ID_SETORIAL_ESTAGIO;
 //      print_r($query);
