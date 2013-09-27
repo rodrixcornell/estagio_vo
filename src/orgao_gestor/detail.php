@@ -18,6 +18,7 @@ $VO = new orgao_gestorVO();
 
 if ($_SESSION['ID_ORGAO_GESTOR_ESTAGIO']){
     
+   
     $VO->ID_ORGAO_GESTOR_ESTAGIO = $_SESSION['ID_ORGAO_GESTOR_ESTAGIO'];
 
 	

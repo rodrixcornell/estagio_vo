@@ -15,6 +15,69 @@ function gerarTabela($param = '') {
     require_once $pathvo . "orgao_gestorVO.php";
     $acesso = $GLOBALS['acesso']; //Acessar a Variavel global;
 
+
+    $VO = new orgao_gestorVO();
+    $VO->ID_ORGAO_GESTOR_ESTAGIO = $_SESSION['ID_ORGAO_GESTOR_ESTAGIO'];
+
+    $total = $VO->buscarEmails();
+
+    echo '<table width="100%" id="tabelaItens" >
+			<tr>
+				<th>Email</th>';
+
+    //Somente ver a coluna de alterar se tiver acesso completo a tela	
+    if ($acesso)
+        echo '<th style="width:35px;"></th>';
+
+    echo '</tr>';
+
+    if ($total) {
+        $dados = $VO->getVetor();
+
+        for ($i = 0; $i < $total; $i++) {
+
+            ($bgcolor == '#F0F0F0') ? $bgcolor = '#DDDDDD' : $bgcolor = '#F0F0F0';
+
+            echo '<tr bgcolor="' . $bgcolor . '" onmouseover="mudarCor(this);" onmouseout="mudarCor(this);" >
+						<td align="left">' . $dados['TX_EMAIL'][$i] . '</td>';
+
+            //Somente ver a coluna de alterar se tiver acesso completo a tela					
+            if ($acesso)
+                echo '<td align="center" class="icones">
+		<a href="' . $dados['NB_ORGAO_GESTOR_EMAIL'][$i] . '" id="excluir" ><img src="' . $urlimg . 'icones/excluirItem.png" title="Excluir Registro"/></a></td>';
+            echo '</tr>';
+        }
+
+        echo'</table>';
+
+        if ($total_page > 1) {
+            echo '<div id="paginacao" align="center">
+					<ul>';
+
+            for ($i = 1; $i <= $total_page; $i++) {
+                if ($i == $page)
+                    echo '<li id="' . $i . '" class="selecionado">' . $i . '</li>';
+                else
+                    echo '<li id="' . $i . '">' . $i . '</li>';
+            }
+            echo '	</ul>
+				  </div><br><br>';
+        }
+    }else
+        echo '<tr><td colspan="2" class="nenhum">Nenhum registro encontrado.</td></tr></table><br /> ';
+
+    if ($param)
+        echo '<script>alert("' . $param . '")</script>';
+}
+
+$VO = new orgao_gestorVO();
+
+if ($_REQUEST['identifier'] == "tabela") {
+//    gerarTabela($erro);
+    include "../../php/define.php";
+    require_once $pathvo . "orgao_gestorVO.php";
+    $acesso = $GLOBALS['acesso']; //Acessar a Variavel global;
+
     $VO = new orgao_gestorVO();
     $VO->TX_ORGAO_GESTOR_ESTAGIO = $_REQUEST['TX_ORGAO_GESTOR_ESTAGIO'];
     $VO->ID_UNIDADE_ORG = $_REQUEST['ID_UNIDADE_ORG'];
@@ -90,27 +153,46 @@ function gerarTabela($param = '') {
 
     unset($_SESSION['STATUS']);
 }
-
-$VO = new orgao_gestorVO();
-
-if ($_REQUEST['identifier'] == "tabela") {
+else if ($_REQUEST['identifier'] == "tabelaEmail") {
     gerarTabela($erro);
-} 
-//else if ($_REQUEST['identifier'] == 'excluir') {
-//
-//    $VO->ID_ORGAO_GESTOR_ESTAGIO = $_REQUEST['ID_ORGAO_GESTOR_ESTAGIO'];
-//
-//    if ($acesso) {
-//
-//        $retorno = $VO->excluir();
-//
-//        if (is_array($retorno))
-//            $erro = 'Este registro não pode ser excluído pois possui dependentes.';
-//        else
-//            $_SESSION['STATUS'] = '*Registro excluído com sucesso!';
-//    }else
-//        $erro = "Você não tem permissão para realizar esta ação.";
-//
-//    gerarTabela($erro);
-//}
+} else if ($_REQUEST['identifier'] == "inserirEmail") {
+    $VO->ID_ORGAO_GESTOR_ESTAGIO = $_SESSION['ID_ORGAO_GESTOR_ESTAGIO'];
+    $VO->TX_EMAIL = $_REQUEST['TX_EMAIL'];
+
+    if ($acesso) {
+        if ($VO->TX_EMAIL) {
+            $retorno = $VO->inserirEmail();
+
+            if ($retorno) {
+                $erro = 'Registro já existe.';
+            }
+        }else
+            $erro = 'Para inserir preencha o campo E-mail!';
+    }else
+        $erro = "Você não tem permissão para realizar esta ação.";
+
+    gerarTabela($erro);
+}else if ($_REQUEST['identifier'] == 'atualizarInf') {
+
+    $VO->ID_ORGAO_GESTOR_ESTAGIO = $_SESSION['ID_ORGAO_GESTOR_ESTAGIO'];
+
+    $dados = $VO->atualizarInf();
+
+    echo json_encode($dados);
+} else if ($_REQUEST['identifier'] == 'excluirEmail') {
+
+    $VO->ID_ORGAO_GESTOR_ESTAGIO = $_SESSION['ID_ORGAO_GESTOR_ESTAGIO'];
+    $VO->NB_ORGAO_GESTOR_EMAIL = $_REQUEST['NB_ORGAO_GESTOR_EMAIL'];
+
+    if ($acesso) {
+
+        $retorno = $VO->excluirEmail();
+
+        if (is_array($retorno))
+            $erro = 'Este registro não pode ser excluído pois possui dependentes.';
+    }else
+        $erro = "Você não tem permissão para realizar esta ação.";
+
+    gerarTabela($erro);
+}
 ?>

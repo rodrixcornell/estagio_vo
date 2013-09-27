@@ -18,7 +18,7 @@
                     </tr>
                     <tr bgcolor="#F0EFEF">
 	                    <td><strong>Unidade Organizacional</strong></td>
-                        <td>{$dados.TX_UNIDADE_ORG[0]}</td>	
+                        <td>{$dados.TX_SIGLA_UNIDADE[0]}</td>	
                         <td><strong>Data de Atualização</strong></td>
                         <td style="text-align:right;"><div id="atualizacao">{$dados.DT_ATUALIZACAO[0]}</div></td>												
 					</tr>	

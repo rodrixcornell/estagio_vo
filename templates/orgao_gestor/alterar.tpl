@@ -38,7 +38,7 @@
                 
             <br /><br />
           
-            <input type="button" name="cancelar" id="cancelar" value="Cancelar" onclick="window.location.href='{$url}src/{$pasta}/index.php'" />&nbsp;&nbsp;&nbsp;&nbsp;
+            <input type="button" name="cancelar" id="cancelar" value="Cancelar" onclick="window.location.href='{$url}src/{$pasta}/detail.php'" />&nbsp;&nbsp;&nbsp;&nbsp;
             <input type="submit" name="salvar" id="salvar" value=" Salvar " />
         </form>
     </div>

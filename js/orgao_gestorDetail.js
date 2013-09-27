@@ -42,26 +42,26 @@ $(document).ready(function(){
         resp = window.confirm('Tem certeza que deseja excluir este Registro?');
         if (resp){
             showLoader();
-            $("#tabelaEmail").load('acoes.php?identifier=excluirEmail&NB_EMAIL_UNID_IRP='+href, emptyHideLoader);
+            $("#tabelaEmail").load('acoes.php?identifier=excluirEmail&NB_ORGAO_GESTOR_EMAIL='+href, emptyHideLoader);
         }
         return false;
     });
 	
 	
 	//Excluir Master
-	$('#excluirMaster').click(function(){
-
-		if ($('.icones').length){
-			alert('Este registro não pode ser excluído pois possui dependentes.');
-			return false;
-		}else{
-			resp = window.confirm('Tem certeza que deseja excluir este Registro?');
-			if (!resp){
-				return false;	
-			}
-		}
-	
-	});
+//	$('#excluirMaster').click(function(){
+//
+//		if ($('.icones').length){
+//			alert('Este registro não pode ser excluído pois possui dependentes.');
+//			return false;
+//		}else{
+//			resp = window.confirm('Tem certeza que deseja excluir este Registro?');
+//			if (!resp){
+//				return false;	
+//			}
+//		}
+//	
+//	});
 	
 	
 	showLoader();

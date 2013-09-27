@@ -49,7 +49,20 @@ class RepositorioOrgao_Gestor extends Repositorio{
 
 	function buscar($VO) {
 
-        $query = "select ID_ORGAO_GESTOR_ESTAGIO, TX_ORGAO_GESTOR_ESTAGIO, TX_CNPJ, TO_CHAR(DT_CADASTRO, 'dd/mm/yyyy hh24:mi:ss') DT_CADASTRO, to_char(DT_ATUALIZACAO, 'dd/mm/yyyy hh24:mi:ss') DT_ATUALIZACAO, ID_UNIDADE_ORG from ORGAO_GESTOR_ESTAGIO where ID_ORGAO_GESTOR_ESTAGIO = '".$VO->ID_ORGAO_GESTOR_ESTAGIO."'";
+        $query = "SELECT 
+                        ORGAO_GESTOR_ESTAGIO.ID_ORGAO_GESTOR_ESTAGIO,
+                        ORGAO_GESTOR_ESTAGIO.TX_ORGAO_GESTOR_ESTAGIO,
+                        ORGAO_GESTOR_ESTAGIO.TX_CNPJ,
+                        TO_CHAR(ORGAO_GESTOR_ESTAGIO.DT_CADASTRO, 'dd/mm/yyyy hh24:mi:ss') DT_CADASTRO,
+                        TO_CHAR(ORGAO_GESTOR_ESTAGIO.DT_ATUALIZACAO, 'dd/mm/yyyy hh24:mi:ss') DT_ATUALIZACAO,
+                        ORGAO_GESTOR_ESTAGIO.ID_UNIDADE_ORG,
+                        UNIDADE_ORG.TX_SIGLA_UNIDADE || ' - ' ||  UNIDADE_ORG.TX_UNIDADE_ORG as  TX_SIGLA_UNIDADE
+                FROM 
+                        ORGAO_GESTOR_ESTAGIO,
+                        UNIDADE_ORG
+                WHERE
+                    ORGAO_GESTOR_ESTAGIO.ID_UNIDADE_ORG = UNIDADE_ORG.ID_UNIDADE_ORG
+                      and   ID_ORGAO_GESTOR_ESTAGIO = '".$VO->ID_ORGAO_GESTOR_ESTAGIO."'";
 
 //        print_r($query);
           return $this->sqlVetor($query);
@@ -76,6 +89,54 @@ class RepositorioOrgao_Gestor extends Repositorio{
         return $this->sql($query);
     }
 
+    /**     +++++++++++++++++++    DETAIL ++++++++++++++++++++++++++++/
+     *
+     *  
+     */
+    function buscarEmails($VO) {
+		
+        $query = "SELECT * FROM ORGAO_GESTOR_EMAIL WHERE ID_ORGAO_GESTOR_ESTAGIO = '".$VO->ID_ORGAO_GESTOR_ESTAGIO."'";
+
+        return $this->sqlVetor($query);
+    }
+	
+	function inserirEmail($VO){
+
+		$query = "
+            INSERT INTO ORGAO_GESTOR_EMAIL(ID_ORGAO_GESTOR_ESTAGIO, NB_ORGAO_GESTOR_EMAIL, TX_EMAIL) 
+					VALUES (".$VO->ID_ORGAO_GESTOR_ESTAGIO.", SEMAD.F_G_PK_ORGAO_GESTOR_EMAIL(".$VO->ID_ORGAO_GESTOR_ESTAGIO."), '".mb_strtolower($VO->TX_EMAIL)."')";
+//                print_r($query);
+  return $this->sql($query);
+    }
+	
+	function atualizarInf($VO) {
+
+      $query = "update ORGAO_GESTOR_ESTAGIO set
+				  DT_ATUALIZACAO = sysdate
+				  where ID_ORGAO_GESTOR_ESTAGIO = " . $VO->ID_ORGAO_GESTOR_ESTAGIO;
+
+      $this->sql($query);
+
+      $data = "select TO_CHAR(DT_ATUALIZACAO, 'DD/MM/YYYY hh24:mi:ss') DT_ATUALIZACAO
+	  			from ORGAO_GESTOR_ESTAGIO
+				where ID_ORGAO_GESTOR_ESTAGIO = ".$VO->ID_ORGAO_GESTOR_ESTAGIO;
+
+      $this->sqlVetor($data);
+      $datahora = $this->getVetor();
+
+      return $datahora;
+    }
+	
+	
+	function excluirEmail($VO){
+
+        $query = "
+            delete from ORGAO_GESTOR_EMAIL
+                where ID_ORGAO_GESTOR_ESTAGIO = ".$VO->ID_ORGAO_GESTOR_ESTAGIO." 
+                  and NB_ORGAO_GESTOR_EMAIL = ".$VO->NB_ORGAO_GESTOR_EMAIL."";
+
+        return $this->sql($query);
+    }
 }
 
 ?>

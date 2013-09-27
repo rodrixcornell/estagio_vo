@@ -30,11 +30,12 @@ if ($_SESSION['ID_ORGAO_GESTOR_ESTAGIO']) {
 
         if (!$validar) {
             $VO->alterar();
-            $_SESSION['TX_ORGAO_GESTOR_ESTAGIO'] = $VO->TX_ORGAO_GESTOR_ESTAGIO;
-            $_SESSION['ID_UNIDADE_ORG'] = $VO->ID_UNIDADE_ORG;
-            $_SESSION['STATUS'] = '*Registro alterado com sucesso!';
+           // $_SESSION['TX_ORGAO_GESTOR_ESTAGIO'] = $VO->TX_ORGAO_GESTOR_ESTAGIO;
+          //  $_SESSION['ID_UNIDADE_ORG'] = $VO->ID_UNIDADE_ORG;
+          //  $_SESSION['STATUS'] = '*Registro alterado com sucesso!';
+             $_SESSION['ID_ORGAO_GESTOR_ESTAGIO']=$VO->ID_ORGAO_GESTOR_ESTAGIO;
             $_SESSION['PAGE'] = '1';
-            header("Location: " . $url . "src/" . $pasta . "/index.php");
+            header("Location: " . $url . "src/" . $pasta . "/detail.php");
         }
     }
 }else
