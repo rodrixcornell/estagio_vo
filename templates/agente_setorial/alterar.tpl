@@ -29,6 +29,10 @@
                 Funcionário <font color="#FF0000">{$validar.TX_FUNCIONARIO}</font><br />
                 <input type="text" name="TX_FUNCIONARIO" id="TX_FUNCIONARIO" value="{$VO->TX_FUNCIONARIO}" style="width:400px;" class="leitura" readonly="readonly" /></div>
 
+                 <div id="camada" style="font-family:Verdana, Geneva, sans-serif; width:350px;">
+          <font color="#FF0000">*</font>       Email <font color="#FF0000">{$validar.TX_EMAIL}</font><br />
+                <input type="text" name="TX_EMAIL" id="TX_EMAIL" value="{$VO->TX_EMAIL}" style="width:340px;"  /></div>
+                <br />
             <div id="camada" style="font-family:Verdana, Geneva, sans-serif; width:160px;">
                 Usuário da Atualização <font color="#FF0000">{$validar.TX_LOGIN_ATU}</font><br />
                 <input type="text" name="TX_LOGIN_ATU" id="TX_LOGIN_ATU" value="{$VO->TX_LOGIN_ATU}" style="width:150px;" class="leitura" readonly="readonly" /></div>

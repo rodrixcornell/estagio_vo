@@ -28,6 +28,13 @@
                         <td><strong>Data de Atualização</strong></td>
                         <td style="text-align:right;"><div id="atualizacao">{$dados.DT_ATULIZACAO[0]}</div></td>
                     </tr>
+                    
+                     <tr bgcolor="#F0EFEF">
+                          <td><strong>Email</strong></td>
+                          <td>{$dados.TX_EMAIL[0]}</td>
+                          <td></td>
+                          <td></td>
+                         </tr>
                 </table>
 
     {if $acesso}<div id="botoes">

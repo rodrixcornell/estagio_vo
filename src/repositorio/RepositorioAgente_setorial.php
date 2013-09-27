@@ -68,9 +68,9 @@ class RepositorioAgente_setorial extends Repositorio {
 
         $query = "
             INSERT INTO AGENTE_SETORIAL_ESTAGIO
-            (ID_SETORIAL_ESTAGIO,ID_USUARIO,DT_CADASTRO,DT_ATULIZACAO,ID_USUARIO_CADASTRO,ID_USUARIO_ATUALIZACAO)
+            (ID_SETORIAL_ESTAGIO,ID_USUARIO,DT_CADASTRO,DT_ATULIZACAO,ID_USUARIO_CADASTRO,ID_USUARIO_ATUALIZACAO,TX_EMAIL)
             VALUES
-	(" . $CodigoPK['ID_SETORIAL_ESTAGIO'][0] . ", " . $VO->ID_USUARIO_RESP . ", SYSDATE, SYSDATE," . $_SESSION['ID_USUARIO'] . "," . $_SESSION['ID_USUARIO'] . ") ";
+	(" . $CodigoPK['ID_SETORIAL_ESTAGIO'][0] . ", " . $VO->ID_USUARIO_RESP . ", SYSDATE, SYSDATE," . $_SESSION['ID_USUARIO'] . "," . $_SESSION['ID_USUARIO'] . ",'".mb_strtolower($VO->TX_EMAIL)."') ";
 
 
         $retorno = $this->sql($query);
@@ -85,6 +85,7 @@ class RepositorioAgente_setorial extends Repositorio {
                     USUARIO.TX_LOGIN TX_LOGIN ,
                     USUARIO_ATUALIZACAO.TX_LOGIN TX_LOGIN_CAD,
                     USUARIO_CADASTRADO.TX_LOGIN TX_LOGIN_ATU,
+                    AGENTE_SETORIAL_ESTAGIO.TX_EMAIL,
                     TO_CHAR(AGENTE_SETORIAL_ESTAGIO.DT_ATULIZACAO,'dd/mm/yyyy hh24:mi:ss') DT_ATULIZACAO,
                     to_char(AGENTE_SETORIAL_ESTAGIO.DT_CADASTRO,'dd/mm/yyyy hh24:mi:ss') DT_CADASTRO
             FROM
@@ -184,7 +185,8 @@ class RepositorioAgente_setorial extends Repositorio {
       $query = "update AGENTE_SETORIAL_ESTAGIO set
       ID_USUARIO = " . $VO->ID_USUARIO_RESP . " ,
       DT_ATULIZACAO = SYSDATE ,
-      ID_USUARIO_ATUALIZACAO =".$_SESSION['ID_USUARIO']."
+      ID_USUARIO_ATUALIZACAO =".$_SESSION['ID_USUARIO'].",
+      TX_EMAIL = '".$VO->TX_EMAIL."'
       where
      ID_SETORIAL_ESTAGIO = " . $VO->ID_SETORIAL_ESTAGIO;
 //      print_r($query);

@@ -19,7 +19,8 @@ $VO = new agente_setorialVO();
 
 if($_POST){
     $VO->configuracao();
-    $VO->setCaracteristica('ID_USUARIO_RESP','obrigatorios');
+    $VO->setCaracteristica('ID_USUARIO_RESP,TX_EMAIL','obrigatorios');
+       $VO->setCaracteristica('TX_EMAIL', 'emails');
     $validar = $VO->preencher($_POST);
 	
 	(!$validar) ? $id_pk = $VO->inserir() : false;

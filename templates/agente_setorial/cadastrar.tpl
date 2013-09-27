@@ -18,6 +18,10 @@
             <div id="camada" style="font-family:Verdana, Geneva, sans-serif; width:410px;">
                 Funcionário <font color="#FF0000">{$validar.TX_FUNCIONARIO}</font><br />
                 <input type="text" name="TX_FUNCIONARIO" id="TX_FUNCIONARIO" value="{$VO->TX_FUNCIONARIO}" style="width:400px;" class="leitura" readonly="readonly" /></div>
+                 <br />
+            <div id="camada" style="font-family:Verdana, Geneva, sans-serif; width:410px;">
+              <font color="#FF0000">*</font>Email <font color="#FF0000">{$validar.TX_EMAIL}</font><br />
+                <input type="text" name="TX_EMAIL" id="TX_EMAIL" value="{$VO->TX_EMAIL}" style="width:400px;"  /></div>
                 
             <br /><br />
                         

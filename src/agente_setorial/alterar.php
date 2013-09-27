@@ -23,7 +23,7 @@ if ($_SESSION['ID_SETORIAL_ESTAGIO']){
   
     if($_POST){
 		$VO->configuracao();
-		$VO->setCaracteristica('ID_USUARIO_RESP','obrigatorios');
+		$VO->setCaracteristica('ID_USUARIO_RESP,TX_EMAIL','obrigatorios');
 		$validar = $VO->preencher($_POST);
 
         if (!$validar){
