@@ -38,9 +38,9 @@ class RepositorioOrgao_Gestor extends Repositorio{
         $CodigoPK = $this->getVetor();
 
         $query = "
-            INSERT INTO ORGAO_GESTOR_ESTAGIO(ID_ORGAO_GESTOR_ESTAGIO, TX_ORGAO_GESTOR_ESTAGIO, DT_CADASTRO, DT_ATUALIZACAO, ID_UNIDADE_ORG)
+            INSERT INTO ORGAO_GESTOR_ESTAGIO(ID_ORGAO_GESTOR_ESTAGIO, TX_ORGAO_GESTOR_ESTAGIO, DT_CADASTRO, DT_ATUALIZACAO, ID_UNIDADE_ORG,TX_CNPJ)
 						values
-								('".$CodigoPK['ID_ORGAO_GESTOR_ESTAGIO'][0]."', '".$VO->TX_ORGAO_GESTOR_ESTAGIO."', SYSDATE, SYSDATE, '".$VO->ID_UNIDADE_ORG."')
+	    ('".$CodigoPK['ID_ORGAO_GESTOR_ESTAGIO'][0]."', '".$VO->TX_ORGAO_GESTOR_ESTAGIO."', SYSDATE, SYSDATE, '".$VO->ID_UNIDADE_ORG."','".$VO->TX_CNPJ."')
         ";
 
         $retorno = $this->sql($query);
@@ -49,10 +49,10 @@ class RepositorioOrgao_Gestor extends Repositorio{
 
 	function buscar($VO) {
 
-        $query = "select ID_ORGAO_GESTOR_ESTAGIO, TX_ORGAO_GESTOR_ESTAGIO, TO_CHAR(DT_CADASTRO, 'dd/mm/yyyy hh24:mi:ss') DT_CADASTRO, to_char(DT_ATUALIZACAO, 'dd/mm/yyyy hh24:mi:ss') DT_ATUALIZACAO, ID_UNIDADE_ORG from ORGAO_GESTOR_ESTAGIO where ID_ORGAO_GESTOR_ESTAGIO = '".$VO->ID_ORGAO_GESTOR_ESTAGIO."'";
+        $query = "select ID_ORGAO_GESTOR_ESTAGIO, TX_ORGAO_GESTOR_ESTAGIO, TX_CNPJ, TO_CHAR(DT_CADASTRO, 'dd/mm/yyyy hh24:mi:ss') DT_CADASTRO, to_char(DT_ATUALIZACAO, 'dd/mm/yyyy hh24:mi:ss') DT_ATUALIZACAO, ID_UNIDADE_ORG from ORGAO_GESTOR_ESTAGIO where ID_ORGAO_GESTOR_ESTAGIO = '".$VO->ID_ORGAO_GESTOR_ESTAGIO."'";
 
-
-        return $this->sqlVetor($query);
+//        print_r($query);
+          return $this->sqlVetor($query);
     }
 
 	function alterar($VO){
@@ -60,7 +60,8 @@ class RepositorioOrgao_Gestor extends Repositorio{
         $query = "update ORGAO_GESTOR_ESTAGIO set
 					TX_ORGAO_GESTOR_ESTAGIO = '".$VO->TX_ORGAO_GESTOR_ESTAGIO."' ,
 					ID_UNIDADE_ORG = '".$VO->ID_UNIDADE_ORG."' ,
-					DT_ATUALIZACAO = SYSDATE
+					DT_ATUALIZACAO = SYSDATE,
+                                        TX_CNPJ ='".$VO->TX_CNPJ."'
 				 where
  					ID_ORGAO_GESTOR_ESTAGIO = '".$VO->ID_ORGAO_GESTOR_ESTAGIO."'";
 

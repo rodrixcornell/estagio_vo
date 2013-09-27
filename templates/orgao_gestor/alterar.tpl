@@ -15,13 +15,17 @@
                 
             <br />
             
+     
             <div id="camada" style="font-family:Verdana, Geneva, sans-serif; width:410px;">
                 <font color="#FF0000">*</font>Unidade Organizacional <font color="#FF0000">{$validar.ID_UNIDADE_ORG}</font><br />
                 <select name="ID_UNIDADE_ORG" id="ID_UNIDADE_ORG" style="width:400px;">
                     {html_options options=$arrayUnidade selected=$VO->ID_UNIDADE_ORG}
-                </select></div>
-                
+                </select></div><br />
+                       <div id="camada" style="font-family:Verdana, Geneva, sans-serif; width:210px;">
+                <font color="#FF0000">*</font>CNPJ <font color="#FF0000">{$validar.TX_CNPJ}</font><br />
+                <input type="text" name="TX_CNPJ" id="TX_CNPJ" value="{$VO->TX_CNPJ}" style="width:200px;" /></div> 
             <br />
+            
             
             <div id="camada" style="font-family:Verdana, Geneva, sans-serif; width:160px;">
                 Data de Cadastro <font color="#FF0000">{$validar.DT_CADASTRO}</font><br />

@@ -12,6 +12,6 @@ session_start();
 
 $_SESSION['ID_ORGAO_GESTOR_ESTAGIO'] = $_REQUEST['ID'];
 
-header("Location: ".$url."src/".$pasta."/alterar.php");
+header("Location: ".$url."src/".$pasta."/detail.php");
 
 ?>
