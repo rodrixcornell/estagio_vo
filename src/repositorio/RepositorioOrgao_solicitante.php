@@ -33,7 +33,7 @@ class RepositorioOrgao_solicitante extends Repositorio {
         ($VO->ID_UNIDADE_ORG) ? $query .= " AND a.ID_UNIDADE_ORG = '" . $VO->ID_UNIDADE_ORG . "' " : false;
         ($VO->TX_ORGAO_ESTAGIO) ? $query .= " AND upper(a.TX_ORGAO_ESTAGIO) like upper('%" . $VO->TX_ORGAO_ESTAGIO . "%') " : false;
 
-        $query .= "order by a.dt_atualizacao desc, a.dt_cadastro desc";
+        $query .= "order by A.TX_ORGAO_ESTAGIO";
 
         if ($VO->Reg_quantidade) {
             !$VO->Reg_inicio ? $VO->Reg_inicio = 0 : false;

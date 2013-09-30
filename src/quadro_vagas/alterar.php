@@ -15,22 +15,32 @@ require_once "../autenticacao/validaPermissao.php";
 // Iniciando Instância
 $VO = new quadro_vagasVO();
 
+
 if ($_SESSION['ID_QUADRO_VAGAS_ESTAGIO']) {
 
     $VO->ID_QUADRO_VAGAS_ESTAGIO = $_SESSION['ID_QUADRO_VAGAS_ESTAGIO'];
+	
+	$ativo = $VO->verificarAtivo();
+	
+	if ($ativo)
+		$smarty->assign("msg", '<font color="#FF0000">*Não é possível alterar a situação do Quadro vagas pois já existe um outro com situação ATIVO, para alterar desative o anterior.</font><br /><br />');
 
     $VO->buscar();
     $VO->preencherVOBD($VO->getVetor());
 
     if ($_POST) {
-        $VO->configuracao();
-        $VO->setCaracteristica('ID_ORGAO_GESTOR_ESTAGIO,ID_AGENCIA_ESTAGIO,CS_SITUACAO,ID_CONTRATO_CP', 'obrigatorios');
-        $validar = $VO->preencher($_POST);
+		
+		(!$ativo) ? $obrigatorios = 'ID_ORGAO_GESTOR_ESTAGIO,CS_SITUACAO,ID_CONTRATO_CP' : $obrigatorios ='ID_ORGAO_GESTOR_ESTAGIO,ID_CONTRATO_CP';
+		
+		$VO->configuracao();
+		$VO->setCaracteristica($obrigatorios, 'obrigatorios');
+		$validar = $VO->preencher($_POST);
 
-        if (!$validar) {
-            $VO->alterar();
-            header("Location: " . $url . "src/" . $pasta . "/detail.php");
-        }
+		if (!$validar) {
+			$VO->alterar();
+			header("Location: " . $url . "src/" . $pasta . "/detail.php");
+		}
+		
     }
 }else
     header("Location: " . $url . "src/" . $pasta . "/index.php");

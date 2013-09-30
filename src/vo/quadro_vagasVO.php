@@ -62,14 +62,14 @@ class quadro_vagasVO extends VO {
         return $this->repositorio->buscarVagasEstagio($this);
     }
 
-    function pesquisarCodigo() {
-        return $this->repositorio->pesquisarCodigo($this);
-    }
-
     function pesquisaContrato() {
         return $this->repositorio->pesquisaContrato($this);
     }
-
+	
+	function verificarAtivo() {
+        return $this->repositorio->verificarAtivo($this);
+    }
+	
     //Relatorio
     function buscarOrgaoEstagio() {
         return $this->repositorio->buscarOrgaoEstagio($this);
