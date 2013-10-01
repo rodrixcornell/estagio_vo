@@ -9,11 +9,11 @@
          
           <form name="form" action="{$url}src/{$pasta}/alterar.php" method="post">
 
-            <div id="camada" style="width:290px;"><font color="#FF0000">*</font>Nome da Agência<font color="#FF0000">{$valida.TX_AGENCIA_ESTAGIO} </font></br>
+            <div id="camada" style="width:290px;"><font color="#FF0000">*</font>Nome da Agência<font color="#FF0000">{$validar.TX_AGENCIA_ESTAGIO} </font></br>
                 <input type="text" name="TX_AGENCIA_ESTAGIO" id="TX_AGENCIA_ESTAGIO" value="{$VO->TX_AGENCIA_ESTAGIO}" style="width:280px;"/></div>
 
                
-                <div id="camada" style="width:300px;"> <font color="#FF0000">*</font>Sigla da Agência<font color="#FF0000">{$validar.TX_SIGLA} </font><br />
+                <div id="camada" style="width:160px;"> <font color="#FF0000">*</font>Sigla da Agência<font color="#FF0000">{$validar.TX_SIGLA} </font><br />
                     <input type="text" name="TX_SIGLA" id="TX_SIGLA" value="{$VO->TX_SIGLA}" style="width:150px;"/></div>
 				
                 <br />
