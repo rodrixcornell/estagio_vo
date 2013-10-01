@@ -19,6 +19,11 @@
                     {html_options options=$pesquisarOrgaoSolicitante selected=$VO->ID_UNIDADE_ORG}
                 </select></div><br />
                 
+             <div id="camada" style="font-family:Verdana, Geneva, sans-serif; width:510px;">
+               </font>CNPJ <font color="#FF0000">{$validar.TX_CNPJ}</font><br />
+                <input type="text" name="TX_CNPJ" id="TX_CNPJ" value="{$VO->TX_CNPJ}" style="width:300px;" /></div>
+               <br />
+                
                         
             <br />                        
             <input type="button" name="cancelar" id="cancelar" value="Cancelar" onclick="window.location.href='{$url}src/{$pasta}/index.php'" />&nbsp;&nbsp;&nbsp;&nbsp;

@@ -20,6 +20,8 @@ $VO = new orgao_solicitanteVO();
 if ($_POST) {
     $VO->configuracao();
     $VO->setCaracteristica('TX_ORGAO_ESTAGIO,ID_UNIDADE_ORG', 'obrigatorios');
+    $VO->setCaracteristica('TX_CNPJ','cnpjs');
+            
     $validar = $VO->preencher($_POST);
     
   

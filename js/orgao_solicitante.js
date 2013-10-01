@@ -7,6 +7,10 @@ $(document).ready(function(){
     function hideLoader(){
         $('.fundo_pag').fadeOut(200);
     };
+    
+      $('#TX_CNPJ').setMask({
+        mask:'99.999.999/9999-99'
+    });
 	
 
     $('#pesquisar').click(function(){

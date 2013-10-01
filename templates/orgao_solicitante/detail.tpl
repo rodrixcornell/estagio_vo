@@ -17,11 +17,15 @@
                         <td style="text-align:right;">{$dados.TX_STATUS[0]}</td>
                         
                     </tr>
-                    
-                    <tr bgcolor="#F0EFEF">
-                    	<td><strong>Unidade Organizacional</strong></td>
-                        <td colspan="3">{$dados.TX_UNIDADE_ORGANIZACIONAL[0]}</td>
+                                 
+                     <tr bgcolor="#E0E0E0">
+                        <td style="width:125px;"><strong>Unidade Organizacional</strong></td>
+                        <td style="width:350px;">{$dados.TX_UNIDADE_ORGANIZACIONAL[0]}</td>
+                        <td><strong>CNPJ</strong></td>
+                        <td style="text-align:right;">{$dados.TX_CNPJ[0]}</td>
+                        
                     </tr>
+                    
                 
                     <tr bgcolor="#E0E0E0">
                         <td><strong>Cadastrado por</strong></td>
