@@ -14,7 +14,8 @@ $(document).ready(function(){
             showLoader();
             $('#tabela').load('acoes.php?identifier=tabela',{
                 TX_ORGAO_ESTAGIO:$('#TX_ORGAO_ESTAGIO').val(),
-                ID_UNIDADE_ORG:$('#ID_UNIDADE_ORG').val()
+                ID_UNIDADE_ORG:$('#ID_UNIDADE_ORG').val(),
+                CS_STATUS:$('#CS_STATUS').val()
                
             }, hideLoader);
         //}else

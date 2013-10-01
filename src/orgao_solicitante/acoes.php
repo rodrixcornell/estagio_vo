@@ -96,6 +96,7 @@ if ($_REQUEST['identifier'] == "tabela") {
    
     $VO->ID_UNIDADE_ORG = $_REQUEST['ID_UNIDADE_ORG'];
     $VO->TX_ORGAO_ESTAGIO = $_REQUEST['TX_ORGAO_ESTAGIO'];
+    $VO->CS_STATUS = $_REQUEST['CS_STATUS'];
     
     $page = $_REQUEST['PAGE'];
 

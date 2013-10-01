@@ -14,9 +14,7 @@ class RepositorioOrgao_solicitante extends Repositorio {
         return $this->sqlVetor($query);
     }
     
-    
-    
-    
+        
     function pesquisar($VO) {
 
         $query = "SELECT A.ID_ORGAO_ESTAGIO,
@@ -32,6 +30,7 @@ class RepositorioOrgao_solicitante extends Repositorio {
 
         ($VO->ID_UNIDADE_ORG) ? $query .= " AND a.ID_UNIDADE_ORG = '" . $VO->ID_UNIDADE_ORG . "' " : false;
         ($VO->TX_ORGAO_ESTAGIO) ? $query .= " AND upper(a.TX_ORGAO_ESTAGIO) like upper('%" . $VO->TX_ORGAO_ESTAGIO . "%') " : false;
+        ($VO->CS_STATUS) ? $query .= " AND a.CS_STATUS = '" . $VO->CS_STATUS . "' " : false;
 
         $query .= "order by A.TX_ORGAO_ESTAGIO";
 
@@ -81,7 +80,7 @@ values  (" . $CodigoPK['ID_ORGAO_ESTAGIO'][0] . ",
        TO_CHAR(OE.DT_CADASTRO, 'DD/MM/YYYY hh24:mi:ss') DT_CADASTRO,
        TO_CHAR(OE.DT_ATUALIZACAO, 'DD/MM/YYYY hh24:mi:ss') DT_ATUALIZACAO,
        OE.ID_UNIDADE_ORG,
-       OE.CS_STATUS,
+       OE.CS_STATUS, DECODE(CS_STATUS, 1,'ATIVADO', 2,'DESATIVADO')TX_STATUS,
        OE.ID_USUARIO_CADASTRO,
        OE.ID_USUARIO_ATUALIZACAO,
        (UO.TX_SIGLA_UNIDADE || ' - ' || UO.TX_UNIDADE_ORG) TX_UNIDADE_ORGANIZACIONAL,
