@@ -13,13 +13,13 @@
                     <tr bgcolor="#E0E0E0">
                         <td style="width:150px;"><strong>Código</strong></td>
                         <td><font color="#0000FF"><strong>{$dados.TX_CODIGO[0]}</strong></font></td>
-                        <td style="width:140px;"><strong>Órgão Gestor</strong></td>
-                        <td style="width:250px; text-align:right;">{$dados.TX_ORGAO_GESTOR_ESTAGIO[0]}</td>
+                        <td style="width:140px;"><strong>Contrato</strong></td>
+                        <td style="width:150px; text-align:right;">{$dados.NB_CODIGO[0]}</td>
                     </tr>
 
                     <tr bgcolor="#F0EFEF">
-                        <td><strong>Agência de Estágio</strong></td>
-                        <td>{$dados.TX_AGENCIA_ESTAGIO[0]}</td>
+                        <td><strong>Órgão Gestor</strong></td>
+                        <td>{$dados.TX_ORGAO_GESTOR_ESTAGIO[0]}</td>
                         <td><strong>Situação</strong></td>
                         <td style="text-align:right;">{$dados.TX_SITUACAO[0]}</td>
                     </tr>
@@ -51,28 +51,34 @@
 
             {if $acesso}<fieldset>
                     <legend>Vagas</legend>
+                    
+                    <div id="camada" style="font-family:Verdana, Geneva, sans-serif; width:140px;">
+                        <font color="#FF0000">*</font>Agência de Estágio <font color="#FF0000">{$validar.ID_AGENCIA_ESTAGIO}</font><br />
+                        <select name="ID_AGENCIA_ESTAGIO" id="ID_AGENCIA_ESTAGIO" style="width:130px;">
+                            {html_options options=$pesquisarAgenciaestagio selected=$VO->ID_AGENCIA_ESTAGIO}
+                        </select></div>
 
                     <div id="camada" style="font-family:Verdana, Geneva, sans-serif; width:210px;">
-                        <font color="#FF0000">*</font>Órgão Solicitante <font color="#FF0000">{$validar.ID_ORGAO_ESTAGIO}</font><br />
+                        <font color="#FF0000">*</font>Órgão<font color="#FF0000">{$validar.ID_ORGAO_ESTAGIO}</font><br />
                         <select name="ID_ORGAO_ESTAGIO" id="ID_ORGAO_ESTAGIO" style="width:200px;">
                             {html_options options=$orgao_Solicitante selected=$VO->ID_ORGAO_ESTAGIO}
                         </select></div>
 
 
                     <div id="camada" style="font-family:Verdana, Geneva, sans-serif; width:130px;">
-                        <font color="#FF0000">*</font>Tipo <font color="#FF0000">{$validar.CS_TIPO_VAGA_ESTAGIO}</font><br />
+                        <font color="#FF0000">*</font>Tipo de Vaga<font color="#FF0000">{$validar.CS_TIPO_VAGA_ESTAGIO}</font><br />
                         <select name="CS_TIPO_VAGA_ESTAGIO" id="CS_TIPO_VAGA_ESTAGIO" style="width:120px;">
                             {html_options options=$pesquisarTipo selected=$VO->CS_TIPO_VAGA_ESTAGIO}
                         </select></div>
 
-                    <div id="camada" style="width:110px;"><font color="#FF0000">*</font>Quantidade:<font color="#FF0000"> {$validar.NB_QUANTIDADE} </font><br />
-                        <input type="text" name="NB_QUANTIDADE" id="NB_QUANTIDADE" value="{$VO->NB_QUANTIDADE}" style="width:100px; text-align:center;"  />
+                    <div id="camada" style="width:90px;"><font color="#FF0000">*</font>Quantidade<font color="#FF0000"> {$validar.NB_QUANTIDADE} </font><br />
+                        <input type="text" name="NB_QUANTIDADE" id="NB_QUANTIDADE" value="{$VO->NB_QUANTIDADE}" style="width:80px; text-align:center;"  />
                     </div>
 
 
-                    <div id="camada" style="font-family:Verdana, Geneva, sans-serif; width:210px;">
-                        <font color="#FF0000">*</font>Curso <font color="#FF0000">{$validar.ID_CURSO_ESTAGIO}</font><br />
-                        <select name="ID_CURSO_ESTAGIO" id="ID_CURSO_ESTAGIO" style="width:200px;">
+                    <div id="camada" style="font-family:Verdana, Geneva, sans-serif; width:240px;">
+                        Curso <font color="#FF0000">{$validar.ID_CURSO_ESTAGIO}</font><br />
+                        <select name="ID_CURSO_ESTAGIO" id="ID_CURSO_ESTAGIO" style="width:230px;">
                             {html_options options=$pesquisaCursos selected=$VO->ID_CURSO_ESTAGIO}
                         </select></div>
 
@@ -80,13 +86,6 @@
                 </fieldset>{/if}
 
                 <div id="tabelaUnidade"></div>
-
-                <div id="dialog" title="Alterar Vagas de Estágio">
-                    <div id="alterar_vaga" style="text-align:left;"></div>
-                    <div class="fundoForm">
-                        <img src="{$urlimg}icones/loader3.gif" >
-                    </div>
-                </div>
 
                 <div id="botoesInferiores">
                     <a href="{$url}src/{$pasta}/index.php"><img src="{$urlimg}icones/voltar.png" alt="Voltar" title="Voltar" class="voltar" /></a>

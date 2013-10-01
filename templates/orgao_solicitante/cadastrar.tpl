@@ -17,10 +17,10 @@
                 <font color="#FF0000">*</font>Unidade Organizacional <font color="#FF0000">{$validar.ID_UNIDADE_ORG}</font><br />
                 <select name="ID_UNIDADE_ORG" id="ID_UNIDADE_ORG" style="width: 500px;">
                     {html_options options=$pesquisarOrgaoSolicitante selected=$VO->ID_UNIDADE_ORG}
-                </select></div>
+                </select></div><br />
+                
                         
-            <br /><br />
-                        
+            <br />                        
             <input type="button" name="cancelar" id="cancelar" value="Cancelar" onclick="window.location.href='{$url}src/{$pasta}/index.php'" />&nbsp;&nbsp;&nbsp;&nbsp;
             <input type="submit" name="salvar" id="salvar" value=" Salvar " />
         </form>

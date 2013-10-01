@@ -121,6 +121,7 @@ if ($_REQUEST['identifier'] == "tabela") {
         echo '<table width="100%" class="dataGrid">
              <th>Órgao Solicitante</th>
              <th>Unidade Organizacional</th>
+             <th>Situação</th>
              <th>Data de Cadastro</th>
              <th>Data de Atualização</th>
 								';
@@ -135,6 +136,7 @@ if ($_REQUEST['identifier'] == "tabela") {
             echo '<tr bgcolor="' . $bgcolor . '">
                 <td align="center">' . $dados['TX_ORGAO_ESTAGIO'][$i] . '</td>
                 <td align="center">' . $dados['TX_UNIDADE_ORG'][$i] . '</td>
+                <td align="center">' . $dados['TX_STATUS'][$i] . '</td>
                 <td align="center">' . $dados['DT_CADASTRO'][$i] . '</td>
                 <td align="center">' . $dados['DT_ATUALIZACAO'][$i] . '</td>';
 

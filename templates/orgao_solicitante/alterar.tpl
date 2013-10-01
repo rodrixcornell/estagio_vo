@@ -37,6 +37,12 @@
                 Data de Atualização <font color="#FF0000">{$validar.DT_ATUALIZACAO}</font><br />
                 <input type="text" name="DT_ATUALIZACAO" id="DT_ATUALIZACAO" value="{$VO->DT_ATUALIZACAO}" style="width:150px;" class="leitura" readonly="readonly" /></div>
 
+                <div id="camada" style="font-family:Verdana, Geneva, sans-serif; width:410px;">
+                <font color="#FF0000">*</font>Situação <font color="#FF0000">{$validar.CS_STATUS}</font><br />
+                <select name="CS_STATUS" id="CS_STATUS" style="width:200px;">
+                    {html_options options=$pesquisarSituacao selected=$VO->CS_STATUS}
+                </select></div>
+                
             <br /><br />
 
             <input type="button" name="cancelar" id="cancelar" value="Cancelar" onclick="window.location.href='{$url}src/{$pasta}/detail.php'" />&nbsp;&nbsp;&nbsp;&nbsp;

@@ -17,6 +17,6 @@ class orgao_solicitanteVO extends VO{
 	function  pesquisarOrgaoSolicitante(){    
         return $this->repositorio->pesquisarOrgaoSolicitante($this);
     }
-   
+    
 }
 ?>

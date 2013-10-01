@@ -721,5 +721,15 @@
 		}
 	}	
 	
+	function erroOracle($arrayErro){
+		switch ($arrayErro['code']){
+			case 1 : $erro = 'Registro já Existe!'; break;
+			default : $erro = 'Erro: '.$arrayErro['message']; break;
+		}
+		
+		return $erro;
+		
+	}
+	
 }
 ?>

@@ -13,31 +13,35 @@ class RepositorioOrgao_solicitante extends Repositorio {
 
         return $this->sqlVetor($query);
     }
-
-
+    
+    
+    
+    
     function pesquisar($VO) {
 
-        $query = "select a.ID_ORGAO_ESTAGIO, a.TX_ORGAO_ESTAGIO,
-				   TO_CHAR(a.DT_CADASTRO, 'dd/mm/yyyy hh24:mi:ss') DT_CADASTRO,
-				   to_char(a.DT_ATUALIZACAO, 'dd/mm/yyyy hh24:mi:ss') DT_ATUALIZACAO,
-				   B.TX_UNIDADE_ORG
-
-   				from ORGAO_ESTAGIO a, UNIDADE_ORG B
- 				where a.ID_UNIDADE_ORG = B.ID_UNIDADE_ORG ";
+        $query = "SELECT A.ID_ORGAO_ESTAGIO,
+                         A.TX_ORGAO_ESTAGIO,
+                         TO_CHAR(A.DT_CADASTRO, 'DD/MM/YYYY HH24:MI:SS') DT_CADASTRO,
+                         TO_CHAR(A.DT_ATUALIZACAO, 'DD/MM/YYYY HH24:MI:SS') DT_ATUALIZACAO,
+                         B.TX_UNIDADE_ORG,
+                         A.CS_STATUS,
+                         DECODE(CS_STATUS, 1,'ATIVADO', 2,'DESATIVADO')TX_STATUS
+                    FROM ORGAO_ESTAGIO A,
+                         UNIDADE_ORG B
+                   WHERE A.ID_UNIDADE_ORG = B.ID_UNIDADE_ORG ";
 
         ($VO->ID_UNIDADE_ORG) ? $query .= " AND a.ID_UNIDADE_ORG = '" . $VO->ID_UNIDADE_ORG . "' " : false;
         ($VO->TX_ORGAO_ESTAGIO) ? $query .= " AND upper(a.TX_ORGAO_ESTAGIO) like upper('%" . $VO->TX_ORGAO_ESTAGIO . "%') " : false;
 
-        $query .= "order by a.dt_atualizacao desc, a.dt_cadastro desc";
+        $query .= "order by A.TX_ORGAO_ESTAGIO";
 
         if ($VO->Reg_quantidade) {
             !$VO->Reg_inicio ? $VO->Reg_inicio = 0 : false;
             $query = "SELECT * FROM (SELECT PAGING.*, ROWNUM PAGING_RN FROM (" . $query . ") PAGING WHERE (ROWNUM <= " . ($VO->Reg_quantidade + $VO->Reg_inicio) . "))  WHERE (PAGING_RN > " . $VO->Reg_inicio . ")";
         }
-
-        return $this->sqlVetor($query);
+        
+       return $this->sqlVetor($query);
     }
-
 
     function inserir($VO) {
 
@@ -49,6 +53,7 @@ class RepositorioOrgao_solicitante extends Repositorio {
         $query = "INSERT INTO SEMAD.ORGAO_ESTAGIO
                  (ID_ORGAO_ESTAGIO,
                   TX_ORGAO_ESTAGIO,
+                  CS_STATUS,
                   DT_CADASTRO,
                   DT_ATUALIZACAO,
                   ID_UNIDADE_ORG,
@@ -58,13 +63,13 @@ class RepositorioOrgao_solicitante extends Repositorio {
 values  (" . $CodigoPK['ID_ORGAO_ESTAGIO'][0] . ",
 
         '" . $VO->TX_ORGAO_ESTAGIO . "',
+        1,
          SYSDATE,
          SYSDATE,
         " . $VO->ID_UNIDADE_ORG . ",
         " . $_SESSION['ID_USUARIO'] . ",
         " . $_SESSION['ID_USUARIO'] . ")";
-
-        $retorno = $this->sql($query);
+             $retorno = $this->sql($query);
 
         return !$retorno ? $CodigoPK['ID_ORGAO_ESTAGIO'][0] : FALSE;
     }
@@ -76,6 +81,7 @@ values  (" . $CodigoPK['ID_ORGAO_ESTAGIO'][0] . ",
        TO_CHAR(OE.DT_CADASTRO, 'DD/MM/YYYY hh24:mi:ss') DT_CADASTRO,
        TO_CHAR(OE.DT_ATUALIZACAO, 'DD/MM/YYYY hh24:mi:ss') DT_ATUALIZACAO,
        OE.ID_UNIDADE_ORG,
+       OE.CS_STATUS,
        OE.ID_USUARIO_CADASTRO,
        OE.ID_USUARIO_ATUALIZACAO,
        (UO.TX_SIGLA_UNIDADE || ' - ' || UO.TX_UNIDADE_ORG) TX_UNIDADE_ORGANIZACIONAL,
@@ -131,12 +137,13 @@ values  (" . $CodigoPK['ID_ORGAO_ESTAGIO'][0] . ",
         $query = "UPDATE ORGAO_ESTAGIO
                         SET TX_ORGAO_ESTAGIO = '" . $VO->TX_ORGAO_ESTAGIO . "',
                             ID_UNIDADE_ORG =  '" . $VO->ID_UNIDADE_ORG . "',
+                            CS_STATUS = '" . $VO->CS_STATUS . "',
                             ID_USUARIO_ATUALIZACAO =  '" . $_SESSION['ID_USUARIO'] . "',
                             DT_ATUALIZACAO = SYSDATE
                       WHERE ID_ORGAO_ESTAGIO = '" . $VO->ID_ORGAO_ESTAGIO . "'";
 
-
-        return $this->sql($query);
+       
+       return $this->sql($query);
     }
 
     function excluir($VO) {

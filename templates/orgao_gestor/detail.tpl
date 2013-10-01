@@ -8,7 +8,7 @@
 
         <form name="form" action="{$url}src/{$pasta}/excluir.php" method="post" >
             <fieldset>
-                <legend>Unidade</legend>
+                <legend>Órgao Gestor</legend>
                 <table width="100%" class="dataGrid" >
                     <tr bgcolor="#E0E0E0">
                         <td style="width:166px;"><strong>Órgão Gestor de Estágio </strong></td>

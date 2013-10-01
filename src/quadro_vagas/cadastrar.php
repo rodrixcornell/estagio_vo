@@ -17,19 +17,27 @@ unset($_SESSION['ID_QUADRO_VAGAS_ESTAGIO']);
 // Iniciando Instância
 $VO = new quadro_vagasVO();
 
+$ativo = $VO->verificarAtivo();
+
+if ($ativo)
+	$smarty->assign("msg", '<font color="#FF0000">*Não é possível cadastrar um novo Quadro de Vagas pois já existe um outro com situação ATIVO, para cadastrar um novo desative o anterior.</font><br /><br />');
+
 if ($_POST) {
 
-    $VO->configuracao();
-    $VO->setCaracteristica('ID_ORGAO_GESTOR_ESTAGIO,ID_AGENCIA_ESTAGIO,CS_SITUACAO,ID_CONTRATO_CP', 'obrigatorios');
-    $validar = $VO->preencher($_POST);
+	if (!$ativo){
 
-   	if (!$validar)
-        $id_pk = $VO->inserir();
-
-    if ($id_pk) {
-        $_SESSION['ID_QUADRO_VAGAS_ESTAGIO'] = $id_pk;
-        header("Location: " . $url . "src/" . $pasta . "/detail.php");
-    }
+		$VO->configuracao();
+		$VO->setCaracteristica('ID_ORGAO_GESTOR_ESTAGIO,CS_SITUACAO,ID_CONTRATO_CP', 'obrigatorios');
+		$validar = $VO->preencher($_POST);
+	
+		if (!$validar)
+			$id_pk = $VO->inserir();
+	
+		if ($id_pk) {
+			$_SESSION['ID_QUADRO_VAGAS_ESTAGIO'] = $id_pk;
+			header("Location: " . $url . "src/" . $pasta . "/detail.php");
+		}
+	}
     
 }
 
