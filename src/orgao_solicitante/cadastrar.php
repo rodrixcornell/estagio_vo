@@ -1,4 +1,5 @@
 <?php
+
 require_once "../../php/define.php";
 require_once $path . "src/orgao_solicitante/arrays.php";
 require_once $pathvo . "orgao_solicitanteVO.php";
@@ -20,11 +21,11 @@ $VO = new orgao_solicitanteVO();
 if ($_POST) {
     $VO->configuracao();
     $VO->setCaracteristica('TX_ORGAO_ESTAGIO,ID_UNIDADE_ORG', 'obrigatorios');
-    $VO->setCaracteristica('TX_CNPJ','cnpjs');
-            
+    $VO->setCaracteristica('TX_CNPJ', 'cnpjs');
+
     $validar = $VO->preencher($_POST);
-    
-  
+
+
     (!$validar) ? $id_pk = $VO->inserir() : false;
 
     if ($id_pk) {
