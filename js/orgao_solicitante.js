@@ -7,6 +7,10 @@ $(document).ready(function(){
     function hideLoader(){
         $('.fundo_pag').fadeOut(200);
     };
+    
+      $('#TX_CNPJ').setMask({
+        mask:'99.999.999/9999-99'
+    });
 	
 
     $('#pesquisar').click(function(){
@@ -14,7 +18,8 @@ $(document).ready(function(){
             showLoader();
             $('#tabela').load('acoes.php?identifier=tabela',{
                 TX_ORGAO_ESTAGIO:$('#TX_ORGAO_ESTAGIO').val(),
-                ID_UNIDADE_ORG:$('#ID_UNIDADE_ORG').val()
+                ID_UNIDADE_ORG:$('#ID_UNIDADE_ORG').val(),
+                CS_STATUS:$('#CS_STATUS').val()
                
             }, hideLoader);
         //}else

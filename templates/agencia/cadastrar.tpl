@@ -10,19 +10,19 @@
 
 
 
-            <div id="camada" style="width:290px;"><font color="#FF0000">*</font>Nome da Agência<font color="#FF0000"> {$validar.TX_AGENCIA_ESTAGIO} </font></br>
+            <div id="camada" style="width:290px;"><font color="#FF0000">*</font>Nome da Agência <font color="#FF0000"> {$validar.TX_AGENCIA_ESTAGIO} </font></br>
                 <input type="text" name="TX_AGENCIA_ESTAGIO" id="TX_AGENCIA_ESTAGIO" value="{$VO->TX_AGENCIA_ESTAGIO}" style="width:280px;"/></div>
 
-                <div id="camada" style="width:220px;"> <font color="#FF0000">*</font>Sigla da Agência<font color="#FF0000"> {$validar.TX_SIGLA} </font><br />
+                <div id="camada" style="width:220px;"> <font color="#FF0000">*</font>Sigla da Agência <font color="#FF0000"> {$validar.TX_SIGLA} </font><br />
                     <input type="text" name="TX_SIGLA" id="TX_SIGLA" value="{$VO->TX_SIGLA}" style="width:210px;"/></div>
-                    
+
                 <br />
 
-                <div id="camada" style="width:160px;"> <font color="#FF0000">*</font>CNPJ<font color="#FF0000"> {$validar.TX_CNPJ} </font><br />
+                <div id="camada" style="width:160px;"> <font color="#FF0000">*</font>CNPJ <font color="#FF0000"> {$validar.TX_CNPJ} </font><br />
                     <input type="text" name="TX_CNPJ" id="TX_CNPJ"  value="{$VO->TX_CNPJ}" style="width:150px;"/></div>
 
-               
-                <div id="camada" style="width:350px;"> <font color="#FF0000">*</font>EMAIL<font color="#FF0000"> {$validar.TX_EMAIL} </font><br />
+
+                <div id="camada" style="width:350px;"> <font color="#FF0000">*</font>E-Mail <font color="#FF0000"> {$validar.TX_EMAIL} </font><br />
                     <input type="text" name="TX_EMAIL" id="TX_EMAIL"  value="{$VO->TX_EMAIL}" style="width:340px;"/></div>
 
                 </br> <br/>
