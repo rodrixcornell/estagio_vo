@@ -2,7 +2,7 @@
 <br /><br />
    <div id='formLogin'>
 
-        <form method='post' action='{$url}src/autenticacao/index.php'>
+        <form method='post' action='{$url}src/autenticacao/index.php?url={$urlGet}'>
 
             <div id="boxAltenticacao">
                 <div id='msgLogin'  class='aviso'>{if !$validou} {$obrigatorio.geral} {/if}</div>

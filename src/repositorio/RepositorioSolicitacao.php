@@ -25,6 +25,7 @@ class RepositorioSolicitacao extends Repositorio {
               where (ase.ID_SETORIAL_ESTAGIO = oas.ID_SETORIAL_ESTAGIO)
                 and (oe.ID_ORGAO_ESTAGIO = oas.ID_ORGAO_ESTAGIO)
                 and (ase.ID_USUARIO = " . $_SESSION['ID_USUARIO'] . ")
+				and oe.CS_STATUS = 1
              order by oe.TX_ORGAO_ESTAGIO
         ";
 
@@ -46,48 +47,72 @@ class RepositorioSolicitacao extends Repositorio {
         return $this->sqlVetor($query);
     }
 	
-	function buscarAgenciaEstagio($VO) {
+	function buscarNomeOrgao($VO) {
         $query = "
-            select distinct C.ID_AGENCIA_ESTAGIO CODIGO, C.TX_AGENCIA_ESTAGIO from VAGAS_ESTAGIO a, QUADRO_VAGAS_ESTAGIO B, AGENCIA_ESTAGIO C
-				where a.ID_QUADRO_VAGAS_ESTAGIO = B.ID_QUADRO_VAGAS_ESTAGIO
-				and B.ID_AGENCIA_ESTAGIO = C.ID_AGENCIA_ESTAGIO
-				and a.ID_ORGAO_ESTAGIO = '".$VO->ID_ORGAO_ESTAGIO."'
-				and B.CS_SITUACAO = 1
-				ORDER BY C.TX_AGENCIA_ESTAGIO
-        ";
+            select B.TX_SIGLA_UNIDADE||' - '||B.TX_UNIDADE_ORG  TX_UNIDADE_ORG, a.TX_CNPJ
+				from ORGAO_ESTAGIO a, UNIDADE_ORG B
+				where a.ID_UNIDADE_ORG = B.ID_UNIDADE_ORG
+				and a.ID_ORGAO_ESTAGIO = '".$VO->ID_ORGAO_ESTAGIO."'";
 
         return $this->sqlVetor($query);
     }
+	
+	
+
+	function buscarQuadroVagas($VO) {
+        $query = "
+			select distinct a.ID_QUADRO_VAGAS_ESTAGIO from QUADRO_VAGAS_ESTAGIO a, VAGAS_ESTAGIO B
+				where a.ID_QUADRO_VAGAS_ESTAGIO = B.ID_QUADRO_VAGAS_ESTAGIO
+				and a.CS_SITUACAO = 1
+				and B.ID_ORGAO_ESTAGIO = '".$VO->ID_ORGAO_ESTAGIO."'";
+
+        return $this->sqlVetor($query);
+    }
+	
+	
+	function buscarAgenciaEstagio($VO) {
+        $query = "
+            select distinct B.ID_AGENCIA_ESTAGIO CODIGO, C.TX_AGENCIA_ESTAGIO from QUADRO_VAGAS_ESTAGIO a, VAGAS_ESTAGIO B, AGENCIA_ESTAGIO c
+				where a.ID_QUADRO_VAGAS_ESTAGIO = B.ID_QUADRO_VAGAS_ESTAGIO
+				and B.ID_AGENCIA_ESTAGIO = C.ID_AGENCIA_ESTAGIO
+				and a.CS_SITUACAO = 1
+				and B.ID_ORGAO_ESTAGIO = '".$VO->ID_ORGAO_ESTAGIO."'";
+
+        return $this->sqlVetor($query);
+    }
+	
+	function buscarTipoVaga($VO) {
+        $query = "select B.CS_TIPO_VAGA_ESTAGIO CODIGO, C.TX_TIPO_VAGA_ESTAGIO 
+					from QUADRO_VAGAS_ESTAGIO a, VAGAS_ESTAGIO B, TIPO_VAGA_ESTAGIO C
+					where a.ID_QUADRO_VAGAS_ESTAGIO = B.ID_QUADRO_VAGAS_ESTAGIO
+					and B.CS_TIPO_VAGA_ESTAGIO = C.CS_TIPO_VAGA_ESTAGIO
+					and B.ID_QUADRO_VAGAS_ESTAGIO = ".$VO->ID_QUADRO_VAGAS_ESTAGIO."
+					and B.ID_ORGAO_ESTAGIO = ".$VO->ID_ORGAO_ESTAGIO."
+					and B.ID_AGENCIA_ESTAGIO = ".$VO->ID_AGENCIA_ESTAGIO;
+
+        return $this->sqlVetor($query);
+    }
+	
+	
 
 	
 
     function pesquisar($VO) {
-        $query = "
-            select se.ID_SOLICITACAO_ESTAGIO,
-                    se.TX_COD_SOLICITACAO,
-                    se.ID_ORGAO_ESTAGIO,
-                    se.ID_ORGAO_GESTOR_ESTAGIO,
-                    se.ID_AGENCIA_ESTAGIO,
-                    se.CS_SITUACAO,
-                    oe.TX_ORGAO_ESTAGIO,
-                    oge.TX_ORGAO_GESTOR_ESTAGIO,
-                    ae.TX_AGENCIA_ESTAGIO
-               from SOLICITACAO_ESTAGIO se,
-                    ORGAO_ESTAGIO oe,
-                    ORGAO_GESTOR_ESTAGIO oge,
-                    AGENCIA_ESTAGIO ae
-              where (se.ID_ORGAO_ESTAGIO = oe.ID_ORGAO_ESTAGIO)
-                and (se.ID_ORGAO_GESTOR_ESTAGIO = oge.ID_ORGAO_GESTOR_ESTAGIO)
-                and (se.ID_AGENCIA_ESTAGIO = ae.ID_AGENCIA_ESTAGIO(+)) ";
+        $query = "select a.ID_OFERTA_VAGA, a.TX_CODIGO_OFERTA_VAGA, B.TX_ORGAO_GESTOR_ESTAGIO, C.TX_ORGAO_ESTAGIO, D.TX_AGENCIA_ESTAGIO, E.TX_TIPO_VAGA_ESTAGIO, 
+						   DECODE(A.CS_SITUACAO, 1, 'Aberta', 2, 'Efetivada', 3, 'Oferta Encaminhada', 4, 'Cancelada') tx_situacao, to_char(a.DT_ATUALIZACAO, 'dd/mm/yyyy') DT_ATUALIZACAO
+					from OFERTA_VAGA a, ORGAO_GESTOR_ESTAGIO B, ORGAO_ESTAGIO c, AGENCIA_ESTAGIO d, TIPO_VAGA_ESTAGIO e
+					where a.ID_ORGAO_GESTOR_ESTAGIO = B.ID_ORGAO_GESTOR_ESTAGIO
+					and a.ID_ORGAO_ESTAGIO = C.ID_ORGAO_ESTAGIO
+					and a.ID_AGENCIA_ESTAGIO = D.ID_AGENCIA_ESTAGIO
+					and a.CS_TIPO_VAGA_ESTAGIO = E.CS_TIPO_VAGA_ESTAGIO 
+					and a.ID_ORGAO_ESTAGIO = ".$VO->ID_ORGAO_ESTAGIO."
+					and a.ID_ORGAO_GESTOR_ESTAGIO = ".$VO->ID_ORGAO_GESTOR_ESTAGIO;
 
-        ($VO->ID_ORGAO_ESTAGIO) ? $query .= " and (se.ID_ORGAO_ESTAGIO = " . $VO->ID_ORGAO_ESTAGIO . ") " : false;
-        ($VO->ID_ORGAO_GESTOR_ESTAGIO) ? $query .= " and (se.ID_ORGAO_GESTOR_ESTAGIO = " . $VO->ID_ORGAO_GESTOR_ESTAGIO . ") " : false;
-        ($VO->ID_AGENCIA_ESTAGIO) ? $query .= " and (se.ID_AGENCIA_ESTAGIO = " . $VO->ID_AGENCIA_ESTAGIO . ") " : false;
-        ($VO->CS_SITUACAO) ? $query .= " and (se.CS_SITUACAO = " . $VO->CS_SITUACAO . ") " : false;
-        ($VO->TX_COD_SOLICITACAO) ? $query .= " and (se.TX_COD_SOLICITACAO like '%" . $VO->TX_COD_SOLICITACAO . "%') " : false;
+        ($VO->CS_SITUACAO) ? $query .= " and a.CS_SITUACAO = " . $VO->CS_SITUACAO: false;
+        ($VO->TX_CODIGO_OFERTA_VAGA) ? $query .= " and (a.TX_CODIGO_OFERTA_VAGA like '%" . $VO->TX_CODIGO_OFERTA_VAGA . "%') " : false;
 
         $query .= "
-              order by se.DT_CADASTRO desc";
+              order by a.DT_ATUALIZACAO desc";
 
         if ($VO->Reg_quantidade) {
             !$VO->Reg_inicio ? $VO->Reg_inicio = 0 : false;
@@ -97,88 +122,234 @@ class RepositorioSolicitacao extends Repositorio {
         return $this->sqlVetor($query);
     }
 
-    function inserir($VO) {
-        $queryPK = "select SEMAD.F_G_PK_SOLICITACAO_ESTAGIO as ID_SOLICITACAO_ESTAGIO from dual";
+    
+
+    function buscar($VO) {
+        $query = "select a.ID_OFERTA_VAGA, a.TX_CODIGO_OFERTA_VAGA, B.TX_AGENCIA_ESTAGIO, C.TX_ORGAO_GESTOR_ESTAGIO, D.TX_TIPO_VAGA_ESTAGIO, E.TX_ORGAO_ESTAGIO, F.TX_SIGLA_UNIDADE||' - '||F.TX_UNIDADE_ORG TX_ORGAO,
+						   E.TX_CNPJ, a.TX_PESSOA_CONTATO, a.TX_TELEFONE, a.TX_CARGO_FUNCAO, a.TX_EMAIL, a.TX_ENDERECO, a.TX_PONTO_REFERENCIA, a.TX_NUM_ONIBUS, a.NB_QUANTIDADE, a.NB_QTDE_EMCAMINHADO, 
+						   TO_CHAR(a.DT_ENTREVISTA, 'dd/mm/yyyy') DT_ENTREVISTA, a.TX_HORARIO, a.NB_DURACAO_ESTAGIO, G.NB_VALOR, a.NB_VALOR_TRANSPORTE, 
+						   DECODE(a.CS_ESCOLARIDADE, 1, 'Médio', 2, 'Técnico', 3, 'Superior', 4, 'Educação Especial') TX_ESCOLARIDADE, H.TX_CURSO_ESTAGIO, a.TX_HORA_INICIO, a.TX_HORA_FINAL, a.TX_OUTROS_HORARIOS,
+						   a.CS_WINDOWS, a.CS_WORD, a.CS_EXCEL, a.CS_POWERPOINT, a.CS_INTERNET, a.CS_CORELDRAW, a.CS_PHOTOSHOP, a.CS_WEBDESIGN, a.CS_AUTOCAD, a.CS_INGLES, a.CS_ESPANHOL, a.CS_FRANCES, a.CS_ALEMAO, 
+						   a.TX_OUTRAS_LINGUAS, a.TX_OUTROS_REQUISITOS, DECODE(a.CS_SEXO, 1, 'Masculino', 2, 'Feminino') TX_SEXO, a.TX_ATIVIDADES, a.TX_OBSERVACAO, a.ID_QUADRO_VAGAS_ESTAGIO, a.ID_AGENCIA_ESTAGIO,
+						   a.ID_ORGAO_GESTOR_ESTAGIO, a.CS_TIPO_VAGA_ESTAGIO, a.ID_ORGAO_ESTAGIO, a.CS_ESCOLARIDADE, a.CS_SEXO, a.ID_BOLSA_ESTAGIO, a.ID_CURSO_ESTAGIO, a.NB_SEMESTRE,
+						   TO_CHAR(a.DT_CADASTRO,'DD/MM/YYYY HH24:MI:SS')DT_CADASTRO, 
+						   TO_CHAR(a.DT_ATUALIZACAO,'DD/MM/YYYY HH24:MI:SS')DT_ATUALIZACAO, TO_CHAR(a.DT_ATUALIZACAO,'DD/MM/YYYY')DT_ATUALIZACAO_REL, FUNCIONARIO_CADASTRO.TX_FUNCIONARIO TX_FUNCIONARIO_CADASTRO, 
+						   FUNCIONARIO_ATUALIZACAO.TX_FUNCIONARIO TX_FUNCIONARIO_ATUALIZACAO, A.CS_SITUACAO, DECODE(A.CS_SITUACAO, 1, 'Aberta', 2, 'Efetivada', 3, 'Oferta Encaminhada', 4, 'Cancelada') TX_SITUACAO
+				    from OFERTA_VAGA a, AGENCIA_ESTAGIO B, ORGAO_GESTOR_ESTAGIO C, TIPO_VAGA_ESTAGIO D, ORGAO_ESTAGIO E, UNIDADE_ORG F, BOLSA_ESTAGIO G, CURSO_ESTAGIO H, USUARIO USUARIO_CADASTRADO, 
+						 USUARIO USUARIO_ATUALIZACAO, V_FUNCIONARIO_TOTAL FUNCIONARIO_CADASTRO, V_FUNCIONARIO_TOTAL FUNCIONARIO_ATUALIZACAO
+					where a.ID_AGENCIA_ESTAGIO = B.ID_AGENCIA_ESTAGIO
+					and a.ID_ORGAO_GESTOR_ESTAGIO = C.ID_ORGAO_GESTOR_ESTAGIO
+					and a.CS_TIPO_VAGA_ESTAGIO = D.CS_TIPO_VAGA_ESTAGIO
+					and a.ID_ORGAO_ESTAGIO = E.ID_ORGAO_ESTAGIO
+					and E.ID_UNIDADE_ORG = F.ID_UNIDADE_ORG
+					and a.ID_BOLSA_ESTAGIO = G.ID_BOLSA_ESTAGIO
+					and a.ID_CURSO_ESTAGIO = H.ID_CURSO_ESTAGIO(+)
+					and a.ID_USUARIO_CADASTRO = USUARIO_CADASTRADO.ID_USUARIO
+					and a.ID_USUARIO_ATUALIZACAO = USUARIO_ATUALIZACAO.ID_USUARIO
+					and USUARIO_CADASTRADO.ID_PESSOA_FUNCIONARIO = FUNCIONARIO_CADASTRO.ID_PESSOA_FUNCIONARIO
+					and USUARIO_ATUALIZACAO.ID_PESSOA_FUNCIONARIO = FUNCIONARIO_ATUALIZACAO.ID_PESSOA_FUNCIONARIO
+					and USUARIO_CADASTRADO.ID_UNIDADE_GESTORA = FUNCIONARIO_CADASTRO.ID_UNIDADE_GESTORA
+					and USUARIO_ATUALIZACAO.ID_UNIDADE_GESTORA = FUNCIONARIO_ATUALIZACAO.ID_UNIDADE_GESTORA
+					and a.ID_OFERTA_VAGA = ".$VO->ID_OFERTA_VAGA;
+            
+
+        return $this->sqlVetor($query);
+    }
+	
+	function inserir($VO) {
+        $queryPK = "select SEMAD.F_G_PK_OFERTA_VAGA as ID_OFERTA_VAGA from dual";
         $this->sqlVetor($queryPK);
         $CodigoPK = $this->getVetor();
 
         $query = "
             insert
-                into SOLICITACAO_ESTAGIO
-                (ID_SOLICITACAO_ESTAGIO, DT_CADASTRO, DT_ATUALIZACAO, TX_COD_SOLICITACAO, ID_USUARIO_ATUALIZACAO, ID_USUARIO_CADASTRO,
-                 ID_ORGAO_ESTAGIO, ID_ORGAO_GESTOR_ESTAGIO, TX_JUSTIFICATIVA, CS_SITUACAO, ID_QUADRO_VAGAS_ESTAGIO, ID_AGENCIA_ESTAGIO)
+                into OFERTA_VAGA
+                (ID_OFERTA_VAGA, TX_CODIGO_OFERTA_VAGA, ID_ORGAO_GESTOR_ESTAGIO, ID_ORGAO_ESTAGIO, ID_QUADRO_VAGAS_ESTAGIO, ID_AGENCIA_ESTAGIO, CS_TIPO_VAGA_ESTAGIO, TX_PESSOA_CONTATO, TX_TELEFONE, TX_CARGO_FUNCAO, TX_EMAIL, TX_ENDERECO, TX_PONTO_REFERENCIA, TX_NUM_ONIBUS, NB_QUANTIDADE, NB_QTDE_EMCAMINHADO, DT_ENTREVISTA, TX_HORARIO, NB_DURACAO_ESTAGIO, ID_BOLSA_ESTAGIO, NB_VALOR_TRANSPORTE, CS_ESCOLARIDADE, ID_CURSO_ESTAGIO, NB_SEMESTRE, TX_HORA_INICIO, TX_HORA_FINAL, TX_OUTROS_HORARIOS, CS_WINDOWS, CS_WORD, CS_EXCEL, CS_POWERPOINT, CS_INTERNET, CS_CORELDRAW, CS_PHOTOSHOP, CS_WEBDESIGN, CS_AUTOCAD, CS_INGLES, CS_ESPANHOL, CS_FRANCES, CS_ALEMAO, TX_OUTRAS_LINGUAS, TX_OUTROS_REQUISITOS, CS_SEXO, TX_ATIVIDADES, TX_OBSERVACAO, CS_SITUACAO, ID_USUARIO_CADASTRO, ID_USUARIO_ATUALIZACAO, DT_CADASTRO, DT_ATUALIZACAO)
                 values
-                (" . $CodigoPK['ID_SOLICITACAO_ESTAGIO'][0] . ",
+                (" . $CodigoPK['ID_OFERTA_VAGA'][0] . ",
+				 SEMAD.F_G_COD_OFERTA_VAGA(),
+				 " . $VO->ID_ORGAO_GESTOR_ESTAGIO . ",
+				 " . $VO->ID_ORGAO_ESTAGIO . ",
+				 " . $VO->ID_QUADRO_VAGAS_ESTAGIO . ",
+				 " . $VO->ID_AGENCIA_ESTAGIO . ",
+				 " . $VO->CS_TIPO_VAGA_ESTAGIO . ",
+				 '" . $VO->TX_PESSOA_CONTATO . "',
+				 '" . $VO->TX_TELEFONE . "',
+				 '" . $VO->TX_CARGO_FUNCAO . "',
+				 '" . mb_strtolower($VO->TX_EMAIL) . "',
+				 '" . $VO->TX_ENDERECO . "',
+				 '" . $VO->TX_PONTO_REFERENCIA . "',
+				 '" . $VO->TX_NUM_ONIBUS . "',
+				 '" . $VO->NB_QUANTIDADE . "',
+				 '" . $VO->NB_QTDE_EMCAMINHADO . "',
+				 TO_DATE('" . $VO->DT_ENTREVISTA . "', 'DD/MM/YYYY'),
+				 '" . $VO->TX_HORARIO . "',
+				 '" . $VO->NB_DURACAO_ESTAGIO . "',
+				 '" . $VO->ID_BOLSA_ESTAGIO . "',
+				 " . $VO->moeda($VO->NB_VALOR_TRANSPORTE) . ",
+				 '" . $VO->CS_ESCOLARIDADE . "',
+				 '" . $VO->ID_CURSO_ESTAGIO . "',
+				 '" . $VO->NB_SEMESTRE . "',
+				 '" . $VO->TX_HORA_INICIO . "',
+				 '" . $VO->TX_HORA_FINAL . "',
+				 '" . $VO->TX_OUTROS_HORARIOS . "',
+				 '" . $VO->CS_WINDOWS . "',
+				 '" . $VO->CS_WORD . "',
+				 '" . $VO->CS_EXCEL . "',
+				 '" . $VO->CS_POWERPOINT . "',
+				 '" . $VO->CS_INTERNET . "',
+				 '" . $VO->CS_CORELDRAW . "',
+				 '" . $VO->CS_PHOTOSHOP . "',
+				 '" . $VO->CS_WEBDESIGN . "',
+				 '" . $VO->CS_AUTOCAD . "',
+				 '" . $VO->CS_INGLES . "',
+				 '" . $VO->CS_ESPANHOL . "',
+				 '" . $VO->CS_FRANCES . "',
+				 '" . $VO->CS_ALEMAO . "',
+				 '" . $VO->TX_OUTRAS_LINGUAS . "',
+				 '" . $VO->TX_OUTROS_REQUISITOS . "',
+				 '" . $VO->CS_SEXO . "',
+				 '" . $VO->TX_ATIVIDADES . "',
+				 '" . $VO->TX_OBSERVACAO . "',
+				 1,
+				 " . $_SESSION['ID_USUARIO'] . ",
+				 " . $_SESSION['ID_USUARIO'] . ",
                  SYSDATE,
-                 SYSDATE,
-                 SEMAD.F_G_COD_SOLICITACAO_ESTAGIO(),
-                 " . $_SESSION['ID_USUARIO'] . ",
-                 " . $_SESSION['ID_USUARIO'] . ",
-                 " . $VO->ID_ORGAO_ESTAGIO . ",
-                 " . $VO->ID_ORGAO_GESTOR_ESTAGIO . ",
-                 '" . $VO->TX_JUSTIFICATIVA . "',
-                 '1',
-                 " . $VO->ID_QUADRO_VAGAS_ESTAGIO . ",
-                 " . $VO->ID_AGENCIA_ESTAGIO . ")";
+                 SYSDATE "
+                   . ")";
 
         $retorno = $this->sql($query);
 
         if (!$retorno) {
-            return $CodigoPK['ID_SOLICITACAO_ESTAGIO'][0];
+            return $CodigoPK['ID_OFERTA_VAGA'][0];
         }
-    }
-
-    function buscar($VO) {
-        $query = "
-            select se.ID_SOLICITACAO_ESTAGIO, se.ID_ORGAO_GESTOR_ESTAGIO, se.ID_AGENCIA_ESTAGIO, se.ID_ORGAO_ESTAGIO, se.CS_SITUACAO, se.ID_QUADRO_VAGAS_ESTAGIO,
-                    se.TX_COD_SOLICITACAO, se.TX_JUSTIFICATIVA,
-                    to_char(se.DT_CADASTRO, 'dd/mm/yyyy hh24:mi:ss') DT_CADASTRO,
-                    to_char(se.DT_ATUALIZACAO, 'dd/mm/yyyy hh24:mi:ss') DT_ATUALIZACAO,
-                    se.ID_USUARIO_CADASTRO, se.ID_USUARIO_ATUALIZACAO,
-                    oge.TX_ORGAO_GESTOR_ESTAGIO, ae.TX_AGENCIA_ESTAGIO, oe.TX_ORGAO_ESTAGIO, qve.TX_CODIGO,
-                    vft_cad.TX_FUNCIONARIO TX_FUNCIONARIO_CAD, vft_atual.TX_FUNCIONARIO TX_FUNCIONARIO_ATUAL
-               from SOLICITACAO_ESTAGIO se,
-                    ORGAO_GESTOR_ESTAGIO oge,
-                    AGENCIA_ESTAGIO ae,
-                    ORGAO_ESTAGIO oe,
-                    QUADRO_VAGAS_ESTAGIO qve,
-                    USUARIO u_cad,
-                    USUARIO u_atual,
-                    V_FUNCIONARIO_TOTAL vft_cad,
-                    V_FUNCIONARIO_TOTAL vft_atual
-              where se.ID_ORGAO_GESTOR_ESTAGIO = oge.ID_ORGAO_GESTOR_ESTAGIO
-                    and se.ID_AGENCIA_ESTAGIO = ae.ID_AGENCIA_ESTAGIO(+)
-                    and se.ID_ORGAO_ESTAGIO = oe.ID_ORGAO_ESTAGIO
-                    and se.ID_QUADRO_VAGAS_ESTAGIO = qve.ID_QUADRO_VAGAS_ESTAGIO
-                    and se.ID_USUARIO_CADASTRO = u_cad.ID_USUARIO
-                    and se.ID_USUARIO_ATUALIZACAO = u_atual.ID_USUARIO
-                    and u_cad.ID_PESSOA_FUNCIONARIO = vft_cad.ID_PESSOA_FUNCIONARIO
-                    and u_atual.ID_PESSOA_FUNCIONARIO = vft_atual.ID_PESSOA_FUNCIONARIO
-                and se.ID_SOLICITACAO_ESTAGIO = " . $VO->ID_SOLICITACAO_ESTAGIO;
-
-        return $this->sqlVetor($query);
     }
 
     function alterar($VO) {
         
-		$query = "update SOLICITACAO_ESTAGIO
-					set DT_ATUALIZACAO = SYSDATE,
-						ID_USUARIO_ATUALIZACAO = " . $_SESSION['ID_USUARIO'] . ",
-						TX_JUSTIFICATIVA = '" . $VO->TX_JUSTIFICATIVA . "' ";		
-		$VO->CS_SITUACAO ? $query .= " ,CS_SITUACAO = '" . $VO->CS_SITUACAO . "' " : false;
-        $query .= " where ID_SOLICITACAO_ESTAGIO = " . $VO->ID_SOLICITACAO_ESTAGIO;
+		$query = "UPDATE OFERTA_VAGA SET 
+						TX_NUM_ONIBUS         	= '" . $VO->TX_NUM_ONIBUS . "',
+						CS_EXCEL                = '" . $VO->CS_EXCEL . "',
+						CS_SEXO                 = '" . $VO->CS_SEXO . "',
+						ID_QUADRO_VAGAS_ESTAGIO = " . $VO->ID_QUADRO_VAGAS_ESTAGIO . ",
+						TX_HORA_FINAL           = '" . $VO->TX_HORA_FINAL . "',
+						NB_QUANTIDADE           = '" . $VO->NB_QUANTIDADE . "',
+						TX_HORA_INICIO          = '" . $VO->TX_HORA_INICIO . "',
+						CS_INGLES               = '" . $VO->CS_INGLES . "',
+						TX_ATIVIDADES           = '" . $VO->TX_ATIVIDADES . "',
+						TX_OUTRAS_LINGUAS       = '" . $VO->TX_OUTRAS_LINGUAS . "',
+						TX_OUTROS_REQUISITOS    = '" . $VO->TX_OUTROS_REQUISITOS . "',
+						CS_WINDOWS              = '" . $VO->CS_WINDOWS . "',
+						CS_CORELDRAW            = '" . $VO->CS_CORELDRAW . "',
+						TX_PONTO_REFERENCIA     = '" . $VO->TX_PONTO_REFERENCIA . "',
+						ID_ORGAO_ESTAGIO        = " . $VO->ID_ORGAO_ESTAGIO . ",
+						CS_INTERNET             = '" . $VO->CS_INTERNET . "',
+						TX_CARGO_FUNCAO         = '" . $VO->TX_CARGO_FUNCAO . "',
+						TX_OBSERVACAO           = '" . $VO->TX_OBSERVACAO . "',
+						CS_FRANCES              = '" . $VO->CS_FRANCES . "',";
+						
+$VO->CS_SITUACAO? $query .= "CS_SITUACAO        = '" . $VO->CS_SITUACAO . "'," : false;	
+	
+			 $query .= "ID_USUARIO_ATUALIZACAO  = " . $_SESSION['ID_USUARIO'] . ",
+						CS_WORD                 = '" . $VO->CS_WORD . "',
+						ID_CURSO_ESTAGIO        = '" . $VO->ID_CURSO_ESTAGIO . "',
+						DT_ENTREVISTA           = TO_DATE('" . $VO->DT_ENTREVISTA . "', 'DD/MM/YYYY'),
+						ID_BOLSA_ESTAGIO        = '" . $VO->ID_BOLSA_ESTAGIO . "',
+						NB_QTDE_EMCAMINHADO     = '" . $VO->NB_QTDE_EMCAMINHADO . "',
+						TX_OUTROS_HORARIOS      = '" . $VO->TX_OUTROS_HORARIOS . "',
+						TX_TELEFONE             = '" . $VO->TX_TELEFONE . "',
+						CS_AUTOCAD              = '" . $VO->CS_AUTOCAD . "',
+						CS_TIPO_VAGA_ESTAGIO    = " . $VO->CS_TIPO_VAGA_ESTAGIO . ",
+						CS_PHOTOSHOP            = '" . $VO->CS_PHOTOSHOP . "',
+						ID_AGENCIA_ESTAGIO      = " . $VO->ID_AGENCIA_ESTAGIO . ",
+						CS_POWERPOINT           = '" . $VO->CS_POWERPOINT . "',
+						CS_ALEMAO               = '" . $VO->CS_ALEMAO . "',
+						CS_WEBDESIGN            = '" . $VO->CS_WEBDESIGN . "',
+						NB_VALOR_TRANSPORTE     = " . $VO->moeda($VO->NB_VALOR_TRANSPORTE) . ",
+						ID_ORGAO_GESTOR_ESTAGIO = " . $VO->ID_ORGAO_GESTOR_ESTAGIO . ",
+						TX_PESSOA_CONTATO       = '" . $VO->TX_PESSOA_CONTATO . "',
+						TX_HORARIO              = '" . $VO->TX_HORARIO . "',
+						CS_ESCOLARIDADE         = '" . $VO->CS_ESCOLARIDADE . "',
+						TX_EMAIL                = '" . mb_strtolower($VO->TX_EMAIL) . "',
+						DT_ATUALIZACAO          = sysdate,
+						CS_ESPANHOL             = '" . $VO->CS_ESPANHOL . "',
+						TX_ENDERECO             = '" . $VO->TX_ENDERECO . "',
+						NB_DURACAO_ESTAGIO      = '" . $VO->NB_DURACAO_ESTAGIO . "',
+						NB_SEMESTRE             = '" . $VO->NB_SEMESTRE . "'
+				  WHERE ID_OFERTA_VAGA      = " . $VO->ID_OFERTA_VAGA;
 
         return $this->sql($query);
     }
 
     function excluir($VO) {
         $query = "
-            delete
-               from SOLICITACAO_ESTAGIO
-              where ID_SOLICITACAO_ESTAGIO = " . $VO->ID_SOLICITACAO_ESTAGIO;
+            delete from OFERTA_VAGA where ID_OFERTA_VAGA = " . $VO->ID_OFERTA_VAGA;
 
         return $this->sql($query);
     }
+	
+	function verficarGestor($VO) {
+		
+        $query = "SELECT Grupo_usuario.ID_USUARIO, Grupo_usuario.ID_GRUPO, Usuario.TX_LOGIN, Pessoa.Tx_Nome
+					FROM GRUPO_USUARIO Grupo_usuario, USUARIO Usuario , PESSOA Pessoa
+					WHERE  (Grupo_usuario.ID_USUARIO = Usuario.ID_USUARIO)  
+					and usuario.id_pessoa_funcionario = pessoa.id_pessoa
+					and GRUPO_USUARIO.ID_GRUPO = 458
+					and Grupo_usuario.ID_USUARIO = ".$_SESSION['ID_USUARIO']."
+					ORDER BY Usuario.TX_LOGIN, Pessoa.Tx_Nome";
+		
+        return $this->sqlVetor($query);
+    }
+	
+	function efetivarOferta($VO) {
+        $query = "update oferta_vaga set 
+							cs_situacao = 2,
+							dt_atualizacao = sysdate,
+							id_usuario_atualizacao = ".$_SESSION['ID_USUARIO']."
+				where id_oferta_vaga = ".$VO->ID_OFERTA_VAGA;
+
+        return $this->sql($query);
+    }
+	
+	function encaminharOferta($VO) {
+        $query = "update oferta_vaga set 
+							cs_situacao = 3,
+							dt_atualizacao = sysdate,
+							id_usuario_atualizacao = ".$_SESSION['ID_USUARIO']."
+				where id_oferta_vaga = ".$VO->ID_OFERTA_VAGA;
+
+        return $this->sql($query);
+    }
+	
+	
+	
+	function buscarAgencia($VO) {
+        $query = "select a.id_agencia_estagio, a.tx_codigo_oferta_vaga, b.tx_orgao_estagio, to_char(a.dt_atualizacao, 'dd/mm/yyyy') dt_atualizacao
+					from oferta_vaga a, orgao_estagio b 
+					where a.id_orgao_estagio = b.id_orgao_estagio
+					and a.id_oferta_vaga = ".$VO->ID_OFERTA_VAGA;
+            
+        return $this->sqlVetor($query);
+    }
+	
+	function buscarEmails($VO) {
+        $query = "select B.TX_EMAIL 
+					from OFERTA_VAGA a, ORGAO_GESTOR_EMAIL B
+					where a.ID_ORGAO_GESTOR_ESTAGIO = B.ID_ORGAO_GESTOR_ESTAGIO
+					and a.ID_OFERTA_VAGA = ".$VO->ID_OFERTA_VAGA;
+            
+        return $this->sqlVetor($query);
+    }
+	
+	function buscarEmailAgencia($VO) {
+        $query = "select TX_EMAIL from agencia_estagio where id_agencia_estagio = ".$VO->ID_AGENCIA_ESTAGIO;
+            
+        return $this->sqlVetor($query);
+    }
+	
+	
+	
+	
 
     function pesquisarTipoVaga($VO) {
         $query = "
@@ -388,6 +559,13 @@ class RepositorioSolicitacao extends Repositorio {
 			
         $this->sql($query);		
 		
+    }
+	
+	
+	function pesquisarValorBolsa($VO) {
+        $query = "select ID_BOLSA_ESTAGIO CODIGO, to_char(NB_VALOR, 'FM999G999G999D90') NB_VALOR from BOLSA_ESTAGIO";
+
+        return $this->sqlVetor($query);
     }
 	
 }

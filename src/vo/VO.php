@@ -35,7 +35,8 @@
 		$this->moedas = array();	
 		$this->obrigatorios = array();
 		$this->obrigatoriosPART = array();
-		$this->cpfs = array();	
+		$this->cpfs = array();
+		$this->cnpjs = array();	
 		$this->imagens = array();
 		$this->arquivos = array();		
 		$this->idade = array();	
@@ -554,7 +555,7 @@
 		!$this->validar? $this->validarMoedas():false;		
 		!$this->validar? $this->validarEmails():false;               
 		!$this->validar? $this->validarCpfs():false;
-                 !$this->validar? $this->validarCnpjs():false;
+        !$this->validar? $this->validarCnpjs():false;
 		!$this->validar? $this->verificarExtensoes():false;	
 	}
 

@@ -15,29 +15,32 @@ require_once "../autenticacao/validaPermissao.php";
 // Iniciando Instância
 $VO = new solicitacaoVO();
 
-if ($_SESSION['ID_SOLICITACAO_ESTAGIO']) {
+if ($_SESSION['ID_OFERTA_VAGA']) {
 
-    $VO->ID_SOLICITACAO_ESTAGIO = $_SESSION['ID_SOLICITACAO_ESTAGIO'];
+    $VO->ID_OFERTA_VAGA = $_SESSION['ID_OFERTA_VAGA'];
 
-	if ($_POST['efetivar']){
-	  $VO->efetivarSolicitacao(); 
-	  header("Location: ".$url."src/".$pasta."/detail.php");
+	if ($_POST['BT_EFETIVAR']){
+		$VO->efetivarOferta();
+		$VO->gerarPDF();
+		$VO->enviarEmailEfetivado();
+		$_SESSION['OFERTA_MSG'] = '*Oferta de Vaga Efetiva com sucesso!';
+		header("Location: ".$url."src/".$pasta."/detail.php");
+		exit;
+	}	
+	
+	if ($_POST['BT_ENCAMINHAR']){
+		$VO->encaminharOferta();
+		$VO->enviarEmailAgencia();
+		$_SESSION['OFERTA_MSG'] = '*Oferta de Vaga Encaminhada para Agência de Estágio com sucesso!';
+		header("Location: ".$url."src/".$pasta."/detail.php");
+		exit;
 	}	
 
     $total = $VO->buscar();
     $dados = $VO->getVetor();
 	
-	if ($dados['CS_SITUACAO'][0] == 2){
-	   $acessoEfetivado = 1;
-	} 	
-	
-	$VO->preencherVOBD($dados);
-	
- 	$VO->pesquisarTipoVaga();
-	$smarty->assign("arrayTipoVaga", $VO->getArray("TX_TIPO_VAGA_ESTAGIO"));
-	
-	$VO->buscarCursos();
-	$smarty->assign("arrayCurso", $VO->getArray("TX_CURSO_ESTAGIO"));
+	$smarty->assign("msg", $_SESSION['OFERTA_MSG']);
+	unset($_SESSION['OFERTA_MSG']);
 }else
     header("Location: " . $url . "src/" . $pasta . "/index.php");
 
@@ -45,6 +48,7 @@ if ($_SESSION['ID_SOLICITACAO_ESTAGIO']) {
 $smarty->assign("current", $current);
 $smarty->assign("pasta", $pasta);
 $smarty->assign("dados", $dados);
+$smarty->assign("gestor", $VO->verficarGestor());
 $smarty->assign("acessoEfetivado", $acessoEfetivado);
 $smarty->assign("titulopage", $titulopage);
 $smarty->assign("arquivoCSS", $pasta . trim(ucfirst($nomeArquivo)));

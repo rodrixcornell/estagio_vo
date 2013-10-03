@@ -1,5 +1,4 @@
 <?php
-
 require_once "../../php/define.php";
 require_once $path . "src/solicitacao/arrays.php";
 require_once $pathvo . "solicitacaoVO.php";
@@ -14,15 +13,15 @@ session_start();
 require_once "../autenticacao/validaPermissao.php";
 
 // Iniciando Instância
-if ($_SESSION['ID_SOLICITACAO_ESTAGIO']){
+if ($_SESSION['ID_OFERTA_VAGA']){
 	$VO = new solicitacaoVO();
-	$VO->ID_SOLICITACAO_ESTAGIO = $_SESSION['ID_SOLICITACAO_ESTAGIO'];
+	$VO->ID_OFERTA_VAGA = $_SESSION['ID_OFERTA_VAGA'];
 
 	$retorno = $VO->excluir();
 
 	if (!$retorno){
 		$msg = 'A '.$titulopage.' foi excluída com sucesso.<br><br> <a href="'.$url.'src/'.$pasta.'/index.php">Clique aqui</a> para voltar';
-		unset($_SESSION['ID_RESP_UNID_IRP']);
+		unset($_SESSION['ID_OFERTA_VAGA']);
 	}else{
 		$msg = 'Este registro não pode ser excluído pois possui dependentes.<br /> <a href="'.$url.'src/'.$pasta.'/detail.php">clique aqui</a> para voltar';
 	}

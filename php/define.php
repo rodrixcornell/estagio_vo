@@ -73,7 +73,7 @@ $arrayMesExtenso[12] = "dezembro";
 
 //Se nao estiver logado redireciona para  pagina de login
 	if(!$_SESSION['usuario'] && $projeto."src/autenticacao/index.php" != $_SERVER['PHP_SELF'] && strpos($_SERVER['PHP_SELF'], 'estagio') > 0 ){
-		header("Location: ".$url."src/autenticacao/index.php");
+		header("Location: ".$url."src/autenticacao/index.php?url=".$_SERVER['REQUEST_URI']);
 	}
 	
 //Topo Bem vindo usuario	

@@ -23,7 +23,10 @@ if($_SESSION[$modulo.$programa.'_ID_ORGAO_ESTAGIO']){
 	$smarty->assign('arrayAgenciaEstagio',	$arrayAgenciaEstagio);
 }
 
+$arraySituacao = array(""=>"Escolha...", 1=>"Aberta", 2=>"Efetivada", 3=>'Oferta Encaminhada', 4=>"Cancelada");
+
 $smarty->assign("current", $current);
+$smarty->assign("arraySituacao", $arraySituacao);
 $smarty->assign("pasta", $pasta);
 $smarty->assign("titulopage", $titulopage);
 $smarty->assign("VO", $VO);

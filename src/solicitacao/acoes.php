@@ -182,9 +182,8 @@ $VO = new solicitacaoVO();
 if ($_REQUEST['identifier'] == "tabela") {
     $VO->ID_ORGAO_ESTAGIO = $_REQUEST['ID_ORGAO_ESTAGIO'];
     $VO->ID_ORGAO_GESTOR_ESTAGIO = $_REQUEST['ID_ORGAO_GESTOR_ESTAGIO'];
-    $VO->ID_AGENCIA_ESTAGIO = $_REQUEST['ID_AGENCIA_ESTAGIO'];
     $VO->CS_SITUACAO = $_REQUEST['CS_SITUACAO'];
-    $VO->TX_COD_SOLICITACAO = $_REQUEST['TX_COD_SOLICITACAO'];
+    $VO->TX_CODIGO_OFERTA_VAGA = $_REQUEST['TX_CODIGO_OFERTA_VAGA'];
 
     $page = $_REQUEST['PAGE'];
 
@@ -211,7 +210,9 @@ if ($_REQUEST['identifier'] == "tabela") {
                     <th>Órgão Gestor</th>
                     <th>Órgão Solicitante</th>
                     <th>Agência de Estágio</th>
-                    <th>Situação</th>';
+                    <th>Tipo de Vaga</th>
+					<th>Situação</th>
+					<th>Data</th>';
         //Somente ver a coluna de alterar se tiver acesso completo a tela
         //if ($acesso)
         echo '<th style="width:30px;"></th>';
@@ -222,17 +223,19 @@ if ($_REQUEST['identifier'] == "tabela") {
 
             echo '
                 <tr bgcolor="' . $bgcolor . '">
-                    <td align="center">' . $dados['TX_COD_SOLICITACAO'][$i] . '</td>
+                    <td align="center">' . $dados['TX_CODIGO_OFERTA_VAGA'][$i] . '</td>
                     <td align="center">' . $dados['TX_ORGAO_ESTAGIO'][$i] . '</td>
                     <td align="center">' . $dados['TX_ORGAO_GESTOR_ESTAGIO'][$i] . '</td>
                     <td align="center">' . $dados['TX_AGENCIA_ESTAGIO'][$i] . '</td>
-                    <td align="center">' . $arraySituacao[$dados['CS_SITUACAO'][$i]] . '</td>';
+					<td align="center">' . $dados['TX_TIPO_VAGA_ESTAGIO'][$i] . '</td>
+                    <td align="center">' . $dados['TX_SITUACAO'][$i] . '</td>
+					<td align="center">' . $dados['DT_ATUALIZACAO'][$i] . '</td>';
 
             //Somente ver a coluna de alterar se tiver acesso completo a tela
             //if ($acesso)
             echo '
                 <td align="center">
-                    <a href="' . $dados['ID_SOLICITACAO_ESTAGIO'][$i] . '_' . $dados['ID_ORGAO_ESTAGIO'][$i] . '" id="alterar"><img src="' . $urlimg . 'icones/editar.png" alt="itens" title="Visualizar"/></a></td>';
+                    <a href="' . $dados['ID_OFERTA_VAGA'][$i] . '" id="alterar"><img src="' . $urlimg . 'icones/editar.png" alt="itens" title="Visualizar"/></a></td>';
             echo '</tr>';
         }
 
@@ -252,6 +255,14 @@ if ($_REQUEST['identifier'] == "tabela") {
     }else {
         echo '<div id="nao_encontrado">Nenhum registro encontrado.</div>';
     }
+} else if ($_REQUEST['identifier'] == "buscarQuadroVagas") {
+
+    $VO->ID_ORGAO_ESTAGIO = $_REQUEST['ID_ORGAO_ESTAGIO'];
+    $VO->buscarQuadroVagas();
+	$dados = $VO->getVetor();
+
+	echo $dados['ID_QUADRO_VAGAS_ESTAGIO'][0];
+	
 } else if ($_REQUEST['identifier'] == "buscarAgenciaEstagio") {
 
     $VO->ID_ORGAO_ESTAGIO = $_REQUEST['ID_ORGAO_ESTAGIO'];
@@ -264,20 +275,28 @@ if ($_REQUEST['identifier'] == "tabela") {
             echo '<option value="' . $dados['CODIGO'][$i] . '">' . $dados['TX_AGENCIA_ESTAGIO'][$i] . '</option>';
         }
     }
-} else if ($_REQUEST['identifier'] == "buscarQuadroVagasEstagio") {
+} else if ($_REQUEST['identifier'] == "buscarTipoVaga") {
 
-    $VO->ID_ORGAO_ESTAGIO 	= $_REQUEST['ID_ORGAO_ESTAGIO'];
-    $VO->ID_AGENCIA_ESTAGIO = $_REQUEST['ID_AGENCIA_ESTAGIO'];
-
-    $total = $VO->buscarQuadroVagasEstagio();
+    $VO->ID_QUADRO_VAGAS_ESTAGIO = $_REQUEST['ID_QUADRO_VAGAS_ESTAGIO'];
+	$VO->ID_AGENCIA_ESTAGIO = $_REQUEST['ID_AGENCIA_ESTAGIO'];
+	$VO->ID_ORGAO_ESTAGIO = $_REQUEST['ID_ORGAO_ESTAGIO'];
 	
+    $total = $VO->buscarTipoVaga();
+
 	echo '<option value="">Escolha...</option>';
     if ($total) {
         $dados = $VO->getVetor();
         for ($i = 0; $i < $total; $i++) {
-            echo '<option value="' . $dados['CODIGO'][$i] . '">' . $dados['TX_CODIGO'][$i] . '</option>';
+            echo '<option value="' . $dados['CODIGO'][$i] . '">' . $dados['TX_TIPO_VAGA_ESTAGIO'][$i] . '</option>';
         }
     }
+} else if ($_REQUEST['identifier'] == "buscarNomeOrgao") {
+
+    $VO->ID_ORGAO_ESTAGIO = $_REQUEST['ID_ORGAO_ESTAGIO'];
+    $VO->buscarNomeOrgao();
+	$dados = $VO->getVetor();
+
+	echo json_encode($dados);
 	
 } else if ($_REQUEST['identifier'] == "pesquisarTipoVaga") {
 

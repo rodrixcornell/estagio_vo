@@ -14,9 +14,6 @@ session_start();
 
 // Iniciando Instância
 
-$id = explode('_', $_REQUEST['ID']);
-$_SESSION['ID_SOLICITACAO_ESTAGIO'] = $id[0];
-$_SESSION['ID_ORGAO_ESTAGIO'] = $id[1];
+$_SESSION['ID_OFERTA_VAGA'] = $_REQUEST['ID'];
 header("Location: ".$url."src/".$pasta."/detail.php");
-
 ?>

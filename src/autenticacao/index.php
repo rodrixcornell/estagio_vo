@@ -28,7 +28,12 @@ if ($_POST['validaLogin']){
 				$VO->preencherSession($user);
 				$_SESSION['usuario'] = $usuario;
 				$_SESSION['senha'] = $senha;
-				header("Location: ".$url);
+				
+				if ($_REQUEST['url'])
+					header("Location: ".$_REQUEST['url']);
+				else	
+					header("Location: ".$url);
+					
 			} else $obrigatorio["geral"] = "Você não tem permissão para acessar este módulo";
 			
 		}else
@@ -37,6 +42,7 @@ if ($_POST['validaLogin']){
 }
 
 $smarty->assign("obrigatorio" 	, $obrigatorio);
+$smarty->assign("urlGet"		, $_REQUEST['url']);
 $smarty->assign("nomeArquivo" 	, "autenticacao/".$nomeArquivo.".tpl");		
 $smarty->assign("arquivoCSS" 	,"autenticacao");
 $smarty->assign("arquivoJS" 	,"autenticacao");
