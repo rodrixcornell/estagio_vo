@@ -6,9 +6,7 @@ require_once $path."src/repositorio/RepositorioEstagiario.php";
 class estagiarioVO extends VO{
     
     function estagiarioVO(){
-        
         return $this->repositorio = new RepositorioEstagiario(); 
-        
     }
     
 	function pesquisarLocalidade(){    
@@ -18,6 +16,14 @@ class estagiarioVO extends VO{
     function checacpf(){    
         return $this->repositorio->checacpf($this);
     }
+
+	function pesquisarCurso(){
+		return $this->repositorio->pesquisarCurso($this);
+	}
+
+	function pesquisarOfertaVaga(){
+		return $this->repositorio->pesquisarOfertaVaga($this);
+	}
 	
     function inserirestagiario(){    
         return $this->repositorio->inserirestagiario($this);

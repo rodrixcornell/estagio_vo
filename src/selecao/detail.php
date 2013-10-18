@@ -1,7 +1,8 @@
 <?php
+
 require_once "../../php/define.php";
-require_once $path."src/selecao/arrays.php";
-require_once $pathvo."selecaoVO.php";
+require_once $path . "src/selecao/arrays.php";
+require_once $pathvo . "selecaoVO.php";
 
 $modulo = 79;
 $programa = 6;
@@ -12,46 +13,42 @@ $titulopage = 'Seleção de Estagiário';
 session_start();
 require_once "../autenticacao/validaPermissao.php";
 
- //Iniciando Instância
-$VO = new selecaoVO(); 
-if ($_SESSION['ID_SELECAO_ESTAGIO']){
+//Iniciando Instância
+$VO = new selecaoVO();
+if ($_SESSION['ID_SELECAO_ESTAGIO']) {
     $VO->ID_SELECAO_ESTAGIO = $_SESSION['ID_SELECAO_ESTAGIO'];
-    
+//
     $total = $VO->buscar();
     $total ? $dados = $VO->getVetor() : false;
-	
-	//Se continuar Fluxo no Contrato bloquear a tela
-	$contrato = $VO->verificarContrato();
-	if ($contrato)  $smarty->assign("acesso", 0);
-	
-	//Gera Combobox Candidato
-	$VO->ID_RECRUTAMENTO_ESTAGIO = $dados['ID_RECRUTAMENTO_ESTAGIO'][0];
+//
+//    //Se continuar Fluxo no Contrato bloquear a tela
+    $contrato = $VO->verificarContrato();
+    if ($contrato) $smarty->assign("acesso", 0);
+//
+//    //Gera Combobox Candidato
     $VO->pesquisarCandidatos();
     $smarty->assign('arrayCandidato', $VO->getArray('TX_NOME'));
-	
+//
+//    if ($_POST['efetivar']) {
+//        if (!$VO->verificarSituacaoAnalise()) {
+//            $VO->efetivar();
+//            header("Location: " . $url . "src/" . $pasta . "/detail.php");
+//            exit;
+//        }
+//        else
+//            $erro = '<script>alert("A seleção não pode ser efetivada pois existe(m) candidatos em análise!")</script>';
+//    }
+} else
+    header("Location: " . $url . "src/" . $pasta . "/index.php");
 
-    if ($_POST['efetivar']){
-		
-	   if (!$VO->verificarSituacaoAnalise()){
-		  $VO->efetivar(); 
-		  header("Location: ".$url."src/".$pasta."/detail.php");
-		  exit;
-	   }else
-		  $erro = '<script>alert("A seleção não pode ser efetivada pois existe(m) candidatos em análise!")</script>';
-
-    }       
-
-}else header("Location: ".$url."src/".$pasta."/index.php");
-
-
-$smarty->assign("current"       , $current);
-$smarty->assign("pasta"         , $pasta);
-$smarty->assign("dados"         , $dados);
-$smarty->assign("censo"         , $censo);
-$smarty->assign("erro"          , $erro);
-$smarty->assign("titulopage"    , $titulopage);
-$smarty->assign("arquivoCSS"    , $pasta . trim(ucfirst($nomeArquivo)));
-$smarty->assign("arquivoJS"     , $pasta . trim(ucfirst($nomeArquivo)));
-$smarty->assign("nomeArquivo"   , $pasta."/".$nomeArquivo.".tpl");	
+$smarty->assign("current", $current);
+$smarty->assign("pasta", $pasta);
+$smarty->assign("dados", $dados);
+$smarty->assign("censo", $censo);
+$smarty->assign("erro", $erro);
+$smarty->assign("titulopage", $titulopage);
+$smarty->assign("arquivoCSS", $pasta . trim(ucfirst($nomeArquivo)));
+$smarty->assign("arquivoJS", $pasta . trim(ucfirst($nomeArquivo)));
+$smarty->assign("nomeArquivo", $pasta . "/" . $nomeArquivo . ".tpl");
 $smarty->display('index.tpl');
 ?>

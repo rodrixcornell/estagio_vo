@@ -24,9 +24,9 @@ if ($_SESSION['ID_PESSOA_ESTAGIARIO']){
     
     if($_POST){
 		$VO->configuracao();
-        $VO->setCaracteristica('TX_NOME,NB_CPF,NB_RG,TX_ORGAO_EMISSOR,DT_EMISSAO,CS_SEXO','obrigatorios');
-  		$VO->setCaracteristica('DT_EMISSAO,DT_NASCIMENTO','datas'); 
-		$VO->setCaracteristica('NB_CPF','cpfs');
+        $VO->setCaracteristica('TX_NOME,CS_SEXO,NB_CPF,DT_NASCIMENTO,TX_CEP,ID_CURSO_ESTAGIO,CS_TURNO', 'obrigatorios');
+    	$VO->setCaracteristica('DT_NASCIMENTO', 'datas');
+    	$VO->setCaracteristica('NB_CPF', 'cpfs');
 
         $validar = $VO->preencher($_POST);
 		

@@ -101,8 +101,9 @@ $(document).ready(function(){
         $('.fundo_pag').fadeOut(200);
     };
 	
-	$('#NB_CPF').setMask({ mask:'99999999999' });
-
+	$('#NB_CPF,#NB_RG').setMask({ mask:'99999999999' });
+	$('#TX_CEP').setMask({ mask:'999999999' });
+	$('#NB_NUMERO,#NB_PERIODO_ANO').setMask({ mask:'9999' });
 
 	//Formatar Campos
 	$('#DT_EMISSAO,#DT_NASCIMENTO').setMask({ mask:'99/99/9999' });
@@ -112,6 +113,35 @@ $(document).ready(function(){
         changeYear: true
 	});
 
+	//CEP
+	$('#TX_CEP').blur(function() {
+		if($.trim($('#TX_CEP').val()) != ""){
+			$("#carregando").show();
+			$.getScript("http://cep.republicavirtual.com.br/web_cep.php?formato=javascript&cep="+$('#TX_CEP').val(), function(){
+				if(resultadoCEP["resultado"] != 0){
+					//$('#TX_UF]').val(unescape(resultadoCEP["uf"]));
+					//$('#TX_MUNICIPIO]').val(unescape(resultadoCEP["cidade"]));
+					$('#TX_BAIRRO').val(unescape(resultadoCEP["bairro"]));
+					$('#TX_ENDERECO').val(unescape(resultadoCEP["tipo_logradouro"])+" "+unescape(resultadoCEP["logradouro"]));
+					$("#carregando").hide();
+					$('#NB_NUMERO').focus();
+				}else{
+					alert('Cep não encontrado, por favor verifique o cep digitado.');
+					//$('#TX_UF]').val('');
+					//$('#TX_MUNICIPIO]').val('');
+					$('#TX_BAIRRO]').val('');
+					$('#TX_ENDERECO]').val('');
+					$("#carregando").hide();
+					$('#TX_CEP]').focus();
+				}
+			});
+		}else{
+			//$('#TX_UF]').val('');
+			//$('#TX_MUNICIPIO]').val('');
+			$('#TX_BAIRRO]').val('');
+			$('#TX_ENDERECO]').val('');
+		}
+	});
 
 	$('#pesquisar').click(function(){
 		if ($('#TX_NOME').val() || $('#NB_CPF').val()){
