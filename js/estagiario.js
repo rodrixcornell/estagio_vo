@@ -1,6 +1,6 @@
 $(document).ready(function(){
 	
-	$.widget("ui.combobox", {
+	/*$.widget("ui.combobox", {
         _create: function() {
             var input,
                     that = this,
@@ -90,8 +90,7 @@ $(document).ready(function(){
         }
     });
 
-    $("#ID_PESSOA_FUNCIONARIO").combobox();
-
+    $("#ID_PESSOA_FUNCIONARIO").combobox();*/
 
     function showLoader(){
         $('.fundo_pag').fadeIn(200);
@@ -102,8 +101,9 @@ $(document).ready(function(){
     };
 	
 	$('#NB_CPF,#NB_RG').setMask({ mask:'99999999999' });
+	$('#TX_AGENCIA,#TX_CONTA_CORRENTE').setMask({ mask:'***********' });
 	$('#TX_CEP').setMask({ mask:'999999999' });
-	$('#NB_NUMERO,#NB_PERIODO_ANO').setMask({ mask:'9999' });
+	$('#NB_NUMERO,#NB_PERIODO_ANO').setMask({ mask:'*****' });
 
 	//Formatar Campos
 	$('#DT_EMISSAO,#DT_NASCIMENTO').setMask({ mask:'99/99/9999' });

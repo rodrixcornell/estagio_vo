@@ -44,6 +44,7 @@ $(document).ready(function() {
 
     $("#CHECK_RESP_2").click(function() {
         //$("#ID_OFERTA_VAGA").attr('disabled', true);
+        $("#ID_OFERTA_VAGA").val('0');
         $('.comSelecao').hide();
     });
 
@@ -85,81 +86,4 @@ $(document).ready(function() {
             });
         }
     });
-
-//    $('#DT_AGENDAMENTO').setMask({mask: '99/99/9999'});
-//
-//    $('#DT_AGENDAMENTO').datepicker({
-//        changeMonth: true,
-//        changeYear: true
-//    });
-//
-//    $('#DT_REALIZACAO').setMask({mask: '99/99/9999'});
-//
-//    $('#DT_REALIZACAO').datepicker({
-//        changeMonth: true,
-//        changeYear: true
-//    });
-
-
-    //Cadastrar e Alterar
-//    $("#ID_ORGAO_GESTOR_ESTAGIO").live('change', function() {
-//        $("#ID_ORGAO_ESTAGIO").html('');
-//        if ($('#ID_ORGAO_GESTOR_ESTAGIO').val()) {
-//            $("#ID_ORGAO_ESTAGIO").html('<option>Carregando...</option>');
-//            $.post("acoes.php", {
-//                //ID_ORGAO_GESTOR_ESTAGIO: $('#ID_ORGAO_GESTOR_ESTAGIO').val(),
-//                identifier: 'buscarOfertaVaga'
-//            },
-//            function(valor) {
-//                $("#ID_ORGAO_ESTAGIO").html(valor);
-//            });
-//
-//        }
-//        return false;
-//    });
-
-    //Cadastrar e Alterar
-//    $('#ID_ORGAO_ESTAGIO').change(function() {
-//        $("#ID_RECRUTAMENTO_ESTAGIO").html('');
-//        if ($('#ID_ORGAO_ESTAGIO').val() != 0) {
-//            $.post("acoes.php", {
-//                //ID_ORGAO_ESTAGIO: $('#ID_ORGAO_ESTAGIO').val(),
-//                identifier: 'buscarOfertaVaga'
-//            },
-//            function(valor) {
-//                $('#ID_OFERTA_VAGA').html(valor);
-//            });
-//        }
-//    });
-//
-//    //Index
-//    $("#ID_ORGAO_GESTOR_ESTAGIO").live('change', function() {
-//        $("#ID_ORGAO_ESTAGIO,#ID_RECRUTAMENTO_ESTAGIO").html('');
-//        if ($('#ID_ORGAO_GESTOR_ESTAGIO').val()) {
-//            $("#ID_ORGAO_ESTAGIO").html('<option>Carregando...</option>');
-//            $.post("acoes.php", {
-//                ID_ORGAO_GESTOR_ESTAGIO: $('#ID_ORGAO_GESTOR_ESTAGIO').val(),
-//                identifier: 'buscarSolicitante'
-//            },
-//            function(valor) {
-//                $("#ID_ORGAO_ESTAGIO").html(valor);
-//            });
-//
-//        }
-//        return false;
-//    });
-//
-//    //Index
-//    $('#ID_ORGAO_ESTAGIO').change(function() {
-//        $("#ID_RECRUTAMENTO_ESTAGIO").html('');
-//        if ($('#ID_ORGAO_ESTAGIO').val() != 0) {
-//            $.post("acoes.php", {
-//                ID_ORGAO_ESTAGIO: $('#ID_ORGAO_ESTAGIO').val(),
-//                identifier: 'buscarRecrutamento'
-//            },
-//            function(valor) {
-//                $('#ID_RECRUTAMENTO_ESTAGIO').html(valor);
-//            });
-//        }
-//    });
 });

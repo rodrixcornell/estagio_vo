@@ -16,6 +16,8 @@ $arraySituacao = array('' => "Escolha...", 1 => "Aberta", 2 => "Fechada");
 
 $arraySituacaoCandidato = array('' => "Escolha...", 1 => "Em Análise", 2 => "Aprovado", 3 => "Reprovado", 4 => "Cancelado");
 
+//$arraySexo = array('' => 'Escolha...', 1 => 'Masculino', 2 => 'Feminino');
+
 $smarty->assign('arrayOrgaoGestor', $arrayOrgaoGestor);
 $smarty->assign('arraySolicitante', $arraySolicitante);
 

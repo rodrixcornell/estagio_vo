@@ -9,13 +9,13 @@
         Para cadastrar um novo Estagiário preencha o formulário abaixo e clique em Salvar:<br /><br />
         <form name="form" action="{$url}src/{$pasta}/cadastrar.php" method="post">
 
-            <div id="camada" style="width:390px;"><font color="#FF0000">*</font>Nome<font color="#FF0000"> {$validar.TX_NOME} </font></br>
-                <input type="text" name="TX_NOME" id="TX_NOME" value="{$VO->TX_NOME}" style="width:380px;" /></div>
-
             <div id="camada" style="width:110px;"><font color="#FF0000">*</font>CPF<font color="#FF0000"> {$validar.NB_CPF} </font><br />
                 <input type="text" name="NB_CPF" id="NB_CPF" value="{$VO->NB_CPF}" style="width:100px;" /></div>
 
-            <div id="camada" style="width:110px;">RG<font color="#FF0000"> {$validar.NB_RG} </font><br />
+            <div id="camada" style="width:390px;"><font color="#FF0000">*</font>Nome<font color="#FF0000"> {$validar.TX_NOME} </font></br>
+                <input type="text" name="TX_NOME" id="TX_NOME" value="{$VO->TX_NOME}" style="width:380px;" /></div>
+
+			<div id="camada" style="width:110px;">RG<font color="#FF0000"> {$validar.NB_RG} </font><br />
                 <input type="text" name="NB_RG" id="NB_RG" value="{$VO->NB_RG}" style="width:100px;" /></div>
 
             <div id="camada" style="width:130px;"><font color="#FF0000">*</font>Dt. Nascimento<font color="#FF0000"> {$validar.DT_NASCIMENTO} </font><br />
@@ -38,13 +38,26 @@
 			<div id="camada" style="width:90px;" >Nº<font color="#FF0000"> {$validar.NB_NUMERO}</font><br />
                 <input type="text" name="NB_NUMERO" id="NB_NUMERO" style="width:80px;" value="{$VO->NB_NUMERO}" /></div>
 
+			<div id="camada" style="width:290px;" >Bairro<font color="#FF0000"> {$validar.TX_BAIRRO}</font><br />
+                <input type="text" name="TX_BAIRRO" id="TX_BAIRRO" style="width:280px;" value="{$VO->TX_BAIRRO}" /></div>
+
 			<div id="camada" style="width:390px;" >Complemento<font color="#FF0000"> {$validar.TX_COMPLEMENTO}</font><br />
                 <input type="text" name="TX_COMPLEMENTO" id="TX_COMPLEMENTO" style="width:380px;" value="{$VO->TX_COMPLEMENTO}" /></div>
 
-			<div id="camada" style="width:280px;" >Bairro<font color="#FF0000"> {$validar.TX_BAIRRO}</font><br />
-                <input type="text" name="TX_BAIRRO" id="TX_BAIRRO" style="width:280px;" value="{$VO->TX_BAIRRO}" /></div>
+			<div id="camada" style="width:390px;" >Contatos<font color="#FF0000"> {$validar.TX_CONTATO}</font><br />
+                <input type="text" name="TX_CONTATO" id="TX_CONTATO" style="width:380px;" value="{$VO->TX_CONTATO}" /></div>
 
 			<br />
+			<div id="camada" style="width:370px;" >E-Mail<font color="#FF0000"> {$validar.TX_EMAIL}</font><br />
+                <input type="text" name="TX_EMAIL" id="TX_EMAIL" style="width:360px;" value="{$VO->TX_EMAIL}" /></div>
+
+			<div id="camada" style="width:110px;" >Agencia<font color="#FF0000"> {$validar.TX_AGENCIA}</font><br />
+                <input type="text" name="TX_AGENCIA" id="TX_AGENCIA" style="width:100px;" value="{$VO->TX_AGENCIA}" /></div>
+
+			<div id="camada" style="width:110px;" >Conta Corrente<font color="#FF0000"> {$validar.TX_CONTA_CORRENTE}</font><br />
+                <input type="text" name="TX_CONTA_CORRENTE" id="TX_CONTA_CORRENTE" style="width:100px;" value="{$VO->TX_CONTA_CORRENTE}" /></div>
+
+			{*<br />
             <div id="camada" style="width:265px;"><font color="#FF0000">*</font>Curso<font color="#FF0000"> {$validar.ID_CURSO_ESTAGIO} </font><br />
                 <select name="ID_CURSO_ESTAGIO" id="ID_CURSO_ESTAGIO" style="width:260px;">
                     {html_options options=$arrayCurso selected=$VO->ID_CURSO_ESTAGIO}
@@ -61,7 +74,7 @@
             <div id="camada" style="width:150px;">Cód. da Oferta de Vaga<font color="#FF0000"> {$validar.ID_OFERTA_VAGA} </font><br />
                 <select name="ID_OFERTA_VAGA" id="ID_OFERTA_VAGA" style="width:140px;">
                     {html_options options=$arrayOfertaVaga selected=$VO->ID_OFERTA_VAGA}
-                </select></div>
+                </select></div>*}
 
             </br> <br/><br />
 

@@ -11,22 +11,22 @@ $VO = new estagiarioVO();
 //$VO->pesquisarFuncionario();
 //$arrayFuncionario = $VO->getArray("TX_FUNCIONARIO");
 
-$VO->pesquisarCurso();
-$arrayCurso = $VO->getArray('TX_CURSO_ESTAGIO');
+//$VO->pesquisarCurso();
+//$arrayCurso = $VO->getArray('TX_CURSO_ESTAGIO');
 
-$VO->pesquisarOfertaVaga();
-$arrayOfertaVaga = $VO->getArray('TX_CODIGO_OFERTA_VAGA');
+//$VO->pesquisarOfertaVaga();
+//$arrayOfertaVaga = $VO->getArray('TX_CODIGO_OFERTA_VAGA');
 
 $arraySexo[''] = 'Escolha...';
 $arraySexo[1] = 'Masculino';
 $arraySexo[2] = 'Feminino';
 
-$arrayTurno = array('Escolha...', 1 => 'Matutino', 2 => 'Vespertino', 3 => 'Diurno', 4 => 'Noturno');
+//$arrayTurno = array('Escolha...', 1 => 'Matutino', 2 => 'Vespertino', 3 => 'Diurno', 4 => 'Noturno');
 
 //$smarty->assign("arrayLocalidade", $arrayLocalidade);
 //$smarty->assign("arrayFuncionario", $arrayFuncionario);
-$smarty->assign("arrayCurso", $arrayCurso);
-$smarty->assign("arrayOfertaVaga", $arrayOfertaVaga);
+//$smarty->assign("arrayCurso", $arrayCurso);
+//$smarty->assign("arrayOfertaVaga", $arrayOfertaVaga);
 $smarty->assign("arraySexo", $arraySexo);
-$smarty->assign("arrayTurno", $arrayTurno);
+//$smarty->assign("arrayTurno", $arrayTurno);
 ?>

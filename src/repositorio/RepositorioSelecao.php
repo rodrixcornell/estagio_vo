@@ -32,6 +32,11 @@ class RepositorioSelecao extends Repositorio {
             select ov.ID_OFERTA_VAGA CODIGO, ov.TX_CODIGO_OFERTA_VAGA
                from OFERTA_VAGA ov
               where ov.ID_ORGAO_ESTAGIO = '" . $VO->ID_ORGAO_ESTAGIO . "'
+              AND OV.ID_OFERTA_VAGA NOT IN
+                  (
+                    SELECT ID_OFERTA_VAGA FROM SELECAO_ESTAGIO
+                    where ID_OFERTA_VAGA is not null
+                  )
               order by ov.TX_CODIGO_OFERTA_VAGA desc";
 
         return $this->sqlVetor($query);
@@ -101,7 +106,7 @@ class RepositorioSelecao extends Repositorio {
 
         $query = "
             select a.ID_SELECAO_ESTAGIO, a.TX_COD_SELECAO, c.TX_ORGAO_GESTOR_ESTAGIO, d.TX_ORGAO_ESTAGIO, b.TX_CODIGO_OFERTA_VAGA,
-                    e.TX_CODIGO, a.CS_SITUACAO, a.CS_SELECAO,
+                    e.TX_CODIGO, a.CS_SITUACAO, a.CS_SELECAO, b.NB_QUANTIDADE,
                     decode(a.CS_SITUACAO, 1, 'Aberto', 2, 'Fechado') TX_SITUACAO,
                     decode(a.CS_SELECAO, 1, 'Com Seleção', 2, 'Sem Seleção') TX_SELECAO,
                     f_cad.TX_FUNCIONARIO TX_FUNCIONARIO_CADASTRO,
@@ -177,28 +182,17 @@ class RepositorioSelecao extends Repositorio {
         return $this->sqlVetor($query);
     }
 
-    function buscarCPF($VO) {
-
-        $query = "
-            select a.ID_PESSOA_ESTAGIARIO CODIGO, a.TX_NOME, a.NB_CPF
-               from V_ESTAGIARIO a
-              where a.ID_PESSOA_ESTAGIARIO = '" . $VO->NB_CANDIDATO . "'";
-
-        return $this->sqlVetor($query);
-    }
-
     function buscarCandidatoVaga($VO) {
 
         $query = "
-            select a.NB_CANDIDATO,
+            select a.ID_PESSOA_ESTAGIARIO,
                     a.CS_SITUACAO,
                     a.TX_MOTIVO_SITUACAO,
                     upper(b.TX_NOME) TX_NOME,
-                    b.NB_CPF,
-                    b.ID_PESSOA_ESTAGIARIO
+                    b.NB_CPF
                from ESTAGIARIO_SELECAO a,
                     V_ESTAGIARIO b
-              where a.NB_CANDIDATO = b.ID_PESSOA_ESTAGIARIO
+              where a.ID_PESSOA_ESTAGIARIO = b.ID_PESSOA_ESTAGIARIO
                 and a.ID_SELECAO_ESTAGIO = '" . $VO->ID_SELECAO_ESTAGIO . "'
               order by b.TX_NOME
         ";
@@ -222,7 +216,7 @@ class RepositorioSelecao extends Repositorio {
         $this->sql($query);
 
         $data = "
-            select to_char(a.DT_ATUALIZACAO, 'DD/MM/YYYY hh24:mi:ss') DT_ATUALIZACAO, c.TX_FUNCIONARIO
+            select to_char(a.DT_ATUALIZACAO, 'DD/MM/YYYY hh24:mi:ss') DT_ATUALIZACAO, c.TX_FUNCIONARIO TX_FUNCIONARIO_ATUALIZACAO
                from SELECAO_ESTAGIO a, USUARIO b, V_FUNCIONARIO_USUARIO c
               where a.ID_SELECAO_ESTAGIO = '" . $VO->ID_SELECAO_ESTAGIO . "'
                 and a.ID_USUARIO_ATUALIZACAO = b.ID_USUARIO
@@ -235,18 +229,132 @@ class RepositorioSelecao extends Repositorio {
         return $datahora;
     }
 
+    function checaCPF($VO) {
+
+        $query = "
+            SELECT P.ID_PESSOA
+            FROM PESSOA P, PESSOA_FISICA PF
+            WHERE P.ID_PESSOA = PF.ID_PESSOA
+            AND REPLACE(REPLACE(PF.NB_CPF, '.',''),'-','') = REPLACE(REPLACE('" . $VO->NB_CPF . "','.',''),'-','')";
+
+        return $this->sqlVetor($query);
+    }
+
+    function buscarCPF($VO) {
+
+        $query = "
+            SELECT P.ID_PESSOA, P.CS_TIPO_PESSOA, PF.CS_SEXO,
+                E.ID_PESSOA_ESTAGIARIO, E.ID_PESSOA_FUNCIONARIO, E.NB_FUNCIONARIO,
+                trim(upper(P.TX_NOME)) TX_NOME,
+                to_char(PF.DT_ATUALIZACAO, 'dd/mm/yyyy hh24:mi:ss') DT_ATUALIZACAO,
+                replace(replace(PF.NB_RG, '.',''), '-','') NB_RG,
+                replace(replace(PF.NB_CPF, '.',''), '-','') NB_CPF,
+                to_char(PF.DT_NASCIMENTO, 'dd/mm/yyyy') DT_NASCIMENTO,
+                replace(replace(E.TX_CEP, '.',''), '-','') TX_CEP,
+                upper(E.TX_ENDERECO) TX_ENDERECO,
+                replace(replace(E.NB_NUMERO, '.',''), '-','') NB_NUMERO,
+                upper(E.TX_COMPLEMENTO) TX_COMPLEMENTO,
+                upper(E.TX_BAIRRO) TX_BAIRRO,
+                upper(E.TX_CONTATO) TX_CONTATO,
+                upper(E.TX_EMAIL) TX_EMAIL,
+                upper(E.TX_AGENCIA) TX_AGENCIA,
+                upper(E.TX_CONTA_CORRENTE) TX_CONTA_CORRENTE
+              FROM
+                PESSOA P,
+                PESSOA_FISICA PF,
+                ESTAGIARIO E
+              WHERE P.ID_PESSOA   = PF.ID_PESSOA
+              AND P.ID_PESSOA = E.ID_PESSOA_ESTAGIARIO(+)
+              AND REPLACE(REPLACE(PF.NB_CPF, '.', ''), '-', '') = REPLACE(REPLACE('" . $VO->NB_CPF . "','.',''),'-','')";
+
+        return $this->sqlVetor($query);
+    }
+
+    function inserirEstagiario($VO) {
+
+        $queryPK = "select SEMAD.F_G_PK_PESSOA() as ID_PESSOA_ESTAGIARIO from DUAL";
+        $this->sqlVetor($queryPK);
+        $CodigoPK = $this->getVetor();
+
+        $query = "
+            insert
+                into V_ESTAGIARIO
+                    (ID_PESSOA_ESTAGIARIO, TX_NOME, CS_SEXO, NB_RG, NB_CPF, DT_NASCIMENTO, TX_CEP, TX_ENDERECO, NB_NUMERO,
+                     TX_COMPLEMENTO, TX_BAIRRO, TX_CONTATO, TX_EMAIL, TX_AGENCIA, TX_CONTA_CORRENTE, DT_ATUALIZACAO, CS_TIPO_PESSOA)
+                values
+                    ('" . $CodigoPK['ID_PESSOA_ESTAGIARIO'][0]."',
+                     trim(upper('" . $VO->TX_NOME . "')),
+                     '" . $VO->CS_SEXO . "',
+                     replace(replace('" . $VO->NB_RG . "','.',''),'-',''),
+                     replace(replace('" . $VO->NB_CPF . "','.',''),'-',''),
+                     to_date('" . $VO->DT_NASCIMENTO . "','DD/MM/YYYY'),
+                     replace(replace('" . $VO->TX_CEP . "','.',''),'-',''),
+                     '" . $VO->TX_ENDERECO . "',
+                     replace(replace('" . $VO->NB_NUMERO . "','.',''),'-',''),
+                     '" . $VO->TX_COMPLEMENTO . "',
+                     '" . $VO->TX_BAIRRO . "',
+                     '" . $VO->TX_CONTATO . "',
+                     '" . $VO->TX_EMAIL . "',
+                     replace(replace('" . $VO->TX_AGENCIA . "','.',''),'-',''),
+                     replace(replace('" . $VO->TX_CONTA_CORRENTE . "','.',''),'-',''),
+                     SYSDATE,
+                     '0')";
+
+        $retorno = $this->sql($query);
+        return $retorno ? '' : $CodigoPK['ID_PESSOA_ESTAGIARIO'][0];
+    }
+
+    function alterarEstagiario($VO) {
+        if(!$VO->ID_PESSOA_ESTAGIARIO){
+            $query = "
+                INSERT
+                    INTO ESTAGIARIO
+                        (ID_PESSOA_ESTAGIARIO)
+                    values
+                        ('" . $VO->ID_PESSOA . "')";
+
+            $this->sql($query);
+            $query = '';
+        }
+
+        $query = "
+        	update V_ESTAGIARIO
+                    set TX_NOME = trim(upper('" . $VO->TX_NOME . "')),
+                        CS_SEXO = '" . $VO->CS_SEXO . "',
+                        NB_RG = replace(replace('" . $VO->NB_RG . "', '.',''),'-',''),
+                        NB_CPF = replace(replace('" . $VO->NB_CPF . "', '.',''),'-',''),
+                        DT_NASCIMENTO = TO_DATE('" . $VO->DT_NASCIMENTO . "','DD/MM/YYYY'),
+                        TX_CEP = replace(replace('" . $VO->TX_CEP . "', '.',''),'-',''),
+                        TX_ENDERECO = '" . $VO->TX_ENDERECO . "',
+                        NB_NUMERO = replace(replace('" . $VO->NB_NUMERO . "', '.',''),'-',''),
+                        TX_COMPLEMENTO = '" . $VO->TX_COMPLEMENTO . "',
+                        TX_BAIRRO = '" . $VO->TX_BAIRRO . "',
+                        TX_CONTATO = '" . $VO->TX_CONTATO . "',
+                        TX_EMAIL = '" . $VO->TX_EMAIL . "',
+                        TX_AGENCIA = replace(replace('" . $VO->TX_AGENCIA . "', '.',''),'-',''),
+                        TX_CONTA_CORRENTE = replace(replace('" . $VO->TX_CONTA_CORRENTE . "', '.',''),'-',''),
+                        DT_ATUALIZACAO = SYSDATE,
+                        CS_TIPO_PESSOA = '0'
+                  where ID_PESSOA_ESTAGIARIO = '" . $VO->ID_PESSOA . "'";
+
+        $retorno = $this->sql($query);
+        $id['ID_PESSOA_ESTAGIARIO'][0] = $VO->ID_PESSOA;
+        return $retorno ? '' : $id;
+    }
+
     function inserirCandidato($VO) {
         $query = "
             insert
                 into ESTAGIARIO_SELECAO
-                    (ID_SELECAO_ESTAGIO, ID_USUARIO_SELECIONADOR, CS_SITUACAO, TX_MOTIVO_SITUACAO, ID_USUARIO, NB_CANDIDATO)
-              values
-                    (" . $VO->ID_SELECAO_ESTAGIO . ",
-                     " . $_SESSION['ID_USUARIO'] . ",
+                    (ID_SELECAO_ESTAGIO,ID_PESSOA_ESTAGIARIO,CS_SITUACAO,ID_USUARIO_CADASTRO,ID_USUARIO_ATUALIZACAO,DT_CADASTRO,DT_ATUALIZACAO)
+                values
+                    ('" . $VO->ID_SELECAO_ESTAGIO . "',
+                     '" . $VO->ID_PESSOA_ESTAGIARIO . "',
                      '1',
-                     '" . $VO->TX_MOTIVO_SITUACAO . "',
                      " . $_SESSION['ID_USUARIO'] . ",
-                     " . $VO->NB_CANDIDATO . ")";
+                     " . $_SESSION['ID_USUARIO'] . ",
+                     sysdate,
+                     sysdate)";
 
         return $this->sql($query);
     }
@@ -257,7 +365,7 @@ class RepositorioSelecao extends Repositorio {
             delete
                 from ESTAGIARIO_SELECAO
                where ID_SELECAO_ESTAGIO = " . $VO->ID_SELECAO_ESTAGIO . "
-                 and NB_CANDIDATO = " . $VO->NB_CANDIDATO;
+                 and ID_PESSOA_ESTAGIARIO = " . $VO->ID_PESSOA_ESTAGIARIO;
 
         return $this->sql($query);
     }
@@ -301,8 +409,6 @@ class RepositorioSelecao extends Repositorio {
     }
 
     /*
-
-
 
       function buscarSelecao_Estagio($VO) {
 
@@ -467,8 +573,6 @@ class RepositorioSelecao extends Repositorio {
 
       }
 
-
-
       function atualizarInf($VO) {
 
       $query = "UPDATE SELECAO_ESTAGIO SET
@@ -494,12 +598,6 @@ class RepositorioSelecao extends Repositorio {
       return $datahora;
 
       }
-
-
-
-
-
-
 
       function efetivar($VO) {
 

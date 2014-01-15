@@ -18,11 +18,10 @@
 
         <li {if $current == 2}class="current"{/if}><a href="#"><span>Gestão de Estagiário</span></a>
             <div><ul>
-                    
-                    <li><a href="{$url}src/estagiario/?s=1"><span>2-Estagiário</span></a></li>
                     <li><a href="{$url}src/solicitacao/?s=1"><span>3-Oferta de Vaga</span></a></li>
-                    <li><a href="{$url}src/transferencia/?s=1"><span>4-Transferência de Vagas</span></a></li>
-                    <li><a href="{$url}src/recrutamento/?s=1"><span>5-Recrutamento de Estagiário</span></a></li>
+                    <li><a href="{$url}src/estagiario/?s=1"><span>2-Candidato à Estágio</span></a></li>                    
+                    {*<li><a href="{$url}src/transferencia/?s=1"><span>4-Transferência de Vagas</span></a></li>
+                    <li><a href="{$url}src/recrutamento/?s=1"><span>5-Recrutamento de Estagiário</span></a></li>*}
                     <li><a href="{$url}src/selecao/?s=1"><span>6-Seleção de Estagiário</span></a></li>
                     <li><a href="{$url}src/contrato/?s=1"><span>7-Contrato de Estágio</span></a></li>
                     <li><a href="{$url}src/tr/?s=1"><span>8-Solicitação de TR</span></a></li>

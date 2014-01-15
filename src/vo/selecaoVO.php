@@ -34,6 +34,10 @@ class selecaoVO extends VO {
         return $this->repositorio->verificarContrato($this);
     }
 
+    function checaCPF() {
+        return $this->repositorio->checaCPF($this);
+    }
+
     function buscarCPF() {
         return $this->repositorio->buscarCPF($this);
     }
@@ -48,6 +52,14 @@ class selecaoVO extends VO {
 
     function inserirCandidato() {
         return $this->repositorio->inserirCandidato($this);
+    }
+
+    function inserirEstagiario() {
+        return $this->repositorio->inserirEstagiario($this);
+    }
+
+    function alterarEstagiario() {
+        return $this->repositorio->alterarEstagiario($this);
     }
 
     function alterarCandidato() {

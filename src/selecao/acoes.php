@@ -1,5 +1,6 @@
 <?php
 include "../../php/define.php";
+require_once $path."src/selecao/arrays.php";
 require_once $pathvo . "selecaoVO.php";
 
 $modulo = 79;
@@ -11,8 +12,8 @@ session_start();
 
 function gerarTabela($param = '') {
     include "../../php/define.php";
-    require_once $path."src/selecao/arrays.php";
     require_once $pathvo . "selecaoVO.php";
+    global $arraySituacaoCandidato;
     $acesso = $GLOBALS['acesso']; //Acessar a Variavel global;
 
     $VO = new selecaoVO();
@@ -65,14 +66,18 @@ function gerarTabela($param = '') {
             //Somente ver a coluna de alterar se tiver acesso completo a tela
             if ($acesso) {
                 echo '<td align="center" class="icones">';
-                echo '<a href="' . $dados['NB_CANDIDATO'][$i] . '" id="alterarCandidato" ><img src="' . $urlimg . 'icones/alterarItem.png" title="Alterar Registro"/></a>';
-                echo '<a href="' . $dados['NB_CANDIDATO'][$i] . '" id="excluirCandidato" ><img src="' . $urlimg . 'icones/excluirItem.png" title="Excluir Registro"/></a></td>';
+                echo '<a href="' . $dados['ID_PESSOA_ESTAGIARIO'][$i] . '" id="alterarCandidato" ><img src="' . $urlimg . 'icones/alterarItem.png" title="Alterar Registro"/></a>';
+                echo '<a href="' . $dados['ID_PESSOA_ESTAGIARIO'][$i] . '" id="excluirCandidato" ><img src="' . $urlimg . 'icones/excluirItem.png" title="Excluir Registro"/></a></td>';
             }
         }
 
         echo '</tr>';
 
-        echo'</table>';
+        echo '</table>';
+
+        echo '
+            <div id="camada2" style="margin-top:4px; text-align:right; ">
+                <input type="button" name="efetivar" id="efetivar" value=" Efetivar Seleção " /></div>';
 
         if ($total_page > 1) {
             echo '<div id="paginacao" align="center">
@@ -88,18 +93,16 @@ function gerarTabela($param = '') {
         }
     }
     else
-        echo '<tr><td colspan="4" class="nenhum">Nenhum registro encontrado.</td></tr></table><br /> ';
+        echo '<tr><td colspan="5" class="nenhum">Nenhum registro encontrado.</td></tr></table><br /> ';
 
     if ($param)
         echo '<script>alert("' . $param . '")</script>';
 }
-
 //------------------------------------------------------------------------------
 
 $VO = new selecaoVO();
 
 if ($_REQUEST['identifier'] == "tabela") {
-
 
     $VO->ID_ORGAO_GESTOR_ESTAGIO = $_REQUEST['ID_ORGAO_GESTOR_ESTAGIO'];
     $VO->ID_ORGAO_ESTAGIO = $_REQUEST['ID_ORGAO_ESTAGIO'];
@@ -190,31 +193,257 @@ if ($_REQUEST['identifier'] == "tabela") {
             echo '<option value="' . $dados['CODIGO'][$i] . '">' . $dados['TX_CODIGO_OFERTA_VAGA'][$i] . '</option>';
         }
     }
-} else if ($_REQUEST['identifier'] == "buscarCPF") {
-
-    $VO->NB_CANDIDATO = $_REQUEST['NB_CANDIDATO'];
-
-    $VO->buscarCPF();
-    $dados = $VO->getVetor();
-
-    echo $dados['NB_CPF'][0];
-
-} else if ($_REQUEST['identifier'] == 'atualizarInf') {
+} else if ($_REQUEST['identifier'] == "tabelaCandidato") {
+    gerarTabela();
+} else if ($_REQUEST['identifier'] == "atualizarInf") {
 
     $VO->ID_SELECAO_ESTAGIO = $_SESSION['ID_SELECAO_ESTAGIO'];
 
     $dados = $VO->atualizarInf();
 
     echo json_encode($dados);
+}
+else if ($_REQUEST['identifier'] == "form_Candidato") {
+
+    ?>
+    <script>
+        $(document).ready(function() {
+            function validarCPF(cpf) {
+                exp = /\.|-/g;
+                cpf = cpf.toString().replace(exp, "");
+                var digitoDigitado = eval(cpf.charAt(9) + cpf.charAt(10));
+                var digitoGerado = 0;
+                var soma1 = 0, soma2 = 0;
+                var vlr = 11;
+
+                for (i = 0; i < 9; i++) {
+                    soma1 += eval(cpf.charAt(i) * (vlr - 1));
+                    soma2 += eval(cpf.charAt(i) * vlr);
+                    vlr--;
+                }
+
+                soma1 = (soma1 % 11) < 2 ? 0 : 11 - (soma1 % 11);
+                aux = soma1 * 2;
+                soma2 = soma2 + aux;
+                soma2 = (soma2 % 11) < 2 ? 0 : 11 - (soma2 % 11);
+
+                if (cpf == "11111111111" || cpf == "22222222222" || cpf == "33333333333" || cpf == "44444444444" || cpf == "55555555555"
+                    || cpf == "66666666666" || cpf == "77777777777" || cpf == "88888888888" || cpf == "99999999999" || cpf == "00000000000") {
+                    digitoGerado = null;
+                } else {
+                    digitoGerado = eval(soma1.toString().charAt(0) + soma2.toString().charAt(0));
+                }
+
+                if (digitoGerado != digitoDigitado) {
+                    return false;
+                }
+                return true;
+            }
+
+            $("#TX_NOME,#NB_RG,#DT_NASCIMENTO,#CS_SEXO,#TX_CEP,#TX_ENDERECO,#NB_NUMERO,#TX_BAIRRO,#TX_COMPLEMENTO").val('');
+            $("#TX_CONTATO,#TX_EMAIL,#TX_AGENCIA,#TX_CONTA_CORRENTE,#ID_PESSOA_ESTAGIARIO").val('');
+            $('#NB_CPF,#NB_RG').setMask({ mask:'99999999999' });
+            $('#TX_AGENCIA,#TX_CONTA_CORRENTE').setMask({ mask:'***********' });
+            $('#TX_CEP').setMask({ mask:'999999999' });
+            $('#NB_NUMERO,#NB_PERIODO_ANO').setMask({ mask:'*****' });
+            $('#DT_NASCIMENTO').setMask({ mask: '99/99/9999' });
+            $('#DT_NASCIMENTO').datepicker({
+                changeMonth: true,
+                changeYear: true
+            });
+
+            $('#NB_INICIO_HORARIO,#NB_FIM_HORARIO').setMask({ mask: '99:99' });
+            $('#NB_INICIO_HORARIO,#NB_FIM_HORARIO').timepicker();
+
+            //CPF
+            $("#NB_CPF").live('blur', function() {
+                //if($.trim($('#NB_CPF').val()) != ""){
+                if(validarCPF($("#NB_CPF").val())){
+                    $("#carregando1").show();
+                    $.getJSON('acoes.php',{
+                        identifier:'buscarCPF',
+                        NB_CPF:$('#NB_CPF').val()
+                    }, function(campo) {
+                        //console.log();
+                        if(campo['ID_PESSOA'] != 0){
+                            $("#TX_NOME").val(campo['TX_NOME'][0]);
+                            $("#NB_RG").val(campo['NB_RG'][0]);
+                            $("#DT_NASCIMENTO").val(campo['DT_NASCIMENTO'][0]);
+                            $("#CS_SEXO").val(campo['CS_SEXO'][0]);
+                            $("#TX_CEP").val(campo['TX_CEP'][0]);
+                            $("#TX_ENDERECO").val(campo['TX_ENDERECO'][0]);
+                            $("#NB_NUMERO").val(campo['NB_NUMERO'][0]);
+                            $("#TX_BAIRRO").val(campo['TX_BAIRRO'][0]);
+                            $("#TX_COMPLEMENTO").val(campo['TX_COMPLEMENTO'][0]);
+                            $("#TX_CONTATO").val(campo['TX_CONTATO'][0]);
+                            $("#TX_EMAIL").val(campo['TX_EMAIL'][0]);
+                            $("#TX_AGENCIA").val(campo['TX_AGENCIA'][0]);
+                            $("#TX_CONTA_CORRENTE").val(campo['TX_CONTA_CORRENTE'][0]);
+                            $("#ID_PESSOA_ESTAGIARIO").val(campo['ID_PESSOA_ESTAGIARIO'][0]);
+                            $("#ID_PESSOA").val(campo['ID_PESSOA'][0]);
+                            $("#carregando1").hide();
+                            $(".salvar").focus();
+                        }else{
+                            //$("#TX_NOME,#NB_RG,#DT_NASCIMENTO,#CS_SEXO,#TX_CEP,#TX_ENDERECO,#NB_NUMERO,#TX_BAIRRO,#TX_COMPLEMENTO").val('');
+                            //$("#TX_CONTATO,#TX_EMAIL,#TX_AGENCIA,#TX_CONTA_CORRENTE,#ID_PESSOA_ESTAGIARIO").val('');
+                            $("#ID_PESSOA,#ID_PESSOA_ESTAGIARIO").val('');
+                            $("#carregando1").hide();
+                            //$("#TX_NOME").focus();
+                        }
+                    });
+                }else{
+                    alert('CPF Inválido!');
+                    //$("#NB_CPF").val('');
+                    //$("#NB_CPF").focus();
+                    $(".cancelar").focus();
+                }
+            });
+
+            //CEP
+            $('#TX_CEP').blur(function() {
+                if($.trim($('#TX_CEP').val()) != ""){
+                    $("#carregando2").show();
+                    $.getScript("http://cep.republicavirtual.com.br/web_cep.php?formato=javascript&cep="+$('#TX_CEP').val(), function(){
+                        if(resultadoCEP["resultado"] != 0){
+                            //$('#TX_UF]').val(unescape(resultadoCEP["uf"]));
+                            //$('#TX_MUNICIPIO]').val(unescape(resultadoCEP["cidade"]));
+                            $('#TX_BAIRRO').val(unescape(resultadoCEP["bairro"]));
+                            $('#TX_ENDERECO').val(unescape(resultadoCEP["tipo_logradouro"])+" "+unescape(resultadoCEP["logradouro"]));
+                            $("#carregando2").hide();
+                            $('#NB_NUMERO').focus();
+                        }else{
+                            alert('Cep não encontrado, por favor verifique o cep digitado.');
+                            //$('#TX_UF]').val('');
+                            //$('#TX_MUNICIPIO]').val('');
+                            $('#TX_BAIRRO]').val('');
+                            $('#TX_ENDERECO]').val('');
+                            $("#carregando2").hide();
+                            $('#TX_CEP]').focus();
+                        }
+                    });
+                }else{
+                    //$('#TX_UF]').val('');
+                    //$('#TX_MUNICIPIO]').val('');
+                    $('#TX_BAIRRO]').val('');
+                    $('#TX_ENDERECO]').val('');
+                }
+            });
+        });
+    </script>
+
+    <div id="camada" style="width:110px;"><font color="#FF0000">*</font>CPF
+        <font color="#FF0000"><div id="carregando1" style="display:none; float:right;">Verificando...</div></font>
+        <input type="text" name="NB_CPF" id="NB_CPF" style="width:100px;" /></div>
+
+    <div id="camada" style="width:390px;"><font color="#FF0000">*</font>Nome
+        <input type="text" name="TX_NOME" id="TX_NOME" style="width:380px;" /></div>
+
+    <br />
+    <div id="camada" style="width:110px;">RG
+        <input type="text" name="NB_RG" id="NB_RG" style="width:100px;" /></div>
+
+    <div id="camada" style="width:130px;"><font color="#FF0000">*</font>Dt. Nascimento
+        <input type="text" name="DT_NASCIMENTO" id="DT_NASCIMENTO" style="width:120px;" /></div>
+
+    <div id="camada" style="width:130px;"><font color="#FF0000">*</font>Sexo
+        <select name="CS_SEXO" id="CS_SEXO" style="width:120px;">
+            <option value="">Escolha...</option>
+            <option value="1">Masculino</option>
+            <option value="2">Feminino</option>
+        </select></div>
+
+    <br />
+    <div id="camada" style="width:110px;"><font color="#FF0000">*</font>CEP
+        <font color="#FF0000"><div id="carregando2" style="display:none; float:right;">Verificando...</div></font>
+        <input type="text" name="TX_CEP" id="TX_CEP" style="width:100px;" /></div>
+
+    <div id="camada" style="width:390px;" >Endereço
+        <input type="text" name="TX_ENDERECO" id="TX_ENDERECO" style="width:380px;" /></div>
+
+    <div id="camada" style="width:90px;" >Nº
+        <input type="text" name="NB_NUMERO" id="NB_NUMERO" style="width:80px;" /></div>
+
+    <div id="camada" style="width:290px;" >Bairro
+        <input type="text" name="TX_BAIRRO" id="TX_BAIRRO" style="width:280px;" /></div>
+
+    <div id="camada" style="width:390px;" >Complemento
+        <input type="text" name="TX_COMPLEMENTO" id="TX_COMPLEMENTO" style="width:380px;" /></div>
+
+    <div id="camada" style="width:390px;" >Contatos
+        <input type="text" name="TX_CONTATO" id="TX_CONTATO" style="width:380px;" /></div>
+
+    <div id="camada" style="width:370px;" >E-Mail
+        <input type="text" name="TX_EMAIL" id="TX_EMAIL" style="width:360px;" /></div>
+
+    <div id="camada" style="width:110px;" >Agencia
+        <input type="text" name="TX_AGENCIA" id="TX_AGENCIA" style="width:100px;" /></div>
+
+    <div id="camada" style="width:110px;" >Conta Corrente
+        <input type="text" name="TX_CONTA_CORRENTE" id="TX_CONTA_CORRENTE" style="width:100px;" /></div>
+
+    <input type="hidden" name="ID_PESSOA_ESTAGIARIO" id="ID_PESSOA_ESTAGIARIO" />
+    <input type="hidden" name="ID_PESSOA" id="ID_PESSOA" />
+    <?
+} else if ($_REQUEST['identifier'] == "buscarCPF") {
+
+    $VO->NB_CPF = $_REQUEST['NB_CPF'];
+
+    $VO->buscarCPF();
+    $dados = $VO->getVetor();
+
+    echo json_encode($dados);
+
+} else if ($_REQUEST['identifier'] == "inserirEstagiario") {
+
+    $VO->configuracao();
+    $VO->setCaracteristica('TX_NOME,CS_SEXO,NB_CPF,DT_NASCIMENTO,TX_CEP', 'obrigatorios');
+    $VO->setCaracteristica('DT_NASCIMENTO', 'datas');
+    $VO->setCaracteristica('NB_CPF', 'cpfs');
+
+    $validar = $VO->preencher($_REQUEST);
+
+    if ($acesso) {
+        if(!$validar){
+            $VO->inserirEstagiario();
+            $dados = $VO->getVetor();
+        }
+        else
+            $dados =  'Para inserir preencha os campos obrigatórios.';
+    }
+    else
+        $dados =  "Você não tem permissão para realizar esta ação.";
+
+    echo json_encode($dados);
+
+} else if ($_REQUEST['identifier'] == "atualizarEstagiario") {
+
+    $VO->configuracao();
+    $VO->setCaracteristica('TX_NOME,CS_SEXO,NB_CPF,DT_NASCIMENTO,TX_CEP', 'obrigatorios');
+    $VO->setCaracteristica('DT_NASCIMENTO', 'datas');
+    $VO->setCaracteristica('NB_CPF', 'cpfs');
+
+    $validar = $VO->preencher($_REQUEST);
+
+    if ($acesso) {
+        if(!$validar){
+            $dados = $VO->alterarEstagiario();
+            //$dados = $VO->getVetor();
+        }
+        else
+            $dados =  'Para inserir preencha os campos obrigatórios.';
+    }
+    else
+        $dados =  "Você não tem permissão para realizar esta ação.";
+
+    echo json_encode($dados);
+
 } else if ($_REQUEST['identifier'] == "inserirCandidato") {
 
     $VO->ID_SELECAO_ESTAGIO = $_SESSION['ID_SELECAO_ESTAGIO'];
-    $VO->NB_CANDIDATO = $_REQUEST['NB_CANDIDATO'];
-
-    //$_SESSION['AUX_ID_RECRUTAMENTO_ESTAGIO'] = $VO->ID_RECRUTAMENTO_ESTAGIO; //Jogar pra sessao recuperar no pesquisarCandidatos e é dado unset la.
+    $VO->ID_PESSOA_ESTAGIARIO = $_REQUEST['ID_PESSOA_ESTAGIARIO'];
 
     if ($acesso) {
-        if ($VO->NB_CANDIDATO) {
+        if ($VO->ID_PESSOA_ESTAGIARIO) {
             $retorno = $VO->inserirCandidato();
 
             if ($retorno)
@@ -227,6 +456,30 @@ if ($_REQUEST['identifier'] == "tabela") {
         $erro = "Você não tem permissão para realizar esta ação.";
 
     gerarTabela($erro);
+
+}
+else if ($_REQUEST['identifier'] == "excluirCandidato") {
+
+    $VO->ID_SELECAO_ESTAGIO = $_SESSION['ID_SELECAO_ESTAGIO'];
+    $VO->ID_PESSOA_ESTAGIARIO = $_REQUEST['ID_PESSOA_ESTAGIARIO'];
+
+    //$_SESSION['AUX_ID_RECRUTAMENTO_ESTAGIO'] = $VO->ID_RECRUTAMENTO_ESTAGIO; //Jogar pra sessao recuperar no pesquisarCandidatos e é dado unset la.
+
+    if ($acesso) {
+        $retorno = $VO->excluirCandidato();
+
+        if (is_array($retorno))
+            $erro = 'Este registro não pode ser excluído pois possui dependentes.';
+    }
+    else
+        $erro = "Você não tem permissão para realizar esta ação.";
+
+    gerarTabela($erro);
+
+ }
+
+
+/*-----------------------------------------------------------------------------
 } else if ($_REQUEST['identifier'] == 'excluirCandidato') {
 
     $VO->ID_SELECAO_ESTAGIO = $_SESSION['ID_SELECAO_ESTAGIO'];
@@ -333,8 +586,6 @@ if ($_REQUEST['identifier'] == "tabela") {
     </fieldset>
 
     //<?php
-} else if ($_REQUEST['identifier'] == "tabelaCandidato") {
-    gerarTabela();
 } else if ($_REQUEST['identifier'] == 'excluirCandidato') {
 
     $VO->ID_SELECAO_ESTAGIO = $_SESSION['ID_SELECAO_ESTAGIO'];
@@ -418,5 +669,5 @@ else if ($_REQUEST['identifier'] == "pesquisarCandidatos") {
 //    }
 //
 //    unset($_SESSION['AUX_ID_RECRUTAMENTO_ESTAGIO']);
-}
+}*/
 ?>

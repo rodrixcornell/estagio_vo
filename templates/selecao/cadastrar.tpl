@@ -22,10 +22,10 @@
                     {html_options options=$arraySolicitante selected=$VO->ID_ORGAO_ESTAGIO}
                 </select></div><br />
 
-            <div id="camada" style="font-family:Verdana, Geneva, sans-serif; width:315px; float:left;" >Tipo Seleção:<font color="#FF0000"> {$validar.CS_SELECAO}</font>
+            <div id="camada" style="font-family:Verdana, Geneva, sans-serif; width:315px; float:left;" >Tipo de Oferta:<font color="#FF0000"> {$validar.CS_SELECAO}</font>
                 <br />
-                <input type="radio" name="CS_SELECAO" ID="CHECK_RESP_2" value="2" {if $VO->CS_SELECAO == 2} checked {/if} /><font color="#FF0000">*</font>Sem Seleção ||<b> OU </b>||
-                <input type="radio" name="CS_SELECAO" ID="CHECK_RESP" value="1" {if $VO->CS_SELECAO == 1} checked {/if} /><font color="#FF0000">*</font>Com Seleção<font color="#FF0000">{$validar.CS_SELECAO}</font></div>
+                <input type="radio" name="CS_SELECAO" ID="CHECK_RESP_2" value="2" {if $VO->CS_SELECAO == 2} checked {/if} /><font color="#FF0000">*</font>Sem Oferta ||<b> OU </b>||
+                <input type="radio" name="CS_SELECAO" ID="CHECK_RESP" value="1" {if $VO->CS_SELECAO == 1} checked {/if} /><font color="#FF0000">*</font>Com Oferta<font color="#FF0000">{$validar.CS_SELECAO}</font></div>
 
             <div id="camada" class="comSelecao" style="font-family:Verdana, Geneva, sans-serif; width:170px; display:none; float:left;">
                 <font color="#FF0000">*</font>Cód. da Oferta <font color="#FF0000"> {$validar.ID_OFERTA_VAGA}</font>

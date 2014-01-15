@@ -22,12 +22,10 @@ if ($_SESSION['ID_SELECAO_ESTAGIO']) {
     $total ? $dados = $VO->getVetor() : false;
 //
 //    //Se continuar Fluxo no Contrato bloquear a tela
-    $contrato = $VO->verificarContrato();
-    if ($contrato) $smarty->assign("acesso", 0);
+    //$contrato = $VO->verificarContrato();
+//    if ($contrato) $smarty->assign("acesso", 0);
 //
-//    //Gera Combobox Candidato
-    $VO->pesquisarCandidatos();
-    $smarty->assign('arrayCandidato', $VO->getArray('TX_NOME'));
+
 //
 //    if ($_POST['efetivar']) {
 //        if (!$VO->verificarSituacaoAnalise()) {
