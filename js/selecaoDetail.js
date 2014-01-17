@@ -3,47 +3,57 @@ $(document).ready(function() {
     function showLoader() {
         $('.fundo_pag').fadeIn(200);
     }
-    ;
     function hideLoader() {
         $('.fundo_pag').fadeOut(200);
     }
-    ;
-
     function emptyHideLoader() {
         $('.fundo_pag').fadeOut(200);
-        /*
-         $("#NB_CANDIDATO").html('<option>Carregando...</option>');
-         $.post("acoes.php",
-         {identifier: 'pesquisarCandidatos'},
-         function(valor) {
-         $("#NB_CANDIDATO").html(valor);
-         });
-
-         $("#ESTAGIARIO_SELECAO option:first").attr('selected', 'selected');
-         $("#CS_SITUACAO option:first").attr('selected', 'selected');
-         $("#NB_CPF,#DT_AGENDAMENTO,#DT_REALIZACAO,#TX_MOTIVO_SITUACAO").val('');*/
-        $("#motivo").hide();
-        $("#TX_MOTIVO_SITUACAO").val('');
+//        $("#ESTAGIARIO_SELECAO option:first").attr('selected', 'selected');
+//        $("#CS_SITUACAO option:first").attr('selected', 'selected');
 
         $.getJSON('acoes.php?identifier=atualizarInf', atualizarInf);
-
         function atualizarInf(campo) {
             $("#atualizacao").html(campo['DT_ATUALIZACAO'][0]);
             $("#funcionario").html(campo['TX_FUNCIONARIO_ATUALIZACAO'][0]);
         }
     }
-    ;
 
     function showLoaderForm() {
         $('.fundoForm').fadeIn(200);
     }
-    ;
-
     function hideLoaderForm() {
         $('.fundoForm').fadeOut(200);
     }
-    ;
 
+    //Excluir Master
+    $('#excluirMaster').click(function() {
+
+        if ($('.icones').length) {
+            alert('Este registro não pode ser excluído pois possui dependentes.');
+            return false;
+        } else {
+            resp = window.confirm('Tem certeza que deseja excluir este Registro?');
+            if (!resp) {
+                return false;
+            }
+        }
+    });
+
+//------------------------------------------------------------------------------
+    $("#paginacao li").live('click', function() {
+        showLoader();
+        $("#tabelaCandidato").load('acoes.php', {
+            PAGE: this.id,
+            identifier: 'tabelaCandidato'
+        }, hideLoader);
+        return false;
+    });
+
+    showLoader();
+    $("#tabelaCandidato").load('acoes.php', {
+        identifier: 'tabelaCandidato'
+    }, hideLoader);
+//------------------------------------------------------------------------------
     $("#dialog-form-candidato").dialog({
         autoOpen: false,
         height: 380,
@@ -65,7 +75,7 @@ $(document).ready(function() {
                         hideLoader();
                         $(".cancelar").focus();
                     }
-                };
+                }
 
                 // Teste de Validação
                 //alert(parseInt($("#ID_PESSOA").val())+' - '+parseInt($("#ID_PESSOA_ESTAGIARIO").val()));
@@ -87,20 +97,10 @@ $(document).ready(function() {
                 } else if ($("#ID_PESSOA").val() == '') {
                     showLoader();
                     $.getJSON('acoes.php', {
-                        NB_CPF: $("#NB_CPF").val(),
-                        TX_NOME: $("#TX_NOME").val(),
-                        NB_RG: $("#NB_RG").val(),
-                        DT_NASCIMENTO: $("#DT_NASCIMENTO").val(),
-                        CS_SEXO: $("#CS_SEXO").val(),
-                        TX_CEP: $("#TX_CEP").val(),
-                        TX_ENDERECO: $("#TX_ENDERECO").val(),
-                        NB_NUMERO: $("#NB_NUMERO").val(),
-                        TX_BAIRRO: $("#TX_BAIRRO").val(),
-                        TX_COMPLEMENTO: $("#TX_COMPLEMENTO").val(),
-                        TX_CONTATO: $("#TX_CONTATO").val(),
-                        TX_EMAIL: $("#TX_EMAIL").val(),
-                        TX_AGENCIA: $("#TX_AGENCIA").val(),
-                        TX_CONTA_CORRENTE: $("#TX_CONTA_CORRENTE").val(),
+                        NB_CPF: $("#NB_CPF").val(), TX_NOME: $("#TX_NOME").val(), NB_RG: $("#NB_RG").val(), DT_NASCIMENTO: $("#DT_NASCIMENTO").val(),
+                        CS_SEXO: $("#CS_SEXO").val(), TX_CEP: $("#TX_CEP").val(), TX_ENDERECO: $("#TX_ENDERECO").val(), NB_NUMERO: $("#NB_NUMERO").val(),
+                        TX_BAIRRO: $("#TX_BAIRRO").val(), TX_COMPLEMENTO: $("#TX_COMPLEMENTO").val(), TX_CONTATO: $("#TX_CONTATO").val(),
+                        TX_EMAIL: $("#TX_EMAIL").val(), TX_AGENCIA: $("#TX_AGENCIA").val(), TX_CONTA_CORRENTE: $("#TX_CONTA_CORRENTE").val(),
                         identifier: 'inserirEstagiario'
                     }, inserirCandidato);
                     //alert('inserido e add a seleção');
@@ -109,50 +109,20 @@ $(document).ready(function() {
                     //alert($("#ID_PESSOA").val()+' - '+$("#ID_PESSOA_ESTAGIARIO").val());
                     showLoader();
                     $.getJSON('acoes.php', {
-                        NB_CPF: $("#NB_CPF").val(),
-                        TX_NOME: $("#TX_NOME").val(),
-                        NB_RG: $("#NB_RG").val(),
-                        DT_NASCIMENTO: $("#DT_NASCIMENTO").val(),
-                        CS_SEXO: $("#CS_SEXO").val(),
-                        TX_CEP: $("#TX_CEP").val(),
-                        TX_ENDERECO: $("#TX_ENDERECO").val(),
-                        NB_NUMERO: $("#NB_NUMERO").val(),
-                        TX_BAIRRO: $("#TX_BAIRRO").val(),
-                        TX_COMPLEMENTO: $("#TX_COMPLEMENTO").val(),
-                        TX_CONTATO: $("#TX_CONTATO").val(),
-                        TX_EMAIL: $("#TX_EMAIL").val(),
-                        TX_AGENCIA: $("#TX_AGENCIA").val(),
-                        TX_CONTA_CORRENTE: $("#TX_CONTA_CORRENTE").val(),
-                        ID_PESSOA_ESTAGIARIO: $("#ID_PESSOA_ESTAGIARIO").val(),
-                        ID_PESSOA: $("#ID_PESSOA").val(),
+                        NB_CPF: $("#NB_CPF").val(), TX_NOME: $("#TX_NOME").val(), NB_RG: $("#NB_RG").val(), DT_NASCIMENTO: $("#DT_NASCIMENTO").val(),
+                        CS_SEXO: $("#CS_SEXO").val(), TX_CEP: $("#TX_CEP").val(), TX_ENDERECO: $("#TX_ENDERECO").val(), NB_NUMERO: $("#NB_NUMERO").val(),
+                        TX_BAIRRO: $("#TX_BAIRRO").val(), TX_COMPLEMENTO: $("#TX_COMPLEMENTO").val(), TX_CONTATO: $("#TX_CONTATO").val(),
+                        TX_EMAIL: $("#TX_EMAIL").val(), TX_AGENCIA: $("#TX_AGENCIA").val(), TX_CONTA_CORRENTE: $("#TX_CONTA_CORRENTE").val(),
+                        ID_PESSOA_ESTAGIARIO: $("#ID_PESSOA_ESTAGIARIO").val(), ID_PESSOA: $("#ID_PESSOA").val(),
                         identifier: 'atualizarEstagiario'
                     }, inserirCandidato);
                     //alert('atualizar e add a seleção');
                     $(this).dialog("close");
-                };
-                /*
-                 if ($("#DT_AGENDAMENTO_ALT").val() && $("#DT_REALIZACAO_ALT").val() && $("#CS_SITUACAO_ALT").val()) {
-                 if ((($('#CS_SITUACAO_ALT').val() == 3) || ($('#CS_SITUACAO_ALT').val() == 4)) && (!$('#TX_MOTIVO_SITUACAO_ALT').val())) {
-                 alert('Para inserir preencha um Motivo.');
-                 $('#TX_MOTIVO_SITUACAO_ALT').focus();
-                 } else {
-                 showLoader();
-                 $('#tabelaCandidato').load('acoes.php?identifier=alterarCandidato',
-                 {DT_AGENDAMENTO: $("#DT_AGENDAMENTO_ALT").val(),
-                 DT_REALIZACAO: $("#DT_REALIZACAO_ALT").val(),
-                 CS_SITUACAO: $("#CS_SITUACAO_ALT").val(),
-                 TX_MOTIVO_SITUACAO: $("#TX_MOTIVO_SITUACAO_ALT").val(),
-                 ESTAGIARIO_SELECAO: $("#ESTAGIARIO_SELECAO_ALT").val()
-                 }, emptyHideLoader);
-                 $(this).dialog("close");
-                 }
-                 } else {
-                 alert('Todos os campos devem ser preenchidos.');
-                 }*/
-
+                }
+                ;
             },
             "Cancelar": function() {
-                $('#form_Candidato').html('');
+                $('#form_candidato').html('');
                 $(this).dialog("close");
             }
         },
@@ -164,14 +134,16 @@ $(document).ready(function() {
     });
 
     $("#inserir").live('click', function() {
-        //var href = $(this).attr('href');
         $("#dialog-form-candidato").dialog("open");
         $('#form_candidato').html('');
         showLoaderForm();
-        $('#form_candidato').load('acoes.php?identifier=form_Candidato', hideLoaderForm);
+        $('#form_candidato').load('acoes.php', {
+            identifier: 'formInserirCandidato'
+        }, hideLoaderForm);
         return false;
     });
 
+//------------------------------------------------------------------------------
     $('#excluirCandidato').live('click', function() {
         var href = $(this).attr('href');
 
@@ -186,6 +158,137 @@ $(document).ready(function() {
         }
         return false;
     });
+
+//------------------------------------------------------------------------------
+    $("#dialog-form-alterar-candidato").dialog({
+        autoOpen: false,
+        height: 830,
+        width: 510,
+        modal: true,
+        buttons: {
+            "Salvar": function() {
+
+                if ($("#CS_SITUACAO").val() == 1) {
+                    $('#form_alterar_candidato').html('');
+                    $(this).dialog("close");
+                } else if ($("#CS_SITUACAO").val() == '') {
+                    alert('Para inserir Escolha Situação.');
+                    $('#TX_MOTIVO_SITUACAO').focus();
+                } else if ($("#CS_SITUACAO").val() == 3 || $("#CS_SITUACAO").val() == 4) {
+                    if ($('#TX_MOTIVO_SITUACAO').val() == '') {
+                        alert('Para inserir Preencha Motivo.');
+                        $('#TX_MOTIVO_SITUACAO').focus();
+                    } else {
+                        showLoader();
+                        $('#tabelaCandidato').load('acoes.php', {
+                            CS_SITUACAO: $("#CS_SITUACAO").val(),
+                            TX_MOTIVO_SITUACAO: $("#TX_MOTIVO_SITUACAO").val(),
+                            ID_PESSOA_ESTAGIARIO: $("#ID_PESSOA_ESTAGIARIO").val(),
+                            identifier: 'alterarCandidato'
+                        }, emptyHideLoader);
+                        $(this).dialog("close");
+                    }
+                } else if ($("#CS_SITUACAO").val() == 2) {
+                    if ($('#TX_AGENCIA').val() == '') {
+                        alert('Para inserir Preencha Agencia.');
+                        $('#TX_AGENCIA').focus();
+                    } else if ($('#TX_CONTA_CORRENTE').val() == '') {
+                        alert('Para inserir Preencha Conta Corrente.');
+                        $('#TX_CONTA_CORRENTE').focus();
+                    } else if ($('#CS_ESCOLARIDADE').val() == '') {
+                        alert('Para inserir Escolha Nível Escolar.');
+                        $('#CS_ESCOLARIDADE').focus();
+                    } else if ($('#ID_CURSO_ESTAGIO').val() == '') {
+                        alert('Para inserir Escolha Curso.');
+                        $('#ID_CURSO_ESTAGIO').focus();
+                    } else if ($('#NB_PERIODO_ANO').val() == '') {
+                        alert('Para inserir Preencha Período/Ano.');
+                        $('#NB_PERIODO_ANO').focus();
+                    } else if ($('#CS_TURNO').val() == '') {
+                        alert('Para inserir Escolha Turno.');
+                        $('#CS_TURNO').focus();
+                    } else if ($('#ID_INSTITUICAO_ENSINO').val() == '') {
+                        alert('Para inserir Escolha Instituição.');
+                        $('#ID_INSTITUICAO_ENSINO').focus();
+                    } else if ($('#ID_ORGAO_ESTAGIO').val() == '') {
+                        alert('Para inserir Escolha Orgão Municipal.');
+                        $('#ID_ORGAO_ESTAGIO').focus();
+                    } else if ($('#CS_TIPO_VAGA_ESTAGIO').val() == '') {
+                        alert('Para inserir Escolha Carga Horária.');
+                        $('#CS_TIPO_VAGA_ESTAGIO').focus();
+                    } else if ($('#TX_HORA_INICIO').val() == '') {
+                        alert('Para inserir Preencha Horário Inicial do Estágio.');
+                        $('#TX_HORA_INICIO').focus();
+                    } else if ($('#TX_HORA_FINAL').val() == '') {
+                        alert('Para inserir Preencha Horário Final do Estágio.');
+                        $('#TX_HORA_FINAL').focus();
+                    } else if ($('#ID_BOLSA_ESTAGIO').val() == '') {
+                        alert('Para inserir Escolha Valor da Bolsa.');
+                        $('#ID_BOLSA_ESTAGIO').focus();
+                    } else if ($('#ID_PESSOA_SUPERVISOR').val() == '') {
+                        alert('Para inserir Escolha Supervisor.');
+                        $('#ID_PESSOA_SUPERVISOR').focus();
+                    } else {
+                        showLoader();
+                        $('#tabelaCandidato').load('acoes.php', {
+                            CS_SITUACAO: $("#CS_SITUACAO").val(),
+                            TX_AGENCIA: $("#TX_AGENCIA").val(),
+                            TX_CONTA_CORRENTE: $("#TX_CONTA_CORRENTE").val(),
+                            CS_ESCOLARIDADE: $("#CS_ESCOLARIDADE").val(),
+                            ID_CURSO_ESTAGIO: $("#ID_CURSO_ESTAGIO").val(),
+                            NB_PERIODO_ANO: $("#NB_PERIODO_ANO").val(),
+                            CS_TURNO: $("#CS_TURNO").val(),
+                            ID_INSTITUICAO_ENSINO: $("#ID_INSTITUICAO_ENSINO").val(),
+                            ID_ORGAO_ESTAGIO: $("#ID_ORGAO_ESTAGIO").val(),
+                            CS_TIPO_VAGA_ESTAGIO: $("#CS_TIPO_VAGA_ESTAGIO").val(),
+                            TX_HORA_INICIO: $("#TX_HORA_INICIO").val(),
+                            TX_HORA_FINAL: $("#TX_HORA_FINAL").val(),
+                            ID_BOLSA_ESTAGIO: $("#ID_BOLSA_ESTAGIO").val(),
+                            ID_PESSOA_SUPERVISOR: $("#ID_PESSOA_SUPERVISOR").val(),
+                            ID_PESSOA_ESTAGIARIO: $("#ID_PESSOA_ESTAGIARIO").val(),
+                            identifier: 'alterarCandidato'
+                        }, emptyHideLoader);
+                        $(this).dialog("close");
+                    }
+                }
+            },
+            "Cancelar": function() {
+                $('#form_alterar_candidato').html('');
+                $(this).dialog("close");
+            }
+        },
+        open: function() {
+            $('.ui-dialog-buttonset').find('button:contains("Salvar")').addClass('salvar');
+            $('.ui-dialog-buttonset').find('button:contains("Cancelar")').addClass('cancelar');
+            //$('.ui-dialog-titlebar-close').find('button:contains("close")').addClass('close');
+        }
+    });
+
+    $("#alterarCandidato").live('click', function() {
+        //var href = $(this).attr('href');
+        $("#dialog-form-alterar-candidato").dialog("open");
+        $('#form_alterar_candidato').html('');
+        showLoaderForm();
+        $('#form_alterar_candidato').load('acoes.php', {
+            ID_PESSOA_ESTAGIARIO: $(this).attr('href'),
+            identifier: 'formAlterarCandidato'
+        }, hideLoaderForm);
+        return false;
+    });
+
+//    $("input[name=efetivar]").live('click', function() {
+//        if ($('.icones').length) {
+//            resp = window.confirm('Tem certeza que deseja Efetivar esta Seleção?');
+//            if (resp) {
+//                showLoader();
+//                return true;
+//            }
+//            return false;
+//        } else {
+//            alert('Para Efetivar uma Seleção adicione pelo menos um candidato.');
+//            return false;
+//        }
+//    });
 
     /*$('#inserir').live('click', function() {
      if (!$('#NB_CANDIDATO').val()) {
@@ -254,87 +357,6 @@ $(document).ready(function() {
 //        }
 //        return false;
 //    });
-
-    $("#dialog-form").dialog({
-        autoOpen: false,
-        height: 320,
-        width: 540,
-        modal: true,
-        buttons: {
-            "Salvar": function() {
-
-                if ($("#DT_AGENDAMENTO_ALT").val() && $("#DT_REALIZACAO_ALT").val() && $("#CS_SITUACAO_ALT").val()) {
-                    if ((($('#CS_SITUACAO_ALT').val() == 3) || ($('#CS_SITUACAO_ALT').val() == 4)) && (!$('#TX_MOTIVO_SITUACAO_ALT').val())) {
-                        alert('Para inserir preencha um Motivo.');
-                        $('#TX_MOTIVO_SITUACAO_ALT').focus();
-                    } else {
-                        showLoader();
-                        $('#tabelaCandidato').load('acoes.php?identifier=alterarCandidato',
-                                {DT_AGENDAMENTO: $("#DT_AGENDAMENTO_ALT").val(),
-                                    DT_REALIZACAO: $("#DT_REALIZACAO_ALT").val(),
-                                    CS_SITUACAO: $("#CS_SITUACAO_ALT").val(),
-                                    TX_MOTIVO_SITUACAO: $("#TX_MOTIVO_SITUACAO_ALT").val(),
-                                    ESTAGIARIO_SELECAO: $("#ESTAGIARIO_SELECAO_ALT").val()
-                                }, emptyHideLoader);
-                        $(this).dialog("close");
-                    }
-                } else {
-                    alert('Todos os campos devem ser preenchidos.');
-                }
-
-            },
-            "Cancelar": function() {
-                $('#form_Candidato').html('');
-                $(this).dialog("close");
-            },
-        }
-    });
-
-    $("#alterarCandidato").live('click', function() {
-        var href = $(this).attr('href');
-        $("#dialog-form").dialog("open");
-        $('#form_candidatos').html('');
-        showLoaderForm();
-        $('#form_candidatos').load('acoes.php?identifier=form_Candidatos&ESTAGIARIO_SELECAO=' + href, hideLoaderForm);
-        return false;
-    });
-
-    $("#paginacao li").live('click', function() {
-        showLoader();
-        $("#tabelaCandidato").load('acoes.php?identifier=tabelaCandidato&PAGE=' + this.id, hideLoader);
-        return false;
-    });
-
-    //Excluir Master
-    $('#excluirMaster').click(function() {
-
-        if ($('.icones').length) {
-            alert('Este registro não pode ser excluído pois possui dependentes.');
-            return false;
-        } else {
-            resp = window.confirm('Tem certeza que deseja excluir este Registro?');
-            if (!resp) {
-                return false;
-            }
-        }
-    });
-
-    $("input[name=efetivar]").live('click', function() {
-        if ($('.icones').length) {
-            resp = window.confirm('Tem certeza que deseja Efetivar esta Seleção?');
-            if (resp) {
-                showLoader();
-                return true;
-            }
-            return false;
-        } else {
-            alert('Para Efetivar uma Seleção adicione pelo menos um candidato.');
-            return false;
-        }
-    });
-
-    showLoader();
-    $("#tabelaCandidato").load('acoes.php?identifier=tabelaCandidato', hideLoader);
 
     // Inserção de Acesso
     /* $('#ESTAGIARIO_SELECAO').live('click', function(){

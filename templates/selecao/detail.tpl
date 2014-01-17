@@ -72,15 +72,16 @@
         	{/if}
 
                 <div id="tabelaCandidato" style="margin-top: 40px;"></div>
-                {*<div id="dialog-form" title="Alterar Candidato">
 
-                    <div id="form_candidatos" style="text-align:left;"></div>
+                <div id="dialog-form-alterar-candidato" title="Selecionar Candidato">
+
+                    <div id="form_alterar_candidato" style="text-align:left;"></div>
 
                     <div class="fundoForm">
                         <img src="{$urlimg}icones/loader3.gif" >
                     </div>
 
-                </div>*}
+                </div>
 
                 <div id="botoesInferiores">
                     <a href="{$url}src/{$pasta}/index.php"><img src="{$urlimg}icones/voltar.png" alt="Voltar" title="Voltar" class="voltar" /></a>

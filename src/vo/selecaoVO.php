@@ -62,8 +62,44 @@ class selecaoVO extends VO {
         return $this->repositorio->alterarEstagiario($this);
     }
 
-    function alterarCandidato() {
-        return $this->repositorio->alterarCandidato($this);
+    function buscarCandidatoEstagiario() {
+        return $this->repositorio->buscarCandidatoEstagiario($this);
+    }
+
+    function buscarDadosOfertaVaga() {
+        return $this->repositorio->buscarDadosOfertaVaga($this);
+    }
+
+    function buscarCursoEstagio() {
+        return $this->repositorio->buscarCursoEstagio($this);
+    }
+
+    function buscarTurno() {
+        return $this->repositorio->buscarTurno($this);
+    }
+
+    function buscarInstituicaoEnsino() {
+        return $this->repositorio->buscarInstituicaoEnsino($this);
+    }
+
+    function buscarTipoVagaEstagio() {
+        return $this->repositorio->buscarTipoVagaEstagio($this);
+    }
+
+    function buscarBolsaEstagio() {
+        return $this->repositorio->buscarBolsaEstagio($this);
+    }
+
+    function buscarSupervisorEstagio() {
+        return $this->repositorio->buscarSupervisorEstagio($this);
+    }
+
+    function alterarCandidatoComMotivo() {
+        return $this->repositorio->alterarCandidatoComMotivo($this);
+    }
+
+    function alterarCandidatoSemMotivo() {
+        return $this->repositorio->alterarCandidatoSemMotivo($this);
     }
 
     function atualizarInf() {
