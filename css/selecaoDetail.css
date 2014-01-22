@@ -9,19 +9,19 @@ table.dataGrid td{
 	/*background-color:#F0EFEF;*/
 	border: 0px #CCC solid;
 	padding: 0.1em;
-	vertical-align:middle;	
+	vertical-align:middle;
 	height: 22px;
 }
 
-#inserir,#efetivar{
+#inserir{
 	padding:4px 8px;
-	font-weight:bold;	
+	font-weight:bold;
 }
 
 #inserirTodos{
 	padding:4px 8px;
 	margin:16px 0 0 0;
-	font-weight:bold;	
+	font-weight:bold;
 }
 
 
@@ -49,40 +49,40 @@ table.dataGrid td{
 	/*background-color:#F0F0F0;*/
 	border: 1px #CCC solid;
 	padding: 0.3em;
-	vertical-align:middle;	
+	vertical-align:middle;
 	height: 22px;
 }
 
 #botoes{
 	float:right;
-	padding-top:5px;	
+	padding-top:5px;
 }
 
 #excluirMaster{
-	cursor:pointer;	
+	cursor:pointer;
 }
 
 
 
 div.simpleTabs { padding:10px; }
-ul.simpleTabsNavigation { 
-	margin:0; 
-	padding:1px; 
-	text-align:left; 
+ul.simpleTabsNavigation {
+	margin:0;
+	padding:1px;
+	text-align:left;
 	border-bottom: 1px solid #4F81BD;
     font: bold 12px Verdana, sans-serif;
 }
-ul.simpleTabsNavigation li { 
-	list-style:none; 
-	display:inline; 
-	margin:0; padding:0; 
+ul.simpleTabsNavigation li {
+	list-style:none;
+	display:inline;
+	margin:0; padding:0;
 	padding: 1px 0;
     margin: 0;
     border-bottom: 1px solid #4F81BD;
     font: bold 12px Verdana, sans-serif;
 }
-ul.simpleTabsNavigation li a { 
-	font-size:12px; 
+ul.simpleTabsNavigation li a {
+	font-size:12px;
 	-moz-border-radius-topleft:5px;
 	-moz-border-radius-topright:5px;
     padding: 2px 0.5em;
@@ -93,15 +93,15 @@ ul.simpleTabsNavigation li a {
     text-decoration: none;
 	color:#333;
 }
-ul.simpleTabsNavigation li a:hover { 
-	text-decoration:none; 
+ul.simpleTabsNavigation li a:hover {
+	text-decoration:none;
 	color: #000;
     background: #E6F2FF;
     border-color: #227;
 }
 ul.simpleTabsNavigation li a.current { background:#fff; color:#222; border-bottom:1px solid #fff; }
-div.simpleTabsContent { 
-	display:none; 
+div.simpleTabsContent {
+	display:none;
 	border-left: 1px solid #4F81BD;
     border-right: 1px solid #4F81BD;
     border-bottom: 1px solid #4F81BD;
@@ -111,13 +111,13 @@ div.simpleTabsContent {
 div.simpleTabsContent.currentTab { display:block; }
 
 #botoesInferiores{
-	padding-top:15px;	
+	padding-top:15px;
 }
 
 #botoesInferiores .finalizar{
 	padding: 0 0 0 10px;
 	float:right;
-	cursor:pointer;	
+	cursor:pointer;
 }
 
 #botoesInferiores .voltar{
@@ -135,7 +135,7 @@ div.simpleTabsContent.currentTab { display:block; }
 }
 
 #addCand{
-	cursor:pointer;	
+	cursor:pointer;
 }
 #tabelaCand{
 	font-family:Verdana, Geneva, sans-serif;

@@ -27,7 +27,6 @@ $(document).ready(function() {
 
     //Excluir Master
     $('#excluirMaster').click(function() {
-
         if ($('.icones').length) {
             alert('Este registro não pode ser excluído pois possui dependentes.');
             return false;
@@ -37,6 +36,35 @@ $(document).ready(function() {
                 return false;
             }
         }
+    });
+
+    $("#efetivar").live('click', function() {
+        if (!$('.icones').length) {
+            alert('Este registro não pode ser Efetivado pois Não possui candidatos.');
+            return false;
+        }
+        else if (!($('.qtdAprov').text() <= $('.quantidade').text())){
+            alert('Quantidade de Candidatos Aprovado é maior que Número de Vagas.');
+            return false;
+        }
+        else {
+//            alert($('.quantidade').text());
+//            alert($('.qtdAprov').text());
+//            alert($('.icones').length);
+            resp = window.confirm('Tem certeza que deseja Efetivar esta Seleção de Candidatos?');
+            if (resp1)
+                $('#form').submit();
+            else
+                return false;
+        }
+    });
+
+    $("#encaminhar").live('click', function() {
+        resp = window.confirm('Tem certeza que deseja Encaminhar esta Oferta de Vaga para a Agência de Estágio?');
+        if (resp)
+            $('#form').submit();
+        else
+            return false;
     });
 
 //------------------------------------------------------------------------------
@@ -53,6 +81,7 @@ $(document).ready(function() {
     $("#tabelaCandidato").load('acoes.php', {
         identifier: 'tabelaCandidato'
     }, hideLoader);
+
 //------------------------------------------------------------------------------
     $("#dialog-form-candidato").dialog({
         autoOpen: false,
@@ -276,7 +305,7 @@ $(document).ready(function() {
         return false;
     });
 
-//    $("input[name=efetivar]").live('click', function() {
+//    $("#efetivar").live('click', function() {
 //        if ($('.icones').length) {
 //            resp = window.confirm('Tem certeza que deseja Efetivar esta Seleção?');
 //            if (resp) {

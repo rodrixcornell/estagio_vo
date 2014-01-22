@@ -16,10 +16,32 @@ require_once "../autenticacao/validaPermissao.php";
 //Iniciando Instância
 $VO = new selecaoVO();
 if ($_SESSION['ID_SELECAO_ESTAGIO']) {
+
     $VO->ID_SELECAO_ESTAGIO = $_SESSION['ID_SELECAO_ESTAGIO'];
+
+    if ($_POST['BT_EFETIVAR']) {
+//        $VO->efetivarSelecao();
+//        $VO->gerarPDF();
+//        $VO->enviarEmailEfetivado();
+        $_SESSION['OFERTA_MSG'] = '*Seleção de Candidato Efetiva com sucesso!';
+        header("Location: " . $url . "src/" . $pasta . "/detail.php");
+        exit;
+    }
 //
+    if ($_POST['BT_ENCAMINHAR']) {
+//        $VO->encaminharSelecao();
+//        $VO->enviarEmailAgencia();
+        $_SESSION['OFERTA_MSG'] = '*Oferta de Vaga Encaminhada para Agência de Estágio com sucesso!';
+        header("Location: " . $url . "src/" . $pasta . "/detail.php");
+        exit;
+    }
+
     $total = $VO->buscar();
     $total ? $dados = $VO->getVetor() : false;
+
+
+    $smarty->assign("msg", $_SESSION['OFERTA_MSG']);
+    unset($_SESSION['OFERTA_MSG']);
 //
 //    //Se continuar Fluxo no Contrato bloquear a tela
     //$contrato = $VO->verificarContrato();
@@ -35,6 +57,7 @@ if ($_SESSION['ID_SELECAO_ESTAGIO']) {
 //        }
 //        else
 //            $erro = '<script>alert("A seleção não pode ser efetivada pois existe(m) candidatos em análise!")</script>';
+//
 //    }
 } else
     header("Location: " . $url . "src/" . $pasta . "/index.php");
@@ -42,7 +65,8 @@ if ($_SESSION['ID_SELECAO_ESTAGIO']) {
 $smarty->assign("current", $current);
 $smarty->assign("pasta", $pasta);
 $smarty->assign("dados", $dados);
-$smarty->assign("censo", $censo);
+$smarty->assign("gestor", $VO->verficarGestor());
+//$smarty->assign("censo", $censo);
 $smarty->assign("erro", $erro);
 $smarty->assign("titulopage", $titulopage);
 $smarty->assign("arquivoCSS", $pasta . trim(ucfirst($nomeArquivo)));

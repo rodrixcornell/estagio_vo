@@ -69,6 +69,7 @@ function gerarTabela($param = '') {
                 echo '<a href="' . $dados['ID_PESSOA_ESTAGIARIO'][$i] . '" id="alterarCandidato" ><img src="' . $urlimg . 'icones/alterarItem.png" title="Alterar Registro"/></a>';
                 echo '<a href="' . $dados['ID_PESSOA_ESTAGIARIO'][$i] . '" id="excluirCandidato" ><img src="' . $urlimg . 'icones/excluirItem.png" title="Excluir Registro"/></a></td>';
             }
+            ($dados['CS_SITUACAO'][$i] == 2) ? $qtdAprov++ : FALSE;
         }
 
         echo '</tr>';
@@ -78,8 +79,12 @@ function gerarTabela($param = '') {
         if ($acesso) {
             echo '
                 <div id="camada2" style="margin-top:4px; text-align:right; ">
-                    <input type="button" name="efetivar" id="efetivar" value=" Efetivar Seleção " /></div>';
+                <span class="qtdAprov" style="display:none;">'.$qtdAprov.'</span>
+                    <form action="'.$url.'src/selecao/detail.php" method="post" style="display:inline; border:none;">
+                        <input type="hidden" name="BT_EFETIVAR" id="BT_EFETIVAR" value="1" />
+                        <input type="image" src="'.$urlimg.'icones/efetivar.png" name="efetivar" id="efetivar" style="border:none;" /></form></div>';
         }
+        //print_r($urlimg);
 
         if ($total_page > 1) {
             echo '<div id="paginacao" align="center">
@@ -601,7 +606,7 @@ else if ($_REQUEST['identifier'] == "formAlterarCandidato") {
                 changeYear: true
             });
             $('#TX_HORA_INICIO,#TX_HORA_FINAL').setMask({mask: '99:99:99'});
-            $('#TX_HORA_INICIO,#TX_HORA_FINAL').timepicker({ 'timeFormat': 'hh:mm:ss' });
+            $('#TX_HORA_INICIO,#TX_HORA_FINAL').timepicker({ 'timeFormat': 'HH:mm:ss' });
 
             $('#CS_SITUACAO').live('change', function() {
                 if ((($('#CS_SITUACAO').val() == 3) || ($('#CS_SITUACAO').val() == 4))) {
@@ -645,6 +650,19 @@ else if ($_REQUEST['identifier'] == "formAlterarCandidato") {
                     //$("#carregando1").hide();
                 }
             });
+            if ($('#ID_PESSOA_SUPERVISOR').val() != '') {
+                $.getJSON('acoes.php',{
+                    ID_PESSOA_SUPERVISOR:$('#ID_PESSOA_SUPERVISOR').val(),
+                    identifier:'buscarDadosSupervisor'
+                }, function(campo) {
+                    $("#TX_CARGO").val(campo['TX_CARGO'][0]);
+                    $("#TX_FORMACAO").val(campo['TX_FORMACAO'][0]);
+                    $("#TX_TEMPO_EXPERIENCIA").val(campo['TX_TEMPO_EXPERIENCIA'][0]);
+                    $("#TX_CONSELHO").val(campo['TX_CONSELHO'][0]);
+                    //$("#carregando1").hide();
+                    $(".salvar").focus();
+                });
+            }
         });
     </script>
 
@@ -676,10 +694,10 @@ else if ($_REQUEST['identifier'] == "formAlterarCandidato") {
         <fieldset>
             <legend>Dados Bancários</legend>
             <div id="camada" style="width:110px;" ><font color="#FF0000">*</font>Agencia
-                <input type="text" name="TX_AGENCIA" id="TX_AGENCIA" style="width:100px;" /></div>
+                <input type="text" name="TX_AGENCIA" id="TX_AGENCIA" style="width:100px;" value="<?= $dados['TX_AGENCIA'][0] ?>" /></div>
 
             <div id="camada" style="width:110px;" ><font color="#FF0000">*</font>Conta Corrente
-                <input type="text" name="TX_CONTA_CORRENTE" id="TX_CONTA_CORRENTE" style="width:100px;" /></div>
+                <input type="text" name="TX_CONTA_CORRENTE" id="TX_CONTA_CORRENTE" style="width:100px;" value="<?= $dados['TX_CONTA_CORRENTE'][0] ?>" /></div>
         </fieldset>
 
         <fieldset>
@@ -776,23 +794,29 @@ else if ($_REQUEST['identifier'] == "alterarCandidato") {
     // com motivo
     $VO->TX_MOTIVO_SITUACAO = $_REQUEST['TX_MOTIVO_SITUACAO'];
     // sem motivo
-    $VO->TX_MOTIVO_SITUACAO = $_REQUEST['TX_MOTIVO_SITUACAO'];
-    $VO->TX_MOTIVO_SITUACAO = $_REQUEST['TX_MOTIVO_SITUACAO'];
-    $VO->TX_MOTIVO_SITUACAO = $_REQUEST['TX_MOTIVO_SITUACAO'];
-    $VO->TX_MOTIVO_SITUACAO = $_REQUEST['TX_MOTIVO_SITUACAO'];
-    $VO->TX_MOTIVO_SITUACAO = $_REQUEST['TX_MOTIVO_SITUACAO'];
-    $VO->TX_MOTIVO_SITUACAO = $_REQUEST['TX_MOTIVO_SITUACAO'];
-    $VO->TX_MOTIVO_SITUACAO = $_REQUEST['TX_MOTIVO_SITUACAO'];
-    $VO->TX_MOTIVO_SITUACAO = $_REQUEST['TX_MOTIVO_SITUACAO'];
-    $VO->TX_MOTIVO_SITUACAO = $_REQUEST['TX_MOTIVO_SITUACAO'];
-    $VO->TX_MOTIVO_SITUACAO = $_REQUEST['TX_MOTIVO_SITUACAO'];
-
+    $VO->TX_AGENCIA = $_REQUEST['TX_AGENCIA'];
+    $VO->TX_CONTA_CORRENTE = $_REQUEST['TX_CONTA_CORRENTE'];
+    $VO->CS_ESCOLARIDADE = $_REQUEST['CS_ESCOLARIDADE'];
+    $VO->ID_CURSO_ESTAGIO = $_REQUEST['ID_CURSO_ESTAGIO'];
+    $VO->NB_PERIODO_ANO = $_REQUEST['NB_PERIODO_ANO'];
+    $VO->CS_TURNO = $_REQUEST['CS_TURNO'];
+    $VO->ID_INSTITUICAO_ENSINO = $_REQUEST['ID_INSTITUICAO_ENSINO'];
+    $VO->ID_ORGAO_ESTAGIO = $_REQUEST['ID_ORGAO_ESTAGIO'];
+    $VO->CS_TIPO_VAGA_ESTAGIO = $_REQUEST['CS_TIPO_VAGA_ESTAGIO'];
+    $VO->TX_HORA_INICIO = $_REQUEST['TX_HORA_INICIO'];
+    $VO->TX_HORA_FINAL = $_REQUEST['TX_HORA_FINAL'];
+    $VO->ID_BOLSA_ESTAGIO = $_REQUEST['ID_BOLSA_ESTAGIO'];
+    $VO->ID_PESSOA_SUPERVISOR = $_REQUEST['ID_PESSOA_SUPERVISOR'];
 
     if ($acesso) {
         if ($VO->ID_PESSOA_ESTAGIARIO) {
             // situação 3 ou 4 com motivo
             if ($VO->CS_SITUACAO == 3 || $VO->CS_SITUACAO == 4) {
-                if ($VO->TX_MOTIVO_SITUACAO) {
+                $VO->configuracao();
+                $VO->setCaracteristica('ID_SELECAO_ESTAGIO,ID_PESSOA_ESTAGIARIO,CS_SITUACAO,TX_MOTIVO_SITUACAO', 'obrigatorios');
+                $validar = $VO->preencher($_REQUEST);
+
+                if(!$validar){
                     $retorno = $VO->alterarCandidatoComMotivo();
 
                     if ($retorno)
@@ -803,12 +827,18 @@ else if ($_REQUEST['identifier'] == "alterarCandidato") {
             }
             //situação 2 sem motivo
             else if ($VO->CS_SITUACAO == 2) {
-                if ($VO->TX_MOTIVO_SITUACAO) {
-                    $retorno = $VO->alterarCandidatoSemComMotivo();
+                $VO->configuracao();
+                $VO->setCaracteristica('ID_SELECAO_ESTAGIO,ID_PESSOA_ESTAGIARIO,CS_SITUACAO,TX_AGENCIA,TX_CONTA_CORRENTE,CS_ESCOLARIDADE,ID_CURSO_ESTAGIO,NB_PERIODO_ANO,CS_TURNO,ID_INSTITUICAO_ENSINO,ID_ORGAO_ESTAGIO,CS_TIPO_VAGA_ESTAGIO,TX_HORA_INICIO,TX_HORA_FINAL,ID_BOLSA_ESTAGIO,ID_PESSOA_SUPERVISOR', 'obrigatorios');
+                $validar = $VO->preencher($_REQUEST);
+
+                if(!$validar){
+                    $retorno = $VO->alterarCandidatoSemMotivo();
 
                     if ($retorno)
                         $erro = 'Registro já existe.';
                 }
+                else
+                    $erro =  'Para inserir preencha os campos obrigatórios.';
             }
             // situação 0
             else if ($VO->CS_SITUACAO == 0) {

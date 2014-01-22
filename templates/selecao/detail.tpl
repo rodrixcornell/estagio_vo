@@ -7,6 +7,7 @@
     <div id="conteudo">
 
         <form name="form" action="{$url}src/{$pasta}/excluir.php" method="post" >
+            <div style="text-align:center; color:#00F">{$msg}</div>
             <fieldset>
                 <legend>Seleção de Estagiário</legend>
                 <table width="100%" class="dataGrid" >
@@ -31,7 +32,7 @@
                     <tr bgcolor="#F0EFEF">
                         <td colspan="2"></td>
                         <td><strong>N° Total de Vagas</strong></td>
-                        <td>{$dados.NB_QUANTIDADE[0]}</td>
+                        <td class="quantidade">{$dados.NB_QUANTIDADE[0]}</div></td>
                     </tr>
                     <tr bgcolor="#E0E0E0">
                         <td><strong>Cadastrado por</strong></td>
@@ -49,8 +50,17 @@
                 </table>
 
                 {if $acesso}<div id="botoes">
+                    {*if $dados.CS_SITUACAO[0] == 1}
+                        <input type="hidden" name="BT_EFETIVAR" id="BT_EFETIVAR" value="1" />
+                            <img src="{$urlimg}icones/efetivar.png"  alt="Efetivar" title="Efetivar" id="efetivar" style="cursor:pointer;" />{/if*}
+                    {if $dados.CS_SITUACAO[0] == 2 && $gestor}
+                        <input type="hidden" name="BT_ENCAMINHAR" id="BT_ENCAMINHAR" value="1" />
+                            <img src="{$urlimg}icones/encaminhar.png"  alt="Encaminhar Oferta" title="Encaminhar Oferta" id="encaminhar" style="cursor:pointer;" />{/if}
+
+                    {if $dados.CS_SITUACAO[0] == 1 ||  $gestor}
                         <a href="{$url}src/{$pasta}/alterar.php"><img src="{$urlimg}icones/alterar.png"  alt="Alterar" title="Alterar" id="alterarMaster" /></a>
-                        <a href="{$url}src/{$pasta}/excluir.php"><img src="{$urlimg}icones/excluir.png"  alt="Excluir" title="Excluir" id="excluirMaster" /></a>
+                        <a href="{$url}src/{$pasta}/excluir.php"><img src="{$urlimg}icones/excluir.png"  alt="Excluir" title="Excluir" id="excluirMaster" /></a>{/if}
+
                     </div>{/if}
                 </fieldset>
             </form>
@@ -85,7 +95,7 @@
 
                 <div id="botoesInferiores">
                     <a href="{$url}src/{$pasta}/index.php"><img src="{$urlimg}icones/voltar.png" alt="Voltar" title="Voltar" class="voltar" /></a>
-                    <a href="{$url}src/{$pasta}/index.php"><img src="{$urlimg}icones/finalizar.png" alt="Finalizar" title="Finalizar" class="finalizar"/></a>
+                    {*<a href="{$url}src/{$pasta}/index.php"><img src="{$urlimg}icones/finalizar.png" alt="Finalizar" title="Finalizar" class="finalizar"/></a>*}
                 </div>
 
             </div>

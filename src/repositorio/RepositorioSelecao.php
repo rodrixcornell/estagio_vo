@@ -173,6 +173,29 @@ class RepositorioSelecao extends Repositorio {
         return $this->sql($query);
     }
 
+    function verficarGestor($VO) {
+
+        $query = "
+            SELECT
+                GU.ID_USUARIO,
+                GU.ID_GRUPO,
+                U.TX_LOGIN,
+                P.Tx_Nome
+              FROM
+                GRUPO_USUARIO GU,
+                USUARIO U,
+                PESSOA P
+              WHERE GU.ID_USUARIO = U.ID_USUARIO
+              AND U.ID_PESSOA_FUNCIONARIO = P.ID_PESSOA
+              AND GU.ID_GRUPO = 458
+              AND GU.ID_USUARIO = ".$_SESSION['ID_USUARIO']."
+              ORDER BY
+                U.TX_LOGIN,
+                P.Tx_Nome";
+
+        return $this->sqlVetor($query);
+    }
+
     function pesquisarCandidatos($VO) {
         $query = "
             select a.ID_PESSOA_ESTAGIARIO CODIGO, upper(a.TX_NOME) TX_NOME
@@ -501,8 +524,7 @@ class RepositorioSelecao extends Repositorio {
             SELECT
                 BE.ID_BOLSA_ESTAGIO,
                 BE.ID_BOLSA_ESTAGIO CODIGO,
-                BE.TX_BOLSA_ESTAGIO,
-                BE.NB_VALOR
+                'R$ ' || BE.NB_VALOR || ' - ' || BE.TX_BOLSA_ESTAGIO as TX_BOLSA_ESTAGIO
               FROM
                 BOLSA_ESTAGIO BE
               ORDER BY
@@ -560,13 +582,50 @@ class RepositorioSelecao extends Repositorio {
     }
 
     function alterarCandidatoSemMotivo($VO) {
+        //
+        $query = "
+            UPDATE
+                V_ESTAGIARIO
+              SET
+                TX_AGENCIA = trim(replace(replace('" . $VO->TX_AGENCIA . "', '.',''),'-','')),
+                TX_CONTA_CORRENTE = trim(replace(replace('" . $VO->TX_CONTA_CORRENTE . "', '.',''),'-','')),
+                DT_ATUALIZACAO = SYSDATE
+            WHERE ID_PESSOA_ESTAGIARIO = '" . $VO->ID_PESSOA_ESTAGIARIO . "'";
 
+        $retorno = $this->sql($query);
+        if($retorno)
+            return $retorno;
+        $query = "";
+
+        //
+        $query = "
+            UPDATE
+                ESTAGIARIO_SELECAO
+              SET
+                CS_SITUACAO = '" . $VO->CS_SITUACAO . "',
+                CS_ESCOLARIDADE = '" . $VO->CS_ESCOLARIDADE . "',
+                ID_CURSO_ESTAGIO = '" . $VO->ID_CURSO_ESTAGIO . "',
+                NB_PERIODO_ANO = TRIM('" . $VO->NB_PERIODO_ANO . "'),
+                CS_TURNO = '" . $VO->CS_TURNO . "',
+                ID_INSTITUICAO_ENSINO = '" . $VO->ID_INSTITUICAO_ENSINO . "',
+                ID_ORGAO_ESTAGIO = '" . $VO->ID_ORGAO_ESTAGIO . "',
+                CS_TIPO_VAGA_ESTAGIO = '" . $VO->CS_TIPO_VAGA_ESTAGIO . "',
+                TX_HORA_INICIO = TRIM('" . $VO->TX_HORA_INICIO . "'),
+                TX_HORA_FINAL = TRIM('" . $VO->TX_HORA_FINAL . "'),
+                ID_BOLSA_ESTAGIO = '" . $VO->ID_BOLSA_ESTAGIO . "',
+                ID_PESSOA_SUPERVISOR = '" . $VO->ID_PESSOA_SUPERVISOR . "',
+                ID_USUARIO_ATUALIZACAO = '" . $_SESSION['ID_USUARIO'] . "',
+                DT_ATUALIZACAO = sysdate
+              WHERE
+                ID_SELECAO_ESTAGIO = '" . $VO->ID_SELECAO_ESTAGIO . "'
+              AND ID_PESSOA_ESTAGIARIO = '" . $VO->ID_PESSOA_ESTAGIARIO."'";
+
+        return $this->sql($query);
     }
 
-    function efetivar($VO) {
+    function efetivarSelecao($VO) {
 
         $query = "UPDATE SELECAO_ESTAGIO SET CS_SITUACAO = 2 WHERE ID_SELECAO_ESTAGIO = " . $_SESSION['ID_SELECAO_ESTAGIO'];
-        ;
 
         return $this->sql($query);
     }

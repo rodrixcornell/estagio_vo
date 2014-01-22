@@ -1,4 +1,5 @@
 <?php
+
 require_once "../../php/define.php";
 require_once $path . "src/solicitacao/arrays.php";
 require_once $pathvo . "solicitacaoVO.php";
@@ -19,29 +20,30 @@ if ($_SESSION['ID_OFERTA_VAGA']) {
 
     $VO->ID_OFERTA_VAGA = $_SESSION['ID_OFERTA_VAGA'];
 
-	if ($_POST['BT_EFETIVAR']){
-		$VO->efetivarOferta();
-		$VO->gerarPDF();
-		$VO->enviarEmailEfetivado();
-		$_SESSION['OFERTA_MSG'] = '*Oferta de Vaga Efetiva com sucesso!';
-		header("Location: ".$url."src/".$pasta."/detail.php");
-		exit;
-	}	
-	
-	if ($_POST['BT_ENCAMINHAR']){
-		$VO->encaminharOferta();
-		$VO->enviarEmailAgencia();
-		$_SESSION['OFERTA_MSG'] = '*Oferta de Vaga Encaminhada para Agência de Estágio com sucesso!';
-		header("Location: ".$url."src/".$pasta."/detail.php");
-		exit;
-	}	
+    if ($_POST['BT_EFETIVAR']) {
+        $VO->efetivarOferta();
+        $VO->gerarPDF();
+        $VO->enviarEmailEfetivado();
+        $_SESSION['OFERTA_MSG'] = '*Oferta de Vaga Efetiva com sucesso!';
+        header("Location: " . $url . "src/" . $pasta . "/detail.php");
+        exit;
+    }
+
+    if ($_POST['BT_ENCAMINHAR']) {
+        $VO->encaminharOferta();
+        $VO->enviarEmailAgencia();
+        $_SESSION['OFERTA_MSG'] = '*Oferta de Vaga Encaminhada para Agência de Estágio com sucesso!';
+        header("Location: " . $url . "src/" . $pasta . "/detail.php");
+        exit;
+    }
 
     $total = $VO->buscar();
     $dados = $VO->getVetor();
-	
-	$smarty->assign("msg", $_SESSION['OFERTA_MSG']);
-	unset($_SESSION['OFERTA_MSG']);
-}else
+
+    $smarty->assign("msg", $_SESSION['OFERTA_MSG']);
+    unset($_SESSION['OFERTA_MSG']);
+}
+else
     header("Location: " . $url . "src/" . $pasta . "/index.php");
 
 

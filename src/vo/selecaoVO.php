@@ -25,6 +25,9 @@ class selecaoVO extends VO {
         return $this->repositorio->buscarOrgaoSolicitante($this);
     }
 
+    function verficarGestor() {
+        return $this->repositorio->verficarGestor($this);
+    }
 //
     function verificarSituacaoAnalise() {
         return $this->repositorio->verificarSituacaoAnalise($this);
@@ -110,8 +113,8 @@ class selecaoVO extends VO {
         return $this->repositorio->excluirCandidato($this);
     }
 
-    function efetivar() {
-        return $this->repositorio->efetivar($this);
+    function efetivarSelecao() {
+        return $this->repositorio->efetivarSelecao($this);
     }
 }
 ?>
