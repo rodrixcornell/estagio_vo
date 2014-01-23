@@ -58,9 +58,9 @@ function gerarTabela($param = '') {
             ($bgcolor == '#F0F0F0') ? $bgcolor = '#DDDDDD' : $bgcolor = '#F0F0F0';
 
             echo '<tr bgcolor="' . $bgcolor . '" onmouseover="mudarCor(this);" onmouseout="mudarCor(this);">
-                <td align="center" style="width:240px;">' . $dados['TX_NOME'][$i] . '</td>
-                <td align="center">' . $dados['NB_CPF'][$i] . '</td>
-                <td align="center" style="width:80px;">' . $arraySituacaoCandidato[$dados['CS_SITUACAO'][$i]] . '</td>
+                <td align="center" style="width:260px;">' . $dados['TX_NOME'][$i] . '</td>
+                <td align="center" style="width:85px;">' . $dados['NB_CPF'][$i] . '</td>
+                <td align="center" style="width:90px;">' . $arraySituacaoCandidato[$dados['CS_SITUACAO'][$i]] . '</td>
                 <td align="center">' . $dados['TX_MOTIVO_SITUACAO'][$i] . '</td>';
 
             //Somente ver a coluna de alterar se tiver acesso completo a tela
@@ -70,6 +70,7 @@ function gerarTabela($param = '') {
                 echo '<a href="' . $dados['ID_PESSOA_ESTAGIARIO'][$i] . '" id="excluirCandidato" ><img src="' . $urlimg . 'icones/excluirItem.png" title="Excluir Registro"/></a></td>';
             }
             ($dados['CS_SITUACAO'][$i] == 2) ? $qtdAprov++ : FALSE;
+            ($dados['CS_SITUACAO'][$i] == 1) ? $qtdAnalise++ : FALSE;
         }
 
         echo '</tr>';
@@ -79,7 +80,8 @@ function gerarTabela($param = '') {
         if ($acesso) {
             echo '
                 <div id="camada2" style="margin-top:4px; text-align:right; ">
-                <span class="qtdAprov" style="display:none;">'.$qtdAprov.'</span>
+                    <span class="qtdAprov" style="display:none;">'.$qtdAprov.'</span>
+                    <span class="qtdAnalise" style="display:none;">'.$qtdAnalise.'</span>
                     <form action="'.$url.'src/selecao/detail.php" method="post" style="display:inline; border:none;">
                         <input type="hidden" name="BT_EFETIVAR" id="BT_EFETIVAR" value="1" />
                         <input type="image" src="'.$urlimg.'icones/efetivar.png" name="efetivar" id="efetivar" style="border:none;" /></form></div>';
@@ -454,7 +456,7 @@ else if ($_REQUEST['identifier'] == "buscarCPF") {
             $retorno = $VO->inserirCandidato();
 
             if ($retorno)
-                $erro = 'Registro já existe.';
+                $erro = 'Candidato já existe na Seleção.';
         }
         else
             $erro = 'Para inserir preencha os campos obrigatórios.';
@@ -488,6 +490,7 @@ else if ($_REQUEST['identifier'] == "formAlterarCandidato") {
 
     global $arraySituacaoCandidato;
 
+    $arrayCHSemanal = array('' => 'Escolha...', 1 => '20 Horas', 2 => '25 Horas', 3 => '30 Horas');
     $arrayEscolaridade = array('' => 'Escolha...', 1 => 'Médio', 2 => 'Técnico', 3 => 'Superior', 4 => 'Educação Especial');
 
     $VO->buscarSolicitante();
@@ -506,7 +509,7 @@ else if ($_REQUEST['identifier'] == "formAlterarCandidato") {
     $arrayTipoVagaEstagio = $VO->getArray('TX_TIPO_VAGA_ESTAGIO');
 
     $VO->buscarBolsaEstagio();
-    $arrayBolsaEstagio = $VO->getArray('TX_BOLSA_ESTAGIO');
+    $arrayBolsaEstagio = $VO->getArray('NB_VALOR');
 
     $VO->buscarSupervisorEstagio();
     $arraySupervisorEstagio = $VO->getArray('TX_NOME');
@@ -523,6 +526,14 @@ else if ($_REQUEST['identifier'] == "formAlterarCandidato") {
     foreach ($arraySituacaoCandidato as $key => $val) {
         ($dados['CS_SITUACAO'][0] == $key) ? $selected = 'selected' : $selected = '';
         $optionSituacaoCandidato .= '<option value="' . $key . '" ' . $selected . '>' . $val . '</option> ';
+    }
+
+    foreach ($arrayCHSemanal as $key => $val) {
+        if ($dados['CS_CARGA_HORARIA'][0])
+            ($dados['CS_CARGA_HORARIA'][0] == $key) ? $selected = 'selected' : $selected = '';
+        else
+            ($dadosOV['CS_CARGA_HORARIA'][0] == $key) ? $selected = 'selected' : $selected = '';
+        $optionCHSemanal .= '<option value="' . $key . '" ' . $selected . '>' . $val . '</option> ';
     }
 
     foreach ($arrayEscolaridade as $key => $val) {
@@ -606,7 +617,7 @@ else if ($_REQUEST['identifier'] == "formAlterarCandidato") {
                 changeYear: true
             });
             $('#TX_HORA_INICIO,#TX_HORA_FINAL').setMask({mask: '99:99:99'});
-            $('#TX_HORA_INICIO,#TX_HORA_FINAL').timepicker({ 'timeFormat': 'HH:mm:ss' });
+            $('#TX_HORA_INICIO,#TX_HORA_FINAL').timepicker({timeFormat: 'HH:mm:ss'});
 
             $('#CS_SITUACAO').live('change', function() {
                 if ((($('#CS_SITUACAO').val() == 3) || ($('#CS_SITUACAO').val() == 4))) {
@@ -672,13 +683,13 @@ else if ($_REQUEST['identifier'] == "formAlterarCandidato") {
             <td><?= $dados['TX_NOME'][0] ?></td>
         </tr>
         <tr bgcolor="#F0EFEF">
-            <td style="width:150px;"><strong>Quadro Vagas</strong></td>
+            <td style="width:150px;"><strong>CPF</strong></td>
             <td><?= $dados['NB_CPF'][0] ?></td>
         </tr>
     </table>
 
     <input id="ID_PESSOA_ESTAGIARIO" name="ID_PESSOA_ESTAGIARIO" type="hidden" value="<?= $dados['ID_PESSOA_ESTAGIARIO'][0] ?>" />
-    <div id="camada" style="font-family:Verdana, Geneva, sans-serif; width:193px; margin-bottom:4px;" >
+    <div id="camada" style="font-family:Verdana, Geneva, sans-serif; font-size:11px; width:193px; margin-bottom:4px;" >
         <strong><font color="#FF0000">*</font>Situação</strong>
         <select name="CS_SITUACAO" id="CS_SITUACAO" style="width:183px;"><?= $optionSituacaoCandidato ?></select></div>
 
@@ -729,13 +740,17 @@ else if ($_REQUEST['identifier'] == "formAlterarCandidato") {
                 <font color="#FF0000">*</font>Órgão Municipal
                 <select name="ID_ORGAO_ESTAGIO" id="ID_ORGAO_ESTAGIO" style="width:450px;"><?= $optionSolicitante ?></select></div>
 
-            <div id="camada" style="width:210px;">
+            <div id="camada" style="width:150px;">
                 <font color="#FF0000">*</font>Tipo de Vaga
-                <select name="CS_TIPO_VAGA_ESTAGIO" id="CS_TIPO_VAGA_ESTAGIO" style="width:200px;"><?= $optionTipoVagaEstagio ?></select></div>
+                <select name="CS_TIPO_VAGA_ESTAGIO" id="CS_TIPO_VAGA_ESTAGIO" style="width:140px;"><?= $optionTipoVagaEstagio ?></select></div>
+
+            <div id="camada" style="width:140px;" >
+                <font color="#FF0000">*</font>Valor da Bolsa
+                <select name="ID_BOLSA_ESTAGIO" id="ID_BOLSA_ESTAGIO" style="width:130px;"><?= $optionBolsaEstagio ?></select></div>
 
             <div id="camada" style="width:160px;" >
-                <font color="#FF0000">*</font>Valor da Bolsa
-                <select name="ID_BOLSA_ESTAGIO" id="ID_BOLSA_ESTAGIO" style="width:150px;"><?= $optionBolsaEstagio ?></select></div>
+                    <font color="#FF0000">*</font>Carga Horária Semanal
+                    <select name="ID_BOLSA_ESTAGIO" id="ID_BOLSA_ESTAGIO" style="width:150px;"><?= $optionCHSemanal ?></select></div>
 
             <div id="camada" style="width:355px; border:dotted 1px; padding-bottom:4px; padding-left:4px;">
                 <span style="margin:3px;">Horário de Estágio</span>

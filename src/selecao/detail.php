@@ -20,9 +20,9 @@ if ($_SESSION['ID_SELECAO_ESTAGIO']) {
     $VO->ID_SELECAO_ESTAGIO = $_SESSION['ID_SELECAO_ESTAGIO'];
 
     if ($_POST['BT_EFETIVAR']) {
-//        $VO->efetivarSelecao();
+        $VO->efetivarSelecao();
 //        $VO->gerarPDF();
-//        $VO->enviarEmailEfetivado();
+        $VO->enviarEmailEfetivado();
         $_SESSION['OFERTA_MSG'] = '*Seleção de Candidato Efetiva com sucesso!';
         header("Location: " . $url . "src/" . $pasta . "/detail.php");
         exit;

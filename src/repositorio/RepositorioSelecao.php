@@ -524,7 +524,8 @@ class RepositorioSelecao extends Repositorio {
             SELECT
                 BE.ID_BOLSA_ESTAGIO,
                 BE.ID_BOLSA_ESTAGIO CODIGO,
-                'R$ ' || BE.NB_VALOR || ' - ' || BE.TX_BOLSA_ESTAGIO as TX_BOLSA_ESTAGIO
+                'R$ ' || BE.NB_VALOR AS NB_VALOR,
+                BE.TX_BOLSA_ESTAGIO
               FROM
                 BOLSA_ESTAGIO BE
               ORDER BY
@@ -603,6 +604,7 @@ class RepositorioSelecao extends Repositorio {
                 ESTAGIARIO_SELECAO
               SET
                 CS_SITUACAO = '" . $VO->CS_SITUACAO . "',
+                TX_MOTIVO_SITUACAO = '',
                 CS_ESCOLARIDADE = '" . $VO->CS_ESCOLARIDADE . "',
                 ID_CURSO_ESTAGIO = '" . $VO->ID_CURSO_ESTAGIO . "',
                 NB_PERIODO_ANO = TRIM('" . $VO->NB_PERIODO_ANO . "'),
@@ -628,6 +630,35 @@ class RepositorioSelecao extends Repositorio {
         $query = "UPDATE SELECAO_ESTAGIO SET CS_SITUACAO = 2 WHERE ID_SELECAO_ESTAGIO = " . $_SESSION['ID_SELECAO_ESTAGIO'];
 
         return $this->sql($query);
+    }
+
+    function buscarAprovados($VO) {
+        $query = "
+            SELECT
+                upper(trim(V_E.TX_NOME)) TX_NOME,
+                TRANSLATE(TRIM(TO_CHAR(V_E.NB_CPF/100,'000,000,000.00')),',.','.-') NB_CPF_MASCARA,
+                REPLACE(REPLACE(TRIM(V_E.NB_CPF),'.',''),'-','') NB_CPF,
+                CE.TX_CURSO_ESTAGIO,
+                TVE.TX_TIPO_VAGA_ESTAGIO,
+                TVE.ID_BOLSA_ESTAGIO,
+                BE.TX_BOLSA_ESTAGIO,
+                BE.NB_VALOR
+              FROM
+                ESTAGIARIO_SELECAO ES,
+                V_ESTAGIARIO V_E,
+                CURSO_ESTAGIO CE,
+                TIPO_VAGA_ESTAGIO TVE,
+                BOLSA_ESTAGIO BE
+              WHERE
+                ES.ID_PESSOA_ESTAGIARIO   = V_E.ID_PESSOA_ESTAGIARIO
+              AND ES.ID_CURSO_ESTAGIO     = CE.ID_CURSO_ESTAGIO(+)
+              AND ES.CS_TIPO_VAGA_ESTAGIO = TVE.CS_TIPO_VAGA_ESTAGIO(+)
+              AND ES.ID_BOLSA_ESTAGIO     = BE.ID_BOLSA_ESTAGIO(+)
+              AND ES.CS_SITUACAO          = '2'
+              AND ES.ID_SELECAO_ESTAGIO   = '".$_SESSION['ID_SELECAO_ESTAGIO']."'
+              ORDER BY TX_NOME
+        ";
+
     }
 
     function verificarSituacaoAnalise($VO) {

@@ -2,6 +2,7 @@
 
 require_once $pathvo . "VO.php";
 require_once $path . "src/repositorio/RepositorioSelecao.php";
+require_once $path."php/phpmailer_connect.php";
 
 class selecaoVO extends VO {
 
@@ -28,10 +29,12 @@ class selecaoVO extends VO {
     function verficarGestor() {
         return $this->repositorio->verficarGestor($this);
     }
+
 //
     function verificarSituacaoAnalise() {
         return $this->repositorio->verificarSituacaoAnalise($this);
     }
+
 //
     function verificarContrato() {
         return $this->repositorio->verificarContrato($this);
@@ -116,5 +119,53 @@ class selecaoVO extends VO {
     function efetivarSelecao() {
         return $this->repositorio->efetivarSelecao($this);
     }
+
+    function buscarAprovados() {
+        return $this->repositorio->buscarAprovados($this);
+    }
+
+    function enviarEmailEfetivado() {
+
+        global $path, $url, $pathArquivo;
+        $phpmailer = new phpmailer_connect();
+        $phpmailer->CharSet = 'UTF-8';
+        $phpmailer->SetLanguage("br", $path . "php/phpmailer/language/");
+
+        // Conteudo do Email
+        $this->repositorio->buscarAprovados($this);
+        $dados = $this->getVetor();
+
+        $assunto = "Oferta de Vaga - " . $dados['TX_CODIGO_OFERTA_VAGA'][0] . ' - Efetivada';
+        $titulo = "<strong>Oferta de Vaga - " . $dados['TX_CODIGO_OFERTA_VAGA'][0] . ' - Efetivada</strong>';
+        $mensagem = "Foi efetivado uma Oferta de Vaga solicitado pelo órgao <strong>" . $dados['TX_ORGAO_ESTAGIO'][0] . " </strong> de código <strong>" . $dados['TX_CODIGO_OFERTA_VAGA'][0] . "</strong> em <strong>" . $dados['DT_ATUALIZACAO'][0] . "</strong> para sua análise e encaminhamento a agência de estágio através do <strong>Sistema de Gestão de Estágio Remunerado</strong> disponível em <a href=\"" . $url . "src/solicitacao/?s=1\">LINK</a>.";
+
+        $html = $titulo . "<br /><br />" . $mensagem . " <br /><br /><br /><br /><br /><br />
+        Desenvolvido pelo Departamento de Sistemas e Tecnologias da Informa&ccedil;&atilde;o - DSTI / 2009-" . date('Y') . "<br />
+        Suporte: (92) 8842-7838 / 8855-1465 - sistemaspmm@pmm.am.gov.br<br />
+        Secretaria Municipal de Administra&ccedil;&atilde;o - SEMAD";
+
+
+        $phpmailer->Subject = $assunto;
+        $phpmailer->Body = $html;
+        $phpmailer->AltBody = $html;
+        $phpmailer->SetFrom('sistemas.semad@pmm.am.gov.br', 'Sistemas PMM - Gestão de Estágio Remunerado');
+        $phpmailer->AddAttachment($pathArquivo . "solicitacao/oferta_" . $this->ID_OFERTA_VAGA . ".pdf", "Oferta_Vaga_" . $dados['TX_CODIGO_OFERTA_VAGA'][0] . ".pdf");
+
+        $total = $this->repositorio->buscarEmails($this);
+
+        if ($total) {
+            $email = $this->getVetor();
+
+            for ($i = 0; $i < $total; $i++) {
+                if ($i == 0)
+                    $phpmailer->AddAddress($email['TX_EMAIL'][$i]);
+                else
+                    $phpmailer->AddCC($email['TX_EMAIL'][$i]);
+            }
+
+            $phpmailer->Send();
+        }
+    }
 }
+
 ?>

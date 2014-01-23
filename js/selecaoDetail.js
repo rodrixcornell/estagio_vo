@@ -11,6 +11,12 @@ $(document).ready(function() {
 //        $("#ESTAGIARIO_SELECAO option:first").attr('selected', 'selected');
 //        $("#CS_SITUACAO option:first").attr('selected', 'selected');
 
+        $("#TX_NOME,#NB_RG,#DT_NASCIMENTO,#CS_SEXO,#TX_CEP,#TX_ENDERECO,#NB_NUMERO,#TX_BAIRRO,#TX_COMPLEMENTO").val('');
+        $("#TX_CONTATO,#TX_EMAIL,#TX_AGENCIA,#TX_CONTA_CORRENTE,#ID_PESSOA_ESTAGIARIO").val('');
+
+        $("#CS_SITUACAO,#TX_AGENCIA,#TX_CONTA_CORRENTE,#CS_ESCOLARIDADE,#ID_CURSO_ESTAGIO,#NB_PERIODO_ANO,#CS_TURNO,#ID_INSTITUICAO_ENSINO").val('');
+        $("#ID_ORGAO_ESTAGIO,#CS_TIPO_VAGA_ESTAGIO,#TX_HORA_INICIO,#TX_HORA_FINAL,#ID_BOLSA_ESTAGIO,#ID_PESSOA_SUPERVISOR,#ID_PESSOA_ESTAGIARIO").val('');
+
         $.getJSON('acoes.php?identifier=atualizarInf', atualizarInf);
         function atualizarInf(campo) {
             $("#atualizacao").html(campo['DT_ATUALIZACAO'][0]);
@@ -40,11 +46,19 @@ $(document).ready(function() {
 
     $("#efetivar").live('click', function() {
         if (!$('.icones').length) {
-            alert('Este registro não pode ser Efetivado pois Não possui candidatos.');
+            alert('Este registro não pode ser Efetivado pois Não possui Candidato.');
             return false;
         }
         else if (!($('.qtdAprov').text() <= $('.quantidade').text())){
             alert('Quantidade de Candidatos Aprovado é maior que Número de Vagas.');
+            return false;
+        }
+        else if (!$('.qtdAprov').text()){
+            alert('Este registro não pode ser Efetivado pois Não possui Candidato Aprovado.');
+            return false;
+        }
+        else if ($('.qtdAnalise').text()){
+            alert('Existe Candidato em Análise.');
             return false;
         }
         else {
@@ -88,6 +102,14 @@ $(document).ready(function() {
         height: 380,
         width: 800,
         modal: true,
+        closeOnEscape: false,
+        open: function(event, ui) {
+            // Hide close button
+            $(this).parent().children().children(".ui-dialog-titlebar-close").hide();
+            $('.ui-dialog-buttonset').find('button:contains("Salvar")').addClass('salvar');
+            $('.ui-dialog-buttonset').find('button:contains("Cancelar")').addClass('cancelar');
+            //$('.ui-icon-closethick').find('button:contains("close")').addClass('close');
+        },
         buttons: {
             "Salvar": function() {
                 // função para inserir Candidato a Seleção
@@ -148,17 +170,13 @@ $(document).ready(function() {
                     //alert('atualizar e add a seleção');
                     $(this).dialog("close");
                 }
-                ;
             },
             "Cancelar": function() {
+                $("#TX_NOME,#NB_RG,#DT_NASCIMENTO,#CS_SEXO,#TX_CEP,#TX_ENDERECO,#NB_NUMERO,#TX_BAIRRO,#TX_COMPLEMENTO").val('');
+                $("#TX_CONTATO,#TX_EMAIL,#TX_AGENCIA,#TX_CONTA_CORRENTE,#ID_PESSOA_ESTAGIARIO").val('');
                 $('#form_candidato').html('');
                 $(this).dialog("close");
             }
-        },
-        open: function() {
-            $('.ui-dialog-buttonset').find('button:contains("Salvar")').addClass('salvar');
-            $('.ui-dialog-buttonset').find('button:contains("Cancelar")').addClass('cancelar');
-            //$('.ui-dialog-titlebar-close').find('button:contains("close")').addClass('close');
         }
     });
 
@@ -194,6 +212,14 @@ $(document).ready(function() {
         height: 830,
         width: 510,
         modal: true,
+        closeOnEscape: false,
+        open: function(event, ui) {
+            // Hide close button
+            $(this).parent().children().children(".ui-dialog-titlebar-close").hide();
+            $('.ui-dialog-buttonset').find('button:contains("Salvar")').addClass('salvar');
+            $('.ui-dialog-buttonset').find('button:contains("Cancelar")').addClass('cancelar');
+            //$('.ui-icon-closethick').find('button:contains("close")').addClass('close');
+        },
         buttons: {
             "Salvar": function() {
 
@@ -218,12 +244,12 @@ $(document).ready(function() {
                         $(this).dialog("close");
                     }
                 } else if ($("#CS_SITUACAO").val() == 2) {
-                    if ($('#TX_AGENCIA').val() == '') {
+                    if ($('#form_alterar_candidato #TX_AGENCIA').val() == '') {
                         alert('Para inserir Preencha Agencia.');
-                        $('#TX_AGENCIA').focus();
-                    } else if ($('#TX_CONTA_CORRENTE').val() == '') {
+                        $('#form_alterar_candidato #TX_AGENCIA').focus();
+                    } else if ($('#form_alterar_candidato #TX_CONTA_CORRENTE').val() == '') {
                         alert('Para inserir Preencha Conta Corrente.');
-                        $('#TX_CONTA_CORRENTE').focus();
+                        $('#form_alterar_candidato #TX_CONTA_CORRENTE').focus();
                     } else if ($('#CS_ESCOLARIDADE').val() == '') {
                         alert('Para inserir Escolha Nível Escolar.');
                         $('#CS_ESCOLARIDADE').focus();
@@ -282,14 +308,11 @@ $(document).ready(function() {
                 }
             },
             "Cancelar": function() {
+                $("#CS_SITUACAO,#TX_AGENCIA,#TX_CONTA_CORRENTE,#CS_ESCOLARIDADE,#ID_CURSO_ESTAGIO,#NB_PERIODO_ANO,#CS_TURNO,#ID_INSTITUICAO_ENSINO").val('');
+                $("#ID_ORGAO_ESTAGIO,#CS_TIPO_VAGA_ESTAGIO,#TX_HORA_INICIO,#TX_HORA_FINAL,#ID_BOLSA_ESTAGIO,#ID_PESSOA_SUPERVISOR,#ID_PESSOA_ESTAGIARIO").val('');
                 $('#form_alterar_candidato').html('');
                 $(this).dialog("close");
             }
-        },
-        open: function() {
-            $('.ui-dialog-buttonset').find('button:contains("Salvar")').addClass('salvar');
-            $('.ui-dialog-buttonset').find('button:contains("Cancelar")').addClass('cancelar');
-            //$('.ui-dialog-titlebar-close').find('button:contains("close")').addClass('close');
         }
     });
 
