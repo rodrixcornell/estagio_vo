@@ -16,10 +16,15 @@
                 	{html_options options=$arrayFuncionario selected=$VO->ID_PESSOA_FUNCIONARIO}
                 </select></div>
             
-            <div id="camada" style="font-family:Verdana, Geneva, sans-serif; width:415px;">
+            <div id="camada" style="font-family:Verdana, Geneva, sans-serif; width:270px;">
                 <font color="#FF0000">*</font>Cargo <font color="#FF0000">{$validar.TX_CARGO}</font><br />
-                <input type="text" name="TX_CARGO" id="TX_CARGO" value="{$VO->TX_CARGO}" style="width:405px;">                   
-                </input></div><br />
+                <input type="text" name="TX_CARGO" id="TX_CARGO" value="{$VO->TX_CARGO}" style="width:260px;">                   
+                </input></div>
+                
+                <div id="camada" style="font-family:Verdana, Geneva, sans-serif; width:140px;">
+                <font color="#FF0000">*</font>Tempo Experiência <font color="#FF0000">{$validar.TX_TEMPO_EXPERIENCIA}</font><br />
+                <input type="text" name="TX_TEMPO_EXPERIENCIA" id="TX_TEMPO_EXPERIENCIA" value="{$VO->TX_TEMPO_EXPERIENCIA}" style="width:130px;" /></div>
+                <br />
 <!-- linha 2 -->
             <div id="camada" style="font-family:Verdana, Geneva, sans-serif; width:420px;">
                 <font color="#FF0000">*</font>Formação <font color="#FF0000">{$validar.TX_FORMACAO}</font><br />

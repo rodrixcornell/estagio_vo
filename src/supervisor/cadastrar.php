@@ -18,7 +18,7 @@ $VO = new supervisorVO();
 
 if($_POST){
     $VO->configuracao();
-    $VO->setCaracteristica('ID_PESSOA_FUNCIONARIO,TX_CARGO,TX_FORMACAO','obrigatorios');
+    $VO->setCaracteristica('ID_PESSOA_FUNCIONARIO,TX_CARGO,TX_FORMACAO,TX_TEMPO_EXPERIENCIA','obrigatorios');
     $VO->setCaracteristica('NB_INSCRICAO_CONSELHO','numeros');
     $validar = $VO->preencher($_POST);
     
