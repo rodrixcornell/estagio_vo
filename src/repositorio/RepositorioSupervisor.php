@@ -46,7 +46,7 @@ function pesquisarConselho($VO){
              return $this->sqlVetor($query);
   }
          
-function inserir($VO){
+  function inserir($VO){
        
        $codigo = explode('_', $VO->ID_PESSOA_FUNCIONARIO);
        $VO->ID_PESSOA_FUNCIONARIO = $codigo[0];

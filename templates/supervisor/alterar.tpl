@@ -41,7 +41,7 @@
                 Num. Inscrição <font color="#FF0000">{$validar.NB_INSCRICAO_CONSELHO}</font><br />
                 <input type="text" name="NB_INSCRICAO_CONSELHO" id="NB_INSCRICAO_CONSELHO" value="{$VO->NB_INSCRICAO_CONSELHO}" style="width:130px;" /></div>
                 <br />
-                
+               
              <div id="camada" style="font-family:Verdana, Geneva, sans-serif; width:140px;">
                 <font color="#FF0000">*</font>Email <font color="#FF0000">{$validar.TX_EMAIL}</font><br />
                 <input type="text" name="TX_EMAIL" id="TX_EMAIL" value="{$VO->TX_EMAIL}" style="width:410px;" /></div>

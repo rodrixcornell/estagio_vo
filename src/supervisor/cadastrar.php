@@ -23,7 +23,8 @@ if($_POST){
     $validar = $VO->preencher($_POST);
     
     if (!$validar) {
-        $retorno  = $VO->inserir();        
+        $retorno  = $VO->inserir();  
+        
 		if (!$retorno){
 			$codigo = explode('_', $VO->ID_PESSOA_FUNCIONARIO);
 		        $VO->ID_PESSOA_SUPERVISOR = $codigo[0];
