@@ -60,14 +60,22 @@ function gerarTabela($param = '') {
             echo '<tr bgcolor="' . $bgcolor . '" onmouseover="mudarCor(this);" onmouseout="mudarCor(this);">
                 <td align="center" style="width:260px;">' . $dados['TX_NOME'][$i] . '</td>
                 <td align="center" style="width:85px;">' . $dados['NB_CPF'][$i] . '</td>
-                <td align="center" style="width:90px;">' . $arraySituacaoCandidato[$dados['CS_SITUACAO'][$i]] . '</td>
+                <td align="center" style="width:90px;">';
+                    if ($dados['CS_SITUACAO'][$i] != 5) echo $arraySituacaoCandidato[$dados['CS_SITUACAO'][$i]];
+                    else echo 'Autorizado';
+            echo '</td>
                 <td align="center">' . $dados['TX_MOTIVO_SITUACAO'][$i] . '</td>';
 
             //Somente ver a coluna de alterar se tiver acesso completo a tela
             if ($acesso) {
                 echo '<td align="center" class="icones">';
-                echo '<a href="' . $dados['ID_PESSOA_ESTAGIARIO'][$i] . '" id="alterarCandidato" ><img src="' . $urlimg . 'icones/alterarItem.png" title="Alterar Registro"/></a>';
-                echo '<a href="' . $dados['ID_PESSOA_ESTAGIARIO'][$i] . '" id="excluirCandidato" ><img src="' . $urlimg . 'icones/excluirItem.png" title="Excluir Registro"/></a></td>';
+                if ($dados['CS_SITUACAO_SELECAO'][0] == 1) {
+                    echo '<a href="' . $dados['ID_PESSOA_ESTAGIARIO'][$i] . '" id="alterarCandidato" ><img src="' . $urlimg . 'icones/alterarItem.png" title="Alterar Registro"/></a>';
+                    echo '<a href="' . $dados['ID_PESSOA_ESTAGIARIO'][$i] . '" id="excluirCandidato" ><img src="' . $urlimg . 'icones/excluirItem.png" title="Excluir Registro"/></a></td>';
+                }
+                if ($dados['CS_SITUACAO'][$i] == 5) {
+                    echo '<a href="' . $dados['ID_PESSOA_ESTAGIARIO'][$i] . '" id="encaminharCandidato" ><img src="' . $urlimg . 'icones/editar.png" title="Encaminhamento de Candidato"/></a></td>';
+                }
             }
             ($dados['CS_SITUACAO'][$i] == 2) ? $qtdAprov++ : FALSE;
             ($dados['CS_SITUACAO'][$i] == 1) ? $qtdAnalise++ : FALSE;
@@ -78,13 +86,15 @@ function gerarTabela($param = '') {
         echo '</table>';
 
         if ($acesso) {
-            echo '
-                <div id="camada2" style="margin-top:4px; text-align:right; ">
-                    <span class="qtdAprov" style="display:none;">'.$qtdAprov.'</span>
-                    <span class="qtdAnalise" style="display:none;">'.$qtdAnalise.'</span>
-                    <form action="'.$url.'src/selecao/detail.php" method="post" style="display:inline; border:none;">
-                        <input type="hidden" name="BT_EFETIVAR" id="BT_EFETIVAR" value="1" />
-                        <input type="image" src="'.$urlimg.'icones/efetivar.png" name="efetivar" id="efetivar" style="border:none;" /></form></div>';
+            if ($dados['CS_SITUACAO_SELECAO'][0] == 1) {
+                echo '
+                    <div id="camada2" style="margin-top:4px; text-align:right; ">
+                        <span class="qtdAprov" style="display:none;">'.$qtdAprov.'</span>
+                        <span class="qtdAnalise" style="display:none;">'.$qtdAnalise.'</span>
+                        <form action="'.$url.'src/selecao/detail.php" method="post" style="display:inline; border:none;">
+                            <input type="hidden" name="BT_EFETIVAR" id="BT_EFETIVAR" value="1" />
+                            <input type="image" src="'.$urlimg.'icones/efetivar.png" name="efetivar" id="efetivar" style="border:none;" /></form></div>';
+            }
         }
         //print_r($urlimg);
 
@@ -113,6 +123,7 @@ $VO = new selecaoVO();
 
 if ($_REQUEST['identifier'] == "tabela") {
 
+    global $arraySituacaoCandidato;
     $VO->ID_ORGAO_GESTOR_ESTAGIO = $_REQUEST['ID_ORGAO_GESTOR_ESTAGIO'];
     $VO->ID_ORGAO_ESTAGIO = $_REQUEST['ID_ORGAO_ESTAGIO'];
     $VO->ID_OFERTA_VAGA = $_REQUEST['ID_OFERTA_VAGA'];
@@ -159,10 +170,13 @@ if ($_REQUEST['identifier'] == "tabela") {
                 <td align="center">' . $dados['TX_COD_SELECAO'][$i] . '</td>
                 <td align="center">' . $dados['TX_ORGAO_GESTOR_ESTAGIO'][$i] . '</td>
                 <td align="center">' . $dados['TX_ORGAO_ESTAGIO'][$i] . '</td>
-                <td align="center">' . $dados['TX_SELECAO'][$i] . '</td>
+                <td align="center">';
+                    if ($dados['CS_SELECAO'][$i] == 1) echo 'Com Oferta';
+                    else echo 'Sem Oferta';
+            echo '</td>
                 <td align="center">' . $dados['TX_CODIGO_OFERTA_VAGA'][$i] . '</td>
                 <td align="center">' . $dados['TX_CODIGO'][$i] . '</td>
-                <td align="center">' . $dados['TX_SITUACAO'][$i] . '</td>';
+                <td align="center">' . $arraySituacao[$dados['CS_SITUACAO'][$i]] . '</td>';
 
             //Somente ver a coluna de alterar se tiver acesso completo a tela
             // if ($acesso)
@@ -612,10 +626,7 @@ else if ($_REQUEST['identifier'] == "formAlterarCandidato") {
             $('#TX_CEP').setMask({mask: '999999999'});
             $('#NB_NUMERO,#NB_PERIODO_ANO').setMask({mask: '*****'});
             $('#DT_NASCIMENTO').setMask({mask: '99/99/9999'});
-            $('#DT_NASCIMENTO').datepicker({
-                changeMonth: true,
-                changeYear: true
-            });
+            $('#DT_NASCIMENTO').datepicker({changeMonth: true, changeYear: true});
             $('#TX_HORA_INICIO,#TX_HORA_FINAL').setMask({mask: '99:99:99'});
             $('#TX_HORA_INICIO,#TX_HORA_FINAL').timepicker({timeFormat: 'HH:mm:ss'});
 
@@ -749,8 +760,8 @@ else if ($_REQUEST['identifier'] == "formAlterarCandidato") {
                 <select name="ID_BOLSA_ESTAGIO" id="ID_BOLSA_ESTAGIO" style="width:130px;"><?= $optionBolsaEstagio ?></select></div>
 
             <div id="camada" style="width:160px;" >
-                    <font color="#FF0000">*</font>Carga Horária Semanal
-                    <select name="ID_BOLSA_ESTAGIO" id="ID_BOLSA_ESTAGIO" style="width:150px;"><?= $optionCHSemanal ?></select></div>
+                <font color="#FF0000">*</font>Carga Horária Semanal
+                <select name="CS_CARGA_HORARIA" id="CS_CARGA_HORARIA" style="width:150px;"><?= $optionCHSemanal ?></select></div>
 
             <div id="camada" style="width:355px; border:dotted 1px; padding-bottom:4px; padding-left:4px;">
                 <span style="margin:3px;">Horário de Estágio</span>
@@ -822,6 +833,7 @@ else if ($_REQUEST['identifier'] == "alterarCandidato") {
     $VO->TX_HORA_FINAL = $_REQUEST['TX_HORA_FINAL'];
     $VO->ID_BOLSA_ESTAGIO = $_REQUEST['ID_BOLSA_ESTAGIO'];
     $VO->ID_PESSOA_SUPERVISOR = $_REQUEST['ID_PESSOA_SUPERVISOR'];
+    $VO->CS_CARGA_HORARIA = $_REQUEST['CS_CARGA_HORARIA'];
 
     if ($acesso) {
         if ($VO->ID_PESSOA_ESTAGIARIO) {
@@ -843,9 +855,10 @@ else if ($_REQUEST['identifier'] == "alterarCandidato") {
             //situação 2 sem motivo
             else if ($VO->CS_SITUACAO == 2) {
                 $VO->configuracao();
-                $VO->setCaracteristica('ID_SELECAO_ESTAGIO,ID_PESSOA_ESTAGIARIO,CS_SITUACAO,TX_AGENCIA,TX_CONTA_CORRENTE,CS_ESCOLARIDADE,ID_CURSO_ESTAGIO,NB_PERIODO_ANO,CS_TURNO,ID_INSTITUICAO_ENSINO,ID_ORGAO_ESTAGIO,CS_TIPO_VAGA_ESTAGIO,TX_HORA_INICIO,TX_HORA_FINAL,ID_BOLSA_ESTAGIO,ID_PESSOA_SUPERVISOR', 'obrigatorios');
+                $VO->setCaracteristica('ID_SELECAO_ESTAGIO,ID_PESSOA_ESTAGIARIO,CS_SITUACAO,TX_AGENCIA,TX_CONTA_CORRENTE,CS_ESCOLARIDADE,ID_CURSO_ESTAGIO,NB_PERIODO_ANO,CS_TURNO,ID_INSTITUICAO_ENSINO,ID_ORGAO_ESTAGIO,CS_TIPO_VAGA_ESTAGIO,TX_HORA_INICIO,TX_HORA_FINAL,ID_BOLSA_ESTAGIO,ID_PESSOA_SUPERVISOR,CS_CARGA_HORARIA', 'obrigatorios');
                 $validar = $VO->preencher($_REQUEST);
 
+                print_r($validar);
                 if(!$validar){
                     $retorno = $VO->alterarCandidatoSemMotivo();
 
@@ -869,197 +882,331 @@ else if ($_REQUEST['identifier'] == "alterarCandidato") {
     gerarTabela($erro);
 
 }
+else if ($_REQUEST['identifier'] == "formEncaminharCandidato") {
 
+    $arrayCHSemanal = array('' => 'Escolha...', 1 => '20 Horas', 2 => '25 Horas', 3 => '30 Horas');
 
-/*-----------------------------------------------------------------------------
-} else if ($_REQUEST['identifier'] == 'excluirCandidato') {
+    $VO->buscarSolicitante();
+    $arraySolicitante = $VO->getArray('TX_ORGAO_ESTAGIO');
+
+    $VO->buscarCursoEstagio();
+    $arrayCursoEstagio = $VO->getArray('TX_CURSO_ESTAGIO');
+
+    $VO->buscarInstituicaoEnsino();
+    $arrayInstituicaoEnsino = $VO->getArray('TX_INSTITUICAO_ENSINO');
+
+    $VO->buscarBolsaEstagio();
+    $arrayBolsaEstagio = $VO->getArray('NB_VALOR');
+
+    $VO->buscarSupervisorEstagio();
+    $arraySupervisorEstagio = $VO->getArray('TX_NOME');
 
     $VO->ID_SELECAO_ESTAGIO = $_SESSION['ID_SELECAO_ESTAGIO'];
-    $VO->NB_CANDIDATO = $_REQUEST['NB_CANDIDATO'];
+    $VO->ID_PESSOA_ESTAGIARIO = $_REQUEST['ID_PESSOA_ESTAGIARIO'];
 
-    //$_SESSION['AUX_ID_RECRUTAMENTO_ESTAGIO'] = $VO->ID_RECRUTAMENTO_ESTAGIO; //Jogar pra sessao recuperar no pesquisarCandidatos e é dado unset la.
+    $VO->buscarCandidatoEstagiario();
+    $dados = $VO->getVetor();
 
-    if ($acesso) {
-        $retorno = $VO->excluirCandidato();
+    $VO->buscarDadosOfertaVaga();
+    $dadosOV = $VO->getVetor();
 
-        if (is_array($retorno))
-            $erro = 'Este registro não pode ser excluído pois possui dependentes.';
+    foreach ($arrayCHSemanal as $key => $val) {
+        if ($dados['CS_CARGA_HORARIA'][0])
+            ($dados['CS_CARGA_HORARIA'][0] == $key) ? $selected = 'selected' : $selected = '';
+        else
+            ($dadosOV['CS_CARGA_HORARIA'][0] == $key) ? $selected = 'selected' : $selected = '';
+        $optionCHSemanal .= '<option value="' . $key . '" ' . $selected . '>' . $val . '</option> ';
     }
-    else
-        $erro = "Você não tem permissão para realizar esta ação.";
 
-    gerarTabela($erro);
-//}else if ($_REQUEST['identifier'] == "buscarRecrutamentoCad") {
-//
-//    $VO->ID_ORGAO_ESTAGIO = $_REQUEST['ID_ORGAO_ESTAGIO'];
-//    $total = $VO->buscarRecrutamentoCad();
-//
-//    echo '<option value="">Escolha...</option>';
-//    if ($total) {
-//        $dados = $VO->getVetor();
-//        for ($i = 0; $i < $total; $i++) {
-//            echo '<option value="' . $dados['CODIGO'][$i] . '">' . $dados['TX_COD_RECRUTAMENTO'][$i] . '</option>';
-//        }
-//    }
-//} else if ($_REQUEST['identifier'] == 'form_Candidatos') {
-//
-//    $VO->ID_SELECAO_ESTAGIO = $_SESSION['ID_SELECAO_ESTAGIO'];
-//    $aux = explode("_", $_REQUEST['ESTAGIARIO_SELECAO']);
-//
-//    $VO->ID_RECRUTAMENTO_ESTAGIO = $aux[0];
-//    $VO->NB_VAGAS_RECRUTAMENTO = $aux[1];
-//    $VO->NB_CANDIDATO = $aux[2];
-//
-//    $VO->buscarEstagiarioVaga();
-//    $dados = $VO->getVetor();
-//
-//    $arraySituacaoCandidato = array('' => "Escolha...", 1 => "Em Análise", 2 => "Aprovado", 3 => "Reprovado", 4 => "Cancelado");
-//
-//    foreach ($arraySituacaoCandidato as $key => $val) {
-//        ($dados['CS_SITUACAO'][0] == $key) ? $selected = 'selected' : $selected = '';
-//        $arraySituacaoCandidato .= '<option value="' . $key . '" ' . $selected . '>' . $val . '</option> ';
-//    }
-//    ?>
+    foreach ($arrayCursoEstagio as $key => $val) {
+        if ($dados['ID_CURSO_ESTAGIO'][0])
+            ($dados['ID_CURSO_ESTAGIO'][0] == $key) ? $selected = 'selected' : $selected = '';
+        else
+            ($dadosOV['ID_CURSO_ESTAGIO'][0] == $key) ? $selected = 'selected' : $selected = '';
+        $optionCursoEstagio .= '<option value="' . $key . '" ' . $selected . '>' . $val . '</option> ';
+    }
+
+    foreach ($arrayInstituicaoEnsino as $key => $val) {
+        if ($dados['ID_INSTITUICAO_ENSINO'][0])
+            ($dados['ID_INSTITUICAO_ENSINO'][0] == $key) ? $selected = 'selected' : $selected = '';
+        else
+            ($dadosOV['ID_INSTITUICAO_ENSINO'][0] == $key) ? $selected = 'selected' : $selected = '';
+        $optionInstituicaoEnsino .= '<option value="' . $key . '" ' . $selected . '>' . $val . '</option> ';
+    }
+
+    foreach ($arraySolicitante as $key => $val) {
+        if ($dados['ID_ORGAO_ESTAGIO'][0])
+            ($dados['ID_ORGAO_ESTAGIO'][0] == $key) ? $selected = 'selected' : $selected = '';
+        else
+            ($dadosOV['ID_ORGAO_ESTAGIO'][0] == $key) ? $selected = 'selected' : $selected = '';
+        $optionSolicitante .= '<option value="' . $key . '" ' . $selected . '>' . $val . '</option> ';
+    }
+
+    foreach ($arrayBolsaEstagio as $key => $val) {
+        if ($dados['ID_BOLSA_ESTAGIO'][0])
+            ($dados['ID_BOLSA_ESTAGIO'][0] == $key) ? $selected = 'selected' : $selected = '';
+        else
+            ($dadosOV['ID_BOLSA_ESTAGIO'][0] == $key) ? $selected = 'selected' : $selected = '';
+        $optionBolsaEstagio .= '<option value="' . $key . '" ' . $selected . '>' . $val . '</option> ';
+    }
+
+    foreach ($arraySupervisorEstagio as $key => $val) {
+        ($dados['ID_PESSOA_SUPERVISOR'][0] == $key) ? $selected = 'selected' : $selected = '';
+        $optionSupervisorEstagio .= '<option value="' . $key . '" ' . $selected . '>' . $val . '</option> ';
+    }
+
+//    print_r($dados);
+//    echo '<br /><br />';
+//    print_r($dadosOV);
+    ?>
 
     <script>
         $(document).ready(function() {
-            $("#DT_AGENDAMENTO_ALT,#DT_REALIZACAO_ALT").setMask({mask: "99/99/9999"});
+            $('##NB_PERIODO_ANO').setMask({mask: '*****'});
+            $('#NB_VALOR_TRANSPORTE').maskMoney({showSymbol:false, symbol:"R$", decimal:",", thousands:"."});
+            $('#DT_INICIO,#DT_FINAL').setMask({mask: '99/99/9999'});
+            $('#DT_INICIO,#DT_FINAL').datepicker({changeMonth: true, changeYear: true});
+            $('#TX_HORA_INICIO,#TX_HORA_FINAL').setMask({mask: '99:99:99'});
+            $('#TX_HORA_INICIO,#TX_HORA_FINAL').timepicker({timeFormat: 'HH:mm:ss'});
 
-            $("#DT_AGENDAMENTO_ALT,#DT_REALIZACAO_ALT").datepicker({
-                changeMonth: true,
-                changeYear: true
-            });
-
-            $('#CS_SITUACAO_ALT').live('change', function() {
-                if ((($('#CS_SITUACAO_ALT').val() == 3) || ($('#CS_SITUACAO_ALT').val() == 4))) {
-                    $('#motivo_alt').show("slow");
-                } else {
-                    $("#motivo_alt").hide("slow");
-                    $("#TX_MOTIVO_SITUACAO_ALT").val('');
+            $('#ID_PESSOA_SUPERVISOR').live('change', function() {
+                if ($('#ID_PESSOA_SUPERVISOR').val() != '') {
+                    $.getJSON('acoes.php',{
+                        ID_PESSOA_SUPERVISOR:$('#ID_PESSOA_SUPERVISOR').val(),
+                        identifier:'buscarDadosSupervisor'
+                    }, function(campo) {
+                        $("#TX_CARGO").val(campo['TX_CARGO'][0]);
+                        $("#TX_FORMACAO").val(campo['TX_FORMACAO'][0]);
+                        $("#TX_TEMPO_EXPERIENCIA").val(campo['TX_TEMPO_EXPERIENCIA'][0]);
+                        $("#TX_CONSELHO").val(campo['TX_CONSELHO'][0]);
+                        //$("#carregando1").hide();
+                        $(".salvar").focus();
+                    });
+                }else{
+                    $("#TX_CARGO,#TX_FORMACAO,#TX_TEMPO_EXPERIENCIA,#TX_CONSELHO").val('');
+                    //$("#carregando1").hide();
                 }
-
             });
+            if ($('#ID_PESSOA_SUPERVISOR').val() != '') {
+                $.getJSON('acoes.php',{
+                    ID_PESSOA_SUPERVISOR:$('#ID_PESSOA_SUPERVISOR').val(),
+                    identifier:'buscarDadosSupervisor'
+                }, function(campo) {
+                    $("#TX_CARGO").val(campo['TX_CARGO'][0]);
+                    $("#TX_FORMACAO").val(campo['TX_FORMACAO'][0]);
+                    $("#TX_EMAIL").val(campo['TX_EMAIL'][0]);
+                    $("#TX_TEMPO_EXPERIENCIA").val(campo['TX_TEMPO_EXPERIENCIA'][0]);
+                    $("#NB_INSCRICAO_CONSELHO").val(campo['NB_INSCRICAO_CONSELHO'][0]);
+                    $("#TX_CONSELHO").val(campo['TX_CONSELHO'][0]);
+                    $("#TX_MATRICULA").val(campo['TX_MATRICULA'][0]);
+                    $("#TX_DEPARTAMENTO").val(campo['TX_DEPARTAMENTO'][0]);
+                    //$("#carregando1").hide();
+                    $(".salvar").focus();
+                });
+            }
 
-        })
+            $("#imprimirEncaminhamento").button().click(function( event ) {
+
+                if ($("#TX_HORA_INICIO").val() == '') {
+                    alert('Para inserir preencha Horário de Estágio Início.');
+                    $("#TX_HORA_INICIO").focus();
+                } else if ($("#TX_HORA_FINAL").val() == '') {
+                    alert('Para inserir preencha Horário de Estágio Final.');
+                    $("#TX_HORA_FINAL").focus();
+                } else if ($("#CS_CARGA_HORARIA").val() == '') {
+                    alert('Para inserir preencha Carga Horária Semanal.');
+                    $("#CS_CARGA_HORARIA").focus();
+                } else if ($("#TX_ATIVIDADES").val() == '') {
+                    alert('Para inserir preencha Atividades Iniciais de Estágio.');
+                    $("#TX_ATIVIDADES").focus();
+                } else if ($("#ID_BOLSA_ESTAGIO").val() == '') {
+                    alert('Para inserir preencha Bolsa-Auxílio Mensal.');
+                    $("#ID_BOLSA_ESTAGIO").focus();
+                } else if ($("#NB_VALOR_TRANSPORTE").val() == '') {
+                    alert('Para inserir preencha Auxílio Transporte.');
+                    $("#NB_VALOR_TRANSPORTE").focus();
+                } else if ($("#ID_ORGAO_ESTAGIO").val() == '') {
+                    alert('Para inserir preencha Unidade Concednte.');
+                    $("#ID_ORGAO_ESTAGIO").focus();
+                } else if ($("#TX_LOCAL_ESTAGIO").val() == '') {
+                    alert('Para inserir preencha Local de Estágio.');
+                    $("#TX_LOCAL_ESTAGIO").focus();
+                } else if ($("#ID_PESSOA_SUPERVISOR").val() == '') {
+                    alert('Para inserir preencha Supervisor.');
+                    $("#ID_PESSOA_SUPERVISOR").focus();
+                } else {
+                    $.post("acoes.php",{
+                        ID_PESSOA_ESTAGIARIO:$("#ID_PESSOA_ESTAGIARIO").val(),
+                        TX_HORA_INICIO:$("#TX_HORA_INICIO").val(),
+                        TX_HORA_FINAL:$("#TX_HORA_FINAL").val(),
+                        CS_CARGA_HORARIA:$("#CS_CARGA_HORARIA").val(),
+                        DT_INICIO:$("#DT_INICIO").val(),
+                        DT_FINAL:$("#DT_FINAL").val(),
+                        TX_ATIVIDADES:$("#TX_ATIVIDADES").val(),
+                        ID_BOLSA_ESTAGIO:$("#ID_BOLSA_ESTAGIO").val(),
+                        NB_VALOR_TRANSPORTE:$("#NB_VALOR_TRANSPORTE").val(),
+                        ID_ORGAO_ESTAGIO:$("#ID_ORGAO_ESTAGIO").val(),
+                        TX_LOCAL_ESTAGIO:$("#TX_LOCAL_ESTAGIO").val(),
+                        ID_PESSOA_SUPERVISOR:$("#ID_PESSOA_SUPERVISOR").val(),
+                        identifier:'alterarCandidatoAprovado'
+                    }, function(valor){
+                        if (valor) {
+                            alert(valor);
+                            return falce;
+                        }
+                        else {
+                            $('#form_encaminhar_candidato').html('');
+                            $("#dialog-form-encaminhar-candidato").dialog( "close" );
+                            return true;
+                        }
+                    });
+                }
+            });
+        });
     </script>
+
     <table width="100%" class="dataGrid" >
         <tr bgcolor="#E0E0E0">
-            <td style="width:150px;"><strong>Candidato </strong></td>
-            <td>//<?= $dados['TX_NOME'][0] ?></td>
+            <td style="width:80px;"><strong>Nome</strong></td>
+            <td colspan="3"><?= $dados['TX_NOME'][0] ?></td>
         </tr>
         <tr bgcolor="#F0EFEF">
-            <td style="width:150px;"><strong>Quadro Vagas </strong></td>
-            <td>//<?= $dados['TX_CODIGO'][0] ?></td>
+            <td><strong>Curso</strong></td>
+            <td><?= $dados['TX_CURSO_ESTAGIO'][0] ?></td>
+            <td style="width:90px;"><strong>Período/Ano</strong></td>
+            <td style="width:40px;"><?= $dados['NB_PERIODO_ANO'][0] ?></td>
+        </tr>
+        <tr bgcolor="#E0E0E0">
+            <td><strong>Instituição de Ensino</strong></td>
+            <td colspan="3"><?= $dados['TX_INSTITUICAO_ENSINO'][0] ?></td>
         </tr>
     </table>
+
     <br />
+    <input id="ID_PESSOA_ESTAGIARIO" name="ID_PESSOA_ESTAGIARIO" type="hidden" value="<?= $dados['ID_PESSOA_ESTAGIARIO'][0] ?>" />
 
     <fieldset>
+        <legend>Atendimento ao Estudante</legend>
+        <div id="camada" style="width:355px; border:dotted 1px; padding-bottom:4px; padding-left:4px;">
+            <span style="margin:3px;">Horário de Estágio</span>
+            <br />
 
-        <div id="camada" style="font-family:Verdana, Geneva, sans-serif; width:130px;" ><strong><font color="#FF0000">*</font>Dt. Agendamento</strong><br />
-            <input type="text" name="DT_AGENDAMENTO_ALT" id="DT_AGENDAMENTO_ALT" value="//<?= $dados['DT_AGENDAMENTO'][0] ?>" style="width:120px;" /></div>
+            <div id="camada" style="width:70px;">
+                <font color="#FF0000">*</font>Início<br />
+                <input type="text" name="TX_HORA_INICIO" id="TX_HORA_INICIO" style="width:60px;" value="<?= ($dados['TX_HORA_INICIO'][0]) ? $dados['TX_HORA_INICIO'][0] : $dadosOV['TX_HORA_INICIO'][0]; ?>" /></div>
 
-        <div id="camada" style="font-family:Verdana, Geneva, sans-serif; width:120px;" ><strong><font color="#FF0000">*</font>Dt. Realização</strong><br />
-            <input type="text" name="DT_REALIZACAO_ALT" id="DT_REALIZACAO_ALT" value="//<?= $dados['DT_REALIZACAO'][0] ?>"  style="width:110px;" /></div>
+            <div id="camada" style="width:275px;">
+                <font color="#FF0000">*</font>Fim<br />
+                <input type="text" name="TX_HORA_FINAL" id="TX_HORA_FINAL" style="width:60px;" value="<?= ($dados['TX_HORA_FINAL'][0]) ? $dados['TX_HORA_FINAL'][0] : $dadosOV['TX_HORA_FINAL'][0]; ?>" /> (conforme Lei 11.788/2008, art. 10)</div>
+        </div>
 
-        <div id="camada" style="font-family:Verdana, Geneva, sans-serif; width:193px;" ><strong><font color="#FF0000">*</font>Situação</strong>
-            <select name="CS_SITUACAO_ALT" id="CS_SITUACAO_ALT" style="width:183px;">
-    //<?= $arraySituacaoCandidato ?>
-            </select></div>
+        <div id="camada" style="width:160px;" >
+            <font color="#FF0000">*</font>Carga Horária Semanal
+            <select name="CS_CARGA_HORARIA" id="CS_CARGA_HORARIA" style="width:150px;"><?= $optionCHSemanal ?></select></div>
 
-        <div id="motivo_alt" style="width:450px; //<?php if ($dados["CS_SITUACAO"][0] == 2 || $dados["CS_SITUACAO"][0] == 1) echo 'display:none;'; ?>" ><strong><font color="#FF0000">*</font>Motivo</strong> <br />
-            <input type="text" name="TX_MOTIVO_SITUACAO_ALT" id="TX_MOTIVO_SITUACAO_ALT" value="//<?= $dados['TX_MOTIVO_SITUACAO'][0] ?>"  style="width:440px;" /></div>
+        <div id="camada" style="width:80px;" >
+            Data Estágio
+            <input type="text" name="DT_INICIO" id="DT_INICIO" style="width:70px;" value="<?= ($dados['DT_INICIO'][0]) ? $dados['DT_INICIO'][0] : $dadosOV['DT_INICIO'][0]; ?>" /></div>
 
-        <div id="camada" style="font-family:Verdana, Geneva, sans-serif; width:450px;" ><strong>Usuário Selecionador</strong><br />
-            <input type="text" name="ID_USUARIO_SELECIONADOR" id="ID_USUARIO_SELECIONADOR" value="//<?= $dados['TX_FUNCIONARIO'][0] ?>"  style="width:440px;" class="leitura" readonly="readonly"/></div>
+        <div id="camada" style="width:80px;" >
+            Data Término
+            <input type="text" name="DT_FINAL" id="DT_FINAL" style="width:70px;" value="<?= ($dados['DT_FINAL'][0]) ? $dados['DT_FINAL'][0] : $dadosOV['DT_FINAL'][0]; ?>" /></div>
 
-        <br /><br />
-        <input type="hidden" name="ESTAGIARIO_SELECAO_ALT" id="ESTAGIARIO_SELECAO_ALT" value="//<?= $_REQUEST['ESTAGIARIO_SELECAO'] ?>" />
+        <div id="camada" style="width:460px;">
+            <font color="#FF0000">*</font>Atividades Iniciais de Estágio
+            <textarea name="TX_ATIVIDADES" id="TX_ATIVIDADES" maxlength="400" style="width:460px; height:65px;"><?= ($dados['TX_ATIVIDADES'][0]) ? $dados['TX_ATIVIDADES'][0] : $dadosOV['TX_ATIVIDADES'][0]; ?></textarea></div>
+
+        <div id="camada" style="width:140px;" >
+            <font color="#FF0000">*</font>Bolsa-Auxílio Mensal
+            <select name="ID_BOLSA_ESTAGIO" id="ID_BOLSA_ESTAGIO" style="width:130px;"><?= $optionBolsaEstagio ?></select></div>
+
+        <div id="camada" style="width:80px;" >
+            <font color="#FF0000">*</font>Auxílio Transporte
+            <input type="text" name="NB_VALOR_TRANSPORTE" id="NB_VALOR_TRANSPORTE" style="width:70px;" value="<?= ($dados['NB_VALOR_TRANSPORTE'][0]) ? $dados['NB_VALOR_TRANSPORTE'][0] : $dadosOV['NB_VALOR_TRANSPORTE'][0]; ?>" /></div>
+
+        <div id="camada" style="width:140px;">
+            <font color="#FF0000">*</font>Unidade Concedente
+            <select name="ID_ORGAO_ESTAGIO" id="ID_ORGAO_ESTAGIO" style="width:130px;"><?= $optionSolicitante ?></select></div>
+
+        <div id="camada" style="width:460px;">
+            <font color="#FF0000">*</font>Local de Estágio
+            <input type="text" name="TX_LOCAL_ESTAGIO" id="TX_LOCAL_ESTAGIO" style="width:450px;" value="<?= ($dados['TX_LOCAL_ESTAGIO'][0]) ? $dados['TX_LOCAL_ESTAGIO'][0] : $dadosOV['TX_LOCAL_ESTAGIO'][0]; ?>" /></div>
+
+        <div id="camada" style="width:290px;">
+            <font color="#FF0000">*</font>Supervisor
+            <select name="ID_PESSOA_SUPERVISOR" id="ID_PESSOA_SUPERVISOR" style="width:280px;"><?= $optionSupervisorEstagio ?></select></div>
+
+        <div id="camada" style="width:370px;">
+            Cargo/Função
+            <input type="text" name="TX_CARGO" id="TX_CARGO" style="width:360px;" class="leitura" readonly="readonly" /></div>
+
+        <div id="camada" style="width:370px;">
+            Formação
+            <input type="text" name="TX_FORMACAO" id="TX_FORMACAO" style="width:360px;" class="leitura" readonly="readonly" /></div>
+
+        <div id="camada" style="width:370px;">
+            Email
+            <input type="text" name="TX_EMAIL" id="TX_EMAIL" style="width:360px;" class="leitura" readonly="readonly" /></div>
+
+        <div id="camada" style="width:140px;">
+            Número do Registro no Conselho Regional (CR)
+            <input type="text" name="NB_INSCRICAO_CONSELHO" id="NB_INSCRICAO_CONSELHO" style="width:130px;" class="leitura" readonly="readonly" /></div>
+
+        <div id="camada" style="width:315px;">
+            Conselho Regional
+            <input type="text" name="TX_CONSELHO" id="TX_CONSELHO" style="width:305px;" class="leitura" readonly="readonly" /></div>
+
+        <div id="camada" style="width:120px;">
+            Matricula Funcional
+            <input type="text" name="TX_MATRICULA" id="TX_MATRICULA" style="width:110px;" class="leitura" readonly="readonly" /></div>
+
+        <div id="camada" style="width:335px;">
+            Departamento que Atende
+            <input type="text" name="TX_DEPARTAMENTO" id="TX_DEPARTAMENTO" style="width:325px;" class="leitura" readonly="readonly" /></div>
     </fieldset>
 
-    //<?php
-} else if ($_REQUEST['identifier'] == 'excluirCandidato') {
+    <br />
+    <div id="camada" style="float:right;">
+        <a id="imprimirEncaminhamento" href="<?= $url ?>src/selecao/relatorio.php?ID_PESSOA_ESTAGIARIO=<?= $dados['ID_PESSOA_ESTAGIARIO'][0] ?>" target="_blank">Imprimir Encaminhamento</a></div>
+
+<?
+}
+else if ($_REQUEST['identifier'] == "alterarCandidatoAprovado") {
 
     $VO->ID_SELECAO_ESTAGIO = $_SESSION['ID_SELECAO_ESTAGIO'];
-    $aux = explode("_", $_REQUEST['ESTAGIARIO_SELECAO']);
 
-    $VO->ID_RECRUTAMENTO_ESTAGIO = $aux[0];
-    $VO->NB_VAGAS_RECRUTAMENTO = $aux[1];
-    $VO->NB_CANDIDATO = $aux[2];
-
-    $_SESSION['AUX_ID_RECRUTAMENTO_ESTAGIO'] = $VO->ID_RECRUTAMENTO_ESTAGIO; //Jogar pra sessao recuperar no pesquisarCandidatos e é dado unset la.
+    $VO->ID_PESSOA_ESTAGIARIO = $_REQUEST['ID_PESSOA_ESTAGIARIO'];
+    $VO->TX_HORA_INICIO = $_REQUEST['TX_HORA_INICIO'];
+    $VO->TX_HORA_FINAL = $_REQUEST['TX_HORA_FINAL'];
+    $VO->CS_CARGA_HORARIA = $_REQUEST['CS_CARGA_HORARIA'];
+    $VO->DT_INICIO = $_REQUEST['DT_INICIO'];
+    $VO->DT_FINAL = $_REQUEST['DT_FINAL'];
+    $VO->TX_ATIVIDADES = $_REQUEST['TX_ATIVIDADES'];
+    $VO->ID_BOLSA_ESTAGIO = $_REQUEST['ID_BOLSA_ESTAGIO'];
+    $VO->NB_VALOR_TRANSPORTE = $_REQUEST['NB_VALOR_TRANSPORTE'];
+    $VO->ID_ORGAO_ESTAGIO = $_REQUEST['ID_ORGAO_ESTAGIO'];
+    $VO->TX_LOCAL_ESTAGIO = $_REQUEST['TX_LOCAL_ESTAGIO'];
+    $VO->ID_PESSOA_SUPERVISOR = $_REQUEST['ID_PESSOA_SUPERVISOR'];
 
     if ($acesso) {
-        $retorno = $VO->excluirCandidato();
+        $VO->configuracao();
+        $VO->setCaracteristica('ID_SELECAO_ESTAGIO,ID_PESSOA_ESTAGIARIO,TX_HORA_INICIO,TX_HORA_FINAL,CS_CARGA_HORARIA,TX_ATIVIDADES,ID_BOLSA_ESTAGIO,NB_VALOR_TRANSPORTE,ID_ORGAO_ESTAGIO,TX_LOCAL_ESTAGIO,ID_PESSOA_SUPERVISOR', 'obrigatorios');
+        $validar = $VO->preencher($_REQUEST);
 
-        if (is_array($retorno))
-            $erro = 'Este registro não pode ser excluído pois possui dependentes.';
+        if(!$validar){
+            $retorno = $VO->alterarCandidatoAprovado();
+
+            if ($retorno)
+                //echo 'Registro já existe.';
+                //echo json_encode ($retorno);
+                //print_r ($retorno);
+                echo $retorno['message'] . ' - ' . $retorno['sqltext'];
+        }
+        else
+            echo 'Para inserir preencha os campos obrigatórios.';
     }
     else
-        $erro = "Você não tem permissão para realizar esta ação.";
+        echo 'Você não tem permissão para realizar esta ação.';
 
-    gerarTabela($erro);
 }
-//Buscar ComboBox de Candidato
-else if ($_REQUEST['identifier'] == "pesquisarCandidatos") {
-
-    $VO->ID_SELECAO_ESTAGIO = $_SESSION['ID_SELECAO_ESTAGIO'];
-
-    $total = $VO->pesquisarCandidatos();
-
-    if ($total) {
-        $dados = $VO->getVetor();
-        echo '<option value="">Escolha...</option>';
-        for ($i = 0; $i < $total; $i++) {
-            echo '<option value="' . $dados['CODIGO'][$i] . '">' . $dados['TX_NOME'][$i] . '</option>';
-        }
-    }
-} else if ($_REQUEST['identifier'] == 'alterarCandidato') {
-
-    $VO->ID_SELECAO_ESTAGIO = $_SESSION['ID_SELECAO_ESTAGIO'];
-
-    $aux = explode("_", $_REQUEST['ESTAGIARIO_SELECAO']);
-
-    $VO->ID_RECRUTAMENTO_ESTAGIO = $aux[0];
-    $VO->NB_VAGAS_RECRUTAMENTO = $aux[1];
-    $VO->NB_CANDIDATO = $aux[2];
-    $VO->DT_REALIZACAO = $_REQUEST['DT_REALIZACAO'];
-    $VO->DT_AGENDAMENTO = $_REQUEST['DT_AGENDAMENTO'];
-
-    $VO->CS_SITUACAO = $_REQUEST['CS_SITUACAO'];
-    $VO->TX_MOTIVO_SITUACAO = $_REQUEST['TX_MOTIVO_SITUACAO'];
-
-
-    if ($VO->ID_SELECAO_ESTAGIO && $VO->ID_RECRUTAMENTO_ESTAGIO && $VO->NB_VAGAS_RECRUTAMENTO && $VO->NB_CANDIDATO && $VO->DT_AGENDAMENTO && $VO->DT_REALIZACAO && $VO->CS_SITUACAO) {
-
-        $retorno = $VO->alterarCandidato();
-
-        if (is_array($retorno)) {
-            $posicao = stripos($retorno['message'], ":");
-            $string1 = substr($retorno['message'], $posicao + 1);
-            $posicao2 = stripos($string1, "ORA");
-            $erro = substr($retorno['message'], $posicao + 1, $posicao2 - 1);
-        }
-    }
-    else
-        $erro = "Todos os campos devem ser preenchidos.";
-
-    gerarTabela($erro);
-//}else if ($_REQUEST['identifier'] == "gerarCandidatos") {
-//
-//    $VO->ID_SELECAO_ESTAGIO = $_SESSION['ID_SELECAO_ESTAGIO'];
-//    $VO->ID_RECRUTAMENTO_ESTAGIO = $_SESSION['AUX_ID_RECRUTAMENTO_ESTAGIO'];
-//
-//    $total = $VO->pesquisarCandidatos();
-//
-//    echo '<option value="">Escolha...</option>';
-//    if ($total) {
-//        $dados = $VO->getVetor();
-//        for ($i = 0; $i < $total; $i++) {
-//            echo '<option value="' . $dados['CODIGO'][$i] . '">' . $dados['TX_NOME'][$i] . '</option>';
-//        }
-//    }
-//
-//    unset($_SESSION['AUX_ID_RECRUTAMENTO_ESTAGIO']);
-}*/
 ?>

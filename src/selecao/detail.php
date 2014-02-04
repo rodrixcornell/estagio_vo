@@ -21,7 +21,6 @@ if ($_SESSION['ID_SELECAO_ESTAGIO']) {
 
     if ($_POST['BT_EFETIVAR']) {
         $VO->efetivarSelecao();
-//        $VO->gerarPDF();
         $VO->enviarEmailEfetivado();
         $_SESSION['OFERTA_MSG'] = '*Seleção de Candidato Efetiva com sucesso!';
         header("Location: " . $url . "src/" . $pasta . "/detail.php");
@@ -29,8 +28,9 @@ if ($_SESSION['ID_SELECAO_ESTAGIO']) {
     }
 //
     if ($_POST['BT_ENCAMINHAR']) {
-//        $VO->encaminharSelecao();
-//        $VO->enviarEmailAgencia();
+        $VO->encaminharSelecao();
+        $VO->enviarEmailAgencia();
+        $VO->autorizarSelecao();
         $_SESSION['OFERTA_MSG'] = '*Oferta de Vaga Encaminhada para Agência de Estágio com sucesso!';
         header("Location: " . $url . "src/" . $pasta . "/detail.php");
         exit;

@@ -15,7 +15,7 @@ $(document).ready(function() {
         $("#TX_CONTATO,#TX_EMAIL,#TX_AGENCIA,#TX_CONTA_CORRENTE,#ID_PESSOA_ESTAGIARIO").val('');
 
         $("#CS_SITUACAO,#TX_AGENCIA,#TX_CONTA_CORRENTE,#CS_ESCOLARIDADE,#ID_CURSO_ESTAGIO,#NB_PERIODO_ANO,#CS_TURNO,#ID_INSTITUICAO_ENSINO").val('');
-        $("#ID_ORGAO_ESTAGIO,#CS_TIPO_VAGA_ESTAGIO,#TX_HORA_INICIO,#TX_HORA_FINAL,#ID_BOLSA_ESTAGIO,#ID_PESSOA_SUPERVISOR,#ID_PESSOA_ESTAGIARIO").val('');
+        $("#ID_ORGAO_ESTAGIO,#CS_TIPO_VAGA_ESTAGIO,#TX_HORA_INICIO,#TX_HORA_FINAL,#ID_BOLSA_ESTAGIO,#ID_PESSOA_SUPERVISOR,#CS_CARGA_HORARIA,#ID_PESSOA_ESTAGIARIO").val('');
 
         $.getJSON('acoes.php?identifier=atualizarInf', atualizarInf);
         function atualizarInf(campo) {
@@ -66,7 +66,7 @@ $(document).ready(function() {
 //            alert($('.qtdAprov').text());
 //            alert($('.icones').length);
             resp = window.confirm('Tem certeza que deseja Efetivar esta Seleção de Candidatos?');
-            if (resp1)
+            if (resp)
                 $('#form').submit();
             else
                 return false;
@@ -74,7 +74,7 @@ $(document).ready(function() {
     });
 
     $("#encaminhar").live('click', function() {
-        resp = window.confirm('Tem certeza que deseja Encaminhar esta Oferta de Vaga para a Agência de Estágio?');
+        resp = window.confirm('Tem certeza que deseja Encaminhar esta Seleção de Candidato para a Agência de Estágio?');
         if (resp)
             $('#form').submit();
         else
@@ -280,6 +280,9 @@ $(document).ready(function() {
                     } else if ($('#ID_BOLSA_ESTAGIO').val() == '') {
                         alert('Para inserir Escolha Valor da Bolsa.');
                         $('#ID_BOLSA_ESTAGIO').focus();
+                    } else if ($('#CS_CARGA_HORARIA').val() == '') {
+                        alert('Para inserir Escolha Carga Horária Semanal.');
+                        $('#CS_CARGA_HORARIA').focus();
                     } else if ($('#ID_PESSOA_SUPERVISOR').val() == '') {
                         alert('Para inserir Escolha Supervisor.');
                         $('#ID_PESSOA_SUPERVISOR').focus();
@@ -299,6 +302,7 @@ $(document).ready(function() {
                             TX_HORA_INICIO: $("#TX_HORA_INICIO").val(),
                             TX_HORA_FINAL: $("#TX_HORA_FINAL").val(),
                             ID_BOLSA_ESTAGIO: $("#ID_BOLSA_ESTAGIO").val(),
+                            CS_CARGA_HORARIA: $("#CS_CARGA_HORARIA").val(),
                             ID_PESSOA_SUPERVISOR: $("#ID_PESSOA_SUPERVISOR").val(),
                             ID_PESSOA_ESTAGIARIO: $("#ID_PESSOA_ESTAGIARIO").val(),
                             identifier: 'alterarCandidato'
@@ -324,6 +328,39 @@ $(document).ready(function() {
         $('#form_alterar_candidato').load('acoes.php', {
             ID_PESSOA_ESTAGIARIO: $(this).attr('href'),
             identifier: 'formAlterarCandidato'
+        }, hideLoaderForm);
+        return false;
+    });
+
+    $("#dialog-form-encaminhar-candidato").dialog({
+        autoOpen: false,
+        height: 810,
+        width: 510,
+        modal: true,
+        closeOnEscape: false,
+        open: function(event, ui) {
+            // Hide close button
+            $(this).parent().children().children(".ui-dialog-titlebar-close").hide();
+            $('.ui-dialog-buttonset').find('button:contains("Fechar")').addClass('fechar');
+        },
+        buttons: {
+            "Fechar": function() {
+//                $("#CS_SITUACAO,#TX_AGENCIA,#TX_CONTA_CORRENTE,#CS_ESCOLARIDADE,#ID_CURSO_ESTAGIO,#NB_PERIODO_ANO,#CS_TURNO,#ID_INSTITUICAO_ENSINO").val('');
+//                $("#ID_ORGAO_ESTAGIO,#CS_TIPO_VAGA_ESTAGIO,#TX_HORA_INICIO,#TX_HORA_FINAL,#ID_BOLSA_ESTAGIO,#ID_PESSOA_SUPERVISOR,#CS_CARGA_HORARIA,#ID_PESSOA_ESTAGIARIO").val('');
+                $('#form_encaminhar_candidato').html('');
+                $(this).dialog("close");
+            }
+        }
+    });
+
+    $("#encaminharCandidato").live('click', function() {
+        //var href = $(this).attr('href');
+        $("#dialog-form-encaminhar-candidato").dialog("open");
+        $('#form_encaminhar_candidato').html('');
+        showLoaderForm();
+        $('#form_encaminhar_candidato').load('acoes.php', {
+            ID_PESSOA_ESTAGIARIO: $(this).attr('href'),
+            identifier: 'formEncaminharCandidato'
         }, hideLoaderForm);
         return false;
     });

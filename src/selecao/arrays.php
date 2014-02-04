@@ -12,7 +12,9 @@ $arrayOrgaoGestor = $VO->getArray('TX_ORGAO_GESTOR_ESTAGIO');
 $VO->buscarSolicitante();
 $arraySolicitante = $VO->getArray('TX_ORGAO_ESTAGIO');
 
-$arraySituacao = array('' => "Escolha...", 1 => "Aberta", 2 => "Fechada");
+$arraySituacao = array('' => "Escolha...", 1 => "Aberta", 2 => "Efetivada", 4 => "Cancelada");
+
+$arrayCHSemanal = array('' => 'Escolha...', 1 => '20 Horas', 2 => '25 Horas', 3 => '30 Horas');
 
 $arraySituacaoCandidato = array('' => "Escolha...", 1 => "Em Análise", 2 => "Aprovado", 3 => "Reprovado", 4 => "Cancelado");
 
