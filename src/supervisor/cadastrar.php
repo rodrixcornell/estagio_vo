@@ -18,15 +18,16 @@ $VO = new supervisorVO();
 
 if($_POST){
     $VO->configuracao();
-    $VO->setCaracteristica('ID_PESSOA_FUNCIONARIO,TX_CARGO,TX_FORMACAO,TX_TEMPO_EXPERIENCIA','obrigatorios');
+    $VO->setCaracteristica('ID_PESSOA_FUNCIONARIO,TX_CARGO,TX_FORMACAO,TX_EMAIL,TX_TEMPO_EXPERIENCIA','obrigatorios');
     $VO->setCaracteristica('NB_INSCRICAO_CONSELHO','numeros');
     $validar = $VO->preencher($_POST);
     
     if (!$validar) {
-        $retorno  = $VO->inserir();        
+        $retorno  = $VO->inserir();  
+        
 		if (!$retorno){
 			$codigo = explode('_', $VO->ID_PESSOA_FUNCIONARIO);
-		    $VO->ID_PESSOA_SUPERVISOR = $codigo[0];
+		        $VO->ID_PESSOA_SUPERVISOR = $codigo[0];
 			$VO->pesquisar();
 			$dados = $VO->getVetor();
 			

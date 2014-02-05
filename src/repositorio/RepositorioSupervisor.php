@@ -46,14 +46,14 @@ function pesquisarConselho($VO){
              return $this->sqlVetor($query);
   }
          
-function inserir($VO){
+  function inserir($VO){
        
        $codigo = explode('_', $VO->ID_PESSOA_FUNCIONARIO);
        $VO->ID_PESSOA_FUNCIONARIO = $codigo[0];
        $VO->NB_FUNCIONARIO = $codigo[1];
 
        $query = "
-            INSERT INTO SUPERVISOR_ESTAGIO(ID_PESSOA_SUPERVISOR, ID_PESSOA_FUNCIONARIO, NB_FUNCIONARIO, TX_CURRICULO, TX_FORMACAO, ID_CONSELHO, NB_INSCRICAO_CONSELHO, TX_CARGO, TX_TEMPO_EXPERIENCIA) 
+            INSERT INTO SUPERVISOR_ESTAGIO(ID_PESSOA_SUPERVISOR, ID_PESSOA_FUNCIONARIO, NB_FUNCIONARIO, TX_CURRICULO, TX_FORMACAO, ID_CONSELHO, NB_INSCRICAO_CONSELHO, TX_CARGO, TX_EMAIL, TX_TEMPO_EXPERIENCIA) 
             VALUES
             (".$VO->ID_PESSOA_FUNCIONARIO.",'"
 			  .$VO->ID_PESSOA_FUNCIONARIO."','"
@@ -61,9 +61,10 @@ function inserir($VO){
 			  .$VO->TX_CURRICULO."','"
 			  .$VO->TX_FORMACAO."','"
 			  .$VO->ID_CONSELHO."','"
-                          .$VO->TX_TEMPO_EXPERIENCIA."','"
-			  .$VO->NB_INSCRICAO_CONSELHO."','"
-			  .$VO->TX_CARGO."') ";
+                          .$VO->NB_INSCRICAO_CONSELHO."','"
+                          .$VO->TX_CARGO."','"
+                          .$VO->TX_EMAIL."','"
+                          .$VO->TX_TEMPO_EXPERIENCIA."') ";
 			  
      	$VO->ID_PESSOA_FUNCIONARIO = implode('_', $codigo);
 		
@@ -72,7 +73,7 @@ function inserir($VO){
    
 function buscar($VO) {
 	$query ="select ID_PESSOA_SUPERVISOR, ID_PESSOA_FUNCIONARIO||'_'||NB_FUNCIONARIO ID_PESSOA_FUNCIONARIO, 
-					TX_CURRICULO, ID_CONSELHO, NB_INSCRICAO_CONSELHO, TX_FORMACAO, TX_CARGO,TX_TEMPO_EXPERIENCIA
+					TX_CURRICULO, ID_CONSELHO, NB_INSCRICAO_CONSELHO, TX_FORMACAO, TX_CARGO,TX_TEMPO_EXPERIENCIA,TX_EMAIL
 				from SUPERVISOR_ESTAGIO
 				where ID_PESSOA_SUPERVISOR = '".$VO->ID_PESSOA_SUPERVISOR."'";
        
@@ -94,6 +95,7 @@ function alterar($VO) {
 						   ID_CONSELHO = '".$VO->ID_CONSELHO."',
 						   NB_INSCRICAO_CONSELHO = '".$VO->NB_INSCRICAO_CONSELHO."',
                                                    TX_TEMPO_EXPERIENCIA = '".$VO->TX_TEMPO_EXPERIENCIA."',
+                                                   TX_EMAIL = '".$VO->TX_EMAIL."',    
 						   TX_CARGO = '".$VO->TX_CARGO."'
 			            WHERE  ID_PESSOA_SUPERVISOR = '".$VO->ID_PESSOA_SUPERVISOR_ANT."'";
 		
