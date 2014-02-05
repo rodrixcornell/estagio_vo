@@ -768,7 +768,7 @@ class RepositorioSelecao extends Repositorio {
 
         $query .= "
               ORDER BY TX_NOME";
-        print_r($query);
+
         return $this->sqlVetor($query);
     }
 

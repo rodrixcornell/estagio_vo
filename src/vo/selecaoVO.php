@@ -188,7 +188,6 @@ class selecaoVO extends VO {
     }
 
     function enviarEmailAgencia() {
-
         global $path, $url, $pathArquivo;
         $phpmailer = new phpmailer_connect();
         $phpmailer->Priority = '1';
@@ -200,7 +199,6 @@ class selecaoVO extends VO {
 //        $dados = $this->getVetor();
 //        $this->repositorio->buscarSelecao($this);
         $dados = $this->getVetor();
-
 
         $assunto = "Emição de TCE para Candidatos - " . $dados['TX_COD_SELECAO'][0] . ' - Efetivada';
         $titulo = "<strong>Seleção de Candidato - " . $dados['TX_COD_SELECAO'][0] . ' - Efetivada</strong>';
@@ -217,6 +215,7 @@ class selecaoVO extends VO {
         $phpmailer->SetFrom('sistemas.semad@pmm.am.gov.br', 'Sistemas PMM - Gestão de Estágio Remunerado');
         //$phpmailer->AddAttachment($pathArquivo . "solicitacao/oferta_" . $this->ID_OFERTA_VAGA . ".pdf", "Oferta_Vaga_" . $dados['TX_COD_SELECAO'][0] . ".pdf");
 
+        print_r($this);
         $total = $this->repositorio->buscarEmailAgencia($this);
 
         if ($total) {
