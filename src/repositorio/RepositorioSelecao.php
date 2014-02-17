@@ -721,8 +721,14 @@ class RepositorioSelecao extends Repositorio {
     }
 
     function buscarEmailAgencia($VO) {
-        $query = "select TX_EMAIL from agencia_estagio where id_agencia_estagio = ".$VO->ID_AGENCIA_ESTAGIO;
-        print_r($query);
+        $query = "
+            SELECT
+                TX_EMAIL
+              FROM
+                AGENCIA_ESTAGIO
+              WHERE
+                ID_AGENCIA_ESTAGIO = ".$VO->ID_AGENCIA_ESTAGIO;
+
         return $this->sqlVetor($query);
     }
 

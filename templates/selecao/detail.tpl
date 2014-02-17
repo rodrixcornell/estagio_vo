@@ -51,9 +51,8 @@
 
                 {if $acesso}<div id="botoes">
                     {if $dados.CS_SITUACAO[0] == 2 && $gestor}
-                        <form action="'.$url.'src/selecao/detail.php" method="post" style="display:inline; border:none;">
-                            <input type="hidden" name="BT_ENCAMINHAR" id="BT_ENCAMINHAR" value="1" />
-                            <input type="image" src="{$urlimg}icones/encaminhar2.png" name="encaminhar" id="encaminhar" style="cursor:pointer;" /></form>{/if}
+                        <input type="hidden" name="BT_ENCAMINHAR" id="BT_ENCAMINHAR" value="1" />
+                        <input type="image" src="{$urlimg}icones/encaminhar2.png" name="encaminhar" id="encaminhar" style="cursor:pointer;" />{/if}
 
                     {if $dados.CS_SITUACAO[0] == 1 ||  $gestor}
                         <a href="{$url}src/{$pasta}/alterar.php"><img src="{$urlimg}icones/alterar.png"  alt="Alterar" title="Alterar" id="alterarMaster" /></a>

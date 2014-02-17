@@ -194,17 +194,48 @@ class selecaoVO extends VO {
         $phpmailer->CharSet = 'UTF-8';
         $phpmailer->SetLanguage("br", $path . "php/phpmailer/language/");
 
-        // Conteudo do Email
-        $this->repositorio->buscarAprovados($this);
-//        $dados = $this->getVetor();
-//        $this->repositorio->buscarSelecao($this);
-        $dados = $this->getVetor();
+        $total = $this->repositorio->buscarAprovados($this);
 
-        $assunto = "Emição de TCE para Candidatos - " . $dados['TX_COD_SELECAO'][0] . ' - Efetivada';
-        $titulo = "<strong>Seleção de Candidato - " . $dados['TX_COD_SELECAO'][0] . ' - Efetivada</strong>';
-        $mensagem = "Foi efetivado uma <strong>Seleção de Candidato</strong> solicitado pelo órgao <strong>" . $dados['TX_ORGAO_ESTAGIO'][0] . " </strong> de código <strong>" . $dados['TX_COD_SELECAO'][0] . "</strong> em <strong>" . $dados['DT_ATUALIZACAO'][0]
-                . "</strong> para sua análise e encaminhamento a agência de estágio através do <strong>Sistema de Gestão de Estágio Remunerado</strong> disponível em <a href=\"" . $url . "src/selecao/?s=1\">LINK</a>.";
-        $html = $titulo . "<br /><br />" . $mensagem . " <br /><br /><br /><br /><br /><br />
+        // Conteudo do Email
+        $assunto = "Emissão de TCE para Candidatos a Estágio";
+        $titulo = "<strong>Emissão de TCE para Candidatos a Estágio</strong>";
+
+        if ($total) {
+            $dados = $this->getVetor();
+
+            $mensagem = "
+                Presado(a) Senhor(a),<br /><br />
+                Sirvo-me do presente para autorizar a(s) emição(ões) do TCE para o(s) Estudante(s) relacionado(s) abaixo.<br />
+                Informamos ainda que a data para a emissão do novo TCE será a contar da data inicial de " . $dados['DT_ATUALIZACAO'][0] . ".<br />
+                Lembrando que só será permitido a emissão do0 novo TCE após a confirmação da validade da DECLARAÇÃO ou a apresentação de qualquer outro documento que comprove a matrícula ou rematricula.<br /><br /><br />";
+
+            $mensagem .= '
+                <table width="100%" id="tabelaItens" >
+                <tr>
+                    <th>ORD</th>
+                    <th>Nome</th>
+                    <th>CPF</th>
+                    <th>Curso</th>
+                    <th>C/Horária</th>
+                    <th>Vlr. Bolsa</th>
+                </tr>';
+
+            for ($i = 0; $i < $total; $i++) {
+                ($bgcolor == '#F0F0F0') ? $bgcolor = '#DDDDDD' : $bgcolor = '#F0F0F0';
+
+                $mensagem .= '
+                    <tr bgcolor="' . $bgcolor . '" onmouseover="mudarCor(this);" onmouseout="mudarCor(this);">
+                        <td align="center">' . $i . '</td>
+                        <td>' . $dados['TX_NOME'][$i] . '</td>
+                        <td align="center">' . $dados['CPF_COM_MASCARA'][$i] . '</td>
+                        <td align="center">' . $dados['TX_CURSO_ESTAGIO'][$i] . '</td>
+                        <td align="center">' . $dados['TX_TIPO_VAGA_ESTAGIO'][$i] . '</td>
+                        <td align="center">R$ ' . number_format($dados['NB_VALOR'][$i], 2, ',', '.') . '</td>';
+            }
+            $mensagem .= '</tr></table>';
+        }
+
+        $html = $titulo . "<br /><br />" . $mensagem . " <br /><br /><br /><br /><br /><br />" . $_SESSION['NOME'] . "<br />
         Desenvolvido pelo Departamento de Sistemas e Tecnologias da Informa&ccedil;&atilde;o - DSTI / 2009-" . date('Y') . "<br />
         Suporte: (92) 8842-7838 / 8855-1465 - sistemaspmm@pmm.am.gov.br<br />
         Secretaria Municipal de Administra&ccedil;&atilde;o - SEMAD";
@@ -215,8 +246,8 @@ class selecaoVO extends VO {
         $phpmailer->SetFrom('sistemas.semad@pmm.am.gov.br', 'Sistemas PMM - Gestão de Estágio Remunerado');
         //$phpmailer->AddAttachment($pathArquivo . "solicitacao/oferta_" . $this->ID_OFERTA_VAGA . ".pdf", "Oferta_Vaga_" . $dados['TX_COD_SELECAO'][0] . ".pdf");
 
-        print_r($this);
-        $total = $this->repositorio->buscarEmailAgencia($this);
+        //print_r($this);
+        $totalEmail = $this->repositorio->buscarEmailAgencia($this);
 
         if ($total) {
             $email = $this->getVetor();
@@ -227,9 +258,10 @@ class selecaoVO extends VO {
                 else
                     $phpmailer->AddCC($email['TX_EMAIL'][$i]);
             }
-            print_r($phpmailer);
             $phpmailer->Send();
         }
+        //print_r($dados);
+        //($phpmailer);
     }
 }
 
