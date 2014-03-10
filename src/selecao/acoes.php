@@ -1010,30 +1010,39 @@ else if ($_REQUEST['identifier'] == "formEncaminharCandidato") {
                 if ($("#TX_HORA_INICIO").val() == '') {
                     alert('Para inserir preencha Horário de Estágio Início.');
                     $("#TX_HORA_INICIO").focus();
+                    return falce;
                 } else if ($("#TX_HORA_FINAL").val() == '') {
                     alert('Para inserir preencha Horário de Estágio Final.');
                     $("#TX_HORA_FINAL").focus();
+                    return falce;
                 } else if ($("#CS_CARGA_HORARIA").val() == '') {
                     alert('Para inserir preencha Carga Horária Semanal.');
                     $("#CS_CARGA_HORARIA").focus();
+                    return falce;
                 } else if ($("#TX_ATIVIDADES").val() == '') {
                     alert('Para inserir preencha Atividades Iniciais de Estágio.');
                     $("#TX_ATIVIDADES").focus();
+                    return falce;
                 } else if ($("#ID_BOLSA_ESTAGIO").val() == '') {
                     alert('Para inserir preencha Bolsa-Auxílio Mensal.');
                     $("#ID_BOLSA_ESTAGIO").focus();
+                    return falce;
                 } else if ($("#NB_VALOR_TRANSPORTE").val() == '') {
                     alert('Para inserir preencha Auxílio Transporte.');
                     $("#NB_VALOR_TRANSPORTE").focus();
+                    return falce;
                 } else if ($("#ID_ORGAO_ESTAGIO").val() == '') {
                     alert('Para inserir preencha Unidade Concednte.');
                     $("#ID_ORGAO_ESTAGIO").focus();
+                    return falce;
                 } else if ($("#TX_LOCAL_ESTAGIO").val() == '') {
                     alert('Para inserir preencha Local de Estágio.');
                     $("#TX_LOCAL_ESTAGIO").focus();
+                    return falce;
                 } else if ($("#ID_PESSOA_SUPERVISOR").val() == '') {
                     alert('Para inserir preencha Supervisor.');
                     $("#ID_PESSOA_SUPERVISOR").focus();
+                    return falce;
                 } else {
                     $.post("acoes.php",{
                         ID_PESSOA_ESTAGIARIO:$("#ID_PESSOA_ESTAGIARIO").val(),
