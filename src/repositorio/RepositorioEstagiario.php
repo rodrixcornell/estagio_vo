@@ -107,6 +107,35 @@ class RepositorioEstagiario extends Repositorio {
         return $this->sqlVetor($query);
     }
 
+    function buscar($VO){
+
+        $query = "
+            select trim(upper(t.TX_NOME)) TX_NOME,
+                        t.CS_SEXO,
+                        to_char(t.DT_ATUALIZACAO, 'dd/mm/yyyy hh24:mi:ss') DT_ATUALIZACAO,
+                        replace(replace(t.NB_RG, '.',''), '-','') NB_RG,
+                        replace(replace(t.NB_CPF, '.',''), '-','') NB_CPF,
+                        to_char(t.DT_NASCIMENTO, 'dd/mm/yyyy') DT_NASCIMENTO,
+                        t.ID_PESSOA_ESTAGIARIO,
+                        t.ID_PESSOA_FUNCIONARIO,
+                        t.NB_FUNCIONARIO,
+                        replace(replace(t.TX_CEP, '.',''), '-','') TX_CEP,
+                        upper(t.TX_ENDERECO) TX_ENDERECO,
+                        replace(replace(t.NB_NUMERO, '.',''), '-','') NB_NUMERO,
+                        upper(t.TX_COMPLEMENTO) TX_COMPLEMENTO,
+                        upper(t.TX_BAIRRO) TX_BAIRRO,
+                        upper(t.TX_CONTATO) TX_CONTATO,
+                        upper(t.TX_EMAIL) TX_EMAIL,
+                        upper(t.TX_AGENCIA) TX_AGENCIA,
+                        upper(t.TX_CONTA_CORRENTE) TX_CONTA_CORRENTE
+                   from V_ESTAGIARIO t
+         where t.ID_PESSOA_ESTAGIARIO = '" . $VO->ID_PESSOA_ESTAGIARIO . "'";
+         // print_r($query);
+        return $this->sqlVetor($query);
+
+
+    }
+
     function checacpf($VO) {
 
         $query = "
@@ -200,6 +229,40 @@ class RepositorioEstagiario extends Repositorio {
 
         return $this->sql($query);
     }
+
+
+
+
+    function buscarCPF($VO) {
+
+        $query = "
+            SELECT P.ID_PESSOA, P.CS_TIPO_PESSOA, PF.CS_SEXO,
+                E.ID_PESSOA_ESTAGIARIO, E.ID_PESSOA_FUNCIONARIO, E.NB_FUNCIONARIO,
+                trim(upper(P.TX_NOME)) TX_NOME,
+                to_char(PF.DT_ATUALIZACAO, 'dd/mm/yyyy hh24:mi:ss') DT_ATUALIZACAO,
+                replace(replace(PF.NB_RG, '.',''), '-','') NB_RG,
+                replace(replace(PF.NB_CPF, '.',''), '-','') NB_CPF,
+                to_char(PF.DT_NASCIMENTO, 'dd/mm/yyyy') DT_NASCIMENTO,
+                replace(replace(E.TX_CEP, '.',''), '-','') TX_CEP,
+                upper(E.TX_ENDERECO) TX_ENDERECO,
+                replace(replace(E.NB_NUMERO, '.',''), '-','') NB_NUMERO,
+                upper(E.TX_COMPLEMENTO) TX_COMPLEMENTO,
+                upper(E.TX_BAIRRO) TX_BAIRRO,
+                upper(E.TX_CONTATO) TX_CONTATO,
+                upper(E.TX_EMAIL) TX_EMAIL,
+                upper(E.TX_AGENCIA) TX_AGENCIA,
+                upper(E.TX_CONTA_CORRENTE) TX_CONTA_CORRENTE
+              FROM
+                PESSOA P,
+                PESSOA_FISICA PF,
+                ESTAGIARIO E
+              WHERE P.ID_PESSOA   = PF.ID_PESSOA
+              AND P.ID_PESSOA = E.ID_PESSOA_ESTAGIARIO(+)
+              AND REPLACE(REPLACE(PF.NB_CPF, '.', ''), '-', '') = REPLACE(REPLACE('" . $VO->NB_CPF . "','.',''),'-','')";
+
+        return $this->sqlVetor($query);
+    }
+
 
 }
 

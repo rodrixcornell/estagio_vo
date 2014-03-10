@@ -19,7 +19,7 @@ if ($_SESSION['ID_PESSOA_ESTAGIARIO']){
 
     $VO->ID_PESSOA_ESTAGIARIO = $_SESSION['ID_PESSOA_ESTAGIARIO'];
 
-    $VO->pesquisar();
+    $VO->buscar();
     $VO->preencherVOBD($VO->getVetor());
 
     if($_POST){

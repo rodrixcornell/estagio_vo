@@ -9,8 +9,8 @@
         Para alterar um Estagiário preencha o formulário abaixo e clique em Salvar:<br /><br />
         <form name="form" action="{$url}src/{$pasta}/alterar.php" method="post">
 
-            <div id="camada" style="width:110px;"><font color="#FF0000">*</font>CPF<font color="#FF0000"> {$validar.NB_CPF} </font><br />
-                <input type="text" name="NB_CPF" id="NB_CPF" value="{$VO->NB_CPF}" style="width:100px;" /></div>
+            <div id="camada" style="width:110px;">CPF<font color="#FF0000"> {$validar.NB_CPF} </font><br />
+                <input type="text" name="NB_CPF" id="NB_CPF" value="{$VO->NB_CPF}" style="width:100px;" class="leitura" readonly="readonly"/></div>
 
 			<div id="camada" style="width:390px;"><font color="#FF0000">*</font>Nome<font color="#FF0000"> {$validar.TX_NOME} </font></br>
                 <input type="text" name="TX_NOME" id="TX_NOME" value="{$VO->TX_NOME}" style="width:380px;" /></div>

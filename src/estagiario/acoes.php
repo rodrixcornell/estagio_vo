@@ -112,4 +112,14 @@ if ($_REQUEST['identifier'] == "tabela"){
 	gerarTabela($erro);
         
 }
+else if ($_REQUEST['identifier'] == "buscarCPF") {
+
+    $VO->NB_CPF = $_REQUEST['NB_CPF'];
+
+    $VO->buscarCPF();
+    $dados = $VO->getVetor();
+
+    echo json_encode($dados);
+
+}
 ?>

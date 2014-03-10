@@ -32,6 +32,9 @@ class estagiarioVO extends VO{
 	function pesquisarFuncionario(){    
         return $this->repositorio->pesquisarFuncionario($this);
     }
-
+    function buscarCPF(){
+        return $this->repositorio->buscarCPF($this);
+    }
+  
 }
 ?>

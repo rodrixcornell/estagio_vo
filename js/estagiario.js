@@ -188,4 +188,126 @@ $(document).ready(function(){
 		return false;
 	});
 
+    function validarCPF(cpf) {
+        exp = /\.|-/g;
+        cpf = cpf.toString().replace(exp, "");
+        var digitoDigitado = eval(cpf.charAt(9) + cpf.charAt(10));
+        var digitoGerado = 0;
+        var soma1 = 0, soma2 = 0;
+        var vlr = 11;
+
+        for (i = 0; i < 9; i++) {
+            soma1 += eval(cpf.charAt(i) * (vlr - 1));
+            soma2 += eval(cpf.charAt(i) * vlr);
+            vlr--;
+        }
+
+        soma1 = (soma1 % 11) < 2 ? 0 : 11 - (soma1 % 11);
+        aux = soma1 * 2;
+        soma2 = soma2 + aux;
+        soma2 = (soma2 % 11) < 2 ? 0 : 11 - (soma2 % 11);
+
+        if (cpf == "11111111111" || cpf == "22222222222" || cpf == "33333333333" || cpf == "44444444444" || cpf == "55555555555"
+            || cpf == "66666666666" || cpf == "77777777777" || cpf == "88888888888" || cpf == "99999999999" || cpf == "00000000000") {
+            digitoGerado = null;
+        } else {
+            digitoGerado = eval(soma1.toString().charAt(0) + soma2.toString().charAt(0));
+        }
+
+        if (digitoGerado != digitoDigitado) {
+            return false;
+        }
+        return true;
+    }
+
+    //$("#TX_NOME,#NB_RG,#DT_NASCIMENTO,#CS_SEXO,#TX_CEP,#TX_ENDERECO,#NB_NUMERO,#TX_BAIRRO,#TX_COMPLEMENTO").val('');
+    //$("#TX_CONTATO,#TX_EMAIL,#TX_AGENCIA,#TX_CONTA_CORRENTE,#ID_PESSOA_ESTAGIARIO").val('');
+    $('#NB_CPF,#NB_RG').setMask({mask: '99999999999'});
+    $('#TX_AGENCIA,#TX_CONTA_CORRENTE').setMask({mask: '***********'});
+    $('#TX_CEP').setMask({mask: '999999999'});
+    $('#NB_NUMERO,#NB_PERIODO_ANO').setMask({mask: '*****'});
+    $('#DT_NASCIMENTO').setMask({mask: '99/99/9999'});
+    $('#DT_NASCIMENTO').datepicker({
+        changeMonth: true,
+        changeYear: true
+    });
+
+    $('#NB_INICIO_HORARIO,#NB_FIM_HORARIO').setMask({mask: '99:99'});
+    $('#NB_INICIO_HORARIO,#NB_FIM_HORARIO').timepicker();
+
+    //CPF
+    $("#NB_CPF").live('blur', function() {
+        //if($.trim($('#NB_CPF').val()) != ""){
+        if(validarCPF($("#NB_CPF").val())){
+            $("#carregando1").show();
+            $.getJSON('acoes.php',{
+                NB_CPF:$('#NB_CPF').val(),
+                identifier:'buscarCPF'
+            }, function(campo) {
+                //console.log();
+                if(campo['ID_PESSOA'] != 0){
+                    $("#TX_NOME").val(campo['TX_NOME'][0]);
+                    $("#NB_RG").val(campo['NB_RG'][0]);
+                    $("#DT_NASCIMENTO").val(campo['DT_NASCIMENTO'][0]);
+                    $("#CS_SEXO").val(campo['CS_SEXO'][0]);
+                    $("#TX_CEP").val(campo['TX_CEP'][0]);
+                    $("#TX_ENDERECO").val(campo['TX_ENDERECO'][0]);
+                    $("#NB_NUMERO").val(campo['NB_NUMERO'][0]);
+                    $("#TX_BAIRRO").val(campo['TX_BAIRRO'][0]);
+                    $("#TX_COMPLEMENTO").val(campo['TX_COMPLEMENTO'][0]);
+                    $("#TX_CONTATO").val(campo['TX_CONTATO'][0]);
+                    $("#TX_EMAIL").val(campo['TX_EMAIL'][0]);
+                    $("#TX_AGENCIA").val(campo['TX_AGENCIA'][0]);
+                    $("#TX_CONTA_CORRENTE").val(campo['TX_CONTA_CORRENTE'][0]);
+                    $("#ID_PESSOA_ESTAGIARIO").val(campo['ID_PESSOA_ESTAGIARIO'][0]);
+                    $("#ID_PESSOA").val(campo['ID_PESSOA'][0]);
+                    $("#carregando1").hide();
+                    $(".salvar").focus();
+                }else{
+                    //$("#TX_NOME,#NB_RG,#DT_NASCIMENTO,#CS_SEXO,#TX_CEP,#TX_ENDERECO,#NB_NUMERO,#TX_BAIRRO,#TX_COMPLEMENTO").val('');
+                    //$("#TX_CONTATO,#TX_EMAIL,#TX_AGENCIA,#TX_CONTA_CORRENTE,#ID_PESSOA_ESTAGIARIO").val('');
+                    $("#ID_PESSOA,#ID_PESSOA_ESTAGIARIO").val('');
+                    $("#carregando1").hide();
+                    //$("#TX_NOME").focus();
+                }
+            });
+        }else{
+            alert('CPF Inválido!');
+            //$("#NB_CPF").val('');
+            //$("#NB_CPF").focus();
+            $(".cancelar").focus();
+        }
+    });
+
+    //CEP
+    $('#TX_CEP').blur(function() {
+        if($.trim($('#TX_CEP').val()) != ""){
+            $("#carregando2").show();
+            $.getScript("http://cep.republicavirtual.com.br/web_cep.php?formato=javascript&cep="+$('#TX_CEP').val(), function(){
+                if(resultadoCEP["resultado"] != 0){
+                    //$('#TX_UF]').val(unescape(resultadoCEP["uf"]));
+                    //$('#TX_MUNICIPIO]').val(unescape(resultadoCEP["cidade"]));
+                    $('#TX_BAIRRO').val(unescape(resultadoCEP["bairro"]));
+                    $('#TX_ENDERECO').val(unescape(resultadoCEP["tipo_logradouro"])+" "+unescape(resultadoCEP["logradouro"]));
+                    $("#carregando2").hide();
+                    $('#NB_NUMERO').focus();
+                }else{
+                    alert('Cep não encontrado, por favor verifique o cep digitado.');
+                    //$('#TX_UF]').val('');
+                    //$('#TX_MUNICIPIO]').val('');
+                    $('#TX_BAIRRO]').val('');
+                    $('#TX_ENDERECO]').val('');
+                    $("#carregando2").hide();
+                    $('#TX_CEP]').focus();
+                }
+            });
+        }else{
+            //$('#TX_UF]').val('');
+            //$('#TX_MUNICIPIO]').val('');
+            $('#TX_BAIRRO]').val('');
+            $('#TX_ENDERECO]').val('');
+        }
+    });
+      
+
 });
