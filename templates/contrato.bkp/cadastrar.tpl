@@ -24,20 +24,15 @@
                 </div>
                 <div id="camada" style="font-family:Verdana, Geneva, sans-serif; width:280px;" >Secretário do Órgão Gestor
                     <input type="text" name="TX_FUNCIONARIO" id="TX_FUNCIONARIO" value="{$VO->TX_FUNCIONARIO}"  style="width:300px;" class="leitura" readonly="readonly" />
-                </div>
-                <br />
+                </div>  
+                <br />              
 
                 <div id="camada" style="font-family:Verdana, Geneva, sans-serif; width:920px;" >Endereço do Órgão Gestor
                     <input type="text" name="TX_ENDERECO_SEC" id="TX_ENDERECO_SEC" value="{$VO->TX_ENDERECO_SEC}"  style="width:910px;" class="leitura" readonly="readonly" />
                 </div>
                 <br />
 
-                <div id="camada" style="font-family:Verdana, Geneva, sans-serif; width:300px;" > <font color="#FF0000">*</font>Candidato<font color="#FF0000">{$validar.ID_PESSOA_ESTAGIARIO}</font><br />
-                    <select name="ID_PESSOA_ESTAGIARIO" id="ID_PESSOA_ESTAGIARIO" style="width:290px;">
-                        {html_options options=$arrayPessoaEstagiario selected=$VO->ID_PESSOA_ESTAGIARIO}
-                    </select>
-                </div>
-                <br />
+
 
                 <div id="camada" style="font-family:Verdana, Geneva, sans-serif; width:210px;" > <font color="#FF0000">*</font>Tipo de Contrato:<font color="#FF0000">{$validar.CS_TIPO}</font><br />
                     <select name="CS_TIPO" id="CS_TIPO" style="width:200px;">
@@ -45,13 +40,13 @@
                     </select>
                 </div>
 
-                {*<input type="radio" name="CS_SELECAO" ID="CHECK_RESP" value="1" disabled="disabled="><font color="#FF0000">*</font>Com Seleção ||<b> OU </b>||
-                <input type="radio" name="CS_SELECAO" ID="CHECK_RESP_2" value="2"><font color="#FF0000">*</font>Sem Seleção<font color="#FF0000"> {$validar.CS_SELECAO}</font>*}
+                <input type="radio" name="CS_SELECAO" ID="CHECK_RESP" value="1" disabled="disabled="><font color="#FF0000">*</font>Com Seleção ||<b> OU </b>||
+                <input type="radio" name="CS_SELECAO" ID="CHECK_RESP_2" value="2"><font color="#FF0000">*</font>Sem Seleção<font color="#FF0000"> {$validar.CS_SELECAO}</font>
 
                 <br />
 
             </fieldset>
-            <!-- FIm FildSet da Unidade Solicitante -->
+            <!-- FIm FildSet da Unidade Solicitante -->       
 
             <!--   FildSet para mostrar seleção caso o estagiario tenha seleção         -->
             <fieldset id="SELECAO_ID" style="display: none;">
@@ -79,14 +74,14 @@
                 <div id="camada" style="font-family:Verdana, Geneva, sans-serif; width:180px;" > <font color="#FF0000">*</font>Quadro Vagas Estagio:<font color="#FF0000">{$validar.ID_QUADRO_VAGAS_2}</font><br />
                     <select name="ID_QUADRO_VAGAS_ESTAGIO_2" id="ID_QUADRO_VAGAS_ESTAGIO_2" style="width:170px;">
                         {html_options options=$arrayQuadroVagas selected=$VO->ID_QUADRO_VAGAS_ESTAGIO_2}
-                    </select>
+                    </select>  
                 </div>
                 <div id="camada" style="font-family:Verdana, Geneva, sans-serif; width:310px;" > <font color="#FF0000">*</font>Tipo de Vagas:<font color="#FF0000">{$validar.CS_TIPO_VAGA_ESTAGIO}</font><br />
                     <select name="CS_TIPO_VAGA_ESTAGIO" id="CS_TIPO_VAGA_ESTAGIO" style="width:300px;">
                         {html_options options=$arrayTipoVagas selected=$VO->CS_TIPO_VAGA_ESTAGIO}
                     </select>
                 </div>
-
+                
             </fieldset>
 
             <!-- FildSet do Estagiário -->
@@ -95,48 +90,52 @@
                 <legend>Estagiário</legend>
                 <!-- Primeira linha do cadastro                -->
 
-
+                <div id="camada" style="font-family:Verdana, Geneva, sans-serif; width:300px;" > <font color="#FF0000">*</font>Candidato<font color="#FF0000">{$validar.ID_PESSOA_ESTAGIARIO}</font><br />
+                    <select name="ID_PESSOA_ESTAGIARIO" id="ID_PESSOA_ESTAGIARIO" style="width:290px;">
+                        {html_options options=$arrayPessoaEstagiario selected=$VO->ID_PESSOA_ESTAGIARIO}
+                    </select>
+                </div>                 
                 <div id="camada" style="font-family:Verdana, Geneva, sans-serif; width:160px;" >CPF
                     <input type="text" name="NB_CPF" id="NB_CPF" value="{$VO->NB_CPF}"  style="width:150px;" class="leitura" readonly="readonly" />
-                </div>
+                </div>  
                 <div id="camada" style="font-family:Verdana, Geneva, sans-serif; width:160px;" > <font color="#FF0000">*</font>Fone<font color="#FF0000">{$validar.TX_TELEFONE}</font><br />
                     <input type="text" name="TX_TELEFONE" id="TX_TELEFONE" value="{$VO->TX_TELEFONE}"  style="width:150px;" />
-                </div>
+                </div>  
                 <div id="camada" style="font-family:Verdana, Geneva, sans-serif; width:270px;" >Email
                     <input type="text" name="TX_EMAIL" id="TX_EMAIL" value="{$VO->TX_EMAIL}"  style="width:260px;" />
-                </div>
+                </div>  
                 <!-- fim Primeira linha do cadastro                -->
                 <br />
                 <!-- Segunda linha do cadastro        -->
 
                 <div id="camada" style="font-family:Verdana, Geneva, sans-serif; width:210px;" >RG
                     <input type="text" name="NB_RG" id="NB_RG" value="{$VO->NB_RG}"  style="width:200px;" class="leitura" readonly="readonly" />
-                </div>
+                </div>  
                 <div id="camada" style="font-family:Verdana, Geneva, sans-serif; width:690px;" > <font color="#FF0000">*</font>Endereço do Estagiario<font color="#FF0000">{$validar.TX_ENDERECO}</font><br />
                     <input type="text" name="TX_ENDERECO" id="TX_ENDERECO" value="{$VO->TX_ENDERECO}"  style="width:680px;" />
-                </div>
+                </div>  
                 <!-- fim Segunda linha do cadastro        -->
                 <br />
 
                 <!-- terceira linha do Cadastro               -->
                 <div id="camada" style="font-family:Verdana, Geneva, sans-serif; width:150px;" > <font color="#FF0000">*</font>Data Início Vigência<font color="#FF0000">{$validar.DT_INICIO_VIGENCIA}</font><br />
                     <input type="text" name="DT_INICIO_VIGENCIA" id="DT_INICIO_VIGENCIA" value="{$VO->DT_INICIO_VIGENCIA}"  style="width:140px;" />
-                </div>
+                </div>  
 
                 <div id="camada" style="font-family:Verdana, Geneva, sans-serif; width:150px;" > <font color="#FF0000">*</font>Data Fim Vigência<font color="#FF0000">{$validar.DT_FIM_VIGENCIA}</font><br />
                     <input type="text" name="DT_FIM_VIGENCIA" id="DT_FIM_VIGENCIA" value="{$VO->DT_FIM_VIGENCIA}"  style="width:140px;" />
-                </div>
+                </div>  
                 <div id="camada" style="font-family:Verdana, Geneva, sans-serif; width:150px;" > <font color="#FF0000">*</font> Início Horário Estágio<font color="#FF0000">{$validar.NB_INICIO_HORARIO}</font><br />
                     <input type="text" name="NB_INICIO_HORARIO" id="NB_INICIO_HORARIO" value="{$VO->NB_INICIO_HORARIO}"  style="width:140px;" />
-                </div>
+                </div>  
                 <div id="camada" style="font-family:Verdana, Geneva, sans-serif; width:150px;" >  <font color="#FF0000">*</font>Fim Horário Estágio<font color="#FF0000">{$validar.NB_FIM_HORARIO}</font><br />
                     <input type="text" name="NB_FIM_HORARIO" id="NB_FIM_HORARIO" value="{$VO->NB_FIM_HORARIO}"  style="width:140px;" />
-                </div>
+                </div>  
                 <div id="camada" style="font-family:Verdana, Geneva, sans-serif; width:290px;" >  <font color="#FF0000">*</font>Instituição de Ensino<font color="#FF0000">{$validar.ID_INSTITUICAO_ENSINO}</font><br />
                     <select name="ID_INSTITUICAO_ENSINO" id="ID_INSTITUICAO_ENSINO" style="width:280px;">
                         {html_options options=$arrayInstituicaoDeEnsino selected=$VO->ID_INSTITUICAO_ENSINO}
                     </select>
-                </div>
+                </div>    
                 <!-- fim terceira linha do Cadastro               -->
                 <br />
 
@@ -145,22 +144,22 @@
                     <select name="ID_CURSO_ESTAGIO" id="ID_CURSO_ESTAGIO" style="width:280px;">
                         {html_options options=$arrayCursoEstagio selected=$VO->ID_CURSO_ESTAGIO}
                     </select>
-                </div>
+                </div>  
                 <div id="camada" style="font-family:Verdana, Geneva, sans-serif; width:160px;" > <font color="#FF0000">*</font>Período<font color="#FF0000">{$validar.CS_PERIODO}</font><br />
                     <select name="CS_PERIODO" id="CS_PERIODO" style="width:150px;">
                         {html_options options=$arrayPeriodoEstagio selected=$VO->CS_PERIODO}
                     </select>
-                </div>
+                </div>  
                 <div id="camada" style="font-family:Verdana, Geneva, sans-serif; width:160px;" > <font color="#FF0000">*</font>Horário do Curso<font color="#FF0000">{$validar.CS_HORARIO_CURSO}</font><br />
                     <select name="CS_HORARIO_CURSO" id="CS_HORARIO_CURSO" style="width:150px;">
                         {html_options options=$arrayHorarioCurso selected=$VO->CS_HORARIO_CURSO}
                     </select>
-                </div>
+                </div>  
                 <div id="camada" style="font-family:Verdana, Geneva, sans-serif; width:285px;" > <font color="#FF0000">*</font>Agente de Integração<font color="#FF0000">{$validar.ID_AGENCIA_ESTAGIO}</font><br />
                     <select name="ID_AGENCIA_ESTAGIO" id="ID_AGENCIA_ESTAGIO" style="width:273px;">
                         {html_options options=$arrayAgenteIntegracao selected=$VO->ID_AGENCIA_ESTAGIO}
                     </select>
-                </div>
+                </div>  
                 <!-- fim quarta linha do cadastro              -->
                 <br />
                 <!--  quinta linha do cadastro              -->
@@ -172,18 +171,18 @@
                 </div>
                 <div id="camada" style="font-family:Verdana, Geneva, sans-serif; width:160px;" > Cargo/Função
                     <input type="text" name="TX_CARGO" id="TX_CARGO" value="{$VO->TX_CARGO}"  style="width:150px;"  class="leitura" readonly="readonly"  />
-                </div>
+                </div>  
 
                 <div id="camada" style="font-family:Verdana, Geneva, sans-serif; width:290px;" > <font color="#FF0000">*</font>Lotação<font color="#FF0000">{$validar.ID_LOTACAO}</font><br />
                     <select name="ID_LOTACAO" id="ID_LOTACAO" style="width:280px;">
                         {html_options options=$arrayLotacao selected=$VO->ID_LOTACAO}
                     </select>
-                </div>
+                </div> 
 
 
                 <div id="camada" style="font-family:Verdana, Geneva, sans-serif; width:150px;" > <font color="#FF0000">*</font>TCE<font color="#FF0000">{$validar.TX_TCE}</font><br />
                     <input type="text" name="TX_TCE" id="TX_TCE" value="{$VO->TX_TCE}"  style="width:140px;" />
-                </div>
+                </div>  
 
                 <!--  fim quinta linha do cadastro              -->
 
@@ -195,11 +194,11 @@
                     <select name="ID_BOLSA_ESTAGIO" id="ID_BOLSA_ESTAGIO" style="width:180px;">
                         {html_options options=$arrayBolsa selected=$VO->ID_BOLSA_ESTAGIO}
                     </select>
-                </div>
+                </div>     
 
                 <div id="camada" style="font-family:Verdana, Geneva, sans-serif; width:160px;" >Valor
                     <input type="text" name="NB_VALOR" id="NB_VALOR" value="{$VO->NB_VALOR}"  style="width:150px;"  class="leitura" readonly="readonly"  />
-                </div>
+                </div>  
 
 
                 <!--    fim  Sexta linha          -->
@@ -209,7 +208,7 @@
                 <!--     Setima linha   do cadastro        -->
 
                 <div id="camada" style="font-family:Verdana, Geneva, sans-serif; width:900px;"> <font color="#FF0000">*</font>Plano de Atividade <font color="#FF0000">{$validar.TX_PLANO_ATIVIDADE}</font><br />
-                    <textarea name="TX_PLANO_ATIVIDADE" id="TX_PLANO_ATIVIDADE" style="width:890px; height:80px;">{$VO->TX_PLANO_ATIVIDADE}</textarea></div><br />
+                    <textarea name="TX_PLANO_ATIVIDADE" id="TX_PLANO_ATIVIDADE" style="width:890px; height:80px;">{$VO->TX_PLANO_ATIVIDADE}</textarea></div><br />						  				
 
                 <br /><br />
 
@@ -222,7 +221,7 @@
 
             <br />
 
-            <input type="button" name="cancelar" id="cancelar" value="Cancelar" onclick="window.location.href = '{$url}src/{$pasta}/index.php'" />&nbsp;&nbsp;&nbsp;&nbsp;
+            <input type="button" name="cancelar" id="cancelar" value="Cancelar" onclick="window.location.href='{$url}src/{$pasta}/index.php'" />&nbsp;&nbsp;&nbsp;&nbsp;
             <input type="submit" name="salvar" id="salvar" value=" Salvar " />
 
         </form>
