@@ -90,8 +90,6 @@ class RepositorioContrato extends Repositorio {
             $VO->NB_CPF ? $query .= " And upper(D.NB_CPF) like upper('%" . $VO->NB_CPF . "%') " : false;
         }
 
-
-//        print_r($query);
         return $this->sqlVetor($query);
     }
 

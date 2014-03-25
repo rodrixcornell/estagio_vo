@@ -131,36 +131,8 @@ $(document).ready(function() {
 //        }
 //    });
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     $("input[name=CS_SELECAO]").click(function() {
         if ($('#CHECK_RESP').is(':checked')) {
-
 
             $("#ID_QUADRO_VAGAS_ESTAGIO_2 option:first").attr('selected', 'selected');
             $('#ID_QUADRO_VAGAS_ESTAGIO_2').attr("disabled", true);
