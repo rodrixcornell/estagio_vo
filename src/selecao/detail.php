@@ -27,7 +27,7 @@ if ($_SESSION['ID_SELECAO_ESTAGIO']) {
         exit;
     }
 //
-    if ($_POST['BT_ENCAMINHAR']) {
+   if ($_POST['BT_ENCAMINHAR']) {
         $VO->encaminharSelecao();
         $VO->enviarEmailAgencia();
         $VO->autorizarSelecao();

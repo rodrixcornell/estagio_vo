@@ -46,10 +46,12 @@ $(document).ready(function() {
         //$("#ID_OFERTA_VAGA").attr('disabled', true);
         $("#ID_OFERTA_VAGA").val('0');
         $('.comSelecao').hide();
+        $('.semSelecao').show();
     });
 
     $("#CHECK_RESP").click(function() {
         //$("#ID_OFERTA_VAGA").attr('disabled', false);
+         $('.semSelecao').hide();
         $('.comSelecao').show();
 
         $('#ID_ORGAO_ESTAGIO').change(function() {
@@ -68,7 +70,10 @@ $(document).ready(function() {
     });
 
     if ($("#CHECK_RESP").is(':checked')) {
+        $('.semSelecao').hide();
         $('.comSelecao').show();
+
+
     } else {
         $('.comSelecao').hide();
     }

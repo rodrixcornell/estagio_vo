@@ -74,7 +74,7 @@ $(document).ready(function() {
     });
 
     $("#encaminhar").live('click', function() {
-        resp = window.confirm('Tem certeza que deseja Encaminhar esta Seleção de Candidato para a Agência de Estágio?');
+      resp = window.confirm('Tem certeza que deseja Encaminhar esta Seleção de Candidato para a Agência de Estágio?');
         if (resp)
             $('#form').submit();
         else

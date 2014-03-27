@@ -144,6 +144,10 @@ class selecaoVO extends VO {
         return $this->repositorio->buscarAgencia($this);
     }
 
+    function buscarAgenciaSemSelecao(){
+        return $this->repositorio->buscarAgenciaSemSelecao($his);
+    }
+
     function enviarEmailEfetivado() {
 
         global $path, $url, $pathArquivo;

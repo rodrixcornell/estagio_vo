@@ -10,7 +10,16 @@ $titulopage = 'Quadro de vagas';
 session_start();
 
 // Iniciando Instância
-$_SESSION['ID_QUADRO_VAGAS_ESTAGIO'] = $_REQUEST['ID'];
+$sessao = explode('_',$_REQUEST['ID']);
+$_SESSION['ID_QUADRO_VAGAS_ESTAGIO']=$sessao[0];
 
-header("Location: " . $url . "src/" . $pasta . "/detail.php");
+// Caso seja Editar cadastro redireciona para o detail.php
+// 
+if($sessao[1]==1){
+	header("Location: " . $url . "src/" . $pasta . "/detail.php");
+}else{
+	header("Location: " . $url . "src/" . $pasta . "/tabela.php");
+}
+
+
 ?>

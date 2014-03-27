@@ -131,7 +131,7 @@ if ($_REQUEST['identifier'] == "tabela") {
                 <th style="width:150px;">Data de Atualização</th>';
         //Somente ver a coluna de alterar se tiver acesso completo a tela					
         //if ($acesso) 
-        echo '<th style="width:30px;"></th>';
+        echo '<th style="width:30px;"></th><th style="width:30px;"></th>';
         echo '</tr>';
 
         for ($i = 0; $i < $tot_da_pagina; $i++) {
@@ -148,7 +148,8 @@ if ($_REQUEST['identifier'] == "tabela") {
             //Somente ver a coluna de alterar se tiver acesso completo a tela					
             //if ($acesso) 
             echo '<td align="center"> 
-		  <a href="' . $dados['ID_QUADRO_VAGAS_ESTAGIO'][$i] . '" id="alterar"><img src="' . $urlimg . 'icones/editar.png" alt="itens" title="Alterar"/></a></td>';
+		          <a href="' . $dados['ID_QUADRO_VAGAS_ESTAGIO'][$i] . '_1" id="alterar"><img src="' . $urlimg . 'icones/editar.png" alt="itens" title="Alterar"/></a></td>
+                   <td align="center"> <a href="' . $dados['ID_QUADRO_VAGAS_ESTAGIO'][$i] . '" id="alterar"><img src="' . $urlimg . 'icones/visualizarItem.png" alt="itens" title="Visualisar"/></a></td>';
             echo '</tr>';
         }
 

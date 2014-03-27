@@ -821,6 +821,17 @@ class RepositorioSelecao extends Repositorio {
         return $this->sqlVetor($query);
     }
 
+    function buscarAgenciaSemSelecao($VO){
+
+        $query="SELECT 
+                ID_AGENCIA_ESTAGIO,
+                  ID_AGENCIA_ESTAGIO CODIGO,
+                  TX_AGENCIA_ESTAGIO
+                FROM 
+                    AGENCIA_ESTAGIO ";
+        return $this->sqlVetor($query);
+    }
+
     function verificarSituacaoAnalise($VO) {
 
         $query = "SELECT ESTAGIARIO_SELECAO.ID_SELECAO_ESTAGIO CONTADOR FROM ESTAGIARIO_SELECAO

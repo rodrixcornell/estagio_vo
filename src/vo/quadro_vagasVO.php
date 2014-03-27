@@ -70,6 +70,17 @@ class quadro_vagasVO extends VO {
         return $this->repositorio->verificarAtivo($this);
     }
 	
+    // Funçõe de tabela de visualizãção de quadra de vagas
+    function buscarAgenteIntegracao(){
+        return $this->repositorio->buscarAgenteIntegracao($this);
+    }
+
+    function buscarQuadroUnidades(){
+        return $this->repositorio->buscarQuadroUnidades($this);
+    }
+    function buscarQuadroVagasUnidade(){
+        return $this->repositorio->buscarQuadroVagasUnidade($this);
+    }
     //Relatorio
     function buscarOrgaoEstagio() {
         return $this->repositorio->buscarOrgaoEstagio($this);
@@ -78,6 +89,8 @@ class quadro_vagasVO extends VO {
     function buscarQuadroVagas() {
         return $this->repositorio->buscarQuadroVagas($this);
     }
+
+
 }
 
 ?>

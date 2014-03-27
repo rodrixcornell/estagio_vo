@@ -33,6 +33,12 @@
                     {html_options options=$arrayOfertaVaga selected=$VO->ID_OFERTA_VAGA}
                 </select></div>
 
+            <div id="camada" class="semSelecao" style="font-family:Verdana, Geneva, sans-serif; width:170px; display:none; float:left;">
+                <font color="#FF0000">*</font>Agencia de Integração <font color="#FF0000"> {$validar.ID_AGENCIA_ESTAGIO}</font>
+                <select name="ID_AGENCIA_ESTAGIO" id="ID_AGENCIA_ESTAGIO" style="width:150px;">
+                    {html_options options=$arrayAgencia  selected=$VO->ID_AGENCIA_ESTAGIO}
+                </select></div>
+
             <br /><br /><br /><br />
 
             <input type="button" name="cancelar" id="cancelar" value="Cancelar" onclick="window.location.href = '{$url}src/{$pasta}/index.php'" />&nbsp;&nbsp;&nbsp;&nbsp;

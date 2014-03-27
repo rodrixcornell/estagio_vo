@@ -367,5 +367,43 @@ class RepositorioQuadro_vagas extends Repositorio {
         //print_r($query);
         return $this->sqlVetor($query);
     }
+
+    // Funçõe de tabela de visualizãção de quadra de vagas
+    function buscarAgenteIntegracao($VO){
+      $query = "SELECT 
+                  TX_SIGLA,
+                  A.TX_AGENCIA_ESTAGIO,
+                  A.ID_AGENCIA_ESTAGIO,
+                  A.ID_AGENCIA_ESTAGIO CODIGO
+                FROM AGENCIA_ESTAGIO A";
+      return $this->sqlVetor($query);
+
+    }
+    function buscarQuadroUnidades($VO){
+      $query ="SELECT DISTINCT 
+                    O.TX_ORGAO_ESTAGIO,
+                    O.ID_ORGAO_ESTAGIO,
+                    O.ID_ORGAO_ESTAGIO CODIGO
+               FROM 
+                      QUADRO_VAGAS_ESTAGIO Q,
+                      VAGAS_ESTAGIO V,
+                      ORGAO_ESTAGIO O
+               WHERE  V.ID_ORGAO_ESTAGIO          = O.ID_ORGAO_ESTAGIO
+                  AND Q.ID_QUADRO_VAGAS_ESTAGIO = V.ID_QUADRO_VAGAS_ESTAGIO
+                  AND V.ID_AGENCIA_ESTAGIO = '".$VO->ID_AGENCIA_ESTAGIO_TABELA ."'";
+      return $this->sqlVetor($query);
+    }
+    function buscarQuadroVagasUnidade($VO){
+      $query ="SELECT
+                  V.NB_QUANTIDADE,
+                  T.CS_TIPO_VAGA_ESTAGIO  
+                FROM 
+                  VAGAS_ESTAGIO V,
+                  TIPO_VAGA_ESTAGIO T
+                where V.CS_TIPO_VAGA_ESTAGIO = T.CS_TIPO_VAGA_ESTAGIO
+                and V.ID_ORGAO_ESTAGIO    = '".$VO->ID_ORGAO_ESTAGIO."'
+                AND V.ID_AGENCIA_ESTAGIO  = '".$VO->ID_AGENCIA_ESTAGIO."'";
+      return $this->sqlVetor($query);
+    }
 }
 ?>
