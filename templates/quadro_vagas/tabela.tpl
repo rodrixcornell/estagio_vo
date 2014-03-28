@@ -14,11 +14,14 @@
     	<fieldset>
     		<legend>VAGAS PREENCHIDAS</legend>
     		<table id="tabela" align="center" style="margin-top:3px; collapse; border: solid 1px #CCC;">
+
+                {$tabelaPreenchida}
     		</table>
     	</fieldset>
     	<fieldset>
     		<legend>VAGAS EM ABERTO</legend>
     		<table id="tabela" align="center" style="margin-top:3px; collapse; border: solid 1px #CCC;">
+                {$tabelaAberta}
     		</table> 
     	</fieldset>
     </fieldset>

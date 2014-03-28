@@ -379,31 +379,62 @@ class RepositorioQuadro_vagas extends Repositorio {
       return $this->sqlVetor($query);
 
     }
-    function buscarQuadroUnidades($VO){
-      $query ="SELECT DISTINCT 
-                    O.TX_ORGAO_ESTAGIO,
-                    O.ID_ORGAO_ESTAGIO,
-                    O.ID_ORGAO_ESTAGIO CODIGO
-               FROM 
-                      QUADRO_VAGAS_ESTAGIO Q,
-                      VAGAS_ESTAGIO V,
-                      ORGAO_ESTAGIO O
-               WHERE  V.ID_ORGAO_ESTAGIO          = O.ID_ORGAO_ESTAGIO
-                  AND Q.ID_QUADRO_VAGAS_ESTAGIO = V.ID_QUADRO_VAGAS_ESTAGIO
-                  AND V.ID_AGENCIA_ESTAGIO = '".$VO->ID_AGENCIA_ESTAGIO_TABELA ."'";
-      return $this->sqlVetor($query);
-    }
-    function buscarQuadroVagasUnidade($VO){
-      $query ="SELECT
-                  V.NB_QUANTIDADE,
-                  T.CS_TIPO_VAGA_ESTAGIO  
-                FROM 
+    function buscarQuadroVagasUnidades($VO){
+      $query ="SELECT DISTINCT O.TX_ORGAO_ESTAGIO,
+                  O.ID_ORGAO_ESTAGIO,
+                  O.ID_ORGAO_ESTAGIO CODIGO,
+                  NVL(
+                  (SELECT VI.NB_QUANTIDADE
+                  FROM VAGAS_ESTAGIO VI,
+                    TIPO_VAGA_ESTAGIO T
+                  WHERE VI.CS_TIPO_VAGA_ESTAGIO = T.CS_TIPO_VAGA_ESTAGIO
+                  AND VI.ID_ORGAO_ESTAGIO       = O.ID_ORGAO_ESTAGIO
+                  AND VI.ID_AGENCIA_ESTAGIO     = V.ID_AGENCIA_ESTAGIO
+                  AND VI.CS_TIPO_VAGA_ESTAGIO   =1
+                  ),0) VAGAS_NIVEL_MEDIO,
+                  NVL(
+                  (SELECT VI.NB_QUANTIDADE
+                  FROM VAGAS_ESTAGIO VI,
+                    TIPO_VAGA_ESTAGIO T
+                  WHERE VI.CS_TIPO_VAGA_ESTAGIO = T.CS_TIPO_VAGA_ESTAGIO
+                  AND VI.ID_ORGAO_ESTAGIO       = O.ID_ORGAO_ESTAGIO
+                  AND VI.ID_AGENCIA_ESTAGIO     = V.ID_AGENCIA_ESTAGIO
+                  AND VI.CS_TIPO_VAGA_ESTAGIO   =2
+                  ) ,0)VAGAS_SUP_4_HORAS,
+                  NVL(
+                  (SELECT VI.NB_QUANTIDADE
+                  FROM VAGAS_ESTAGIO VI,
+                    TIPO_VAGA_ESTAGIO T
+                  WHERE VI.CS_TIPO_VAGA_ESTAGIO = T.CS_TIPO_VAGA_ESTAGIO
+                  AND VI.ID_ORGAO_ESTAGIO       = O.ID_ORGAO_ESTAGIO
+                  AND VI.ID_AGENCIA_ESTAGIO     = V.ID_AGENCIA_ESTAGIO
+                  AND VI.CS_TIPO_VAGA_ESTAGIO   =3
+                  ) ,0)VAGAS_SUP_5_HORAS,
+                  NVL(
+                  (SELECT VI.NB_QUANTIDADE
+                  FROM VAGAS_ESTAGIO VI,
+                    TIPO_VAGA_ESTAGIO T
+                  WHERE VI.CS_TIPO_VAGA_ESTAGIO = T.CS_TIPO_VAGA_ESTAGIO
+                  AND VI.ID_ORGAO_ESTAGIO       = O.ID_ORGAO_ESTAGIO
+                  AND VI.ID_AGENCIA_ESTAGIO     = V.ID_AGENCIA_ESTAGIO
+                  AND VI.CS_TIPO_VAGA_ESTAGIO   =4
+                  ) ,0)VAGAS_SUP_6_HORAS,
+                  NVL(
+                  (SELECT SUM(VI.NB_QUANTIDADE)
+                  FROM VAGAS_ESTAGIO VI,
+                    TIPO_VAGA_ESTAGIO T
+                  WHERE VI.CS_TIPO_VAGA_ESTAGIO = T.CS_TIPO_VAGA_ESTAGIO
+                  AND VI.ID_ORGAO_ESTAGIO       = O.ID_ORGAO_ESTAGIO
+                  AND VI.ID_AGENCIA_ESTAGIO     = V.ID_AGENCIA_ESTAGIO
+                  ) ,0)VAGAS_TOTAL
+                FROM QUADRO_VAGAS_ESTAGIO Q,
                   VAGAS_ESTAGIO V,
-                  TIPO_VAGA_ESTAGIO T
-                where V.CS_TIPO_VAGA_ESTAGIO = T.CS_TIPO_VAGA_ESTAGIO
-                and V.ID_ORGAO_ESTAGIO    = '".$VO->ID_ORGAO_ESTAGIO."'
-                AND V.ID_AGENCIA_ESTAGIO  = '".$VO->ID_AGENCIA_ESTAGIO."'";
+                  ORGAO_ESTAGIO O
+                WHERE V.ID_ORGAO_ESTAGIO      = O.ID_ORGAO_ESTAGIO
+                AND Q.ID_QUADRO_VAGAS_ESTAGIO = V.ID_QUADRO_VAGAS_ESTAGIO
+                AND V.ID_AGENCIA_ESTAGIO = '".$VO->ID_AGENCIA_ESTAGIO_TABELA ."'";
       return $this->sqlVetor($query);
     }
+    
 }
 ?>

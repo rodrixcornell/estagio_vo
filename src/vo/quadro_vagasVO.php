@@ -75,11 +75,8 @@ class quadro_vagasVO extends VO {
         return $this->repositorio->buscarAgenteIntegracao($this);
     }
 
-    function buscarQuadroUnidades(){
-        return $this->repositorio->buscarQuadroUnidades($this);
-    }
-    function buscarQuadroVagasUnidade(){
-        return $this->repositorio->buscarQuadroVagasUnidade($this);
+    function buscarQuadroVagasUnidades(){
+        return $this->repositorio->buscarQuadroVagasUnidades($this);
     }
     //Relatorio
     function buscarOrgaoEstagio() {
