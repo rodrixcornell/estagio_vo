@@ -39,5 +39,18 @@ class RepositorioUsuario extends Repositorio {
 		return $this->sqlVetor($query);
 			
 	}
+
+	function inserirRegistroAcesso($VO){
+		
+		$query = "INSERT INTO REGISTRO_ACESSO (ID_REGISTRO_ACESSO, DT_ACESSO, ID_USUARIO, ID_SISTEMA, TX_IP)
+    				VALUES( SEMAD.F_G_PK_REGISTRO_ACESSO,
+    						SYSDATE,
+    						'".$VO->ID_USUARIO."',
+    						'".$VO->ID_SISTEMA."',
+    						'".$_SERVER["REMOTE_ADDR"]."' )";
+
+		return $this->sql($query);
+			
+	}
 }
 ?>

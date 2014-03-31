@@ -21,6 +21,10 @@ class usuarioVO extends VO{
 	function verificaPermissao(){
             return $this->repositorio->verificaPermissao($this);
     }
+
+    function inserirRegistroAcesso(){
+            return $this->repositorio->inserirRegistroAcesso($this);
+    }
 		
 }
 ?>

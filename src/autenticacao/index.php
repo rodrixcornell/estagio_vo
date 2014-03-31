@@ -22,10 +22,12 @@ if ($_POST['validaLogin']){
 			
 			//Verifica se o usuario esta no sistema estoque e modulos
 			$VO->ID_USUARIO = $user['ID_USUARIO'][0];
+			$VO->ID_SISTEMA = 77;
 			$permissaoGrupo = $VO->verificaGrupo();
 			
 			if ($permissaoGrupo){
 				$VO->preencherSession($user);
+				$VO->inserirRegistroAcesso();
 				$_SESSION['usuario'] = $usuario;
 				$_SESSION['senha'] = $senha;
 				
