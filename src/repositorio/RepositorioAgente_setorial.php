@@ -116,7 +116,8 @@ class RepositorioAgente_setorial extends Repositorio {
                     FROM ORGAO_ESTAGIO C ,ORGAO_AGENTE_SETORIAL B,UNIDADE_ORG A
                     WHERE C.ID_ORGAO_ESTAGIO =B.ID_ORGAO_ESTAGIO
                     and A.ID_UNIDADE_ORG = C.ID_UNIDADE_ORG
-                    and B.ID_SETORIAL_ESTAGIO = " . $VO->ID_SETORIAL_ESTAGIO;
+                    and B.ID_SETORIAL_ESTAGIO = " . $VO->ID_SETORIAL_ESTAGIO ."
+                    order by TX_UNIDADE_ORG";
 
         if ($VO->Reg_quantidade) {
             !$VO->Reg_inicio ? $VO->Reg_inicio = 0 : false;
@@ -132,7 +133,8 @@ class RepositorioAgente_setorial extends Repositorio {
             ID_ORGAO_ESTAGIO,
             ID_ORGAO_ESTAGIO CODIGO
 
-            from ORGAO_ESTAGIO";
+            from ORGAO_ESTAGIO
+            order by TX_ORGAO_ESTAGIO";
 
         return $this->sqlVetor($query);
     }

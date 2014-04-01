@@ -20,7 +20,7 @@
         <li {if $current == 2}class="current"{/if}><a href="#"><span>Gestão de Estagiário</span></a>
             <div><ul>
                     <li><a href="{$url}src/solicitacao/?s=1"><span>3-Oferta de Vaga</span></a></li>
-                    <li><a href="{$url}src/estagiario/?s=1"><span>2-Candidato à Estágio</span></a></li>
+                    <li><a href="{$url}src/estagiario/?s=1"><span>2-Estágio</span></a></li>
                     <li><a href="{$url}src/selecao/?s=1"><span>6-Seleção de Estagiário</span></a></li>
                     <li><a href="{$url}src/contrato/?s=1"><span>7-Contrato de Estágio</span></a></li>
                     <li><a href="{$url}src/recesso/?s=1"><span>9-Recesso Remunerado</span></a></li>
