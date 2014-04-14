@@ -16,15 +16,15 @@ function gerarTabela($param = '') {
     $acesso = $GLOBALS['acesso']; //Acessar a Variavel global; --------------------------------------------------------------------------------
 
     $VO = new contratoVO();
-    $VO->ID_ORGAO_GESTOR_ESTAGIO = $_REQUEST['ID_ORGAO_GESTOR_ESTAGIO'];
-    $VO->ID_ORGAO_ESTAGIO = $_REQUEST['ID_ORGAO_ESTAGIO'];
-    $VO->ID_SELECAO_ESTAGIO = $_REQUEST['ID_SELECAO_ESTAGIO'];
-    $VO->TX_TCE = $_REQUEST['TX_TCE'];
-    $VO->TX_NOME = $_REQUEST['TX_NOME'];
-    $VO->NB_CPF = $_REQUEST['NB_CPF'];
-    $VO->CHECK_RESP = $_REQUEST['CHECK_RESP'];
-    $VO->CHECK_RESP_2 = $_REQUEST['CHECK_RESP_2'];
-
+    $VO->ID_ORGAO_GESTOR_ESTAGIO 	= $_REQUEST['ID_ORGAO_GESTOR_ESTAGIO'];
+    $VO->ID_ORGAO_ESTAGIO 			= $_REQUEST['ID_ORGAO_ESTAGIO'];
+    $VO->ID_SELECAO_ESTAGIO 		= $_REQUEST['ID_SELECAO_ESTAGIO'];
+    $VO->TX_TCE 					= $_REQUEST['TX_TCE'];
+    $VO->TX_NOME 					= $_REQUEST['TX_NOME'];
+    $VO->NB_CPF 					= $_REQUEST['NB_CPF'];
+    $VO->CHECK_RESP 				= $_REQUEST['CHECK_RESP'];
+    $VO->CHECK_RESP_2 				= $_REQUEST['CHECK_RESP_2'];
+    
     $page = $_REQUEST['PAGE'];
 
     $VO->preencherSessionPesquisar($_REQUEST);
@@ -54,7 +54,7 @@ function gerarTabela($param = '') {
 					<th style="width:80px;">TCE</th>
                     <th>Estagiário</th>
                     <th style="width:80px;">CPF</th>';
-        //Somente ver a coluna de alterar se tiver acesso completo a tela --------------------------------------------------------------------------------
+        //Somente ver a coluna de alterar se tiver acesso completo a tela --------------------------------------------------------------------------------					
         if ($acesso)
             echo '<th style="width:30px;"></th>';
         echo '</tr>';
@@ -73,9 +73,9 @@ function gerarTabela($param = '') {
                     <td align="center">' . $dados['NB_CPF'][$i] . '</td>';
 
 
-            //Somente ver a coluna de alterar se tiver acesso completo a tela	--------------------------------------------------------------------------
+            //Somente ver a coluna de alterar se tiver acesso completo a tela	--------------------------------------------------------------------------				
             if ($acesso)
-                echo '<td align="center">
+                echo '<td align="center"> 
                        <a href="' . $dados['ID_CONTRATO'][$i] . '" id="alterar"><img src="' . $urlimg . 'icones/editar.png" alt="itens" title="Alterar"/></a></td>';
             echo '</tr>';
         }
@@ -127,7 +127,8 @@ else if ($_REQUEST['identifier'] == "codSelecao") {
             echo '<option value="' . $dados['CODIGO'][$i] . '">' . $dados['TX_COD_SELECAO'][$i] . '</option>';
         }
     }
-} else if ($_REQUEST['identifier'] == "codSelecaoIndex") {
+}
+else if ($_REQUEST['identifier'] == "codSelecaoIndex") {
 
     $VO->ID_ORGAO_ESTAGIO = $_REQUEST['ID_ORGAO_ESTAGIO'];
 
@@ -162,9 +163,9 @@ else if ($_REQUEST['identifier'] == "candidato") {
     $VO->ID_SELECAO_ESTAGIO = $_REQUEST['ID_SELECAO_ESTAGIO'];
 
     $total = $VO->buscarCandidato();
-    echo '<option value="">Escolha...</option>';
+	echo '<option value="">Escolha...</option>';
     if ($total) {
-        $dados = $VO->getVetor();
+        $dados = $VO->getVetor();    
         for ($i = 0; $i < $total; $i++) {
             echo '<option value="' . $dados['CODIGO'][$i] . '">' . $dados['TX_NOME'][$i] . '</option>';
         }
@@ -174,9 +175,9 @@ else if ($_REQUEST['identifier'] == "candidato") {
 else if ($_REQUEST['identifier'] == "candidatoSemSelecao") {
 
     $total = $VO->buscarEstagiarioSemSelecao();
-    echo '<option value="">Escolha...</option>';
+	echo '<option value="">Escolha...</option>';
     if ($total) {
-        $dados = $VO->getVetor();
+        $dados = $VO->getVetor();    
         for ($i = 0; $i < $total; $i++) {
             echo '<option value="' . $dados['CODIGO'][$i] . '">' . $dados['TX_NOME'][$i] . '</option>';
         }
@@ -208,7 +209,7 @@ else if ($_REQUEST['identifier'] == "cargoSupervisor") {
     $VO->buscarCargoSupervisor();
     $dados = $VO->getVetor();
 
-
+        
     echo $dados['TX_CARGO'][0];
 }
 // buscar o valor da bolsa do estagio --------------------------------------------------------------------------
@@ -219,7 +220,7 @@ else if ($_REQUEST['identifier'] == "buscarValor") {
     $VO->buscarBolsa();
     $dados = $VO->getVetor();
 
-
+        
     echo $dados['NB_VALOR'][0];
 }
 // buscar todos os documentos(CPF & RG) do candidato-------------------------------------------------------------
@@ -232,7 +233,8 @@ else if ($_REQUEST['identifier'] == "buscarDocuments") {
 //    $dados= $VO->buscarDocuments();
 
     echo json_encode($dados);
-} else if ($_REQUEST['identifier'] == "buscarQuadroVagas") {
+}
+else if ($_REQUEST['identifier'] == "buscarQuadroVagas") {
 
     $VO->ID_SELECAO_ESTAGIO = $_REQUEST['ID_SELECAO_ESTAGIO'];
 

@@ -45,6 +45,7 @@ $(document).ready(function() {
     });
 
     $("#efetivar").live('click', function() {
+        alert($('.quantidade').text());
         if (!$('.icones').length) {
             alert('Este registro não pode ser Efetivado pois Não possui Candidato.');
             return false;

@@ -9,7 +9,7 @@ class RepositorioAgente_setorial extends Repositorio {
         $query = "SELECT DISTINCT
                             V_PERFIL_USUARIO.ID_USUARIO CODIGO,
                             V_PERFIL_USUARIO.ID_USUARIO ID_USUARIO_RESP,
-                            PESSOA.TX_NOME TX_FUNCIONARIO,
+                            upper(PESSOA.TX_NOME) TX_FUNCIONARIO,
                             USUARIO.TX_LOGIN
                         FROM
                             V_PERFIL_USUARIO,

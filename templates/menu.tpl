@@ -22,7 +22,7 @@
                     <li><a href="{$url}src/solicitacao/?s=1"><span>3-Oferta de Vaga</span></a></li>
                     <li><a href="{$url}src/estagiario/?s=1"><span>2-Estágio</span></a></li>
                     <li><a href="{$url}src/selecao/?s=1"><span>6-Seleção de Estagiário</span></a></li>
-                    <li><a href="{$url}src/contrato/?s=1"><span>7-Contrato de Estágio</span></a></li>
+                    <li><a href="{$url}src/contrato/?s=1"><span>7-Contrato de Estagiário</span></a></li>
                     <li><a href="{$url}src/recesso/?s=1"><span>9-Recesso Remunerado</span></a></li>
                     <li><a href="{$url}src/tr/?s=1"><span>8-Solicitação de TR</span></a></li>
                     <li><a href="{$url}src/desligamento/?s=1"><span>10-Solicitação de Desligamento</span></a></li>
