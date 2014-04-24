@@ -34,8 +34,8 @@ $pathArquivo = $path . 'arquivo/';
 
 //banco
 
-//$ipBanco = "172.18.0.33:1521/pmm";
-$ipBanco = "172.18.1.160:1521/pmm";
+$ipBanco = "172.18.0.33:1521/pmm";
+//$ipBanco 		= "172.18.1.160:1521/pmm";
 $usuario = $_SESSION['usuario'];
 $senha = $_SESSION['senha'];
 $sid_oracle = "SEMAD";
