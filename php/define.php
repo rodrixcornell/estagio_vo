@@ -4,7 +4,7 @@ set_time_limit(180);
 //error_reporting(0);
 session_start();
 
-$srv = 0;
+$srv = 1;
 
 switch ($srv) {
     case 0: // Desenvolvimento
@@ -13,9 +13,9 @@ switch ($srv) {
         $path = $_SERVER['DOCUMENT_ROOT'] . $projeto;
         break;
     case 1: // Homologacao
-        $projeto = "/semad/estagio/";
-        $url = 'http://' . $_SERVER[SERVER_NAME] . $projeto;
-        $path = $_SERVER['DOCUMENT_ROOT'] . $projeto;
+        $projeto = "/sistemaspmm/estoque/";
+        $url = 'http://'.$_SERVER[SERVER_NAME].$projeto;
+        $path = $_SERVER['DOCUMENT_ROOT'].'/sistemaspmm/estoque/';
         break;
     case 3: // Producao
         $projeto = "/estagio/";
