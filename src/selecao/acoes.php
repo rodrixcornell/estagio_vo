@@ -1218,4 +1218,3 @@ else if ($_REQUEST['identifier'] == "alterarCandidatoAprovado") {
         echo 'Você não tem permissão para realizar esta ação.';
 
 }
-?>
