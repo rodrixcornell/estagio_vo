@@ -6,25 +6,23 @@ session_start();
 $srv = 3;
 
 switch ($srv) {
-	case 0:	// Desenvolvimento
-		$projeto = "/semad/estagio/";
-		$url = 'http://' . $_SERVER[SERVER_NAME] . $projeto;
-		$path = $_SERVER['DOCUMENT_ROOT'] . $projeto;
-		$ipBanco = "curuduri:1521/pmm";
-		break;
-	case 1:	// Homologacao
-		$projeto = "/sistemaspmm/estoque/";
-		$url = 'http://' . $_SERVER[SERVER_NAME] . $projeto;
-		$path = $_SERVER['DOCUMENT_ROOT'] . '/sistemaspmm/estoque/';
-		$ipBanco = "curuduri:1521/pmm";
-		break;
-	case 3:	// Producao
-		$projeto = "/estagio/";
-		$url = 'http://' . $_SERVER[SERVER_NAME] . $projeto;
-		$path = $_SERVER['DOCUMENT_ROOT'] . "estagio/";
-		$ipBanco = "pitua:1521/pmm";
-		break;
+    case 0:// Desenvolvimento
+        $projeto = "/semad/estagio/";
+        $ipBanco = "curuduri:1521/pmmdev";
+        break;
+    case 1:// Homologacao
+        //$projeto = "/sistemaspmm/estoque/";
+        $projeto = "/estoque/";
+        $ipBanco = "curuduri:1521/pmmdev";
+        break;
+    case 3:// Producao
+        $projeto = "/estagio/";
+        $ipBanco = "pitua:1521/pmm";
+        break;
 }
+
+$url = 'http://' . $_SERVER[SERVER_NAME] . $projeto;
+$path = $_SERVER['DOCUMENT_ROOT'] . $projeto;
 
 $titulo = 'Gestão de Estágio Remunerado - Prefeitura de Manaus';
 $urlcss = $url . 'css/';
@@ -43,7 +41,7 @@ $sid_oracle = "SEMAD";
 
 $GLOBALS["pathimg"] = $pathimg;
 $GLOBALS["pathArquivo"] = $pathArquivo;
-$GLOBALS["projeto"] = $projeto; //caminho do projeto depois de document_root
+$GLOBALS["projeto"] = $projeto;//caminho do projeto depois de document_root
 //Configurações Smarty
 
 require_once $path . "php/Smarty/Smarty.class.php";
@@ -72,18 +70,31 @@ $arrayMesExtenso[12] = "dezembro";
 
 //Se nao estiver logado redireciona para  pagina de login
 if (!$_SESSION['usuario'] && $projeto . "src/autenticacao/index.php" != $_SERVER['PHP_SELF'] && strpos($_SERVER['PHP_SELF'], 'estagio') > 0) {
-	header("Location: " . $url . "src/autenticacao/index.php?url=" . $_SERVER['REQUEST_URI']);
+    header("Location: " . $url . "src/autenticacao/index.php?url=" . $_SERVER['REQUEST_URI']);
 }
 
 //Topo Bem vindo usuario
-if ($usuario) {
-	$smarty->assign("msgAuthLeft", "Bem vindo, " . $_SESSION['NOME']
-		. "&nbsp;&nbsp;&nbsp;&nbsp;<a href='" . $url . "src/autenticacao/trocaSenha.php'><img src='" . $urlimg . "topo/senha.png' /></a>"
-		. "&nbsp;&nbsp;&nbsp;&nbsp;<a href='" . $url . "src/autenticacao/logout.php'><img src='" . $urlimg . "topo/sair.png' /></a>"
-		. "&nbsp;&nbsp;&nbsp;&nbsp;<a href='http://sistemaspmm.manaus.am.gov.br/'><img src='" . $urlimg . "topo/home.png' /></a>");
-} else {
-	$smarty->assign("msgAuthLeft", "<a href='" . $url . "'><img src='" . $urlimg . "topo/entrar.png' /></a>"
-		. "&nbsp;&nbsp;&nbsp;&nbsp;<a href='http://sistemaspmm.manaus.am.gov.br/'><img src='" . $urlimg . "topo/home.png' /></a>");
+switch ($srv) {
+    case 1:// Homologacao
+        if ($usuario) {
+            $smarty->assign("msgAuthLeft", "Bem vindo, " . $_SESSION['NOME']
+                . "&nbsp;&nbsp;&nbsp;&nbsp;<a href='" . $url . "src/autenticacao/trocaSenha.php'><img src='" . $urlimg . "topo/senha.png' /></a>"
+                . "&nbsp;&nbsp;&nbsp;&nbsp;<a href='" . $url . "src/autenticacao/logout.php'><img src='" . $urlimg . "topo/sair.png' /></a>"
+                . "&nbsp;&nbsp;&nbsp;&nbsp;<a href='http://uatuma.manaus.am.gov.br/sistemaspmm/'><img src='" . $urlimg . "topo/home.png' /></a>");
+        } else {
+            $smarty->assign("msgAuthLeft", "<a href='" . $url . "'><img src='" . $urlimg . "topo/entrar.png' /></a>"
+                . "&nbsp;&nbsp;&nbsp;&nbsp;<a href='http://uatuma.manaus.am.gov.br/sistemaspmm/'><img src='" . $urlimg . "topo/home.png' /></a>");
+        }
+    default:
+        if ($usuario) {
+            $smarty->assign("msgAuthLeft", "Bem vindo, " . $_SESSION['NOME']
+                . "&nbsp;&nbsp;&nbsp;&nbsp;<a href='" . $url . "src/autenticacao/trocaSenha.php'><img src='" . $urlimg . "topo/senha.png' /></a>"
+                . "&nbsp;&nbsp;&nbsp;&nbsp;<a href='" . $url . "src/autenticacao/logout.php'><img src='" . $urlimg . "topo/sair.png' /></a>"
+                . "&nbsp;&nbsp;&nbsp;&nbsp;<a href='http://sistemaspmm.manaus.am.gov.br/'><img src='" . $urlimg . "topo/home.png' /></a>");
+        } else {
+            $smarty->assign("msgAuthLeft", "<a href='" . $url . "'><img src='" . $urlimg . "topo/entrar.png' /></a>"
+                . "&nbsp;&nbsp;&nbsp;&nbsp;<a href='http://sistemaspmm.manaus.am.gov.br/'><img src='" . $urlimg . "topo/home.png' /></a>");
+        }
 }
 
 @$nomeArquivo = array_shift(explode(".", array_pop(explode("/", $_SERVER['SCRIPT_FILENAME']))));
