@@ -4,23 +4,26 @@ set_time_limit(180);
 //error_reporting(0);
 session_start();
 
-$srv = 0;
+$srv = 3;
 
 switch ($srv) {
 	case 0:	// Desenvolvimento
 		$projeto = "/semad/estagio/";
 		$url = 'http://' . $_SERVER[SERVER_NAME] . $projeto;
 		$path = $_SERVER['DOCUMENT_ROOT'] . $projeto;
+		$ipBanco = "curuduri:1521/pmm";
 		break;
 	case 1:	// Homologacao
 		$projeto = "/sistemaspmm/estoque/";
 		$url = 'http://' . $_SERVER[SERVER_NAME] . $projeto;
 		$path = $_SERVER['DOCUMENT_ROOT'] . '/sistemaspmm/estoque/';
+		$ipBanco = "curuduri:1521/pmm";
 		break;
 	case 3:	// Producao
 		$projeto = "/estagio/";
 		$url = 'http://' . $_SERVER[SERVER_NAME] . $projeto;
 		$path = $_SERVER['DOCUMENT_ROOT'] . "estagio/";
+		$ipBanco = "pitua:1521/pmm";
 		break;
 }
 
@@ -33,7 +36,7 @@ $pathArquivo = $path . 'arquivo/';
 
 //banco
 
-$ipBanco = "172.18.0.33:1521/pmm";
+//$ipBanco = "172.18.0.33:1521/pmm";
 //$ipBanco = "172.18.1.160:1521/pmm";
 $usuario = $_SESSION['usuario'];
 $senha = $_SESSION['senha'];
