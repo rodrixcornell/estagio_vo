@@ -4,7 +4,7 @@ set_time_limit(180);
 //error_reporting(0);
 session_start();
 
-$srv = 3;
+$srv = 1;
 
 switch ($srv) {
     case 0:// Desenvolvimento
