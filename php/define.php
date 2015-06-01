@@ -12,8 +12,8 @@ switch ($srv) {
         $ipBanco = "curuduri:1521/pmmdev";
         break;
     case 1:// Homologacao
-        //$projeto = "/sistemaspmm/estoque/";
-        $projeto = "/estoque/";
+        //$projeto = "/sistemaspmm/estagio/";
+        $projeto = "/estagio/";
         $ipBanco = "curuduri:1521/pmmdev";
         break;
     case 3:// Producao
