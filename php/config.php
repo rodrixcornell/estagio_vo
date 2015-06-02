@@ -28,10 +28,10 @@ if (in_array(gethostname(), $dev)) {
     $ipBanco = "172.18.1.160:1521/pmmdev";
 } else {
     if (in_array(gethostname(), $hom)) {
-        $projeto = "/sistemaspmm/" . $system . "/";
+        $projeto = "/" . $system . "/";
         $url = 'http://' . $_SERVER[HTTP_HOST]. $projeto;
         $path = $_SERVER['DOCUMENT_ROOT'] . $projeto;
-        $urlAmbiente = "http://uatuma.manaus.am.gov.br/sistemaspmm/";
+        $urlAmbiente = "http://daraa.manaus.am.gov.br/";
         $ipBanco = "172.18.1.160:1521/pmmdev";
     } else {
         $projeto = "/" . $system . "/";
