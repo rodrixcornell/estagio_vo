@@ -25,20 +25,20 @@ if (in_array(gethostname(), $dev)) {
     $url = 'http://' . $_SERVER[HTTP_HOST] . $projeto;
     $path = $_SERVER['DOCUMENT_ROOT'] . $projeto;
     $urlAmbiente = $url ;
-    $ipBanco = "172.18.1.160:1521/pmmdev";
+    $ipBanco = "curuduri";
 } else {
     if (in_array(gethostname(), $hom)) {
         $projeto = "/" . $system . "/";
         $url = 'http://' . $_SERVER[HTTP_HOST]. $projeto;
         $path = $_SERVER['DOCUMENT_ROOT'] . $projeto;
         $urlAmbiente = "http://daraa.manaus.am.gov.br/";
-        $ipBanco = "172.18.1.160:1521/pmmdev";
+        $ipBanco = "curuduri";
     } else {
         $projeto = "/" . $system . "/";
         $url = 'http://' . $_SERVER[HTTP_HOST] . $projeto;
         $path = $_SERVER['DOCUMENT_ROOT'] . $projeto;
         $urlAmbiente = "http://sistemaspmm.manaus.am.gov.br/";
-        $ipBanco = "172.18.0.33:1521/pmm";
+        $ipBanco = "pitua";
     }
 }
 
