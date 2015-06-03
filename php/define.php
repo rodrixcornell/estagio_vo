@@ -3,7 +3,7 @@ set_time_limit(500);
 //error_reporting(0);
 session_start();
 
-require_once 'config.php';
+include dirname( __FILE__ ).'/config.php';
 
 $urlcss = $url . 'css/';
 $urlimg = $url . 'img/';
