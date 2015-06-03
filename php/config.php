@@ -19,27 +19,23 @@ $hom = array('daraa');
 
 $titulo = 'Gestão de Estágio Remunerado - Prefeitura de Manaus';
 $system = 'estagio';
+$ipBanco = "curuduri";
 
 if (in_array(gethostname(), $dev)) {
     $projeto = "/semad/" . $system . "/";
     $url = 'http://' . $_SERVER[HTTP_HOST] . $projeto;
     $path = $_SERVER['DOCUMENT_ROOT'] . $projeto;
-    $urlAmbiente = $url ;
-    $ipBanco = "curuduri";
+    $urlAmbiente = $url;
 } else {
-    if (in_array(gethostname(), $hom)) {
-        $projeto = "/" . $system . "/";
-        $url = 'http://' . $_SERVER[HTTP_HOST]. $projeto;
-        $path = $_SERVER['DOCUMENT_ROOT'] . $projeto;
+    if (in_array(gethostname(), $hom)){
         $urlAmbiente = "http://daraa.manaus.am.gov.br/";
-        $ipBanco = "curuduri";
     } else {
-        $projeto = "/" . $system . "/";
-        $url = 'http://' . $_SERVER[HTTP_HOST] . $projeto;
-        $path = $_SERVER['DOCUMENT_ROOT'] . $projeto;
         $urlAmbiente = "http://sistemaspmm.manaus.am.gov.br/";
         $ipBanco = "pitua";
     }
+    $projeto = "/" . $system . "/";
+    $url = 'http://' . $_SERVER[HTTP_HOST]. $projeto;
+    $path = $_SERVER['DOCUMENT_ROOT'] . $projeto;
 }
 
 $usuario = $_SESSION['usuario'];
