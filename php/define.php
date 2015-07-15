@@ -3,8 +3,9 @@ set_time_limit(500);
 //error_reporting(0);
 session_start();
 
-include dirname( __FILE__ ).'/config.php';
+include dirname( __FILE__ ) . '/config.php';
 
+$path = $_SERVER['DOCUMENT_ROOT'] . $projeto;
 $urlcss = $url . 'css/';
 $urlimg = $url . 'img/';
 $pathvo = $path . 'src/vo/';
@@ -13,11 +14,10 @@ $pathArquivo = $path . 'arquivo/';
 
 $GLOBALS["pathimg"] = $pathimg;
 $GLOBALS["pathArquivo"] = $pathArquivo;
-$GLOBALS["projeto"] = $projeto; //caminho do projeto depois de document_root
+//$GLOBALS["projeto"] = $projeto; //caminho do projeto depois de document_root
 
 //Configurações Smarty
-
-require_once($path . "php/Smarty/Smarty.class.php");
+require_once $path . "php/Smarty/Smarty.class.php";
 $smarty = new Smarty;
 
 $smarty->template_dir = $path . 'templates/';

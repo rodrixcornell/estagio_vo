@@ -24,7 +24,6 @@ $ipBanco = "curuduri";
 if (in_array(gethostname(), $dev)) {
     $projeto = "/semad/" . $system . "/";
     $url = 'http://' . $_SERVER[HTTP_HOST] . $projeto;
-    $path = $_SERVER['DOCUMENT_ROOT'] . $projeto;
     $urlAmbiente = $url;
 } else {
     if (in_array(gethostname(), $hom)){
@@ -35,7 +34,6 @@ if (in_array(gethostname(), $dev)) {
     }
     $projeto = "/" . $system . "/";
     $url = 'http://' . $_SERVER[HTTP_HOST]. $projeto;
-    $path = $_SERVER['DOCUMENT_ROOT'] . $projeto;
 }
 
 $usuario = $_SESSION['usuario'];
