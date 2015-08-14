@@ -26,14 +26,14 @@ if (in_array(gethostname(), $dev)) {
     $url = 'http://' . $_SERVER[HTTP_HOST] . $projeto;
     $urlAmbiente = $url;
 } else {
-    if (in_array(gethostname(), $hom)){
-        $urlAmbiente = "http://daraa.manaus.am.gov.br/";
+    if (in_array(gethostname(), $hom)) {
+        $urlAmbiente = "http://daraa.manaus.am.gov.br/sistemaspmm/";
     } else {
         $urlAmbiente = "http://sistemaspmm.manaus.am.gov.br/";
         $ipBanco = "pitua";
     }
     $projeto = "/" . $system . "/";
-    $url = 'http://' . $_SERVER[HTTP_HOST]. $projeto;
+    $url = 'http://' . $_SERVER[HTTP_HOST] . $projeto;
 }
 
 $usuario = $_SESSION['usuario'];
