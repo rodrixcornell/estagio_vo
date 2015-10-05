@@ -13,7 +13,9 @@ $dev = array(
     'DSIS-4026',
     'DSIS-4021',
     'DSIS-4019',
-    'DSIS-4002'
+    'DSIS-4002',
+    'smith-Inspiron-5547',
+    'ludhriq-t4500'
 );
 $hom = array('daraa');
 
@@ -23,8 +25,7 @@ $ipBanco = "curuduri";
 
 if (in_array(gethostname(), $dev)) {
     $projeto = "/semad/" . $system . "/";
-    $url = 'http://' . $_SERVER[HTTP_HOST] . $projeto;
-    $urlAmbiente = $url;
+    //$urlAmbiente = $url;
 } else {
     if (in_array(gethostname(), $hom)) {
         $urlAmbiente = "http://daraa.manaus.am.gov.br/sistemaspmm/";
@@ -33,7 +34,6 @@ if (in_array(gethostname(), $dev)) {
         $ipBanco = "pitua";
     }
     $projeto = "/" . $system . "/";
-    $url = 'http://' . $_SERVER[HTTP_HOST] . $projeto;
 }
 
 $usuario = $_SESSION['usuario'];
