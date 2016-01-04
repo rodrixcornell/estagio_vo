@@ -15,12 +15,16 @@ $dev = array(
     'DSIS-4019',
     'DSIS-4002',
     'smith-Inspiron-5547',
-    'ludhriq-t4500'
+    'ludhriq-t4500',
+    'OptiPlex-7010',
+    'programador',
+    'Eduardo-PC'
 );
 $hom = array('daraa');
 
 $titulo = 'Gestão de Estágio Remunerado - Prefeitura de Manaus';
 $system = 'estagio';
+
 $ipBanco = "curuduri";
 
 if (in_array(gethostname(), $dev)) {
@@ -36,6 +40,7 @@ if (in_array(gethostname(), $dev)) {
     $projeto = "/" . $system . "/";
 }
 
+$_SESSION['DOMINIO'] = $urlAmbiente;
 $usuario = $_SESSION['usuario'];
 $senha = $_SESSION['senha'];
 $sid_oracle = "SEMAD";

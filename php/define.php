@@ -1,5 +1,7 @@
 <?php
-set_time_limit(500);
+header('Content-Type: text/html; charset=utf-8');
+set_time_limit(1000);
+date_default_timezone_set("America/Manaus");
 //error_reporting(0);
 session_start();
 
@@ -46,7 +48,8 @@ $arrayMesExtenso[11] = "novembro";
 $arrayMesExtenso[12] = "dezembro";
 
 //Se nao estiver logado redireciona para  pagina de login
-if (!$_SESSION['usuario'] && $projeto . "src/autenticacao/index.php" != $_SERVER['PHP_SELF'] && strpos($_SERVER['PHP_SELF'], $system) > 0) {
+//if (!$_SESSION['usuario'] && $projeto . "src/autenticacao/index.php" != $_SERVER['PHP_SELF'] && strpos($_SERVER['PHP_SELF'], $system) > 0) {
+if (!$_SESSION['usuario'] && $projeto . "src/autenticacao/index.php" != $_SERVER['PHP_SELF'] && strpos($path, $system) > 0) {
     header("Location: " . $url . "src/autenticacao/index.php");
 }
 
