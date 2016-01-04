@@ -32,17 +32,14 @@ if (in_array(gethostname(), $dev)) {
     //$urlAmbiente = $url;
 } else {
     if (in_array(gethostname(), $hom)) {
+    	$projeto = "/sistemaspmm/" . $system . "/";
         $urlAmbiente = "http://daraa.manaus.am.gov.br/sistemaspmm/";
     } else {
+    	$projeto = "/" . $system . "/";
         $urlAmbiente = "http://sistemaspmm.manaus.am.gov.br/";
         $ipBanco = "pitua";
     }
-    $projeto = "/" . $system . "/";
 }
-
-//$_SESSION['DOMINIO'] = $urlAmbiente;
-$url = 'http://' . $_SERVER[HTTP_HOST] . $projeto;
-$path = $_SERVER['DOCUMENT_ROOT'] . $projeto;
 
 $usuario = $_SESSION['usuario'];
 $senha = $_SESSION['senha'];
