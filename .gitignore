@@ -1,12 +1,8 @@
-/arquivo*/*
-/templates_c/*
-/nbproject/
-/*.mno
+*.mno
+*.log
 /buildpath*
-/project*
 /settings*
-/.phpintel/
-/.project
+/.phpintel
 /.fuse*
-/.idea/dataSources.xml
-/.idea*
+*[project,idea]*
+*~
