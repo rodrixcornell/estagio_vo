@@ -1,4 +1,7 @@
 <?php
+$titulo = 'Gestão de Estágio Remunerado - Prefeitura de Manaus';
+$system = 'estagio';
+
 $dev = array(
 	'daraa',
     'DSIS-4003',
@@ -24,9 +27,6 @@ $dev = array(
 );
 
 $hom = array('cruxati');
-
-$titulo = 'Gestão de Estágio Remunerado - Prefeitura de Manaus';
-$system = 'estagio';
 
 if (in_array(gethostname(), $dev)) {
 	$ipBanco = "172.18.1.160:1521/pmmdev";
