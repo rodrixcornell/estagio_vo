@@ -1,4 +1,4 @@
-/*************************** 
+/***************************
   Disposicao do layout
  ***************************/
 body{
@@ -18,7 +18,7 @@ embed{
 
 body a:link, body a:visited{
     text-decoration: none;
-    color:blue; 
+    color:blue;
 }
 
 img{
@@ -134,7 +134,7 @@ img{
 }
 
 #imgTitulo{
-	float:left;	
+	float:left;
 }
 
 #titulo{
@@ -156,18 +156,15 @@ hr {
 }
 
 input {
-    border-bottom: #98afc2 1px solid;
-    border-left: #98afc2 1px solid;
-    border-right: #98afc2 1px solid;
-    border-top: #98afc2 1px solid;
+    border:1px solid #A8A8A8;
     font-family: Verdana, Geneva, sans-serif;
-    font-size: 13px;	
+    font-size: 13px;
 }
 
 
 .leitura{
 	color:#545454;
-	background-color:#EBEBE4;	
+	background-color:#EBEBE4;
 }
 
 #camada{
@@ -201,7 +198,7 @@ table.dataGrid td{
 	/*background-color:#F0EFEF;*/
 	border: 1px #CCC solid;
 	padding: 0.3em;
-	vertical-align:middle;	
+	vertical-align:middle;
 	height: 22px;
 }
 
@@ -225,10 +222,10 @@ table.dataGrid td{
 	font-weight:bold;
 }
 
+/* paginacaoItem */
+#paginacaoItem ul{ width:890px; padding:0px; margin-top:8px; }
 
-#paginacao ul{ width:900px; padding:0px; margin:8px; }
-
-#paginacao ul li { 
+#paginacaoItem ul li {
 	-moz-border-radius: 3px 3px 3px 3px;
     background: none repeat scroll 0 0 #54AFE3;
     color: #FFFFFF;
@@ -241,7 +238,34 @@ table.dataGrid td{
     text-align: center;
     text-decoration: none;
     text-shadow: none;
-	list-style-type:none; 
+	list-style-type:none;
+    width: 25px;
+	cursor:pointer;
+}
+
+#paginacaoItem ul li.selecionado{
+	background:#D8543A;
+}
+
+#paginacaoItem ul li:hover{background:#D8543A;}
+/* fim */
+
+#paginacao ul{ width:900px; padding:0px; margin:8px; }
+
+#paginacao ul li {
+	-moz-border-radius: 3px 3px 3px 3px;
+    background: none repeat scroll 0 0 #54AFE3;
+    color: #FFFFFF;
+    float: left;
+    font-family: Verdana, Geneva, sans-serif;
+    font-size: 12px;
+    font-weight: 500;
+    margin: 0 2px 0px;
+    padding: 5px 5px;
+    text-align: center;
+    text-decoration: none;
+    text-shadow: none;
+	list-style-type:none;
     width: 25px;
 	cursor:pointer;
 }
@@ -249,14 +273,14 @@ table.dataGrid td{
 #paginacao ul li.selecionado{
 	background:#D8543A;
 }
-	
+
 #paginacao ul li:hover{background:#D8543A;}
 
 
 /*Inicio*/
 #paginacaoInicio ul{ width:900px; padding:0px; margin:8px; }
 
-#paginacaoInicio ul li { 
+#paginacaoInicio ul li {
 	-moz-border-radius: 3px 3px 3px 3px;
     background: none repeat scroll 0 0 #54AFE3;
     color: #FFFFFF;
@@ -269,7 +293,7 @@ table.dataGrid td{
     text-align: center;
     text-decoration: none;
     text-shadow: none;
-	list-style-type:none; 
+	list-style-type:none;
     width: 25px;
 	cursor:pointer;
 }
@@ -277,7 +301,7 @@ table.dataGrid td{
 #paginacaoInicio ul li.selecionado{
 	background:#D8543A;
 }
-	
+
 #paginacaoInicio ul li:hover{background:#D8543A;}
 
 
@@ -329,16 +353,18 @@ div.tabs > div h2 {
 
 .fonteVermelha{
 	font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
-	font-size: 14px;  
+	font-size: 14px;
 	color: #00F;
 	font-weight:bold;
 }
 
 legend{background-color: #4682B4; padding: 3px 14px; font-weight: bolder; color: #FFF; font-size: 12px; font-family:Verdana, Geneva, sans-serif;}
-fieldset{-moz-border-radius: 5px; font-size: 11px; margin-bottom:4px; }	
+fieldset{-moz-border-radius: 5px; font-size: 11px; margin-bottom:4px; border:1px solid #A8A8A8;}
+
+textarea{ border:1px solid #A8A8A8; }
 
 #checkbox{
-	border: none;	
+	border: none;
 }
 
 #navegacao{
@@ -346,11 +372,11 @@ fieldset{-moz-border-radius: 5px; font-size: 11px; margin-bottom:4px; }
 }
 
 #loaderTab{
-	text-align: center;	
+	text-align: center;
 }
 
 #cadastrar_novo{
-	padding: 10px;	
+	padding: 10px;
 }
 
 #bloqueio{
@@ -378,7 +404,7 @@ fieldset{-moz-border-radius: 5px; font-size: 11px; margin-bottom:4px; }
 	display: inline-block;
 	font-family: Verdana, Geneva, sans-serif;
     font-size: 12px;
-	
+
 }
 .ui-combobox-toggle {
 	position: absolute;
@@ -398,10 +424,41 @@ fieldset{-moz-border-radius: 5px; font-size: 11px; margin-bottom:4px; }
 }
 
 .ui-combobox input{
-	margin:0;	
+	margin:0;
 }
 
 #status{
 	text-align:center;
-	color:#03F;	
+	color:#03F;
+}
+
+#salvar, #cancelar, #pesquisar, #pesquisarItem, #novoPedido{
+	padding:8px;
+	font-weight: bold;
+}
+
+#iconeDetail{
+	float:right;
+	margin: 2px 0 5px 0;
+}
+
+#statusDetail{
+	font-weight:bold;
+	font-size:10px;
+	padding-top:18px;
+}
+.log{
+  font-weight:lighter;
+  font-size:8px;
+  background-color: #e6e6e6;
+  float: inherit;
+  width: 960px;
+  height:  100px;
+  overflow-y: auto;
+
+}
+
+.text-log{
+   padding-left: 10px;
+   padding-top: 10px;
 }
