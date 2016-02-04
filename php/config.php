@@ -31,16 +31,16 @@ $system = 'estagio';
 if (in_array(gethostname(), $dev)) {
 	$ipBanco = "172.18.1.160:1521/pmmdev";
     $projeto = "/semad/" . $system . "/";
-    $urlAmbiente = (gethostname() == 'daraa') ? "http://daraa.manaus.am.gov.br/semad/" : $_SERVER[HTTP_HOST] . "/semad/";
+    $urlAmbiente = (gethostname() == 'daraa') ? "daraa.manaus.am.gov.br/semad/" : $_SERVER[HTTP_HOST] . "/semad/";
 } else {
     if (in_array(gethostname(), $hom)) {
     	$ipBanco = "172.18.1.160:1521/pmmhom";
     	$projeto = "/sistemaspmm/" . $system . "/";
-        $urlAmbiente = "http://cruxati.manaus.am.gov.br/sistemaspmm/";
+        $urlAmbiente = "cruxati.manaus.am.gov.br/sistemaspmm/";
     } else {
     	$ipBanco = "172.18.0.33:1521/pmm";
     	$projeto = "/" . $system . "/";
-        $urlAmbiente = "http://sistemaspmm.manaus.am.gov.br/";
+        $urlAmbiente = "sistemaspmm.manaus.am.gov.br/";
     }    
 }
 
