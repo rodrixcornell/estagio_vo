@@ -67,6 +67,21 @@ if ($usuario) {
 
 @$nomeArquivo = array_shift(explode(".", array_pop(explode("/", $_SERVER['SCRIPT_NAME']))));
 
+if(file_exists($path."/log")) {
+	$ponteiro = fopen ($path."/log", "r");
+
+	//LÊ O ARQUIVO ATÉ CHEGAR AO FIM
+	$log = "";
+	while (!feof ($ponteiro)) {
+		//LÊ UMA LINHA DO ARQUIVO
+		$log .= fgets($ponteiro, 4096)."<br />";
+	}//FECHA WHILE
+
+	//FECHA  O PONTEIRO DO ARQUIVO
+	fclose ($ponteiro);
+
+	$smarty->assign("log", $log);
+}
 
 $smarty->assign("urlcss", $urlcss);
 $smarty->assign("titulo", $titulo);

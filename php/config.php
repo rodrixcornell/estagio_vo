@@ -1,6 +1,6 @@
 <?php
-
 $dev = array(
+	'daraa',
     'DSIS-4003',
     'DSIS-4024',
     'DSIS-4023',
@@ -14,31 +14,34 @@ $dev = array(
     'DSIS-4021',
     'DSIS-4019',
     'DSIS-4002',
+    'chappie',
+    'smith-inspiron',
     'smith-Inspiron-5547',
     'ludhriq-t4500',
     'OptiPlex-7010',
     'programador',
     'Eduardo-PC'
 );
-$hom = array('daraa');
+
+$hom = array('cruxati');
 
 $titulo = 'Gestão de Estágio Remunerado - Prefeitura de Manaus';
 $system = 'estagio';
 
-$ipBanco = "curuduri";
-
 if (in_array(gethostname(), $dev)) {
+	$ipBanco = "172.18.1.160:1521/pmmdev";
     $projeto = "/semad/" . $system . "/";
-    //$urlAmbiente = $url;
+    $urlAmbiente = (gethostname() == 'daraa') ? "http://daraa.manaus.am.gov.br/semad/" : $_SERVER[HTTP_HOST] . "/semad/";
 } else {
     if (in_array(gethostname(), $hom)) {
+    	$ipBanco = "172.18.1.160:1521/pmmhom";
     	$projeto = "/sistemaspmm/" . $system . "/";
-        $urlAmbiente = "http://daraa.manaus.am.gov.br/sistemaspmm/";
+        $urlAmbiente = "http://cruxati.manaus.am.gov.br/sistemaspmm/";
     } else {
+    	$ipBanco = "172.18.0.33:1521/pmm";
     	$projeto = "/" . $system . "/";
         $urlAmbiente = "http://sistemaspmm.manaus.am.gov.br/";
-        $ipBanco = "pitua";
-    }
+    }    
 }
 
 $usuario = $_SESSION['usuario'];
