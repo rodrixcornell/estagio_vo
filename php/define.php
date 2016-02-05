@@ -59,10 +59,12 @@ if ($usuario) {
     $smarty->assign("msgAuthLeft", "Bem vindo, " . $_SESSION['NOME']
         . "&nbsp;&nbsp;&nbsp;&nbsp;<a href='" . $url . "src/autenticacao/trocaSenha.php'><img src='" . $urlimg . "topo/senha.png' /></a>"
         . "&nbsp;&nbsp;&nbsp;&nbsp;<a href='" . $url . "src/autenticacao/logout.php'><img src='" . $urlimg . "topo/sair.png' /></a>"
-        . "&nbsp;&nbsp;&nbsp;&nbsp;<a href='$urlAmbiente'><img src='" . $urlimg . "topo/home.png' /></a>");
+        //. "&nbsp;&nbsp;&nbsp;&nbsp;<a href='$urlAmbiente'><img src='" . $urlimg . "topo/home.png' /></a>");
+        . "&nbsp;&nbsp;&nbsp;&nbsp;<a href='$url'><img src='" . $urlimg . "topo/home.png' /></a>");
 } else {
     $smarty->assign("msgAuthLeft", "<a href='" . $url . "'><img src='" . $urlimg . "topo/entrar.png' /></a>"
-        . "&nbsp;&nbsp;&nbsp;&nbsp;<a href='$urlAmbiente'><img src='" . $urlimg . "topo/home.png' /></a>");
+        //. "&nbsp;&nbsp;&nbsp;&nbsp;<a href='$urlAmbiente'><img src='" . $urlimg . "topo/home.png' /></a>");
+        . "&nbsp;&nbsp;&nbsp;&nbsp;<a href='$url'><img src='" . $urlimg . "topo/home.png' /></a>");
 }
 
 @$nomeArquivo = array_shift(explode(".", array_pop(explode("/", $_SERVER['SCRIPT_NAME']))));
