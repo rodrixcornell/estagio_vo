@@ -31,18 +31,17 @@ $hom = array('cruxati');
 if (in_array(gethostname(), $dev)) {
 	$ipBanco = "172.18.1.160:1521/pmmdev";
     $projeto = "/semad/" . $system . "/";
-    $urlAmbiente = (gethostname() == 'daraa') ? "daraa.manaus.am.gov.br/semad/" : $_SERVER[HTTP_HOST] . "/semad/";
     $urlAmbiente = "http://" . $_SERVER[HTTP_HOST] . "/semad/";
     echo $urlAmbiente;
 } else {
     if (in_array(gethostname(), $hom)) {
     	$ipBanco = "172.18.1.160:1521/pmmhom";
     	$projeto = "/sistemaspmm/" . $system . "/";
-        $urlAmbiente = "cruxati.manaus.am.gov.br/sistemaspmm/";
+        $urlAmbiente = "http://" . $_SERVER[HTTP_HOST] . "sistemaspmm/";
     } else {
     	$ipBanco = "172.18.0.33:1521/pmm";
     	$projeto = "/" . $system . "/";
-        $urlAmbiente = "sistemaspmm.manaus.am.gov.br/";
+        $urlAmbiente = "http://" . $_SERVER[HTTP_HOST];
     }    
 }
 
