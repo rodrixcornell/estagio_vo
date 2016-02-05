@@ -32,7 +32,7 @@ if (in_array(gethostname(), $dev)) {
 	$ipBanco = "172.18.1.160:1521/pmmdev";
     $projeto = "/semad/" . $system . "/";
     $urlAmbiente = (gethostname() == 'daraa') ? "daraa.manaus.am.gov.br/semad/" : $_SERVER[HTTP_HOST] . "/semad/";
-    $urlAmbiente = $_SERVER[HTTP_HOST] . "/semad/";
+    $urlAmbiente = "http://" . $_SERVER[HTTP_HOST] . "/semad/";
     echo $urlAmbiente;
 } else {
     if (in_array(gethostname(), $hom)) {
