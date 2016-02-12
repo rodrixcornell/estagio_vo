@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 include "../../php/define.php";
 require_once $path . "src/ta_contrato/arrays.php";
 require_once $pathvo . "ta_contratoVO.php";

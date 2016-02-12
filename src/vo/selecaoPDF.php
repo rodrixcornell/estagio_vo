@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 include "../../php/define.php";
 require_once "../../php/fpdf/fpdf.php";
 require_once $pathvo . "selecaoVO.php";

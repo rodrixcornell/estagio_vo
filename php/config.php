@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 $titulo = 'Gestão de Estágio Remunerado - Prefeitura de Manaus';
 $system = 'estagio';
 

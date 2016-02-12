@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 // load PHPMailer library
 include $path."php/phpmailer/class.phpmailer.php";
 

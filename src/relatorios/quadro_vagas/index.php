@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 require_once "../../../php/define.php";
 require_once $path . "src/relatorios/quadro_vagas/arrays.php";
 require_once $pathvo . "quadro_vagasVO.php";

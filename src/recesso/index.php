@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 require_once "../../php/define.php";
 require_once $path."src/recesso/arrays.php";
 require_once $pathvo."recessoVO.php";

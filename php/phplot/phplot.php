@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 /* $Id: phplot.php 1264 2012-04-07 00:39:48Z lbayuk $ */
 /*
  * PHPLOT Version 5.8.0

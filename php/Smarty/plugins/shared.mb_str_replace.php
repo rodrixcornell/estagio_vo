@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 
 if(!function_exists('smarty_mb_str_replace')) {
   function smarty_mb_str_replace($search, $replace, $subject, &$count=0) { 

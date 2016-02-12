@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 require_once "../../php/define.php";
 require_once $path."src/eventos/arrays.php";
 require_once $pathvo."eventosVO.php";

@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 require_once "../../php/define.php";
 require_once $path."src/grupo_pagamento/arrays.php";
 require_once $pathvo."grupo_pagamentoVO.php";
