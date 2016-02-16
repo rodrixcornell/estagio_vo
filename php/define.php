@@ -1,13 +1,14 @@
 ﻿<?php
 header('Content-Type: text/html; charset=utf-8');
 set_time_limit(1000);
+ob_start();
 date_default_timezone_set("America/Manaus");
 //error_reporting(0);
 session_start();
 
 include dirname( __FILE__ ) . '/config.php';
 
-$urlAmbiente = "http://" . $_SERVER[HTTP_HOST];
+#$urlAmbiente = "http://" . $_SERVER[HTTP_HOST];
 $url = 'http://' . $_SERVER[HTTP_HOST] . $projeto;
 $path = $_SERVER['DOCUMENT_ROOT'] . $projeto;
 
@@ -32,7 +33,7 @@ $smarty->config_dir = $path . 'configs/';
 $smarty->cache_dir = $path . 'cache/';
 $smarty->force_compile = 'true';
 $smarty->compile_check = 'true';
-//$smarty -> debugging            = 'true';
+$smarty->debugging = 'true';
 
 
 //Mes por extenso

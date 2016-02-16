@@ -41,7 +41,7 @@ if (in_array(gethostname(), $dev)) {
     	$ipBanco = "172.18.0.33:1521/pmm";
     	$projeto = "/" . $system . "/";
         $urlAmbiente = "http://" . $_SERVER[HTTP_HOST];
-    }    
+    }
 }
 
 $usuario = $_SESSION['usuario'];
