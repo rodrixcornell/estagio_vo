@@ -18,21 +18,21 @@ function gerarTabela($param=''){
 	$VO->TX_NOME 	= $_REQUEST['TX_NOME'];
 	$VO->NB_CPF		= $_REQUEST['NB_CPF'];
 	$page           = $_REQUEST['PAGE'];
-	
+
 	$VO->preencherSessionPesquisar($_REQUEST);
-	
+
 	$qtd = 15;
 	!$page ? $page = 1: false;
 	$primeiro = ($page*$qtd)-$qtd;
-	
+
 	$total = $VO->pesquisar();
-	
+
 	$total_page = ceil($total/$qtd);
-	
+
 	$VO->Reg_inicio = $primeiro;
 	$VO->Reg_quantidade = $qtd;
 	$tot_da_pagina = $VO->pesquisar();
-	
+
 	if ($tot_da_pagina){
 		$dados = $VO->getVetor();
 		echo '<div id="status">'.$_SESSION['STATUS'].'</div>
@@ -41,8 +41,8 @@ function gerarTabela($param=''){
                                 <th>Nome</th>
 								<th>CPF</th>
 								<th>RG</th>';
-			//Somente ver a coluna de alterar se tiver acesso completo a tela					
-			if ($acesso) 
+			//Somente ver a coluna de alterar se tiver acesso completo a tela
+			if ($acesso)
 				echo '<th style="width:50px;"></th>';
                      echo '</tr>';
 
@@ -53,17 +53,17 @@ function gerarTabela($param=''){
                             <td align="center">'.$dados['TX_NOME'][$i].'</td>
 							<td align="center">'.$dados['NB_CPF'][$i].'</td>
 							<td align="center">'.$dados['NB_RG'][$i].'</td>';
-							
-		//Somente ver a coluna de alterar se tiver acesso completo a tela					
-           if ($acesso) 
-		 			echo '<td align="center"> 
+
+		//Somente ver a coluna de alterar se tiver acesso completo a tela
+           if ($acesso)
+		 			echo '<td align="center">
 								<a href="'.$dados['ID_PESSOA_ESTAGIARIO'][$i].'" id="alterar"><img src="'.$urlimg.'icones/editar.png" alt="itens" title="Alterar"/></a>
 								<a href="'.$dados['ID_PESSOA_ESTAGIARIO'][$i].'" id="excluir"><img src="'.$urlimg.'icones/excluirItem.png" alt="itens" title="Excluir"/></a></td>';
 					echo '</tr>';
 		}
-		
+
 		echo '</table>';
-		
+
 		if ($total_page > 1){
 			echo '<div id="paginacao" align="center">
 					<ul>';
@@ -71,21 +71,21 @@ function gerarTabela($param=''){
 			for($i=1; $i<=$total_page; $i++){
 				if ($i==$page)
 					echo '<li id="'.$i.'" class="selecionado">'.$i.'</li>';
-				else 
+				else
 					echo '<li id="'.$i.'">'.$i.'</li>';
 			}
 			echo '	</ul>
 				  </div>';
 		}
-	
+
 	}else{
 		echo '<div id="status">'.$_SESSION['STATUS'].'</div>
 				<div id="nao_encontrado">Nenhum registro encontrado.</div>';
 	}
-	
+
 	if ($param) echo '<script>alert("'.$param.'")</script>';
-	
-	unset($_SESSION['STATUS']);			
+
+	unset($_SESSION['STATUS']);
 }
 
 $VO = new estagiarioVO();
@@ -93,24 +93,24 @@ $VO = new estagiarioVO();
 if ($_REQUEST['identifier'] == "tabela"){
 	gerarTabela($erro);
 }else if ($_REQUEST['identifier'] == 'excluir'){
-	
+
 	$VO->ID_PESSOA_ESTAGIARIO 		= $_REQUEST['ID_PESSOA_ESTAGIARIO'];
-	
+
 	if ($acesso){
-		
+
 		$retorno = $VO->excluir();
-		
+
 		if (is_array($retorno))
 				$erro = 'Este registro não pode ser excluído pois possui dependentes.';
 		else
 		 	$_SESSION['STATUS']	= '*Registro excluído com sucesso!';
-		
-			
+
+
 	}else
 		$erro = "Você não tem permissão para realizar esta ação.";
-	
+
 	gerarTabela($erro);
-        
+
 }
 else if ($_REQUEST['identifier'] == "buscarCPF") {
 

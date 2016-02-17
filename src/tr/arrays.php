@@ -3,7 +3,7 @@
 require_once "../../php/define.php";
 require_once $pathvo."trVO.php";
 
-// instancia da classe trVO	
+// instancia da classe trVO
 $VO = new trVO();
 
 //ComboBox de Orgão gestor
@@ -22,7 +22,7 @@ $arrayContrato=$VO->getArray('TX_CODIGO');
 $VO->buscarAgenteIntegracao();
 $arraybuscarAgenteIntegracao=$VO->getArray('TX_AGENCIA_ESTAGIO');
 
-//Apresentações dos dados no tpl 
+//Apresentações dos dados no tpl
 $smarty->assign('arrayOrgaoGestor'            ,$arrayOrgaoGestor);
 $smarty->assign('arrayOrgaoSolicitante'       ,$arrayOrgaoSolicitante);
 $smarty->assign('arrayContrato'               ,$arrayContrato);

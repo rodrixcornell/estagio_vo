@@ -8,7 +8,7 @@ class desligamentoVO extends VO {
     function desligamentoVO() {
         return $this->repositorio = new RepositorioDesligamento();
     }
-    
+
     function buscarDadosContrato() {
         return $this->repositorio->buscarDadosContrato($this);
     }
@@ -44,7 +44,7 @@ class desligamentoVO extends VO {
     function pesquisarSolicitacao(){
         return $this->repositorio->pesquisarSolicitacao($this);
     }
-    
+
     function atualizarInf(){
         return $this->repositorio->atualizarInf($this);
     }

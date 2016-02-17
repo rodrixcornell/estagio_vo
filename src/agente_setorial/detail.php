@@ -16,7 +16,7 @@ require_once "../autenticacao/validaPermissao.php";
 $VO = new agente_setorialVO();
 
 if ($_SESSION['ID_SETORIAL_ESTAGIO']){
-     
+
     $VO->ID_SETORIAL_ESTAGIO = $_SESSION['ID_SETORIAL_ESTAGIO'];
 
     $total = $VO->buscar();
@@ -32,6 +32,6 @@ $smarty->assign("censo"         , $censo);
 $smarty->assign("titulopage"    , $titulopage);
 $smarty->assign("arquivoCSS"    , $pasta . trim(ucfirst($nomeArquivo)));
 $smarty->assign("arquivoJS"     , $pasta . trim(ucfirst($nomeArquivo)));
-$smarty->assign("nomeArquivo"   , $pasta."/".$nomeArquivo.".tpl");	
+$smarty->assign("nomeArquivo"   , $pasta."/".$nomeArquivo.".tpl");
 $smarty->display('index.tpl');
 ?>

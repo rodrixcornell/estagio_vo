@@ -8,7 +8,7 @@ class agenciaVO extends VO {
         //Banco
         $this->repositorio = new RepositorioAgencia();
     }
-    
+
 }
 
 ?>

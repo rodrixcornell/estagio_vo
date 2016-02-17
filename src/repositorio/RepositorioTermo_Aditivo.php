@@ -17,7 +17,7 @@ class RepositorioTermo_Aditivo extends Repositorio {
 
     function pesquisarNB_Codigo($VO) {
         $query = "
-            SELECT ID_CONTRATO_CP CODIGO, NB_CODIGO 
+            SELECT ID_CONTRATO_CP CODIGO, NB_CODIGO
              FROM CONTRATO_CP
         ";
 
@@ -100,7 +100,7 @@ class RepositorioTermo_Aditivo extends Repositorio {
                   DT_ATUALIZACAO,
                   ID_USUARIO_CADASTRO,
                   ID_USUARIO_ATUALIZACAO)
-            
+
 		values
                 ('" . $CodigoPK['ID_ADITIVO_CONTRATO_CP'][0] . "',
                     '" . $VO->ID_ORGAO_GESTOR_ESTAGIO . "',
@@ -108,8 +108,8 @@ class RepositorioTermo_Aditivo extends Repositorio {
                     '" . $VO->ID_CONTRATO_CP . "',
                     SEMAD.F_G_COD_ADITIVO_CONTRATO_CP(),
                     '" . $VO->NB_VALOR_ESTIMADO . "',
-                    '" . $VO->TX_OBJETO . "',  
-                    '" . $VO->TX_TERMO_ADITIVO . "',     
+                    '" . $VO->TX_OBJETO . "',
+                    '" . $VO->TX_TERMO_ADITIVO . "',
                     TO_DATE('" . $VO->DT_ADITIVO . "','DD/MM/YYYY'),
                     TO_DATE('" . $VO->DT_INICIO_VIGENCIA . "','DD/MM/YYYY'),
                     TO_DATE('" . $VO->DT_FIM_VIGENCIA . "','DD/MM/YYYY'),
@@ -151,7 +151,7 @@ class RepositorioTermo_Aditivo extends Repositorio {
    AND U_ATUAL.ID_PESSOA_FUNCIONARIO = VFT_CAD.ID_PESSOA_FUNCIONARIO
    AND AC.ID_USUARIO_CADASTRO = U_CAD.ID_USUARIO
    AND AC.ID_USUARIO_ATUALIZACAO = U_ATUAL.ID_USUARIO
-   AND ID_ADITIVO_CONTRATO_CP = '" . $VO->ID_ADITIVO_CONTRATO_CP . "'                     
+   AND ID_ADITIVO_CONTRATO_CP = '" . $VO->ID_ADITIVO_CONTRATO_CP . "'
 ";
 
         return $this->sqlVetor($query);

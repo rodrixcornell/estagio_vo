@@ -5,19 +5,19 @@ class RepositorioBolsa extends Repositorio{
 
 
     function pesquisarBolsa($VO){
-        
+
         $query="SELECT ID_BOLSA_ESTAGIO CODIGO, ID_BOLSA_ESTAGIO, TX_BOLSA_ESTAGIO, NB_VALOR FROM BOLSA_ESTAGIO
         ORDER BY TX_BOLSA_ESTAGIO";
-			
-        return $this->sqlVetor($query);	
+
+        return $this->sqlVetor($query);
     }
-	
+
 	function pesquisar($VO) {
-		
+
         $query = "SELECT ID_BOLSA_ESTAGIO CODIGO, ID_BOLSA_ESTAGIO, TX_BOLSA_ESTAGIO, NB_VALOR FROM BOLSA_ESTAGIO";
-					
+
 		($VO->ID_BOLSA_ESTAGIO) ? $query .= " WHERE ID_BOLSA_ESTAGIO = ".$VO->ID_BOLSA_ESTAGIO.""  : false;
-        
+
         $query .= " ORDER BY TX_BOLSA_ESTAGIO";
 
         if ($VO->Reg_quantidade){
@@ -26,24 +26,24 @@ class RepositorioBolsa extends Repositorio{
         }
 
         return $this->sqlVetor($query);
-    }            
-    
+    }
+
     function excluir($VO){
 
         $query = "DELETE FROM BOLSA_ESTAGIO
                     WHERE ID_BOLSA_ESTAGIO = '".$VO->ID_BOLSA_ESTAGIO."'";
-                    
+
         return $this->sql($query);
-    }    
-    	
+    }
+
 	function inserir($VO){
-		
+
 		$queryPK = "select SEMAD.F_G_PK_Bolsa_Estagio as ID_BOLSA_ESTAGIO from DUAL";
         $this->sqlVetor($queryPK);
         $CodigoPK = $this->getVetor();
 
         $query = "
-            INSERT INTO BOLSA_ESTAGIO(ID_BOLSA_ESTAGIO, TX_BOLSA_ESTAGIO, NB_VALOR) 
+            INSERT INTO BOLSA_ESTAGIO(ID_BOLSA_ESTAGIO, TX_BOLSA_ESTAGIO, NB_VALOR)
 						values
 								('".$CodigoPK['ID_BOLSA_ESTAGIO'][0]."', '".$VO->TX_BOLSA_ESTAGIO."' ,'".$VO->moeda($VO->NB_VALOR)."')
         ";
@@ -62,7 +62,7 @@ class RepositorioBolsa extends Repositorio{
 
         return $this->sql($query);
     }
- 
+
 }
 
 ?>

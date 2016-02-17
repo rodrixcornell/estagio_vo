@@ -4,14 +4,14 @@ require_once $pathvo."VO.php";
 require_once $path."src/repositorio/RepositorioBolsa.php";
 
 class bolsaVO extends VO{
-    
-    function bolsaVO(){        
-        return $this->repositorio = new RepositorioBolsa();         
+
+    function bolsaVO(){
+        return $this->repositorio = new RepositorioBolsa();
     }
-    
-	function pesquisarBolsa(){    
+
+	function pesquisarBolsa(){
         return $this->repositorio->pesquisarBolsa($this);
     }
- 	
+
 }
 ?>

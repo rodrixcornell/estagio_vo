@@ -38,7 +38,7 @@ function gerarTabela($param = '') {
         <th>Unidade Organizacional</th>
         <th style="width:145px;">Data de Atualização</th>';
 
-    //Somente ver a coluna de alterar se tiver acesso completo a tela	
+    //Somente ver a coluna de alterar se tiver acesso completo a tela
     if ($acesso)
         echo '<th style="width:30px;"></th>';
 
@@ -56,7 +56,7 @@ function gerarTabela($param = '') {
                 <td align="center">' . $dados['TX_UNIDADE_ORG'][$i] . '</td>
                 <td align="center">' . $dados['DT_ATUALIZACAO'][$i] . '</td>';
 
-            //Somente ver a coluna de alterar se tiver acesso completo a tela					
+            //Somente ver a coluna de alterar se tiver acesso completo a tela
             if ($acesso)
                 echo '<td align="center" class="icones">
 		<a href="' . $dados['ID_ORGAO_ESTAGIO'][$i] . '" id="excluir" ><img src="' . $urlimg . 'icones/excluirItem.png" title="Excluir Registro"/></a></td>';
@@ -118,7 +118,7 @@ if ($_REQUEST['identifier'] == "tabela") {
              <th>Data de Cadastro</th>
              <th style="width:150px;">Data de Atualização</th>
 								';
-        //Somente ver a coluna de alterar se tiver acesso completo a tela					
+        //Somente ver a coluna de alterar se tiver acesso completo a tela
         //if ($acesso)
             echo '<th style="width:30px;"></th>';
         echo '</tr>';
@@ -132,9 +132,9 @@ if ($_REQUEST['identifier'] == "tabela") {
                 <td align="center">' . $dados['DT_CADASTRO'][$i] . '</td>
                 <td align="center">' . $dados['DT_ATULIZACAO'][$i] . '</td>';
 
-            //Somente ver a coluna de alterar se tiver acesso completo a tela					
+            //Somente ver a coluna de alterar se tiver acesso completo a tela
            // if ($acesso)
-                echo '<td align="center"> 
+                echo '<td align="center">
 		  <a href="' . $dados['ID_SETORIAL_ESTAGIO'][$i] . '" id="alterar"><img src="' . $urlimg . 'icones/editar.png" alt="itens" title="Visualizar"/></a></td>';
 
             echo '</tr>';
@@ -191,7 +191,7 @@ if ($_REQUEST['identifier'] == "tabela") {
 }else if ($_REQUEST['identifier'] == 'atualizarInf') {
 
     $VO->ID_SETORIAL_ESTAGIO = $_SESSION['ID_SETORIAL_ESTAGIO'];
-    
+
 
     $dados = $VO->atualizarInf();
 

@@ -12,18 +12,18 @@ $VO->pesquisarCodigoContrato();
 
 $VO->pesquisarCodTermoAditivo();
     $arrayCodTermoAditivo = $VO->getArray("NB_CODIGO");
- 
+
 $VO->buscarUnidadeOrigem();
     $arraybuscarUnidadeOrigem = $VO->getArray("TX_UNIDADE_ORIGEM");
-    
+
 $VO->buscarUnidadeDestino();
     $arraybuscarUnidadeDestino = $VO->getArray("TX_UNIDADE_DESTINO");
-    
+
 $VO->pesquisarTipoVaga();
     $arrayTipoVaga = $VO->getArray("TX_TIPO_VAGA_ESTAGIO");
 
 $arraySituacao = array(""=>"Escolha...", 1=>"ABERTA", 2=>"EFETIVADA", 3=>"CANCELADA");
-    
+
 $smarty->assign("arraySituacao", $arraySituacao);
 $smarty->assign("arrayOrgaoGestor", $arrayOrgaoGestor);
 $smarty->assign("arrayCodigoContrato", $arrayCodigoContrato);

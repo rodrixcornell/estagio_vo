@@ -44,7 +44,7 @@ function gerarTabela($param = '') {
 		   <th>Cargo</th>
                    <th>Formação</th>
 								';
-        //Somente ver a coluna de alterar se tiver acesso completo a tela					
+        //Somente ver a coluna de alterar se tiver acesso completo a tela
         if ($acesso)
             echo '<th style="width:50px;"></th>';
         echo '</tr>';
@@ -58,9 +58,9 @@ function gerarTabela($param = '') {
                             <td align="center">' . $dados['TX_FORMACAO'][$i] . '</td>
                           ';
 
-            //Somente ver a coluna de alterar se tiver acesso completo a tela					
+            //Somente ver a coluna de alterar se tiver acesso completo a tela
             if ($acesso)
-                echo '<td align="center"> 
+                echo '<td align="center">
                       <a href="' . $dados['ID_PESSOA_SUPERVISOR'][$i] . '" id="alterar"><img src="' . $urlimg . 'icones/editar.png" alt="itens" title="Alterar"/></a>
                       <a href="' . $dados['ID_PESSOA_SUPERVISOR'][$i] . '" id="excluir"><img src="' . $urlimg . 'icones/excluirItem.png" alt="itens" title="Excluir"/></a></td>';
             echo '</tr>';

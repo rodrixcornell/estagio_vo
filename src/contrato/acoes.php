@@ -24,7 +24,7 @@ function gerarTabela($param = '') {
     $VO->NB_CPF 					= $_REQUEST['NB_CPF'];
     $VO->CHECK_RESP 				= $_REQUEST['CHECK_RESP'];
     $VO->CHECK_RESP_2 				= $_REQUEST['CHECK_RESP_2'];
-    
+
     $page = $_REQUEST['PAGE'];
 
     $VO->preencherSessionPesquisar($_REQUEST);
@@ -54,7 +54,7 @@ function gerarTabela($param = '') {
 					<th style="width:80px;">TCE</th>
                     <th>Estagiário</th>
                     <th style="width:80px;">CPF</th>';
-        //Somente ver a coluna de alterar se tiver acesso completo a tela --------------------------------------------------------------------------------					
+        //Somente ver a coluna de alterar se tiver acesso completo a tela --------------------------------------------------------------------------------
         if ($acesso)
             echo '<th style="width:30px;"></th>';
         echo '</tr>';
@@ -73,9 +73,9 @@ function gerarTabela($param = '') {
                     <td align="center">' . $dados['NB_CPF'][$i] . '</td>';
 
 
-            //Somente ver a coluna de alterar se tiver acesso completo a tela	--------------------------------------------------------------------------				
+            //Somente ver a coluna de alterar se tiver acesso completo a tela	--------------------------------------------------------------------------
             if ($acesso)
-                echo '<td align="center"> 
+                echo '<td align="center">
                        <a href="' . $dados['ID_CONTRATO'][$i] . '" id="alterar"><img src="' . $urlimg . 'icones/editar.png" alt="itens" title="Alterar"/></a></td>';
             echo '</tr>';
         }
@@ -165,7 +165,7 @@ else if ($_REQUEST['identifier'] == "candidato") {
     $total = $VO->buscarCandidato();
 	echo '<option value="">Escolha...</option>';
     if ($total) {
-        $dados = $VO->getVetor();    
+        $dados = $VO->getVetor();
         for ($i = 0; $i < $total; $i++) {
             echo '<option value="' . $dados['CODIGO'][$i] . '">' . $dados['TX_NOME'][$i] . '</option>';
         }
@@ -177,7 +177,7 @@ else if ($_REQUEST['identifier'] == "candidatoSemSelecao") {
     $total = $VO->buscarEstagiarioSemSelecao();
 	echo '<option value="">Escolha...</option>';
     if ($total) {
-        $dados = $VO->getVetor();    
+        $dados = $VO->getVetor();
         for ($i = 0; $i < $total; $i++) {
             echo '<option value="' . $dados['CODIGO'][$i] . '">' . $dados['TX_NOME'][$i] . '</option>';
         }
@@ -209,7 +209,7 @@ else if ($_REQUEST['identifier'] == "cargoSupervisor") {
     $VO->buscarCargoSupervisor();
     $dados = $VO->getVetor();
 
-        
+
     echo $dados['TX_CARGO'][0];
 }
 // buscar o valor da bolsa do estagio --------------------------------------------------------------------------
@@ -220,7 +220,7 @@ else if ($_REQUEST['identifier'] == "buscarValor") {
     $VO->buscarBolsa();
     $dados = $VO->getVetor();
 
-        
+
     echo $dados['NB_VALOR'][0];
 }
 // buscar todos os documentos(CPF & RG) do candidato-------------------------------------------------------------

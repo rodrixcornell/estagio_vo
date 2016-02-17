@@ -27,7 +27,7 @@ if (!$total){
 		$smarty->display('index.tpl');
 		exit;
 	}
-	
+
 	$acesso = $nivel['CS_NIVEL_ACESSO'][0];
 	$smarty->assign("acesso" 	, $nivel['CS_NIVEL_ACESSO'][0]);
 }

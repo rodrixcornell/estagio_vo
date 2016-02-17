@@ -15,15 +15,15 @@ session_start();
 $_SESSION['ID_AGENCIA_ESTAGIO'] = '';
 
 if ($_POST) {
-    $VO = new quadro_vagasVO();
-    $VO->setCaracteristica('ID_AGENCIA_ESTAGIO', 'obrigatorios');
-    $validar = $VO->preencher($_POST);
+	$VO = new quadro_vagasVO();
+	$VO->setCaracteristica('ID_AGENCIA_ESTAGIO', 'obrigatorios');
+	$validar = $VO->preencher($_POST);
 
-    if (!$validar) {
+	if (!$validar) {
 
-        $_SESSION['ID_AGENCIA_ESTAGIO'] = $VO->ID_AGENCIA_ESTAGIO;
-        header("Location: " . $url . "src/relatorios/" . $pasta . "/relatorio.php");
-    }
+		$_SESSION['ID_AGENCIA_ESTAGIO'] = $VO->ID_AGENCIA_ESTAGIO;
+		header("Location: " . $url . "src/relatorios/" . $pasta . "/relatorio.php");
+	}
 }
 
 $smarty->assign("current", $current);

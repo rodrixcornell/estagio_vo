@@ -25,7 +25,7 @@ function gerarTabela($param = '') {
 			<tr>
 				<th>Email</th>';
 
-    //Somente ver a coluna de alterar se tiver acesso completo a tela	
+    //Somente ver a coluna de alterar se tiver acesso completo a tela
     if ($acesso)
         echo '<th style="width:35px;"></th>';
 
@@ -41,7 +41,7 @@ function gerarTabela($param = '') {
             echo '<tr bgcolor="' . $bgcolor . '" onmouseover="mudarCor(this);" onmouseout="mudarCor(this);" >
 						<td align="left">' . $dados['TX_EMAIL'][$i] . '</td>';
 
-            //Somente ver a coluna de alterar se tiver acesso completo a tela					
+            //Somente ver a coluna de alterar se tiver acesso completo a tela
             if ($acesso)
                 echo '<td align="center" class="icones">
 		<a href="' . $dados['NB_ORGAO_GESTOR_EMAIL'][$i] . '" id="excluir" ><img src="' . $urlimg . 'icones/excluirItem.png" title="Excluir Registro"/></a></td>';
@@ -106,7 +106,7 @@ if ($_REQUEST['identifier'] == "tabela") {
 								<th>Unidade Organizacional</th>
 								<th>Data Cadastro</th>
 								<th>Data Atualização</th>';
-        //Somente ver a coluna de alterar se tiver acesso completo a tela					
+        //Somente ver a coluna de alterar se tiver acesso completo a tela
         if ($acesso)
             echo '<th style="width:50px;"></th>';
         echo '</tr>';
@@ -120,9 +120,9 @@ if ($_REQUEST['identifier'] == "tabela") {
 							<td align="center">' . $dados['DT_CADASTRO'][$i] . '</td>
 							<td align="center">' . $dados['DT_ATUALIZACAO'][$i] . '</td>';
 
-            //Somente ver a coluna de alterar se tiver acesso completo a tela					
+            //Somente ver a coluna de alterar se tiver acesso completo a tela
             if ($acesso)
-                echo '<td align="center"> 
+                echo '<td align="center">
 								<a href="' . $dados['ID_ORGAO_GESTOR_ESTAGIO'][$i] . '" id="alterar"><img src="' . $urlimg . 'icones/editar.png" alt="itens" title="Alterar"/></a>
 							';
             echo '</tr>';

@@ -20,7 +20,7 @@ $VO = new bolsaVO();
 if($_POST){
     $VO->configuracao();
     $VO->setCaracteristica('TX_BOLSA_ESTAGIO,NB_VALOR','obrigatorios');
-   
+
     $validar = $VO->preencher($_POST);
 
 	(!$validar) ? $id_pk = $VO->inserir() : false;
@@ -40,6 +40,6 @@ $smarty->assign("VO"			, $VO);
 $smarty->assign("titulopage"    , $titulopage);
 $smarty->assign("arquivoCSS"    , $pasta);
 $smarty->assign("arquivoJS"     , $pasta);
-$smarty->assign("nomeArquivo"   , $pasta."/".$nomeArquivo.".tpl");	
+$smarty->assign("nomeArquivo"   , $pasta."/".$nomeArquivo.".tpl");
 $smarty->display('index.tpl');
 ?>

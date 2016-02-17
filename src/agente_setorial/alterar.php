@@ -16,11 +16,11 @@ require_once "../autenticacao/validaPermissao.php";
 $VO = new agente_setorialVO();
 
 if ($_SESSION['ID_SETORIAL_ESTAGIO']){
-    
+
     $VO->ID_SETORIAL_ESTAGIO = $_SESSION['ID_SETORIAL_ESTAGIO'];
     $VO->buscar();
     $VO->preencherVOBD($VO->getVetor());
-  
+
     if($_POST){
 		$VO->configuracao();
 		$VO->setCaracteristica('ID_USUARIO_RESP,TX_EMAIL','obrigatorios');
@@ -40,6 +40,6 @@ $smarty->assign("VO"			, $VO);
 $smarty->assign("titulopage"    , $titulopage);
 $smarty->assign("arquivoCSS"    , $pasta);
 $smarty->assign("arquivoJS"     , $pasta);
-$smarty->assign("nomeArquivo"   , $pasta."/".$nomeArquivo.".tpl");	
+$smarty->assign("nomeArquivo"   , $pasta."/".$nomeArquivo.".tpl");
 $smarty->display('index.tpl');
 ?>

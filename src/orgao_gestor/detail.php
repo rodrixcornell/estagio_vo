@@ -17,11 +17,11 @@ require_once "../autenticacao/validaPermissao.php";
 $VO = new orgao_gestorVO();
 
 if ($_SESSION['ID_ORGAO_GESTOR_ESTAGIO']){
-    
-   
+
+
     $VO->ID_ORGAO_GESTOR_ESTAGIO = $_SESSION['ID_ORGAO_GESTOR_ESTAGIO'];
 
-	
+
     $total = $VO->buscar();
     $total ? $dados = $VO->getVetor() : false;
 
@@ -38,6 +38,6 @@ $smarty->assign("acesso"        , $acesso);
 $smarty->assign("titulopage"    , $titulopage);
 $smarty->assign("arquivoCSS"    , $pasta . trim(ucfirst($nomeArquivo)));
 $smarty->assign("arquivoJS"     , $pasta . trim(ucfirst($nomeArquivo)));
-$smarty->assign("nomeArquivo"   , $pasta."/".$nomeArquivo.".tpl");	
+$smarty->assign("nomeArquivo"   , $pasta."/".$nomeArquivo.".tpl");
 $smarty->display('index.tpl');
 ?>

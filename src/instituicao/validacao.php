@@ -8,7 +8,7 @@ $current = 1;
 $titulopage = 'Instituição de Ensino';
 session_start();
 
-// Iniciando Instância 
+// Iniciando Instância
 $codigo = explode('_', $_REQUEST['ID']);
 
 $_SESSION['ID_INSTITUICAO_ENSINO']   = $codigo[0];

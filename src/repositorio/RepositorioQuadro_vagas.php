@@ -19,7 +19,7 @@ class RepositorioQuadro_vagas extends Repositorio {
         $query = "SELECT ID_AGENCIA_ESTAGIO,
                          ID_AGENCIA_ESTAGIO CODIGO,
                          TX_AGENCIA_ESTAGIO
-                    FROM AGENCIA_ESTAGIO AG 
+                    FROM AGENCIA_ESTAGIO AG
 					ORDER BY TX_AGENCIA_ESTAGIO";
 
         return $this->sqlVetor($query);
@@ -100,16 +100,16 @@ class RepositorioQuadro_vagas extends Repositorio {
         if (!$retorno)
             return $CodigoPK['ID_QUADRO_VAGAS_ESTAGIO'][0];
     }
-	
+
 	function verificarAtivo($VO) {
         $query = "select ID_QUADRO_VAGAS_ESTAGIO from QUADRO_VAGAS_ESTAGIO where CS_SITUACAO = 1";
-		
+
 		$VO->ID_QUADRO_VAGAS_ESTAGIO ? $query .= " and ID_QUADRO_VAGAS_ESTAGIO not in (".$VO->ID_QUADRO_VAGAS_ESTAGIO.")" : false;
 
         return $this->sqlVetor($query);
     }
-	
-	
+
+
 
 //-------------------------------alterar master---------------------------------
     function alterar($VO) {
@@ -131,7 +131,7 @@ class RepositorioQuadro_vagas extends Repositorio {
         $query = "select a.ID_QUADRO_VAGAS_ESTAGIO, a.ID_ORGAO_GESTOR_ESTAGIO, a.TX_CODIGO, C.ID_CONTRATO_CP, C.NB_CODIGO, B.TX_ORGAO_GESTOR_ESTAGIO, a.CS_SITUACAO, DECODE(a.CS_SITUACAO, 1,'ATIVADO', 2,'DESATIVADO') TX_SITUACAO,
 							TO_CHAR(a.DT_CADASTRO,'DD/MM/YYYY HH24:MI:SS')DT_CADASTRO, TO_CHAR(a.DT_ATUALIZACAO,'DD/MM/YYYY HH24:MI:SS')DT_ATUALIZACAO,
 							FUNCIONARIO_CADASTRO.TX_FUNCIONARIO TX_FUNCIONARIO_CADASTRO, FUNCIONARIO_ATUALIZACAO.TX_FUNCIONARIO TX_FUNCIONARIO_ATUALIZACAO
-							from QUADRO_VAGAS_ESTAGIO a, ORGAO_GESTOR_ESTAGIO B, CONTRATO_CP C, USUARIO USUARIO_CADASTRADO, USUARIO USUARIO_ATUALIZACAO, 
+							from QUADRO_VAGAS_ESTAGIO a, ORGAO_GESTOR_ESTAGIO B, CONTRATO_CP C, USUARIO USUARIO_CADASTRADO, USUARIO USUARIO_ATUALIZACAO,
 							V_FUNCIONARIO_TOTAL FUNCIONARIO_CADASTRO, V_FUNCIONARIO_TOTAL FUNCIONARIO_ATUALIZACAO
 							where a.ID_ORGAO_GESTOR_ESTAGIO = B.ID_ORGAO_GESTOR_ESTAGIO
 							and a.ID_CONTRATO_CP = C.ID_CONTRATO_CP
@@ -210,9 +210,9 @@ class RepositorioQuadro_vagas extends Repositorio {
 //----------TRAZ A PESQUISA DO DETAIL ------------------
     function pesquisarUnidades($VO) {
         $query = "
-					select a.ID_QUADRO_VAGAS_ESTAGIO, a.ID_AGENCIA_ESTAGIO, a.ID_ORGAO_ESTAGIO, a.CS_TIPO_VAGA_ESTAGIO, a.NB_QUANTIDADE, E.ID_CURSO_ESTAGIO, B.TX_AGENCIA_ESTAGIO, 
+					select a.ID_QUADRO_VAGAS_ESTAGIO, a.ID_AGENCIA_ESTAGIO, a.ID_ORGAO_ESTAGIO, a.CS_TIPO_VAGA_ESTAGIO, a.NB_QUANTIDADE, E.ID_CURSO_ESTAGIO, B.TX_AGENCIA_ESTAGIO,
 				  C.TX_ORGAO_ESTAGIO, D.TX_TIPO_VAGA_ESTAGIO, E.TX_CURSO_ESTAGIO
-			from VAGAS_ESTAGIO a, AGENCIA_ESTAGIO B, ORGAO_ESTAGIO C, TIPO_VAGA_ESTAGIO D, CURSO_ESTAGIO E, USUARIO USUARIO_CADASTRADO, 
+			from VAGAS_ESTAGIO a, AGENCIA_ESTAGIO B, ORGAO_ESTAGIO C, TIPO_VAGA_ESTAGIO D, CURSO_ESTAGIO E, USUARIO USUARIO_CADASTRADO,
 			USUARIO USUARIO_ATUALIZACAO, V_FUNCIONARIO_TOTAL FUNCIONARIO_CADASTRO, V_FUNCIONARIO_TOTAL FUNCIONARIO_ATUALIZACAO
 			where a.ID_AGENCIA_ESTAGIO = B.ID_AGENCIA_ESTAGIO
 			and a.ID_ORGAO_ESTAGIO = C.ID_ORGAO_ESTAGIO
@@ -225,7 +225,7 @@ class RepositorioQuadro_vagas extends Repositorio {
 			and USUARIO_CADASTRADO.ID_UNIDADE_GESTORA = FUNCIONARIO_CADASTRO.ID_UNIDADE_GESTORA
 			and USUARIO_ATUALIZACAO.ID_UNIDADE_GESTORA = FUNCIONARIO_ATUALIZACAO.ID_UNIDADE_GESTORA
 			and a.ID_QUADRO_VAGAS_ESTAGIO = ".$VO->ID_QUADRO_VAGAS_ESTAGIO;
-		
+
 		$VO->ID_AGENCIA_ESTAGIO ? $query .= " AND a.ID_AGENCIA_ESTAGIO = " . $VO->ID_AGENCIA_ESTAGIO : false;
 		$VO->ID_ORGAO_ESTAGIO ?   $query .= " AND a.ID_ORGAO_ESTAGIO = " . $VO->ID_ORGAO_ESTAGIO : false;
 		$VO->CS_TIPO_VAGA_ESTAGIO ? $query .= " AND a.CS_TIPO_VAGA_ESTAGIO = " . $VO->CS_TIPO_VAGA_ESTAGIO : false;
@@ -370,7 +370,7 @@ class RepositorioQuadro_vagas extends Repositorio {
 
     // Funçõe de tabela de visualizãção de quadra de vagas
     function buscarAgenteIntegracao($VO){
-      $query = "SELECT 
+      $query = "SELECT
                   TX_SIGLA,
                   A.TX_AGENCIA_ESTAGIO,
                   A.ID_AGENCIA_ESTAGIO,
@@ -435,6 +435,6 @@ class RepositorioQuadro_vagas extends Repositorio {
                 AND V.ID_AGENCIA_ESTAGIO = '".$VO->ID_AGENCIA_ESTAGIO_TABELA ."'";
       return $this->sqlVetor($query);
     }
-    
+
 }
 ?>

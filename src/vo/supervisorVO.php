@@ -8,11 +8,11 @@ class supervisorVO extends VO {
         //Banco
         $this->repositorio = new RepositorioSupervisor();
     }
-    
+
     function pesquisarFuncionario() {
     	return $this->repositorio->pesquisarFuncionario($this);
     }
-	
+
     function pesquisarConselho() {
     	return $this->repositorio->pesquisarConselho($this);
     }

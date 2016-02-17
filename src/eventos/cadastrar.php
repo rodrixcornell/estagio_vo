@@ -18,18 +18,18 @@ unset($_SESSION['ID_ITEM_PAGAMENTO_ESTAGIO']);
 $VO = new eventosVO();
 
     if($_POST){
-    
+
         $VO->configuracao();
         $VO->setCaracteristica('TX_CODIGO,TX_DESCRICAO,TX_SIGLA,CS_TIPO,CS_SITUACAO','obrigatorios');
         $validar = $VO->preencher($_POST);
-    	
+
     	(!$validar) ? $id_pk = $VO->inserir() : false;
-    	
+
         if (!$validar) {
             $_SESSION['ID_ITEM_PAGAMENTO_ESTAGIO'] = $id_pk;
     		header("Location: ".$url."src/".$pasta."/detail.php");
         }
-    
+
     }
 
 $smarty->assign("current"       , $current);
@@ -39,6 +39,6 @@ $smarty->assign("VO"			, $VO);
 $smarty->assign("titulopage"    , $titulopage);
 $smarty->assign("arquivoCSS"    , $pasta);
 $smarty->assign("arquivoJS"     , $pasta);
-$smarty->assign("nomeArquivo"   , $pasta."/".$nomeArquivo.".tpl");	
+$smarty->assign("nomeArquivo"   , $pasta."/".$nomeArquivo.".tpl");
 $smarty->display('index.tpl');
 ?>

@@ -29,16 +29,16 @@ if ($_POST) {
 		$VO->configuracao();
 		$VO->setCaracteristica('ID_ORGAO_GESTOR_ESTAGIO,CS_SITUACAO,ID_CONTRATO_CP', 'obrigatorios');
 		$validar = $VO->preencher($_POST);
-	
+
 		if (!$validar)
 			$id_pk = $VO->inserir();
-	
+
 		if ($id_pk) {
 			$_SESSION['ID_QUADRO_VAGAS_ESTAGIO'] = $id_pk;
 			header("Location: " . $url . "src/" . $pasta . "/detail.php");
 		}
 	}
-    
+
 }
 
 $smarty->assign("current", $current);

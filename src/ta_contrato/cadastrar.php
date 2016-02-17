@@ -21,7 +21,7 @@ if ($_POST) {
     $VO->configuracao();
     $VO->setCaracteristica('ID_ORGAO_GESTOR_ESTAGIO,ID_CONTRATO_CP,ID_UNIDADE_ORG_ORIGEM,ID_UNIDADE_ORG_DESTINO,TX_ASSUNTO,DT_SOLICITACAO','obrigatorios');
     $VO->setCaracteristica('DT_SOLICITACAO', 'datas');
-   
+
     $validar = $VO->preencher($_POST);
 
     $tamanho_just = strlen($_POST['TX_SOLICITACAO']);
@@ -30,16 +30,16 @@ if ($_POST) {
         $validar['TX_SOLICITACAO'] = 'Valor máximo de 255 caracteres, atual de: ' . $tamanho_just;
      }else if (!$validar) {
         $id_pk = $VO->inserir();
-    
+
         //print_r($id_pk);
-        
+
         if ($id_pk) {
             $_SESSION['ID_SOLICITACAO_TA_CP'] = $id_pk;
             header("Location: " . $url . "src/" . $pasta . "/detail.php");
         }else {
             $validar['ID_ORGAO_GESTOR_ESTAGIO'] = "Erro de Cadastro!";
         }
-        
+
     if ($VO->ID_UNIDADE_ORG_ORIGEM) {
         $VO->buscarUnidadeDestino();
         $smarty->assign("buscarUnidadeDestino", $VO->getArray("TX_UNIDADE_ORG_DESTINO"));

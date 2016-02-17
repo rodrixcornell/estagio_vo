@@ -823,11 +823,11 @@ class RepositorioSelecao extends Repositorio {
 
     function buscarAgenciaSemSelecao($VO){
 
-        $query="SELECT 
+        $query="SELECT
                 ID_AGENCIA_ESTAGIO,
                   ID_AGENCIA_ESTAGIO CODIGO,
                   TX_AGENCIA_ESTAGIO
-                FROM 
+                FROM
                     AGENCIA_ESTAGIO ";
         return $this->sqlVetor($query);
     }

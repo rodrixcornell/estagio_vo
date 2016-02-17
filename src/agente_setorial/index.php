@@ -20,6 +20,6 @@ $smarty->assign("titulopage"    , $titulopage);
 $smarty->assign("VO"      		, $VO);
 $smarty->assign("arquivoCSS"    , $pasta);
 $smarty->assign("arquivoJS"     , $pasta);
-$smarty->assign("nomeArquivo"   , $pasta."/".$nomeArquivo.".tpl");	
+$smarty->assign("nomeArquivo"   , $pasta."/".$nomeArquivo.".tpl");
 $smarty->display('index.tpl');
 ?>

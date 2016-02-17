@@ -13,8 +13,8 @@ class RepositorioOrgao_solicitante extends Repositorio {
 
         return $this->sqlVetor($query);
     }
-    
-        
+
+
     function pesquisar($VO) {
 
         $query = "SELECT A.ID_ORGAO_ESTAGIO,
@@ -38,7 +38,7 @@ class RepositorioOrgao_solicitante extends Repositorio {
             !$VO->Reg_inicio ? $VO->Reg_inicio = 0 : false;
             $query = "SELECT * FROM (SELECT PAGING.*, ROWNUM PAGING_RN FROM (" . $query . ") PAGING WHERE (ROWNUM <= " . ($VO->Reg_quantidade + $VO->Reg_inicio) . "))  WHERE (PAGING_RN > " . $VO->Reg_inicio . ")";
         }
-        
+
        return $this->sqlVetor($query);
     }
 
@@ -144,7 +144,7 @@ values  (" . $CodigoPK['ID_ORGAO_ESTAGIO'][0] . ",
                             DT_ATUALIZACAO = SYSDATE
                       WHERE ID_ORGAO_ESTAGIO = '" . $VO->ID_ORGAO_ESTAGIO . "'";
 
-       
+
        return $this->sql($query);
     }
 

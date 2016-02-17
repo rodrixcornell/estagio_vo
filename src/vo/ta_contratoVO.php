@@ -16,11 +16,11 @@ class ta_contratoVO extends VO{
     function pesquisarCodigoContrato(){
         return $this->repositorio->pesquisarCodigoContrato($this);
     }
-    
+
     function pesquisarCodTermoAditivo(){
         return $this->repositorio->pesquisarCodTermoAditivo($this);
     }
-	
+
     function buscarAgenciaEstagio(){
         return $this->repositorio->buscarAgenciaEstagio($this);
     }
@@ -28,7 +28,7 @@ class ta_contratoVO extends VO{
     function buscarUnidadeOrigem(){
         return $this->repositorio->buscarUnidadeOrigem($this);
     }
-    
+
     function buscarUnidadeDestino(){
         return $this->repositorio->buscarUnidadeDestino($this);
     }
@@ -68,11 +68,11 @@ class ta_contratoVO extends VO{
     function atualizarInf(){
         return $this->repositorio->atualizarInf($this);
     }
-	
+
 	function verificarRecrutamento(){
         return $this->repositorio->verificarRecrutamento($this);
     }
-	
+
 	function efetivarSolicitacao(){
         return $this->repositorio->efetivarSolicitacao($this);
     }

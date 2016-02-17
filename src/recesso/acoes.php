@@ -54,7 +54,7 @@ function gerarTabela($param = '') {
 				<th>Estagiário</th>
 				<th>CPF</th>
 ';
-        //Somente ver a coluna de alterar se tiver acesso completo a tela					
+        //Somente ver a coluna de alterar se tiver acesso completo a tela
         if ($acesso)
             echo '<th style="width:100px;"></th>';
         echo '</tr>';
@@ -69,13 +69,13 @@ function gerarTabela($param = '') {
                             <td align="center">' . $dados['TX_CONTRATO'][$i] . '</td>
                             <td align="center">' . $dados['TX_NOME_ESTAGIARIO'][$i] . '</td>
                             <td align="center">' . $dados['NB_CPF'][$i] . '</td>
-							
+
 							';
 
 
-            //Somente ver a coluna de alterar se tiver acesso completo a tela					
+            //Somente ver a coluna de alterar se tiver acesso completo a tela
             if ($acesso)
-                echo '<td align="center"> 
+                echo '<td align="center">
                     <a href="' . $dados['ID_RECESSO_ESTAGIO'][$i] . '" id="alterar"><img src="' . $urlimg . 'icones/editar.png" alt="itens" title="Alterar"/></a>';
             echo '</tr>';
         }
@@ -146,32 +146,32 @@ else if ($_REQUEST['identifier'] == "buscarDadosContrato") {
 }
 
 else if($_REQUEST['identifier'] == "buscarOrgaoSolicitante"){
-    
+
     $total = $VO->pesquisarOrgaoSolicitante();
 	echo '<option value="">Escolha...</option>';
     if ($total) {
-        $dados = $VO->getVetor();    
+        $dados = $VO->getVetor();
         for ($i = 0; $i < $total; $i++) {
             echo '<option value="' . $dados['CODIGO'][$i] . '">' . $dados['TX_ORGAO_ESTAGIO'][$i] . '</option>';
         }
     }
-    
+
 
 }
 else if($_REQUEST['identifier'] == "buscarContratoCombo"){
- 
+
     $VO->ID_ORGAO_GESTOR_ESTAGIO = $_REQUEST['ID_ORGAO_GESTOR_ESTAGIO'];
     $VO->ID_ORGAO_ESTAGIO = $_REQUEST['ID_ORGAO_ESTAGIO'];
-    
+
     $total = $VO->buscarContrato();
     echo '<option value="">Escolha...</option>';
     if ($total) {
-        $dados = $VO->getVetor();    
+        $dados = $VO->getVetor();
         for ($i = 0; $i < $total; $i++) {
             echo '<option value="' . $dados['CODIGO'][$i] . '">' . $dados['TX_CONTRATO'][$i] . '</option>';
         }
     }
-    
+
 }
 
 ?>

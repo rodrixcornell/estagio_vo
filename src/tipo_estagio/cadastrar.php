@@ -21,7 +21,7 @@ if($_POST){
     $VO->configuracao();
     $VO->setCaracteristica('CS_TIPO_VAGA_ESTAGIO,TX_TIPO_VAGA_ESTAGIO','obrigatorios');
 	$VO->setCaracteristica('CS_TIPO_VAGA_ESTAGIO','numeros');
-   
+
     $validar = $VO->preencher($_POST);
 
 	(!$validar) ? $validar = $VO->inserir() : false;
@@ -33,7 +33,7 @@ if($_POST){
 		$_SESSION['PAGE'] = '1';
 		header("Location: ".$url."src/".$pasta."/index.php");
     }else{
-		$validar['CS_TIPO_VAGA_ESTAGIO'] = 'Registro já existe!';	
+		$validar['CS_TIPO_VAGA_ESTAGIO'] = 'Registro já existe!';
 	}
 }
 
@@ -44,6 +44,6 @@ $smarty->assign("VO"			, $VO);
 $smarty->assign("titulopage"    , $titulopage);
 $smarty->assign("arquivoCSS"    , $pasta);
 $smarty->assign("arquivoJS"     , $pasta);
-$smarty->assign("nomeArquivo"   , $pasta."/".$nomeArquivo.".tpl");	
+$smarty->assign("nomeArquivo"   , $pasta."/".$nomeArquivo.".tpl");
 $smarty->display('index.tpl');
 ?>

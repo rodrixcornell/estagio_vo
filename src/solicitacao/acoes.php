@@ -19,16 +19,16 @@ function gerarTabela($param = '') {
     $VO->ID_SOLICITACAO_ESTAGIO 		= $_SESSION['ID_SOLICITACAO_ESTAGIO'];
 	$VO->ID_QUADRO_VAGAS_ESTAGIO 		= $_REQUEST['ID_QUADRO_VAGAS_ESTAGIO'];
     $VO->ID_ORGAO_ESTAGIO 				= $_REQUEST['ID_ORGAO_ESTAGIO'];
-	
+
     $page = $_REQUEST['PAGE'];
-	
+
 	$total = $VO->buscar();
     $dados = $VO->getVetor();
-	
+
 	if ($dados['CS_SITUACAO'][0] == 2){
 	   $acesso = 0;
-	} 
-	
+	}
+
     $qtd = 15;
     !$page ? $page = 1 : false;
     $primeiro = ($page * $qtd) - $qtd;
@@ -40,8 +40,8 @@ function gerarTabela($param = '') {
     $VO->Reg_inicio = $primeiro;
     $VO->Reg_quantidade = $qtd;
     $tot_da_pagina = $VO->pesquisarVagasSolicitadas();
-	
-		
+
+
 
     echo '
         <table width="100%" id="tabelaItens" >
@@ -262,7 +262,7 @@ if ($_REQUEST['identifier'] == "tabela") {
 	$dados = $VO->getVetor();
 
 	echo $dados['ID_QUADRO_VAGAS_ESTAGIO'][0];
-	
+
 } else if ($_REQUEST['identifier'] == "buscarAgenciaEstagio") {
 
     $VO->ID_ORGAO_ESTAGIO = $_REQUEST['ID_ORGAO_ESTAGIO'];
@@ -280,7 +280,7 @@ if ($_REQUEST['identifier'] == "tabela") {
     $VO->ID_QUADRO_VAGAS_ESTAGIO = $_REQUEST['ID_QUADRO_VAGAS_ESTAGIO'];
 	$VO->ID_AGENCIA_ESTAGIO = $_REQUEST['ID_AGENCIA_ESTAGIO'];
 	$VO->ID_ORGAO_ESTAGIO = $_REQUEST['ID_ORGAO_ESTAGIO'];
-	
+
     $total = $VO->buscarTipoVaga();
 
 	echo '<option value="">Escolha...</option>';
@@ -297,7 +297,7 @@ if ($_REQUEST['identifier'] == "tabela") {
 	$dados = $VO->getVetor();
 
 	echo json_encode($dados);
-	
+
 } else if ($_REQUEST['identifier'] == "pesquisarTipoVaga") {
 
     $VO->ID_SOLICITACAO_ESTAGIO 	= $_SESSION['ID_SOLICITACAO_ESTAGIO'];
@@ -307,7 +307,7 @@ if ($_REQUEST['identifier'] == "tabela") {
     $total = $VO->pesquisarTipoVaga();
 	echo '<option value="">Escolha...</option>';
     if ($total) {
-        $dados = $VO->getVetor();    
+        $dados = $VO->getVetor();
         for ($i = 0; $i < $total; $i++) {
             echo '<option value="' . $dados['CODIGO'][$i] . '">' . $dados['TX_TIPO_VAGA_ESTAGIO'][$i] . '</option>';
         }
@@ -398,5 +398,5 @@ if ($_REQUEST['identifier'] == "tabela") {
     $dados = $VO->atualizarInf();
 
     echo json_encode($dados);
-} 
+}
 ?>

@@ -16,16 +16,16 @@ require_once "../autenticacao/validaPermissao.php";
 $VO = new tipo_estagioVO();
 
 if ($_SESSION['CS_TIPO_VAGA_ESTAGIO']){
-    
+
     $VO->CS_TIPO_VAGA_ESTAGIO = $_SESSION['CS_TIPO_VAGA_ESTAGIO'];
 
     $VO->pesquisar();
     $VO->preencherVOBD($VO->getVetor());
-    
+
     if($_POST){
 		$VO->configuracao();
         $VO->setCaracteristica('CS_TIPO_VAGA_ESTAGIO,TX_TIPO_VAGA_ESTAGIO','obrigatorios');
-                
+
 		$validar = $VO->preencher($_POST);
 
         if (!$validar){
@@ -46,6 +46,6 @@ $smarty->assign("VO"			, $VO);
 $smarty->assign("titulopage"    , $titulopage);
 $smarty->assign("arquivoCSS"    , $pasta);
 $smarty->assign("arquivoJS"     , $pasta);
-$smarty->assign("nomeArquivo"   , $pasta."/".$nomeArquivo.".tpl");	
+$smarty->assign("nomeArquivo"   , $pasta."/".$nomeArquivo.".tpl");
 $smarty->display('index.tpl');
 ?>

@@ -16,7 +16,7 @@ require_once "../autenticacao/validaPermissao.php";
 $VO = new eventosVO();
 
 if ($_SESSION['ID_ITEM_PAGAMENTO_ESTAGIO']){
-    
+
     $VO->ID_ITEM_PAGAMENTO_ESTAGIO = $_SESSION['ID_ITEM_PAGAMENTO_ESTAGIO'];
 
     $total = $VO->pesquisarEventos();
@@ -32,6 +32,6 @@ $smarty->assign("censo"         , $censo);
 $smarty->assign("titulopage"    , $titulopage);
 $smarty->assign("arquivoCSS"    , $pasta . trim(ucfirst($nomeArquivo)));
 $smarty->assign("arquivoJS"     , $pasta . trim(ucfirst($nomeArquivo)));
-$smarty->assign("nomeArquivo"   , $pasta."/".$nomeArquivo.".tpl");	
+$smarty->assign("nomeArquivo"   , $pasta."/".$nomeArquivo.".tpl");
 $smarty->display('index.tpl');
 ?>

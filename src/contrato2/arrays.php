@@ -3,7 +3,7 @@
 require_once "../../php/define.php";
 require_once $pathvo."contratoVO.php";
 
-// instancia da classe contratoVO	
+// instancia da classe contratoVO
 $VO = new contratoVO();
 
 //busca pelos dados que será apresentado na tela
@@ -40,15 +40,15 @@ $arrayInstituicaoDeEnsino=$VO->getArray('TX_INSTITUICAO_ENSINO');
 $VO->buscarSupervisor();
 $arrayPessoaSupervisor=$VO->getArray('TX_NOME');
 
-// buscar Bolsa 
+// buscar Bolsa
 $VO->buscarBolsa();
 $arrayBolsa=$VO->getArray('TX_BOLSA_ESTAGIO');
 
 // #################################### ARRAYS PRÉ-DEFINIFINIDOS#####################################
 
 // Tipo de Contrato
-$arrayTipoContrato[''] = 'Escolha...';	
-$arrayTipoContrato[1] = 'Contrato Inicial';	  
+$arrayTipoContrato[''] = 'Escolha...';
+$arrayTipoContrato[1] = 'Contrato Inicial';
 $arrayTipoContrato[2] = 'Aditivo Contratual';
 
 //Periodo Do curso do Estagiario
@@ -75,7 +75,7 @@ $arrayHorarioCurso['1']='Manhã';
 $arrayHorarioCurso['2']='Tarde';
 $arrayHorarioCurso['3']='Noite';
 
-//Apresentações dos dados no tpl 
+//Apresentações dos dados no tpl
 $smarty->assign('arrayOrgaoGestor',$arrayOrgaoGestor);
 $smarty->assign('arrayOrgaoSolicitante',$arrayOrgaoSolicitante);
 $smarty->assign('arrayTipoContrato',$arrayTipoContrato);

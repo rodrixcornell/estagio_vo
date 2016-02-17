@@ -16,9 +16,9 @@ function gerarTabela($param = '') {
 
     $VO = new recrutamentoVO();
     $VO->ID_RECRUTAMENTO_ESTAGIO = $_SESSION['ID_RECRUTAMENTO_ESTAGIO'];
-	
+
 	$VO->verificarSelecao() ? $acesso = 0 : false;
-	
+
     $page = $_REQUEST['PAGE'];
 
     $qtd = 15;
@@ -102,8 +102,8 @@ function gerarTabelaCand($param=''){
 		$arrayCPF .= '<option value="'.$key.'">'.$value.'</option> ';
 	}
 	echo '
-	
-	
+
+
 	<script>
 
 		$.widget( "ui.combobox", {
@@ -116,7 +116,7 @@ function gerarTabelaCand($param=''){
                     wrapper = this.wrapper = $( "<span>" )
                         .addClass( "ui-combobox" )
                         .insertAfter( select );
- 
+
                 function removeIfInvalid(element) {
                     var value = $( element ).val(),
                         matcher = new RegExp( "^" + $.ui.autocomplete.escapeRegex( value ) + "$", "i" ),
@@ -140,7 +140,7 @@ function gerarTabelaCand($param=''){
                         return false;
                     }
                 }
- 
+
                 input = $( "<input>" )
                     .appendTo( wrapper )
                     .val( value )
@@ -170,35 +170,35 @@ function gerarTabelaCand($param=''){
                             ui.item.option.selected = true;
                             that._trigger( "selected", event, {
                                 item: ui.item.option
-								
+
                             });
-			
+
                           	if ( ui.item ){
 								$("#TX_NOME").val("");
 								$.getJSON("acoes.php?identifier=mostrarNome&ID_PESSOA_ESTAGIARIO="+ui.item.option.value, function preencherNome(dados){
 									$("#TX_NOME").val(dados["TX_NOME"][0]);
 								});
-							}							
-							
-							
+							}
+
+
                         },
                         change: function( event, ui ) {
                             if ( !ui.item ){
 								$("#TX_NOME").val("");
                                 return removeIfInvalid( this );
 							}
-							
+
 						}
                     	})
                     	.addClass( "ui-widget ui-widget-content" );
- 
+
                 input.data( "autocomplete" )._renderItem = function( ul, item ) {
                     return $( "<li>" )
                         .data( "item.autocomplete", item )
                         .append( "<a>" + item.label + "</a>" )
                         .appendTo( ul );
                 };
- 
+
                 $( "<a>" )
                     .attr( "tabIndex", -1 )
                     .attr( "title", "Mostrar Todos Itens" )
@@ -210,8 +210,8 @@ function gerarTabelaCand($param=''){
                         },
                         text: false
                     })
-                    
-                    
+
+
                     .click(function() {
                         // close if already visible
 						input.autocomplete({ minLength: 0 });
@@ -220,15 +220,15 @@ function gerarTabelaCand($param=''){
                             removeIfInvalid( input );
                             return;
                         }
- 
+
                         // work around a bug (likely same cause as #5265)
                         $( this ).blur();
- 
+
                         // pass empty string as value to search for, displaying all results
                         input.autocomplete( "search", "" );
                         input.focus();
                     });
- 
+
                     input
                         .tooltip({
                             position: {
@@ -237,24 +237,24 @@ function gerarTabelaCand($param=''){
                             tooltipClass: "ui-state-highlight"
                         });
             },
- 
+
             destroy: function() {
                 this.wrapper.remove();
                 this.element.show();
                 $.Widget.prototype.destroy.call( this );
             }
-    });	
-	
-	$("#ID_PESSOA_ESTAGIARIO").combobox();	
+    });
+
+	$("#ID_PESSOA_ESTAGIARIO").combobox();
 	</script>
-	
+
 	<style>	.ui-combobox input{width: 150px; height:16px;} </style>';
-if ($acesso) echo '	
+if ($acesso) echo '
 	<fieldset>
         <legend>Cadastrar Candidatos do Recrutamento</legend>
 
             <input type="hidden" name="NB_VAGAS_RECRUTAMENTO" id="NB_VAGAS_RECRUTAMENTO" value="'.$VO->NB_VAGAS_RECRUTAMENTO.'"/>
-			
+
             <div id="camada" style="width:180px;"><strong><font color="#FF0000">*</font>CPF </strong>
 	            <select name="ID_PESSOA_ESTAGIARIO" id="ID_PESSOA_ESTAGIARIO" style="width:150px;" >'.$arrayCPF.'</select></div>
 
@@ -263,10 +263,10 @@ if ($acesso) echo '
 
             <input type="button" name="inserirCand" id="inserir" value="Inserir" />
 		</fieldset>';
-		
-		
+
+
 	$total = $VO->buscarCandidato();
-	
+
 	echo '<table id="tabelaItens" width="100%">
 				<tr>
 					<th>CPF</th>
@@ -275,14 +275,14 @@ if ($acesso) echo '
 					<th>Motivo</th>';
  if ($acesso) echo '<th style="width:25px;"></th>';
 		 echo '</tr>';
-		 
+
 	if ($total){
 		$dados = $VO->getVetor();
-		
+
 		for ($i=0; $i<$total; $i++){
-			
+
 			($bgcolor == '#F0F0F0') ? $bgcolor = '#DDDDDD' : $bgcolor = '#F0F0F0';
-			
+
 			echo '<tr bgcolor="'.$bgcolor.'" onmouseover="mudarCor(this);" onmouseout="mudarCor(this)" align="center" >
 					<td align="center">'.$dados['NB_CPF'][$i].'</td>
 					<td align="left">'.$dados['TX_NOME'][$i].' </td>
@@ -294,13 +294,13 @@ if ($acesso) echo '
 		}
 	}else
 		echo '<tr><td colspan="5">Nenhum registro encontrado.</td></tr>';
-	
+
 	echo '</table>';
-	
+
 
 	if ($param){
 		echo '<script>alert("'.$param.'");</script>';
-	}	
+	}
 }
 
 
@@ -341,7 +341,7 @@ if ($_REQUEST['identifier'] == "tabela") {
              <th>Quadro de Vagas</th>
 			 <th>Situação</th>
              <th>Doc. Autorização</th>';
-        //Somente ver a coluna de alterar se tiver acesso completo a tela					
+        //Somente ver a coluna de alterar se tiver acesso completo a tela
         //if ($acesso)
             echo '<th style="width:30px;"></th>';
         echo '</tr>';
@@ -358,10 +358,10 @@ if ($_REQUEST['identifier'] == "tabela") {
 				<td align="center">' . $dados['TX_SITUACAO'][$i] . '</td>
                 <td align="center">' . $dados['TX_DOC_AUTORIZACAO'][$i] . '</td>';
 
-            //Somente ver a coluna de alterar se tiver acesso completo a tela					
+            //Somente ver a coluna de alterar se tiver acesso completo a tela
            // if ($acesso)
 
-          echo '<td align="center"> 
+          echo '<td align="center">
 		  <a href="' . $dados['ID_RECRUTAMENTO_ESTAGIO'][$i] . '" id="alterar"><img src="' . $urlimg . 'icones/editar.png" alt="itens" title="Alterar"/></a></td>';
 
             echo '</tr>';
@@ -446,7 +446,7 @@ if ($_REQUEST['identifier'] == "tabela") {
 } else if ($_REQUEST['identifier'] == "tabelaVagas") {
     gerarTabela();
 }else if ($_REQUEST['identifier'] == 'tabelaCand'){
-	gerarTabelaCand();	
+	gerarTabelaCand();
 } else if ($_REQUEST['identifier'] == "inserirVaga") {
 
     $VO->ID_RECRUTAMENTO_ESTAGIO = $_SESSION['ID_RECRUTAMENTO_ESTAGIO'];
@@ -474,15 +474,15 @@ if ($_REQUEST['identifier'] == "tabela") {
     $VO->ID_RECRUTAMENTO_ESTAGIO = $_SESSION['ID_RECRUTAMENTO_ESTAGIO'];
     $VO->ID_PESSOA_ESTAGIARIO    = $_REQUEST['ID_PESSOA_ESTAGIARIO'];
     $VO->NB_VAGAS_RECRUTAMENTO   = $_REQUEST['CODIGO'];
-	
+
     if ($acesso) {
         if ( $VO->ID_RECRUTAMENTO_ESTAGIO && $VO->NB_VAGAS_RECRUTAMENTO && $VO->ID_PESSOA_ESTAGIARIO ){
-			
+
 			$VO->buscarVaga();
 			$qtd = $VO->getVetor();
-			
+
 			$total = $VO->buscarCandidato();
-			
+
 			if ($total < $qtd['NB_QUANTIDADE'][0]){
 				$retorno = $VO->inserirCandidato();
 				if ($retorno) {
@@ -516,7 +516,7 @@ if ($_REQUEST['identifier'] == "tabela") {
         $erro = "Você não tem permissão para realizar esta ação.";
 
     gerarTabela($erro);
-	
+
 }else if ($_REQUEST['identifier'] == 'excluirCand') {
 
     $VO->ID_RECRUTAMENTO_ESTAGIO = $_SESSION['ID_RECRUTAMENTO_ESTAGIO'];
@@ -533,45 +533,45 @@ if ($_REQUEST['identifier'] == "tabela") {
         $erro = "Você não tem permissão para realizar esta ação.";
 
     gerarTabelaCand($erro);
-	
-	
+
+
 }else if ($_REQUEST['identifier'] == "mostrarNome"){
-	
+
 	$VO->ID_PESSOA_ESTAGIARIO = $_REQUEST['ID_PESSOA_ESTAGIARIO'];
-	
+
 	$total = $VO->pesquisarEstagiario();
     $dados = $VO->getVetor();
-		
+
 	echo json_encode($dados);
 
 }else if ($_REQUEST['identifier'] == 'alterarVaga'){
-    
+
         $VO->ID_RECRUTAMENTO_ESTAGIO= $_SESSION['ID_RECRUTAMENTO_ESTAGIO'];
 		$VO->NB_VAGAS_RECRUTAMENTO	= $_REQUEST['NB_VAGAS_RECRUTAMENTO'];
         $VO->NB_QUANTIDADE			= $_REQUEST['NB_QUANTIDADE'];
-        
-    if ($acesso) {	
+
+    if ($acesso) {
 	    if ($VO->NB_QUANTIDADE){
-			
+
 			$total = $VO->buscarCandidato();
-			
+
 			if ($total <= $VO->NB_QUANTIDADE){
-			
+
 				$retorno = $VO->alterarVaga();
-				if (is_array($retorno)){	
+				if (is_array($retorno)){
 					$posicao = stripos($retorno['message'], ":");
 					$string1 = substr($retorno['message'], $posicao+1);
 					$posicao2 = stripos($string1, "ORA");
 					$erro = substr($retorno['message'], $posicao+1, $posicao2-1);
 				}
-				
+
 			}else $erro = 'A quantidade de estagiario já cadastrado é maior que o valor informado!';
-			
+
 		}else
 			$erro = "O campo Quantidade deve ser preenchidos.";
 	 }else
-        $erro = "Você não tem permissão para realizar esta ação.";		
-                
+        $erro = "Você não tem permissão para realizar esta ação.";
+
      gerarTabela($erro);
 }
 ?>

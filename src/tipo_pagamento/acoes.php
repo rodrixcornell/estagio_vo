@@ -40,7 +40,7 @@ function gerarTabela($param = '') {
                             <tr>
                                 <th>Código</th>
 								<th>Descrição</th>';
-        //Somente ver a coluna de alterar se tiver acesso completo a tela					
+        //Somente ver a coluna de alterar se tiver acesso completo a tela
         if ($acesso)
             echo '<th style="width:50px;"></th>';
         echo '</tr>';
@@ -51,9 +51,9 @@ function gerarTabela($param = '') {
                                    <td align="center">' . $dados['CS_TIPO_PAG_ESTAGIO'][$i] . '</td>
 			           			   <td align="center">' . $dados['TX_TIPO_PAG_ESTAGIO'][$i] . '</td>';
 
-            //Somente ver a coluna de alterar se tiver acesso completo a tela					
+            //Somente ver a coluna de alterar se tiver acesso completo a tela
             if ($acesso)
-                echo '<td align="center"> 
+                echo '<td align="center">
 			<a href="' . $dados['CS_TIPO_PAG_ESTAGIO'][$i] . '" id="alterar"><img src="' . $urlimg . 'icones/editar.png" alt="itens" title="Alterar"/></a>
 			<a href="' . $dados['CS_TIPO_PAG_ESTAGIO'][$i] . '" id="excluir"><img src="' . $urlimg . 'icones/excluirItem.png" alt="itens" title="Excluir"/></a></td>';
             echo '</tr>';
@@ -90,7 +90,7 @@ $VO = new tipo_pagamentoVO();
 if ($_REQUEST['identifier'] == "tabela") {
     gerarTabela($erro);
 } else if ($_REQUEST['identifier'] == 'excluir') {
-	
+
     $VO->CS_TIPO_PAG_ESTAGIO = $_REQUEST['ID'];
 
     if ($acesso) {

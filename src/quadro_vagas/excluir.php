@@ -15,9 +15,9 @@ require_once "../autenticacao/validaPermissao.php";
 if ($_SESSION['ID_QUADRO_VAGAS_ESTAGIO']) {
     $VO = new quadro_vagasVO();
     $VO->ID_QUADRO_VAGAS_ESTAGIO = $_SESSION['ID_QUADRO_VAGAS_ESTAGIO'];
-    
+
     $retorno = $VO->excluir();
-    
+
     if (!$retorno) {
         $msg = 'Quadro de Vaga excluída com sucesso.<br><br> <a href="' . $url . 'src/' . $pasta . '/index.php">Clique aqui</a> para voltar';
         unset($_SESSION['ID_QUADRO_VAGAS_ESTAGIO']);

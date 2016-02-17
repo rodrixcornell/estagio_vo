@@ -14,31 +14,31 @@ require_once "../autenticacao/validaPermissao.php";
 
  //Iniciando Instância
 $VO = new TrVO();
-$dados['MENSSAGEM'] = " ";    
+$dados['MENSSAGEM'] = " ";
 if ($_SESSION['ID_SOLICITACAO_TR']){
     //$dados['MENSSAGEM'] = " ";
     $VO->ID_SOLICITACAO_TR = $_SESSION['ID_SOLICITACAO_TR'];
-    
+
     $total = $VO->pesquisar();
     $total ? $dados = $VO->getVetor() : false;
 
     if ($_POST['efetivar']){
-                        
+
       $VO->ID_SOLICITACAO_TR = $dados['ID_SOLICITACAO_TR'][0];
-      
-//      $aux = $VO->efetivar();  
-      
-//      if (!$aux) {          
-          $VO->EFETIVAR = 2; 
-          $VO->atualizarInf(); 
-      //    $dados['MENSSAGEM'] = " ";          
+
+//      $aux = $VO->efetivar();
+
+//      if (!$aux) {
+          $VO->EFETIVAR = 2;
+          $VO->atualizarInf();
+      //    $dados['MENSSAGEM'] = " ";
           header("Location: ".$url."src/".$pasta."/detail.php");
 //      }else{
 //          $dados['MENSSAGEM'] = "A seleção não pode ser efetivada pois existe(m) candidatos em análise!";
 //      }
-      
-    }       
-    
+
+    }
+
 //    $VO->ID_RECRUTAMENTO_ESTAGIO = $dados['ID_RECRUTAMENTO_ESTAGIO'][0];
 //    $_SESSION['ID_RECRUTAMENTO_ESTAGIO'] = $dados['ID_RECRUTAMENTO_ESTAGIO'][0];
 //    $VO->pesquisarCandidatos();
@@ -55,6 +55,6 @@ $smarty->assign("censo"         , $censo);
 $smarty->assign("titulopage"    , $titulopage);
 $smarty->assign("arquivoCSS"    , $pasta . trim(ucfirst($nomeArquivo)));
 $smarty->assign("arquivoJS"     , $pasta . trim(ucfirst($nomeArquivo)));
-$smarty->assign("nomeArquivo"   , $pasta."/".$nomeArquivo.".tpl");  
+$smarty->assign("nomeArquivo"   , $pasta."/".$nomeArquivo.".tpl");
 $smarty->display('index.tpl');
 ?>

@@ -19,23 +19,23 @@ if ($_SESSION['ID_RECRUTAMENTO_ESTAGIO']){
 
     $VO->ID_RECRUTAMENTO_ESTAGIO = $_SESSION['ID_RECRUTAMENTO_ESTAGIO'];
 
-    if ($_POST['efetivar']){	
-	  $VO->efetivar(); 
+    if ($_POST['efetivar']){
+	  $VO->efetivar();
 	  header("Location: ".$url."src/".$pasta."/detail.php");
 	  exit;
-	}	
-	
+	}
+
     $total = $VO->buscar();
     $total ? $dados = $VO->getVetor() : false;
-	
+
 	$selecao = $VO->verificarSelecao();
 	if ($selecao)  $smarty->assign("acesso", 0);
-	
-	
+
+
 	$VO->pesquisarTipoVagaEstagio();
     $arrayTipoVagaEstagioDetail = $VO->getArray("TX_TIPO_VAGA_ESTAGIO");
 }
-else 
+else
    header("Location: ".$url."src/".$pasta."/index.php");
 
 $smarty->assign("arrayTipoVagaEstagioDetail", $arrayTipoVagaEstagioDetail);
@@ -45,6 +45,6 @@ $smarty->assign("dados"         , $dados);
 $smarty->assign("titulopage"    , $titulopage);
 $smarty->assign("arquivoCSS"    , $pasta . trim(ucfirst($nomeArquivo)));
 $smarty->assign("arquivoJS"     , $pasta . trim(ucfirst($nomeArquivo)));
-$smarty->assign("nomeArquivo"   , $pasta."/".$nomeArquivo.".tpl");	
+$smarty->assign("nomeArquivo"   , $pasta."/".$nomeArquivo.".tpl");
 $smarty->display('index.tpl');
 ?>

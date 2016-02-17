@@ -20,23 +20,23 @@ if ($_SESSION['ID_SOLICITACAO_TA_CP']) {
     $VO->ID_SOLICITACAO_TA_CP = $_SESSION['ID_SOLICITACAO_TA_CP'];
 
 	if ($_POST['efetivar']){
-	  $VO->efetivarSolicitacao(); 
+	  $VO->efetivarSolicitacao();
 	  header("Location: ".$url."src/".$pasta."/detail.php");
-	}	
+	}
 
     $total = $VO->buscar();
     $dados = $VO->getVetor();
-	
+
 	if ($dados['CS_SITUACAO'][0] == 2){
 	   $acessoEfetivado = 1;
 	}
         //print_r
 	($acessoEfetivado);
 	$VO->preencherVOBD($dados);
-	
+
  	$VO->pesquisarTipoVaga();
 	$smarty->assign("arrayTipoVaga", $VO->getArray("TX_TIPO_VAGA_ESTAGIO"));
-	
+
 }else
     header("Location: " . $url . "src/" . $pasta . "/detail.php");
 

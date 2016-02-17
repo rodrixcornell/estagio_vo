@@ -43,7 +43,7 @@ function gerarTabela($param = '') {
                             <tr>
                                 <th>Nome do Curso</th>
 				<th>Área de Conhecimento</th>';
-        //Somente ver a coluna de alterar se tiver acesso completo a tela					
+        //Somente ver a coluna de alterar se tiver acesso completo a tela
         if ($acesso)
             echo '<th style="width:50px;"></th>';
         echo '</tr>';
@@ -56,9 +56,9 @@ function gerarTabela($param = '') {
                             <td align="center">' . $dados['TX_AREA_CONHECIMENTO'][$i] . '</td>';
 
 
-            //Somente ver a coluna de alterar se tiver acesso completo a tela					
+            //Somente ver a coluna de alterar se tiver acesso completo a tela
             if ($acesso)
-                echo '<td align="center"> 
+                echo '<td align="center">
                     <a href="' . $dados['ID_CURSO_ESTAGIO'][$i] . '" id="alterar"><img src="' . $urlimg . 'icones/editar.png" alt="itens" title="Alterar"/></a>
                     <a href="' . $dados['ID_CURSO_ESTAGIO'][$i] . '" id="excluir"><img src="' . $urlimg . 'icones/excluirItem.png" alt="itens" title="Excluir"/></a></td>';
             echo '</tr>';

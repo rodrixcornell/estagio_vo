@@ -16,12 +16,12 @@ require_once "../autenticacao/validaPermissao.php";
 $VO = new grupo_pagamentoVO();
 
 if ($_SESSION['ID_GRUPO_PAGAMENTO']){
-    
+
     $VO->ID_GRUPO_PAGAMENTO = $_SESSION['ID_GRUPO_PAGAMENTO'];
 
     $VO->pesquisar();
     $VO->preencherVOBD($VO->getVetor());
-    
+
     if($_POST){
         $VO->configuracao();
         $VO->setCaracteristica('TX_GRUPO_PAGAMENTO','obrigatorios');
@@ -46,6 +46,6 @@ $smarty->assign("VO"			, $VO);
 $smarty->assign("titulopage"    , $titulopage);
 $smarty->assign("arquivoCSS"    , $pasta);
 $smarty->assign("arquivoJS"     , $pasta);
-$smarty->assign("nomeArquivo"   , $pasta."/".$nomeArquivo.".tpl");	
+$smarty->assign("nomeArquivo"   , $pasta."/".$nomeArquivo.".tpl");
 $smarty->display('index.tpl');
 ?>

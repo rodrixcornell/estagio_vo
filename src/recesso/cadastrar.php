@@ -44,9 +44,9 @@ if ($_POST) {
     }
 
 
-    
-    
-  
+
+
+
 //	 print_r($validar);
     (!$validar) ? $id_pk = $VO->inserir() : false;
 

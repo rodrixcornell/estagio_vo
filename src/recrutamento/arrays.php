@@ -1,12 +1,12 @@
 ﻿<?php
 require_once "../../php/define.php";
 require_once $pathvo."recrutamentoVO.php";
-	
+
 $VO = new recrutamentoVO();
 
 $VO->pesquisarOrgaoGestor();
-    $arrayOrgaoGestor = $VO->getArray("TX_ORGAO_GESTOR_ESTAGIO");  
-	
+    $arrayOrgaoGestor = $VO->getArray("TX_ORGAO_GESTOR_ESTAGIO");
+
 /*$VO->pesquisarOrgaoSolicitante();
     $arrayOrgaoSolicitante = $VO->getArray("TX_ORGAO_ESTAGIO");  */
 

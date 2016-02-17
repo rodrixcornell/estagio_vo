@@ -18,22 +18,22 @@ $VO = new desligamentoVO();
 if ($_SESSION['ID_SOLICITACAO_DESLIG']){
 
     $VO->ID_SOLICITACAO_DESLIG = $_SESSION['ID_SOLICITACAO_DESLIG'];
-    
+
     $total = $VO->pesquisar();
     $total ? $dados = $VO->getVetor() : false;
 
 	if ($dados['CS_SITUACAO'][0] == 2){
 	  $acesso = 0;
-	} 	
+	}
 
     if ($_POST['efetivar']){
-                        
+
       $VO->ID_SOLICITACAO_DESLIG = $dados['ID_SOLICITACAO_DESLIG'][0];
-      
-          $VO->EFETIVAR = 2; 
-          $VO->atualizarInf(); 
-          header("Location: ".$url."src/".$pasta."/detail.php");      
-    }       
+
+          $VO->EFETIVAR = 2;
+          $VO->atualizarInf();
+          header("Location: ".$url."src/".$pasta."/detail.php");
+    }
 
 }else header("Location: ".$url."src/".$pasta."/index.php");
 
@@ -46,6 +46,6 @@ $smarty->assign("censo"         , $censo);
 $smarty->assign("titulopage"    , $titulopage);
 $smarty->assign("arquivoCSS"    , $pasta . trim(ucfirst($nomeArquivo)));
 $smarty->assign("arquivoJS"     , $pasta . trim(ucfirst($nomeArquivo)));
-$smarty->assign("nomeArquivo"   , $pasta."/".$nomeArquivo.".tpl");  
+$smarty->assign("nomeArquivo"   , $pasta."/".$nomeArquivo.".tpl");
 $smarty->display('index.tpl');
 ?>

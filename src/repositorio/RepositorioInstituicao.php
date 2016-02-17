@@ -4,7 +4,7 @@ require_once $path . "src/repositorio/Repositorio.php";
 
 class RepositorioInstituicao extends Repositorio {
 
-//-------------------- 
+//--------------------
     function pesquisar($VO) {
         $query = " SELECT ID_INSTITUICAO_ENSINO,
                           TX_INSTITUICAO_ENSINO,
@@ -28,7 +28,7 @@ class RepositorioInstituicao extends Repositorio {
         return $this->sqlVetor($query);
     }
 
-    
+
 //-------------------
     function inserir($VO) {
         $queryPK = "select SEMAD.F_G_PK_INSTITUICAO_ENSINO() as ID_INSTITUICAO_ENSINO from dual";
@@ -47,8 +47,8 @@ class RepositorioInstituicao extends Repositorio {
             return $CodigoPK['ID_INSTITUICAO_ENSINO'][0];
     }
 
-    
-//-------------------    
+
+//-------------------
     function buscar($VO) {
         $query = "SELECT ID_INSTITUICAO_ENSINO,
                          TX_INSTITUICAO_ENSINO,
@@ -59,13 +59,13 @@ class RepositorioInstituicao extends Repositorio {
         return $this->sqlVetor($query);
     }
 
-    
+
 //-----------------
     function alterar($VO) {
 
         $query = "update INSTITUICAO_ENSINO set
 					TX_INSTITUICAO_ENSINO = '" . $VO->TX_INSTITUICAO_ENSINO . "' ,
-					TX_SIGLA = UPPER('" . $VO->TX_SIGLA . "') 
+					TX_SIGLA = UPPER('" . $VO->TX_SIGLA . "')
                                    where
  					ID_INSTITUICAO_ENSINO = '" . $VO->ID_INSTITUICAO_ENSINO . "'";
 
@@ -74,8 +74,8 @@ class RepositorioInstituicao extends Repositorio {
 
 //---------------
     function excluir($VO) {
-        $query = "delete  
-                    from INSTITUICAO_ENSINO 
+        $query = "delete
+                    from INSTITUICAO_ENSINO
                    where (ID_INSTITUICAO_ENSINO = '" . $VO->ID_INSTITUICAO_ENSINO . "')";
 
         return $this->sql($query);

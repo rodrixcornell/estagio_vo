@@ -34,7 +34,7 @@ class recrutamentoVO extends VO {
         return $this->repositorio->pesquisarTipoVagaEstagio($this);
     }
 
-//	
+//
     function buscarRecrutamento() {
         return $this->repositorio->buscarRecrutamento($this);
     }
@@ -55,7 +55,7 @@ class recrutamentoVO extends VO {
         return $this->repositorio->pesquisarRecrutamento($this);
     }
 
-//	
+//
     function inserirVaga() {
         return $this->repositorio->inserirVaga($this);
     }
@@ -85,23 +85,23 @@ class recrutamentoVO extends VO {
     }
 
     /*
-     * 
-     * funções para relatorio 
-     * 
+     *
+     * funções para relatorio
+     *
      */
 
     function buscarOrgaoSolicitanteRel() {
         return $this->repositorio->buscarOrgaoSolicitanteRel($this);
     }
-    
+
     function buscarRecrutamentoRel() {
         return $this->repositorio->buscarRecrutamentoRel($this);
     }
 
     /*
-     * 
-     * Fim funções para relatorio 
-     * 
+     *
+     * Fim funções para relatorio
+     *
      */
 }
 

@@ -220,7 +220,7 @@ function inserir($VO) {
 //-------------PESQUISA TIPO VAGAS DO DETAIL------------------------------------
 function pesquisarTipoVaga($VO) {
  $query = "
-    select distinct 
+    select distinct
                     C.CS_TIPO_VAGA_ESTAGIO ||'_'
   || B.NB_QUANTIDADE  CODIGO,
                     C.TX_TIPO_VAGA_ESTAGIO,
@@ -233,21 +233,21 @@ function pesquisarTipoVaga($VO) {
                     and B.ID_ORGAO_ESTAGIO =' " . $VO->ID_ORGAO_ESTAGIO . "'
                     and a.id_quadro_vagas_estagio = '".$VO->ID_QUADRO_VAGAS_ESTAGIO."'
                     and A.CS_SITUACAO = 1
-                    and B.CS_TIPO_VAGA_ESTAGIO not in 
+                    and B.CS_TIPO_VAGA_ESTAGIO not in
                                     (select
                                         cs_tipo_vaga_estagio
-                                     from 
+                                     from
                                         vagas_transferidas
-                                     where 
+                                     where
                                         ID_TRANSFERENCIA_ESTAGIO =  '".$VO->ID_TRANSFERENCIA_ESTAGIO."'
                                         and ID_QUADRO_VAGAS_ESTAGIO =  '".$VO->ID_QUADRO_VAGAS_ESTAGIO."'
                                         and ID_ORGAO_EST_ORIGEM = '".$VO->ID_ORGAO_ESTAGIO."')
-                    and B.CS_TIPO_VAGA_ESTAGIO in 
-                                    (select 
+                    and B.CS_TIPO_VAGA_ESTAGIO in
+                                    (select
                                             cs_tipo_vaga_estagio
-                                     from 
+                                     from
                                             vagas_estagio
-                                     where 
+                                     where
                                             ID_QUADRO_VAGAS_ESTAGIO =  '".$VO->ID_QUADRO_VAGAS_ESTAGIO."'
                                             and ID_ORGAO_ESTAGIO = '".$VO->ID_ORGAO_SOLICITANTE."')
 
@@ -260,7 +260,7 @@ function pesquisarTipoVaga($VO) {
 //--------------QUANTIDADE DO DETAIL------------------
 
 function buscarQuantidade($VO) {
-  $query = "select 
+  $query = "select
                    VAGAS_ESTAGIO.NB_QUANTIDADE - (SELECT COUNT(ID_CONTRATO) FROM CONTRATO_ESTAGIO
                                                   WHERE ID_ORGAO_ESTAGIO = " . $VO->ID_ORGAO_ESTAGIO . "
                                                   AND ID_QUADRO_VAGAS_ESTAGIO = " . $VO->ID_QUADRO_VAGAS_ESTAGIO . "
@@ -522,15 +522,15 @@ function excluirVagasSolicitadas($VO) {
 
         $this->sql($query);
     }
-	
+
 	function AtualizarQuantidade($VO){
 
             $query = "BEGIN SEMAD.SP_UPDATE_QTD_TRANSF_VAGAS(".$_SESSION['ID_TRANSFERENCIA_ESTAGIO'].",".$_SESSION['ID_QUADRO_VAGAS_ESTAGIO'].",".$_SESSION['ID_ORGAO_ESTAGIO'].",".$_SESSION['ID_ORGAO_SOLICITANTE'].",".$_SESSION['CS_TIPO_VAGA_ESTAGIO'].");END;";
-		
-		echo($query);	
-        $this->sql($query);		
-		
-    }	
+
+		echo($query);
+        $this->sql($query);
+
+    }
 
 }
 ?>

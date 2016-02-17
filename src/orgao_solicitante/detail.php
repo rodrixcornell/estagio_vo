@@ -16,9 +16,9 @@ require_once "../autenticacao/validaPermissao.php";
 $VO = new orgao_solicitanteVO();
 
 if ($_SESSION['ID_ORGAO_ESTAGIO']){
-     
+
     $VO->ID_ORGAO_ESTAGIO = $_SESSION['ID_ORGAO_ESTAGIO'];
-    
+
     $total = $VO->buscar();
     $total ? $dados = $VO->getVetor() : false;
 
@@ -32,6 +32,6 @@ $smarty->assign("censo"         , $censo);
 $smarty->assign("titulopage"    , $titulopage);
 $smarty->assign("arquivoCSS"    , $pasta . trim(ucfirst($nomeArquivo)));
 $smarty->assign("arquivoJS"     , $pasta . trim(ucfirst($nomeArquivo)));
-$smarty->assign("nomeArquivo"   , $pasta."/".$nomeArquivo.".tpl");	
+$smarty->assign("nomeArquivo"   , $pasta."/".$nomeArquivo.".tpl");
 $smarty->display('index.tpl');
 ?>

@@ -12,7 +12,7 @@ class contratoVO extends VO {
     //################## --------------- VO das Funções dos combosBox ------------------##################
     /*
      * SÃO as funções:
-     * 
+     *
      *               buscarOrgaoGesto();
      *               buscarOrgaoSolicitante();
      *               buscarCodSelecao();
@@ -24,12 +24,12 @@ class contratoVO extends VO {
      *               buscarAgenteIntegracao();
      *               buscarSupervisor();
      *               buscarCurso();
-     *               
-     * 
+     *
+     *
      *  */
 
     function buscarCsSelecao() {
-        
+
         return $this->repositorio->buscarCsSelecao($this);
     }
     function buscarBolsa() {
@@ -86,9 +86,9 @@ class contratoVO extends VO {
         //Função que pegas todos os quadros de vagas
         return $this->repositorio->buscarQuadroVaga($this);
     }
-    
+
     function buscarTodosQuadrosVagas(){
-        
+
         return $this->repositorio->buscarTodosQuadrosVagas($this);
     }
 
@@ -101,15 +101,15 @@ class contratoVO extends VO {
         // Função que pega todso os codigos das seleções de orgão Solicitante
         return $this->repositorio->buscarCodSelecao($this);
     }
-	
+
 	function buscarCodSelecaoIndex() {
         // Função que pega todso os codigos das seleções de orgão Solicitante
         return $this->repositorio->buscarCodSelecaoIndex($this);
     }
 
- 
+
     //############################ --------------- FIM VO Funções dos combosBox--------------------##################################
-    // ###########################------------------- BUSCA ENDEREÇO ORGAO E SECRATARIO -----------################################## 
+    // ###########################------------------- BUSCA ENDEREÇO ORGAO E SECRATARIO -----------##################################
     /* UTILIZADA NA TELA DE CADASTRAR ....
      * QUANDO O USUARIO CLICAR EM ORGÃO GESTOR(COMBO BOX) AUTOMATICAMENTE CARREGA OS CAMPOS DO ENDEREÇO E DO SECRETARIO DO ORGÃO GESTOR
      */
@@ -120,12 +120,12 @@ class contratoVO extends VO {
     }
 
     function buscarEnderecoOrgaoGestor() {
-        //Função que pega o Enredereço do orgão gestor 
+        //Função que pega o Enredereço do orgão gestor
         return $this->repositorio->buscarEnderecoOrgaoGestor($this);
     }
 
     function buscarDocuments() {
-        //Função que pega o Enredereço do orgão gestor 
+        //Função que pega o Enredereço do orgão gestor
         return $this->repositorio->buscarDocuments($this);
     }
     function buscarCargoSupervisor() {
@@ -133,7 +133,7 @@ class contratoVO extends VO {
         return $this->repositorio->buscarCargoSupervisor($this);
     }
 
-    // ###########################---------------- FIM BUSCA ENDEREÇO ORGAO E SECRATARIO -----------################################## 
+    // ###########################---------------- FIM BUSCA ENDEREÇO ORGAO E SECRATARIO -----------##################################
 }
 
 ?>

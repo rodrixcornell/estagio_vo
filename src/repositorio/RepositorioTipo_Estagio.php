@@ -2,19 +2,19 @@
 require_once $path."src/repositorio/Repositorio.php";
 
 class RepositorioTipo_Estagio extends Repositorio{
-	
+
 	function pesquisar($VO) {
-		
+
         $query = "SELECT CS_TIPO_VAGA_ESTAGIO CODIGO, CS_TIPO_VAGA_ESTAGIO, TX_TIPO_VAGA_ESTAGIO FROM TIPO_VAGA_ESTAGIO";
-					
+
 		if (($VO->CS_TIPO_VAGA_ESTAGIO) && ($VO->TX_TIPO_VAGA_ESTAGIO)){
 		  $query .= " WHERE CS_TIPO_VAGA_ESTAGIO = ".$VO->CS_TIPO_VAGA_ESTAGIO."";
-          $query .= " AND TX_TIPO_VAGA_ESTAGIO LIKE '%".$VO->TX_TIPO_VAGA_ESTAGIO."%'";  
+          $query .= " AND TX_TIPO_VAGA_ESTAGIO LIKE '%".$VO->TX_TIPO_VAGA_ESTAGIO."%'";
         }else{
             ($VO->TX_TIPO_VAGA_ESTAGIO) ? $query .= " WHERE TX_TIPO_VAGA_ESTAGIO LIKE '%".$VO->TX_TIPO_VAGA_ESTAGIO."%'"  : false;
             ($VO->CS_TIPO_VAGA_ESTAGIO) ? $query .= " WHERE CS_TIPO_VAGA_ESTAGIO = ".$VO->CS_TIPO_VAGA_ESTAGIO.""  : false;
-        }   
-             
+        }
+
         $query .= " ORDER BY TX_TIPO_VAGA_ESTAGIO";
 
         if ($VO->Reg_quantidade){
@@ -23,24 +23,24 @@ class RepositorioTipo_Estagio extends Repositorio{
         }
 
         return $this->sqlVetor($query);
-    }            
-    
+    }
+
     function excluir($VO){
 
         $query = "DELETE FROM TIPO_VAGA_ESTAGIO
                     WHERE CS_TIPO_VAGA_ESTAGIO = '".$VO->CS_TIPO_VAGA_ESTAGIO."'";
-                    
+
         return $this->sql($query);
-    }    
-    	
+    }
+
 	function inserir($VO){
-		
+
         $query = "
-            INSERT INTO TIPO_VAGA_ESTAGIO(CS_TIPO_VAGA_ESTAGIO, TX_TIPO_VAGA_ESTAGIO) 
+            INSERT INTO TIPO_VAGA_ESTAGIO(CS_TIPO_VAGA_ESTAGIO, TX_TIPO_VAGA_ESTAGIO)
 						values
 								('".$VO->CS_TIPO_VAGA_ESTAGIO."' ,'".$VO->TX_TIPO_VAGA_ESTAGIO."')
         ";
-     
+
         return  $this->sql($query);
     }
 
@@ -53,7 +53,7 @@ class RepositorioTipo_Estagio extends Repositorio{
 
         return $this->sql($query);
     }
- 
+
 }
 
 ?>

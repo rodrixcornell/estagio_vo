@@ -16,11 +16,11 @@ session_start();
 
 if ($_POST){
     $VO = new recrutamentoVO();
-    $VO->setCaracteristica('ID_RECRUTAMENTO_ESTAGIO,ID_ORGAO_ESTAGIO,CS_SITUACAO','obrigatorios'); 
+    $VO->setCaracteristica('ID_RECRUTAMENTO_ESTAGIO,ID_ORGAO_ESTAGIO,CS_SITUACAO','obrigatorios');
     $validar = $VO->preencher($_POST);
-	
+
   if (!$validar){
-      
+
        $_SESSION['ID_RECRUTAMENTO_ESTAGIO'] = $VO->ID_RECRUTAMENTO_ESTAGIO;
        header("Location: ".$url."src/relatorios/".$pasta."/relatorio.php");
 	}
@@ -32,6 +32,6 @@ $smarty->assign("titulopage"    , $titulopage);
 $smarty->assign("validar"		, $validar);
 $smarty->assign("VO"			, $VO);
 $smarty->assign("arquivoJS"     , $pasta);
-$smarty->assign("nomeArquivo"   , "relatorios/".$pasta."/".$nomeArquivo.".tpl");	
+$smarty->assign("nomeArquivo"   , "relatorios/".$pasta."/".$nomeArquivo.".tpl");
 $smarty->display('index.tpl');
 ?>

@@ -22,13 +22,13 @@ if($_POST){
     $VO->setCaracteristica('TX_ORGAO_GESTOR_ESTAGIO,ID_UNIDADE_ORG,TX_CNPJ','obrigatorios');
     $VO->setCaracteristica('TX_CNPJ','cnpjs');
     $validar = $VO->preencher($_POST);
-	
+
 	(!$validar) ? $id_pk = $VO->inserir() : false;
-	
+
     if (!$validar) {
                //$_SESSION['TX_ORGAO_GESTOR_ESTAGIO'] = $VO->TX_ORGAO_GESTOR_ESTAGIO;
 		//$_SESSION['ID_UNIDADE_ORG'] = $VO->ID_UNIDADE_ORG;
-	//	$_SESSION['STATUS'] = '*Registro inserido com sucesso!';       
+	//	$_SESSION['STATUS'] = '*Registro inserido com sucesso!';
                 $_SESSION['ID_ORGAO_GESTOR_ESTAGIO']=$id_pk;
 		$_SESSION['PAGE'] = '1';
 		header("Location: ".$url."src/".$pasta."/detail.php");
@@ -42,6 +42,6 @@ $smarty->assign("VO"			, $VO);
 $smarty->assign("titulopage"    , $titulopage);
 $smarty->assign("arquivoCSS"    , $pasta);
 $smarty->assign("arquivoJS"     , $pasta);
-$smarty->assign("nomeArquivo"   , $pasta."/".$nomeArquivo.".tpl");	
+$smarty->assign("nomeArquivo"   , $pasta."/".$nomeArquivo.".tpl");
 $smarty->display('index.tpl');
 ?>

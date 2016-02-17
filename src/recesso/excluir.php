@@ -16,13 +16,13 @@ require_once "../autenticacao/validaPermissao.php";
 $VO = new recessoVO();
 
 if ($_SESSION['ID_RECESSO_ESTAGIO']) {
-	
+
 	$VO->ID_RECESSO_ESTAGIO = $_SESSION['ID_RECESSO_ESTAGIO'];
-	
+
 	$retorno = $VO->excluir();
-	
+
 	if (!$retorno){
-		$msg = 'Recesso de estagio excluído com sucesso.<br><br> <a href="'.$url.'src/'.$pasta.'/index.php">Clique aqui</a> para voltar';	
+		$msg = 'Recesso de estagio excluído com sucesso.<br><br> <a href="'.$url.'src/'.$pasta.'/index.php">Clique aqui</a> para voltar';
 		unset($_SESSION['ID_RECRUTAMENTO_ESTAGIO']);
 	}else{
 		$msg = 'Este registro não pode ser excluído pois possui dependentes.<br /> <a href="'.$url.'src/'.$pasta.'/detail.php">clique aqui</a> para voltar';
@@ -36,6 +36,6 @@ $smarty->assign("titulopage"    , $titulopage);
 $smarty->assign("msg"           , $msg);
 $smarty->assign("arquivoCSS"    , $pasta);
 $smarty->assign("arquivoJS"     , $pasta);
-$smarty->assign("nomeArquivo"   , $pasta."/".$nomeArquivo.".tpl");	
+$smarty->assign("nomeArquivo"   , $pasta."/".$nomeArquivo.".tpl");
 $smarty->display('index.tpl');
 ?>

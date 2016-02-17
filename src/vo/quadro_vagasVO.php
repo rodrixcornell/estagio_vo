@@ -65,11 +65,11 @@ class quadro_vagasVO extends VO {
     function pesquisaContrato() {
         return $this->repositorio->pesquisaContrato($this);
     }
-	
+
 	function verificarAtivo() {
         return $this->repositorio->verificarAtivo($this);
     }
-	
+
     // Funçõe de tabela de visualizãção de quadra de vagas
     function buscarAgenteIntegracao(){
         return $this->repositorio->buscarAgenteIntegracao($this);

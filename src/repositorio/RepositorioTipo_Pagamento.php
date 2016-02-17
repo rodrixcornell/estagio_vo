@@ -6,11 +6,11 @@ class RepositorioTipo_Pagamento extends Repositorio {
 
 //PESQUISA POR CODIGO E DESCRIÇÃO
     function pesquisarTipo($VO) {
-        $query = "SELECT CS_TIPO_PAG_ESTAGIO CODIGO, 
+        $query = "SELECT CS_TIPO_PAG_ESTAGIO CODIGO,
                          TX_TIPO_PAG_ESTAGIO
                     FROM TIPO_PAG_ESTAGIO";
 
-        
+
         $query .= " ORDER BY CS_TIPO_PAG_ESTAGIO";
         return $this->sqlVetor($query);
     }
@@ -18,10 +18,10 @@ class RepositorioTipo_Pagamento extends Repositorio {
 //PESQUISAR
     function pesquisar($VO) {
         $query = "SELECT CS_TIPO_PAG_ESTAGIO CODIGO,
-                         CS_TIPO_PAG_ESTAGIO, 
+                         CS_TIPO_PAG_ESTAGIO,
                          TX_TIPO_PAG_ESTAGIO
                   FROM TIPO_PAG_ESTAGIO ";
-					
+
 		$VO->CS_TIPO_PAG_ESTAGIO ? $query .= " WHERE CS_TIPO_PAG_ESTAGIO = " . $VO->CS_TIPO_PAG_ESTAGIO. " " : false;
 
         $query .= " ORDER BY CS_TIPO_PAG_ESTAGIO";
@@ -37,17 +37,17 @@ class RepositorioTipo_Pagamento extends Repositorio {
 //CADASTRAR
     function inserir($VO) {
         $query = " INSERT INTO TIPO_PAG_ESTAGIO
-                               (CS_TIPO_PAG_ESTAGIO, TX_TIPO_PAG_ESTAGIO) 
+                               (CS_TIPO_PAG_ESTAGIO, TX_TIPO_PAG_ESTAGIO)
 	           values
 	          (" . $VO->CS_TIPO_PAG_ESTAGIO . ",'" . $VO->TX_TIPO_PAG_ESTAGIO . "')";
-        
+
         return $this->sql($query);
     }
 
 //ALTERAR
     function alterar($VO) {
         $query = "UPDATE TIPO_PAG_ESTAGIO SET
-                         TX_TIPO_PAG_ESTAGIO = '" . $VO->TX_TIPO_PAG_ESTAGIO . "'          
+                         TX_TIPO_PAG_ESTAGIO = '" . $VO->TX_TIPO_PAG_ESTAGIO . "'
 	           WHERE CS_TIPO_PAG_ESTAGIO = '" . $VO->CS_TIPO_PAG_ESTAGIO . "'";
 
         return $this->sql($query);
@@ -60,11 +60,11 @@ class RepositorioTipo_Pagamento extends Repositorio {
         return $this->sql($query);
     }
 
-//BUSCAR    
+//BUSCAR
     function buscar($VO) {
         $query = "SELECT CS_TIPO_PAG_ESTAGIO, TX_TIPO_PAG_ESTAGIO
                       FROM TIPO_PAG_ESTAGIO
-                     WHERE (CS_TIPO_PAG_ESTAGIO = " . $VO->CS_TIPO_PAG_ESTAGIO . ") 
+                     WHERE (CS_TIPO_PAG_ESTAGIO = " . $VO->CS_TIPO_PAG_ESTAGIO . ")
                   ORDER BY CS_TIPO_PAG_ESTAGIO";
 
         return $this->sqlVetor($query);

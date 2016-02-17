@@ -61,14 +61,14 @@ if ($_POST) {
     }
     $id_pk = $VO->inserir();
     if (!$validar) {
-    
-      
+
+
         $_SESSION['ID_CONTRATO'] = $id_pk;
 
         $_SESSION['CS_SELECAO'] = $VO->CS_SELECAO;
-         
+
         header("Location: ".$url."src/".$pasta."/detail.php");
-  
+
     }
 }
 

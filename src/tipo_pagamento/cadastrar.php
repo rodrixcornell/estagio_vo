@@ -21,7 +21,7 @@ if ($_POST) {
     $VO->setCaracteristica('CS_TIPO_PAG_ESTAGIO,TX_TIPO_PAG_ESTAGIO', 'obrigatorios');
     $VO->setCaracteristica('CS_TIPO_PAG_ESTAGIO', 'numeros');
     $validar = $VO->preencher($_POST);
-	
+
 	if (!$validar){
 		 if (!$VO->inserir()){
 			 $_SESSION['CS_TIPO_PAG_ESTAGIO'] = $VO->CS_TIPO_PAG_ESTAGIO;
@@ -30,9 +30,9 @@ if ($_POST) {
 			 header("Location: " . $url . "src/" . $pasta . "/index.php");
 		 }else
 			 $validar['CS_TIPO_PAG_ESTAGIO'] = 'Registro já existe!';
-		
+
 	}
-	
+
 }
 
 $smarty->assign("current", $current);

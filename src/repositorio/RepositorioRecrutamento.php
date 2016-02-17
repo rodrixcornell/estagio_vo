@@ -3,64 +3,64 @@
 require_once $path . "src/repositorio/Repositorio.php";
 
 class RepositorioRecrutamento extends Repositorio {
-	
+
 	function pesquisarOrgaoGestor($VO) {
 
-        $query = "SELECT 
+        $query = "SELECT
                     ID_ORGAO_GESTOR_ESTAGIO ,
                     ID_ORGAO_GESTOR_ESTAGIO CODIGO,
                     TX_ORGAO_GESTOR_ESTAGIO
-                  FROM 
+                  FROM
                     ORGAO_GESTOR_ESTAGIO";
         return $this->sqlVetor($query);
     }
 
     function buscarSolicitante($VO) {
 
-          $query = "SELECT DISTINCT 
+          $query = "SELECT DISTINCT
 					  C.ID_ORGAO_ESTAGIO CODIGO,
 					  C.TX_ORGAO_ESTAGIO
-					FROM 
+					FROM
 					  AGENTE_SETORIAL_ESTAGIO A ,
 					  ORGAO_AGENTE_SETORIAL B,
 					  ORGAO_ESTAGIO C,
 					  SOLICITACAO_ESTAGIO D
-					WHERE 
+					WHERE
 					  A.ID_SETORIAL_ESTAGIO = B.ID_SETORIAL_ESTAGIO
 					  and C.ID_ORGAO_ESTAGIO = B.ID_ORGAO_ESTAGIO
 					  AND D.ID_ORGAO_ESTAGIO = C.ID_ORGAO_ESTAGIO
 					  AND D.ID_ORGAO_GESTOR_ESTAGIO = '".$VO->ID_ORGAO_GESTOR_ESTAGIO."'
 					  AND A.ID_USUARIO = '".$_SESSION['ID_USUARIO']."'";
-		
+
         return $this->sqlVetor($query);
     }
-	
+
 	function buscarSolicitacao($VO) {
 
-        $query = "select a.ID_SOLICITACAO_ESTAGIO codigo, a.TX_COD_SOLICITACAO 
+        $query = "select a.ID_SOLICITACAO_ESTAGIO codigo, a.TX_COD_SOLICITACAO
 					from SOLICITACAO_ESTAGIO a
 					where a.ID_ORGAO_ESTAGIO = '".$VO->ID_ORGAO_ESTAGIO."'
 					and a.CS_SITUACAO = 2
-					and a.ID_SOLICITACAO_ESTAGIO not in (select id_solicitacao_estagio from RECRUTAMENTO_ESTAGIO where id_orgao_estagio = '".$VO->ID_ORGAO_ESTAGIO."')  
+					and a.ID_SOLICITACAO_ESTAGIO not in (select id_solicitacao_estagio from RECRUTAMENTO_ESTAGIO where id_orgao_estagio = '".$VO->ID_ORGAO_ESTAGIO."')
 					ORDER BY TX_COD_SOLICITACAO";
 
         return $this->sqlVetor($query);
     }
-	
+
 
 	function buscarQuadroVagas($VO) {
 
-        $query = "select a.ID_QUADRO_VAGAS_ESTAGIO CODIGO, B.TX_CODIGO 
+        $query = "select a.ID_QUADRO_VAGAS_ESTAGIO CODIGO, B.TX_CODIGO
 					from SOLICITACAO_ESTAGIO a, QUADRO_VAGAS_ESTAGIO B
 					where a.ID_QUADRO_VAGAS_ESTAGIO = B.ID_QUADRO_VAGAS_ESTAGIO
 					AND A.ID_SOLICITACAO_ESTAGIO = '".$VO->ID_SOLICITACAO_ESTAGIO."'";
 
         return $this->sqlVetor($query);
     }
-	
+
     function pesquisarRecrutamento($VO) {
 
-        $query = "        SELECT RECRUTAMENTO_ESTAGIO.ID_RECRUTAMENTO_ESTAGIO, 
+        $query = "        SELECT RECRUTAMENTO_ESTAGIO.ID_RECRUTAMENTO_ESTAGIO,
         QUADRO_VAGAS_ESTAGIO.ID_ORGAO_GESTOR_ESTAGIO,
         RECRUTAMENTO_ESTAGIO.ID_ORGAO_ESTAGIO,
 
@@ -68,52 +68,52 @@ class RepositorioRecrutamento extends Repositorio {
        TO_CHAR(RECRUTAMENTO_ESTAGIO.DT_CADASTRO,'dd/mm/yyyy hh24:mi:ss') DT_CADASTRO,
 
        RECRUTAMENTO_ESTAGIO.ID_QUADRO_VAGAS_ESTAGIO,
-       
+
        RECRUTAMENTO_ESTAGIO.ID_USUARIO_CADASTRO, RECRUTAMENTO_ESTAGIO.ID_USUARIO_ATUALIZACAO,
-       
-       
+
+
        RECRUTAMENTO_ESTAGIO.TX_DOC_AUTORIZACAO, RECRUTAMENTO_ESTAGIO.TX_MOTIVO, RECRUTAMENTO_ESTAGIO.TX_COD_RECRUTAMENTO,
        V_FUNCIONARIO_TOTAL1.TX_FUNCIONARIO CADASTRADOPOR,
        V_FUNCIONARIO_TOTAL2.TX_FUNCIONARIO ALTERADOPOR,
-       
-       ORGAO_ESTAGIO1.TX_ORGAO_ESTAGIO TX_ORGAO_SOLICITANTE, 
-       
+
+       ORGAO_ESTAGIO1.TX_ORGAO_ESTAGIO TX_ORGAO_SOLICITANTE,
+
        ORGAO_ESTAGIO2.TX_ORGAO_ESTAGIO TX_ORGAO_GESTOR ,
-       
+
        RECRUTAMENTO_ESTAGIO.CS_SITUACAO ,
-       
+
         case
-         when RECRUTAMENTO_ESTAGIO.CS_SITUACAO = '2' then 'Desativado' 
+         when RECRUTAMENTO_ESTAGIO.CS_SITUACAO = '2' then 'Desativado'
          when RECRUTAMENTO_ESTAGIO.CS_SITUACAO = '1' then 'Ativado'
-        end 
+        end
         TX_SITUACAO,
-        
+
         QUADRO_VAGAS_ESTAGIO.TX_CODIGO  TX_QUADRO_VAGAS
 
 
-  FROM RECRUTAMENTO_ESTAGIO RECRUTAMENTO_ESTAGIO , 
+  FROM RECRUTAMENTO_ESTAGIO RECRUTAMENTO_ESTAGIO ,
   USUARIO USUARIO1, USUARIO USUARIO2,
-  V_FUNCIONARIO_TOTAL V_FUNCIONARIO_TOTAL1, V_FUNCIONARIO_TOTAL V_FUNCIONARIO_TOTAL2, 
+  V_FUNCIONARIO_TOTAL V_FUNCIONARIO_TOTAL1, V_FUNCIONARIO_TOTAL V_FUNCIONARIO_TOTAL2,
   ORGAO_ESTAGIO ORGAO_ESTAGIO1, ORGAO_ESTAGIO ORGAO_ESTAGIO2,
   QUADRO_VAGAS_ESTAGIO QUADRO_VAGAS_ESTAGIO
-  
-  WHERE 
-  
+
+  WHERE
+
     RECRUTAMENTO_ESTAGIO.ID_ORGAO_ESTAGIO = ORGAO_ESTAGIO1.ID_ORGAO_ESTAGIO
 
-  AND 
+  AND
     QUADRO_VAGAS_ESTAGIO.ID_ORGAO_GESTOR_ESTAGIO = ORGAO_ESTAGIO2.ID_ORGAO_ESTAGIO
 
 
-  AND  
+  AND
     RECRUTAMENTO_ESTAGIO.ID_USUARIO_CADASTRO     = USUARIO1.ID_USUARIO
-  AND 
+  AND
     RECRUTAMENTO_ESTAGIO.ID_USUARIO_ATUALIZACAO  = USUARIO2.ID_USUARIO
-  AND 
+  AND
     USUARIO1.ID_PESSOA_FUNCIONARIO  = V_FUNCIONARIO_TOTAL1.ID_PESSOA_FUNCIONARIO
-  AND 
+  AND
     USUARIO2.ID_PESSOA_FUNCIONARIO  = V_FUNCIONARIO_TOTAL2.ID_PESSOA_FUNCIONARIO
-  AND 
+  AND
     RECRUTAMENTO_ESTAGIO.ID_QUADRO_VAGAS_ESTAGIO =  QUADRO_VAGAS_ESTAGIO.ID_QUADRO_VAGAS_ESTAGIO
 ";
 
@@ -123,21 +123,21 @@ class RepositorioRecrutamento extends Repositorio {
 
     function pesquisarEstagiario($VO) {
 
-        $query = "select ID_PESSOA_ESTAGIARIO CODIGO, NB_CPF, TX_NOME 
-					from V_ESTAGIARIO 
-					where ID_PESSOA_ESTAGIARIO not in 
+        $query = "select ID_PESSOA_ESTAGIARIO CODIGO, NB_CPF, TX_NOME
+					from V_ESTAGIARIO
+					where ID_PESSOA_ESTAGIARIO not in
 							(select ID_PESSOA_ESTAGIARIO from ESTAGIARIO_VAGA where ID_RECRUTAMENTO_ESTAGIO = '".$VO->ID_RECRUTAMENTO_ESTAGIO."' ) ";
 		$VO->ID_PESSOA_ESTAGIARIO ? $query .= " and ID_PESSOA_ESTAGIARIO = '".$VO->ID_PESSOA_ESTAGIARIO."'" : false;
-					
+
 		return $this->sqlVetor($query);
     }
 
 
     function pesquisar($VO) {
 
-        $query = "select a.ID_RECRUTAMENTO_ESTAGIO, a.TX_COD_RECRUTAMENTO, C.TX_ORGAO_GESTOR_ESTAGIO, D.TX_ORGAO_ESTAGIO, E.TX_CODIGO, 
+        $query = "select a.ID_RECRUTAMENTO_ESTAGIO, a.TX_COD_RECRUTAMENTO, C.TX_ORGAO_GESTOR_ESTAGIO, D.TX_ORGAO_ESTAGIO, E.TX_CODIGO,
 						 a.TX_DOC_AUTORIZACAO, DECODE(a.CS_SITUACAO, 1, 'Aberto', 2, 'Fechado') TX_SITUACAO, B.TX_COD_SOLICITACAO
-				from RECRUTAMENTO_ESTAGIO a, SOLICITACAO_ESTAGIO B, ORGAO_GESTOR_ESTAGIO C, ORGAO_ESTAGIO D, QUADRO_VAGAS_ESTAGIO E 
+				from RECRUTAMENTO_ESTAGIO a, SOLICITACAO_ESTAGIO B, ORGAO_GESTOR_ESTAGIO C, ORGAO_ESTAGIO D, QUADRO_VAGAS_ESTAGIO E
 				where a.ID_SOLICITACAO_ESTAGIO = B.ID_SOLICITACAO_ESTAGIO
 				and B.ID_ORGAO_GESTOR_ESTAGIO = C.ID_ORGAO_GESTOR_ESTAGIO
 				and a.ID_ORGAO_ESTAGIO = D.ID_ORGAO_ESTAGIO
@@ -154,7 +154,7 @@ class RepositorioRecrutamento extends Repositorio {
             !$VO->Reg_inicio ? $VO->Reg_inicio = 0 : false;
             $query = "SELECT * FROM (SELECT PAGING.*, ROWNUM PAGING_RN FROM (" . $query . ") PAGING WHERE (ROWNUM <= " . ($VO->Reg_quantidade + $VO->Reg_inicio) . "))  WHERE (PAGING_RN > " . $VO->Reg_inicio . ")";
         }
- 
+
         return $this->sqlVetor($query);
     }
 
@@ -168,11 +168,11 @@ class RepositorioRecrutamento extends Repositorio {
             INSERT INTO RECRUTAMENTO_ESTAGIO
             (ID_RECRUTAMENTO_ESTAGIO, DT_CADASTRO, DT_ATUALIZACAO, ID_QUADRO_VAGAS_ESTAGIO, ID_ORGAO_ESTAGIO, ID_USUARIO_CADASTRO, ID_USUARIO_ATUALIZACAO, TX_DOC_AUTORIZACAO, TX_MOTIVO, TX_COD_RECRUTAMENTO, CS_SITUACAO, ID_SOLICITACAO_ESTAGIO)
             VALUES
-			(" . $CodigoPK['ID_RECRUTAMENTO_ESTAGIO'][0] 
-			   . ", SYSDATE, SYSDATE" 
+			(" . $CodigoPK['ID_RECRUTAMENTO_ESTAGIO'][0]
+			   . ", SYSDATE, SYSDATE"
 			   . ", '".$VO->ID_QUADRO_VAGAS_ESTAGIO."' "
 			   . ", '".$VO->ID_ORGAO_ESTAGIO."' "
-			   . ", '".$_SESSION['ID_USUARIO']."' " 
+			   . ", '".$_SESSION['ID_USUARIO']."' "
 			   . ", '".$_SESSION['ID_USUARIO']."' "
 			   . ", '".$VO->TX_DOC_AUTORIZACAO."' "
 			   . ", '".$VO->TX_MOTIVO."' "
@@ -186,11 +186,11 @@ class RepositorioRecrutamento extends Repositorio {
 
     function buscar($VO) {
 
-        $query = "select a.ID_RECRUTAMENTO_ESTAGIO, a.TX_COD_RECRUTAMENTO, C.ID_ORGAO_GESTOR_ESTAGIO, C.TX_ORGAO_GESTOR_ESTAGIO, D.ID_ORGAO_ESTAGIO, 
+        $query = "select a.ID_RECRUTAMENTO_ESTAGIO, a.TX_COD_RECRUTAMENTO, C.ID_ORGAO_GESTOR_ESTAGIO, C.TX_ORGAO_GESTOR_ESTAGIO, D.ID_ORGAO_ESTAGIO,
 					   D.TX_ORGAO_ESTAGIO, E.TX_CODIGO, a.TX_DOC_AUTORIZACAO, a.CS_SITUACAO, DECODE(a.CS_SITUACAO, 1, 'Aberto', 2, 'Fechado') TX_SITUACAO, a.TX_MOTIVO, b.tx_cod_solicitacao,
 					   TO_CHAR(a.DT_CADASTRO,'DD/MM/YYYY HH24:MI:SS')DT_CADASTRO, TO_CHAR(a.DT_ATUALIZACAO,'DD/MM/YYYY HH24:MI:SS')DT_ATUALIZACAO,
 					   FUNCIONARIO_CADASTRO.TX_FUNCIONARIO TX_FUNCIONARIO_CADASTRO, FUNCIONARIO_ATUALIZACAO.TX_FUNCIONARIO TX_FUNCIONARIO_ATUALIZACAO
-				from RECRUTAMENTO_ESTAGIO a, SOLICITACAO_ESTAGIO B, ORGAO_GESTOR_ESTAGIO C, ORGAO_ESTAGIO D, QUADRO_VAGAS_ESTAGIO E, USUARIO USUARIO_CADASTRADO, 
+				from RECRUTAMENTO_ESTAGIO a, SOLICITACAO_ESTAGIO B, ORGAO_GESTOR_ESTAGIO C, ORGAO_ESTAGIO D, QUADRO_VAGAS_ESTAGIO E, USUARIO USUARIO_CADASTRADO,
 					  USUARIO USUARIO_ATUALIZACAO, V_FUNCIONARIO_TOTAL FUNCIONARIO_CADASTRO, V_FUNCIONARIO_TOTAL FUNCIONARIO_ATUALIZACAO
 				where a.ID_SOLICITACAO_ESTAGIO = B.ID_SOLICITACAO_ESTAGIO
 				and B.ID_ORGAO_GESTOR_ESTAGIO = C.ID_ORGAO_GESTOR_ESTAGIO
@@ -210,7 +210,7 @@ class RepositorioRecrutamento extends Repositorio {
 
  function buscarVaga($VO) {
 
-        $query = "select a.ID_RECRUTAMENTO_ESTAGIO, a.NB_VAGAS_RECRUTAMENTO, G.TX_ORGAO_GESTOR_ESTAGIO, F.TX_ORGAO_ESTAGIO, D.TX_CODIGO, E.TX_TIPO_VAGA_ESTAGIO, a.NB_QUANTIDADE 
+        $query = "select a.ID_RECRUTAMENTO_ESTAGIO, a.NB_VAGAS_RECRUTAMENTO, G.TX_ORGAO_GESTOR_ESTAGIO, F.TX_ORGAO_ESTAGIO, D.TX_CODIGO, E.TX_TIPO_VAGA_ESTAGIO, a.NB_QUANTIDADE
 					from VAGAS_RECRUTAMENTO a, RECRUTAMENTO_ESTAGIO B, SOLICITACAO_ESTAGIO c, QUADRO_VAGAS_ESTAGIO d, TIPO_VAGA_ESTAGIO e, ORGAO_ESTAGIO f, ORGAO_GESTOR_ESTAGIO g
 					where a.ID_RECRUTAMENTO_ESTAGIO = B.ID_RECRUTAMENTO_ESTAGIO
 					and B.ID_SOLICITACAO_ESTAGIO = C.ID_SOLICITACAO_ESTAGIO
@@ -219,14 +219,14 @@ class RepositorioRecrutamento extends Repositorio {
 					and B.ID_ORGAO_ESTAGIO = F.ID_ORGAO_ESTAGIO
 					and C.ID_ORGAO_GESTOR_ESTAGIO = G.ID_ORGAO_GESTOR_ESTAGIO
 					and a.ID_RECRUTAMENTO_ESTAGIO = '" . $VO->ID_RECRUTAMENTO_ESTAGIO."' ";
-					
+
 		$VO->NB_VAGAS_RECRUTAMENTO ? $query .= " and a.NB_VAGAS_RECRUTAMENTO = '".$VO->NB_VAGAS_RECRUTAMENTO."'" : false;
 
         if ($VO->Reg_quantidade) {
             !$VO->Reg_inicio ? $VO->Reg_inicio = 0 : false;
             $query = "SELECT * FROM (SELECT PAGING.*, ROWNUM PAGING_RN FROM (" . $query . ") PAGING WHERE (ROWNUM <= " . ($VO->Reg_quantidade + $VO->Reg_inicio) . "))  WHERE (PAGING_RN > " . $VO->Reg_inicio . ")";
         }
-  
+
  return $this->sqlVetor($query);
     }
 
@@ -235,15 +235,15 @@ class RepositorioRecrutamento extends Repositorio {
  function buscarCandidato($VO) {
 
         $query = "
-		   select 
-        ESTAGIARIO_VAGA.ID_RECRUTAMENTO_ESTAGIO, ESTAGIARIO_VAGA.NB_VAGAS_RECRUTAMENTO, ESTAGIARIO_VAGA.NB_CANDIDATO, 
-        ESTAGIARIO_VAGA.CS_SITUACAO, ESTAGIARIO_VAGA.TX_MOTIVO_SITUACAO, ESTAGIARIO_VAGA.ID_PESSOA_ESTAGIARIO, 
+		   select
+        ESTAGIARIO_VAGA.ID_RECRUTAMENTO_ESTAGIO, ESTAGIARIO_VAGA.NB_VAGAS_RECRUTAMENTO, ESTAGIARIO_VAGA.NB_CANDIDATO,
+        ESTAGIARIO_VAGA.CS_SITUACAO, ESTAGIARIO_VAGA.TX_MOTIVO_SITUACAO, ESTAGIARIO_VAGA.ID_PESSOA_ESTAGIARIO,
         case
-         when ESTAGIARIO_VAGA.CS_SITUACAO = '1' then 'Em Análise' 
+         when ESTAGIARIO_VAGA.CS_SITUACAO = '1' then 'Em Análise'
          when ESTAGIARIO_VAGA.CS_SITUACAO = '2' then 'Aprovado'
-         when ESTAGIARIO_VAGA.CS_SITUACAO = '3' then 'Reprovado' 
+         when ESTAGIARIO_VAGA.CS_SITUACAO = '3' then 'Reprovado'
          when ESTAGIARIO_VAGA.CS_SITUACAO = '4' then 'Cancelado'
-        end 
+        end
         TX_SITUACAO,
         V_ESTAGIARIO.TX_NOME, V_ESTAGIARIO.NB_CPF
 
@@ -251,55 +251,55 @@ class RepositorioRecrutamento extends Repositorio {
 
  where
       ESTAGIARIO_VAGA.ID_RECRUTAMENTO_ESTAGIO =  VAGAS_RECRUTAMENTO.ID_RECRUTAMENTO_ESTAGIO
-      
-AND 
+
+AND
       ESTAGIARIO_VAGA.NB_VAGAS_RECRUTAMENTO   =  VAGAS_RECRUTAMENTO.NB_VAGAS_RECRUTAMENTO
-      
-AND  
+
+AND
      ESTAGIARIO_VAGA.ID_PESSOA_ESTAGIARIO =  V_ESTAGIARIO.ID_PESSOA_ESTAGIARIO
-	  
-AND	  
+
+AND
       ESTAGIARIO_VAGA.ID_RECRUTAMENTO_ESTAGIO = " . $VO->ID_RECRUTAMENTO_ESTAGIO . "
-AND	  
+AND
       ESTAGIARIO_VAGA.NB_VAGAS_RECRUTAMENTO = " . $VO->NB_VAGAS_RECRUTAMENTO;
 
  		return $this->sqlVetor($query);
    }
-    
-	
+
+
     function pesquisarTipoVagaEstagio($VO) {
-	  
+
       $query = "select B.ID_QUADRO_VAGAS_ESTAGIO, B.ID_ORGAO_ESTAGIO, B.CS_TIPO_VAGA_ESTAGIO, B.NB_QUANTIDADE, B.ID_QUADRO_VAGAS_ESTAGIO||'_'||B.ID_ORGAO_ESTAGIO||'_'||B.CS_TIPO_VAGA_ESTAGIO||'_'||B.NB_QUANTIDADE CODIGO, C.TX_TIPO_VAGA_ESTAGIO
 					from RECRUTAMENTO_ESTAGIO a, VAGAS_SOLICITACAO B, TIPO_VAGA_ESTAGIO C
 					where a.ID_SOLICITACAO_ESTAGIO = B.ID_SOLICITACAO_ESTAGIO
 					AND a.ID_QUADRO_VAGAS_ESTAGIO = B.ID_QUADRO_VAGAS_ESTAGIO
 					and a.ID_ORGAO_ESTAGIO = B.ID_ORGAO_ESTAGIO
 					and B.CS_TIPO_VAGA_ESTAGIO = C.CS_TIPO_VAGA_ESTAGIO
-          			and B.ID_QUADRO_VAGAS_ESTAGIO||'_'||B.ID_ORGAO_ESTAGIO||'_'||B.CS_TIPO_VAGA_ESTAGIO not in 
+          			and B.ID_QUADRO_VAGAS_ESTAGIO||'_'||B.ID_ORGAO_ESTAGIO||'_'||B.CS_TIPO_VAGA_ESTAGIO not in
 		  					(select ID_QUADRO_VAGAS_ESTAGIO||'_'||ID_ORGAO_ESTAGIO||'_'||CS_TIPO_VAGA_ESTAGIO from VAGAS_RECRUTAMENTO where ID_RECRUTAMENTO_ESTAGIO = '".$VO->ID_RECRUTAMENTO_ESTAGIO."')
 					and a.ID_RECRUTAMENTO_ESTAGIO = '".$VO->ID_RECRUTAMENTO_ESTAGIO."' order by C.TX_TIPO_VAGA_ESTAGIO";
-	  
+
         return $this->sqlVetor($query);
     }
-	
+
 
       function inserirVaga($VO) {
 
 		  $query = "
 			  INSERT INTO VAGAS_RECRUTAMENTO(ID_QUADRO_VAGAS_ESTAGIO, NB_QUANTIDADE, ID_RECRUTAMENTO_ESTAGIO, NB_VAGAS_RECRUTAMENTO, ID_ORGAO_ESTAGIO, CS_TIPO_VAGA_ESTAGIO )
-					values ('".$VO->ID_QUADRO_VAGAS_ESTAGIO."', '" 
+					values ('".$VO->ID_QUADRO_VAGAS_ESTAGIO."', '"
 							  .$VO->NB_QUANTIDADE."', '"
-							  .$VO->ID_RECRUTAMENTO_ESTAGIO."', " 
+							  .$VO->ID_RECRUTAMENTO_ESTAGIO."', "
 							  ."SEMAD.F_G_PK_VAGAS_RECRUTAMENTO('".$VO->ID_RECRUTAMENTO_ESTAGIO."'), '"
-							  .$VO->ID_ORGAO_ESTAGIO."', '" 
+							  .$VO->ID_ORGAO_ESTAGIO."', '"
 							  .$VO->CS_TIPO_VAGA_ESTAGIO."')";
 
-		  return $this->sql($query);	 
+		  return $this->sql($query);
      }
 
 
       function atualizarInf($VO) {
- 
+
       $query = "update RECRUTAMENTO_ESTAGIO set
 		  DT_ATUALIZACAO = sysdate,
 		  id_usuario_atualizacao = ".$_SESSION['ID_USUARIO']."
@@ -326,7 +326,7 @@ AND
 		  delete from  VAGAS_RECRUTAMENTO
 		  	where ID_RECRUTAMENTO_ESTAGIO = " . $VO->ID_RECRUTAMENTO_ESTAGIO . "
 		  	and NB_VAGAS_RECRUTAMENTO     = " . $VO->NB_VAGAS_RECRUTAMENTO ;
-      
+
       return $this->sql($query);
       }
 
@@ -337,10 +337,10 @@ AND
 		  where ID_RECRUTAMENTO_ESTAGIO = " . $VO->ID_RECRUTAMENTO_ESTAGIO . "
 		  and NB_VAGAS_RECRUTAMENTO     = " . $VO->NB_VAGAS_RECRUTAMENTO. "
 		  and NB_CANDIDATO              = " . $VO->NB_CANDIDATO;
-		  
+
       return $this->sql($query);
       }
-	  
+
 
       function alterar($VO) {
 
@@ -356,37 +356,37 @@ AND
 
     function alterarVaga($VO) {
 
-      $query = "update VAGAS_RECRUTAMENTO set NB_QUANTIDADE = '".$VO->NB_QUANTIDADE."'  
+      $query = "update VAGAS_RECRUTAMENTO set NB_QUANTIDADE = '".$VO->NB_QUANTIDADE."'
 					 where ID_RECRUTAMENTO_ESTAGIO = " . $VO->ID_RECRUTAMENTO_ESTAGIO."
 					 and NB_VAGAS_RECRUTAMENTO     = " . $VO->NB_VAGAS_RECRUTAMENTO ;
 
       return $this->sql($query);
     }
-	  
-	  
+
+
       function efetivar($VO) {
 		  $query = "update RECRUTAMENTO_ESTAGIO set CS_SITUACAO = 2 where ID_RECRUTAMENTO_ESTAGIO = " . $VO->ID_RECRUTAMENTO_ESTAGIO;
-		 
+
 		  return $this->sql($query);
       }
-	  
+
 
       function excluir($VO) {
 
-		  $query = " delete from RECRUTAMENTO_ESTAGIO where ID_RECRUTAMENTO_ESTAGIO = '" . $VO->ID_RECRUTAMENTO_ESTAGIO . "'";	
+		  $query = " delete from RECRUTAMENTO_ESTAGIO where ID_RECRUTAMENTO_ESTAGIO = '" . $VO->ID_RECRUTAMENTO_ESTAGIO . "'";
 		  return $this->sql($query);
-		  
+
       }
 
     function inserirCandidato($VO) {
-	  
+
       $query = " INSERT INTO ESTAGIARIO_VAGA(ID_RECRUTAMENTO_ESTAGIO, NB_VAGAS_RECRUTAMENTO, NB_CANDIDATO, CS_SITUACAO ,  ID_PESSOA_ESTAGIARIO )
       			values ("
-				. $VO->ID_RECRUTAMENTO_ESTAGIO. ", " 
+				. $VO->ID_RECRUTAMENTO_ESTAGIO. ", "
 				. $VO->NB_VAGAS_RECRUTAMENTO . ", "
-				. "SEMAD.F_G_PK_ESTAGIARIO_VAGA(". $VO->ID_RECRUTAMENTO_ESTAGIO.", ". $VO->NB_VAGAS_RECRUTAMENTO." ), " 
-				. "1, " 
-				. $VO->ID_PESSOA_ESTAGIARIO. ") "; 
+				. "SEMAD.F_G_PK_ESTAGIARIO_VAGA(". $VO->ID_RECRUTAMENTO_ESTAGIO.", ". $VO->NB_VAGAS_RECRUTAMENTO." ), "
+				. "1, "
+				. $VO->ID_PESSOA_ESTAGIARIO. ") ";
 
 	  return $this->sql($query);
      }
@@ -396,33 +396,33 @@ AND
 
         return $this->sqlVetor($query);
     }
-	 
-    
+
+
     /*
-     * 
-     * funções para relatorio 
-     * 
+     *
+     * funções para relatorio
+     *
      */
-    
-    
-    
+
+
+
         function buscarOrgaoSolicitanteRel($VO) {
 
         // Função que pega todos os Orgãos Solicitantes a qual o Usuario pertence
         // Utilizada na Index chamada pelo arrays.php
-        $query = "SELECT DISTINCT 
+        $query = "SELECT DISTINCT
                     C.ID_ORGAO_ESTAGIO ||'_'|| V_UNIDADE_ORG.NB_COD_UNIDADE CODIGO,
                     C.TX_ORGAO_ESTAGIO,
                     C.ID_ORGAO_ESTAGIO,
                     V_UNIDADE_ORG.NB_COD_UNIDADE,
                     C.ID_UNIDADE_ORG
-                    
-                  FROM 
+
+                  FROM
                     AGENTE_SETORIAL_ESTAGIO A ,
                     ORGAO_AGENTE_SETORIAL B,
                     ORGAO_ESTAGIO C,
-                    V_Unidade_org 
-                  WHERE 
+                    V_Unidade_org
+                  WHERE
                     A.ID_SETORIAL_ESTAGIO = B.ID_SETORIAL_ESTAGIO
                     AND C.ID_ORGAO_ESTAGIO = B.ID_ORGAO_ESTAGIO
                     and V_UNidade_org.ID_UNIDADE_ORG =C.ID_UNIDADE_ORG
@@ -435,7 +435,7 @@ AND
 
     function buscarRecrutamentoRel($VO) {
 
-        $query = "SELECT 
+        $query = "SELECT
                         ID_RECRUTAMENTO_ESTAGIO codigo,
                         ID_RECRUTAMENTO_ESTAGIO ID_RECRUTAMENTO_ESTAGIO,
                         TX_COD_RECRUTAMENTO
@@ -449,18 +449,18 @@ AND
         $query ="";
 
         return $this->sqlVetor($query);
-        
+
     }
 
 
     /*
-     * 
-     * Fim funções para relatorio 
-     * 
+     *
+     * Fim funções para relatorio
+     *
      */
-    
-    
-    
+
+
+
 }
 
 ?>

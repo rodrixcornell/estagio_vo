@@ -17,11 +17,11 @@ require_once "../autenticacao/validaPermissao.php";
 $VO = new TrVO();
 
 if ($_SESSION['ID_SOLICITACAO_TR']){
-    
+
     $VO->ID_SOLICITACAO_TR = $_SESSION['ID_SOLICITACAO_TR'];
     $VO->pesquisar();
     $VO->preencherVOBD($VO->getVetor());
-  
+
     if($_POST){
 
         $VO->configuracao();
@@ -33,12 +33,12 @@ if ($_SESSION['ID_SOLICITACAO_TR']){
         if (!$validar){
             $VO->alterar();
             header("Location: ".$url."src/".$pasta."/detail.php");
-        }               
-            
+        }
+
     }
-    
+
     if ($VO->ID_ORGAO_ESTAGIO) {
-    
+
         $total = $VO->buscarAgenteSetorial();
 
         if ($total) {
@@ -47,7 +47,7 @@ if ($_SESSION['ID_SOLICITACAO_TR']){
             $smarty->assign("arraybuscarAgenteSetorial", $arraybuscarAgenteSetorial);
         }else{$smarty->assign("arraybuscarAgenteSetorial", $arrayTipotr[''] = 'Nenhum registro encontrado...');}
     }else{$smarty->assign("arraybuscarAgenteSetorial", $arrayTipotr[''] = 'Nenhum registro encontrado...');}
-        
+
 }else header("Location: ".$url."src/".$pasta."/index.php");
 
 $smarty->assign("current"       , $current);
@@ -57,6 +57,6 @@ $smarty->assign("VO"			, $VO);
 $smarty->assign("titulopage"    , $titulopage);
 $smarty->assign("arquivoCSS"    , $pasta);
 $smarty->assign("arquivoJS"     , $pasta);
-$smarty->assign("nomeArquivo"   , $pasta."/".$nomeArquivo.".tpl");	
+$smarty->assign("nomeArquivo"   , $pasta."/".$nomeArquivo.".tpl");
 $smarty->display('index.tpl');
 ?>

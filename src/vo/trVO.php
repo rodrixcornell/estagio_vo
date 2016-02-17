@@ -8,7 +8,7 @@ class TrVO extends VO {
     function TrVO() {
         return $this->repositorio = new RepositorioTr();
     }
-    
+
     function buscarDadosContrato() {
         return $this->repositorio->buscarDadosContrato($this);
     }
@@ -44,7 +44,7 @@ class TrVO extends VO {
     function pesquisarSolicitacao(){
         return $this->repositorio->pesquisarSolicitacao($this);
     }
-    
+
     function atualizarInf(){
         return $this->repositorio->atualizarInf($this);
     }

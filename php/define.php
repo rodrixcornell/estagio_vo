@@ -1,7 +1,6 @@
 ﻿<?php
 header('Content-Type: text/html; charset=utf-8');
 set_time_limit(1000);
-ob_start();
 date_default_timezone_set("America/Manaus");
 //error_reporting(0);
 session_start();
@@ -53,19 +52,19 @@ $arrayMesExtenso[12] = "dezembro";
 //Se nao estiver logado redireciona para  pagina de login
 //if (!$_SESSION['usuario'] && $projeto . "src/autenticacao/index.php" != $_SERVER['PHP_SELF'] && strpos($_SERVER['PHP_SELF'], $system) > 0) {
 if (!$_SESSION['usuario'] && $projeto . "src/autenticacao/index.php" != $_SERVER['PHP_SELF'] && strpos($path, $system) > 0) {
-    header("Location: " . $url . "src/autenticacao/index.php");
+	header("Location: " . $url . "src/autenticacao/index.php");
 }
 
 //Topo Bem vindo usuario
 
 if ($usuario) {
-    $smarty->assign("msgAuthLeft", "Bem vindo, " . $_SESSION['NOME']
-        . "&nbsp;&nbsp;&nbsp;&nbsp;<a href='" . $url . "src/autenticacao/trocaSenha.php'><img src='" . $urlimg . "topo/senha.png' /></a>"
-        . "&nbsp;&nbsp;&nbsp;&nbsp;<a href='" . $url . "src/autenticacao/logout.php'><img src='" . $urlimg . "topo/sair.png' /></a>"
-        . "&nbsp;&nbsp;&nbsp;&nbsp;<a href='$urlAmbiente'><img src='" . $urlimg . "topo/home.png' /></a>");
+	$smarty->assign("msgAuthLeft", "Bem vindo, " . $_SESSION['NOME']
+		. "&nbsp;&nbsp;&nbsp;&nbsp;<a href='" . $url . "src/autenticacao/trocaSenha.php'><img src='" . $urlimg . "topo/senha.png' /></a>"
+		. "&nbsp;&nbsp;&nbsp;&nbsp;<a href='" . $url . "src/autenticacao/logout.php'><img src='" . $urlimg . "topo/sair.png' /></a>"
+		. "&nbsp;&nbsp;&nbsp;&nbsp;<a href='$urlAmbiente'><img src='" . $urlimg . "topo/home.png' /></a>");
 } else {
-    $smarty->assign("msgAuthLeft", "<a href='" . $url . "'><img src='" . $urlimg . "topo/entrar.png' /></a>"
-        . "&nbsp;&nbsp;&nbsp;&nbsp;<a href='$urlAmbiente'><img src='" . $urlimg . "topo/home.png' /></a>");
+	$smarty->assign("msgAuthLeft", "<a href='" . $url . "'><img src='" . $urlimg . "topo/entrar.png' /></a>"
+		. "&nbsp;&nbsp;&nbsp;&nbsp;<a href='$urlAmbiente'><img src='" . $urlimg . "topo/home.png' /></a>");
 }
 
 @$nomeArquivo = array_shift(explode(".", array_pop(explode("/", $_SERVER['SCRIPT_NAME']))));

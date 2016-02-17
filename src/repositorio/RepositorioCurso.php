@@ -43,7 +43,7 @@ class RepositorioCurso extends Repositorio {
         $CodigoPK = $this->getVetor();
 
         $query = "
-            INSERT INTO curso_estagio(ID_CURSO_ESTAGIO, TX_CURSO_ESTAGIO, cs_area_conhecimento) 
+            INSERT INTO curso_estagio(ID_CURSO_ESTAGIO, TX_CURSO_ESTAGIO, cs_area_conhecimento)
 						values
 	   ('" . $CodigoPK['ID_CURSO_ESTAGIO'][0] . "', '" . $VO->TX_CURSO_ESTAGIO . "','" . $VO->CS_AREA_CONHECIMENTO . "')
         ";
@@ -59,7 +59,7 @@ class RepositorioCurso extends Repositorio {
             TX_AREA_CONHECIMENTO,
             curso_estagio.CS_AREA_CONHECIMENTO CS_AREA_CONHECIMENTO
                 from curso_estagio,area_conhecimento_ge
-                where curso_estagio.CS_AREA_CONHECIMENTO = area_conhecimento_ge.CS_AREA_CONHECIMENTO 
+                where curso_estagio.CS_AREA_CONHECIMENTO = area_conhecimento_ge.CS_AREA_CONHECIMENTO
                 AND ID_CURSO_ESTAGIO=" . $VO->ID_CURSO_ESTAGIO;
 
 
@@ -71,7 +71,7 @@ class RepositorioCurso extends Repositorio {
         $query = "update curso_estagio
                   set
 		      TX_CURSO_ESTAGIO = '" . $VO-> TX_CURSO_ESTAGIO . "' ,
-		      CS_AREA_CONHECIMENTO = '" . $VO-> CS_AREA_CONHECIMENTO . "' 
+		      CS_AREA_CONHECIMENTO = '" . $VO-> CS_AREA_CONHECIMENTO . "'
 		   where
  			ID_CURSO_ESTAGIO = '" . $VO->ID_CURSO_ESTAGIO . "'";
 

@@ -3,7 +3,7 @@
 require_once "../../php/define.php";
 require_once $pathvo."desligamentoVO.php";
 
-// instancia da classe desligamentoVO	
+// instancia da classe desligamentoVO
 $VO = new desligamentoVO();
 
 //ComboBox de Orgão gestor
@@ -22,7 +22,7 @@ $arrayContrato=$VO->getArray('TX_CODIGO');
 $VO->buscarAgenteIntegracao();
 $arraybuscarAgenteIntegracao=$VO->getArray('TX_AGENCIA_ESTAGIO');
 
-//Apresentações dos dados no tpl 
+//Apresentações dos dados no tpl
 $smarty->assign('arrayOrgaoGestor'            ,$arrayOrgaoGestor);
 $smarty->assign('arrayOrgaoSolicitante'       ,$arrayOrgaoSolicitante);
 $smarty->assign('arrayContrato'               ,$arrayContrato);

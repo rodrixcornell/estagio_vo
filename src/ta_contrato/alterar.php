@@ -20,13 +20,13 @@ if ($_SESSION['ID_SOLICITACAO_TA_CP']) {
     $VO->ID_SOLICITACAO_TA_CP = $_SESSION['ID_SOLICITACAO_TA_CP'];
     $VO->buscar();
     $VO->preencherVOBD($VO->getVetor());
-	
+
 	$recrutamento = $VO->verificarRecrutamento();
-	
+
     if ($VO->ID_ORGAO_ESTAGIO) {
         $VO->buscarAgenciaEstagio();
         $smarty->assign("arrayAgenciaEstagio", $VO->getArray("TX_AGENCIA_ESTAGIO"));
-		
+
 		if ($VO->ID_AGENCIA_ESTAGIO) {
         	$VO->buscarQuadroVagasEstagio();
         	$smarty->assign("arrayQuadroVagasEstagio", $VO->getArray("TX_CODIGO"));
@@ -37,7 +37,7 @@ if ($_SESSION['ID_SOLICITACAO_TA_CP']) {
         $VO->configuracao();
 		if (!$recrutamento) $VO->setCaracteristica('CS_SITUACAO', 'obrigatorios');
         $validar = $VO->preencher($_POST);
-		
+
 		$tamanho_just = strlen($_POST['TX_JUSTIFICATIVA']);
 
 		if ($tamanho_just > 255) {

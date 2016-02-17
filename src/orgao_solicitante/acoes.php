@@ -13,12 +13,12 @@ function gerarTabela($param = '') {
     include "../../php/define.php";
     require_once $pathvo . "orgao_solicitanteVO.php";
     $acesso = $GLOBALS['acesso']; //Acessar a Variavel global;
-    
+
     //PESQUISA DETAIL
 
     $VO = new orgao_solicitanteVO();
-    $VO->ID_ORGAO_ESTAGIO = $_SESSION['ID_ORGAO_ESTAGIO'];    
-    
+    $VO->ID_ORGAO_ESTAGIO = $_SESSION['ID_ORGAO_ESTAGIO'];
+
     $page = $_REQUEST['PAGE'];
 
     $qtd = 15;
@@ -40,7 +40,7 @@ function gerarTabela($param = '') {
         <th>Data Cadastro</th>
         <th>Data de Atualização</th>';
 
-    //Somente ver a coluna de alterar se tiver acesso completo a tela	
+    //Somente ver a coluna de alterar se tiver acesso completo a tela
 //    if ($acesso)
       //echo '<th style="width:0px;"></th>';
 
@@ -59,7 +59,7 @@ function gerarTabela($param = '') {
                 <td align="center">' . $dados['DT_CADASTRO'][$i] . '</td>
                 <td align="center">' . $dados['DT_ATUALIZACAO'][$i] . '</td>';
 
-            //Somente ver a coluna de alterar se tiver acesso completo a tela					
+            //Somente ver a coluna de alterar se tiver acesso completo a tela
 //            if ($acesso)
 //                echo '<td align="center" class="icones">
 //		<a href="' . $dados['ID_ORGAO_ESTAGIO'][$i] . '" id="excluir" ><img src="' . $urlimg . 'icones/excluirItem.png" title="Excluir Registro"/></a></td>';
@@ -93,11 +93,11 @@ function gerarTabela($param = '') {
 $VO = new orgao_solicitanteVO();
 
 if ($_REQUEST['identifier'] == "tabela") {
-   
+
     $VO->ID_UNIDADE_ORG = $_REQUEST['ID_UNIDADE_ORG'];
     $VO->TX_ORGAO_ESTAGIO = $_REQUEST['TX_ORGAO_ESTAGIO'];
     $VO->CS_STATUS = $_REQUEST['CS_STATUS'];
-    
+
     $page = $_REQUEST['PAGE'];
 
     $VO->preencherSessionPesquisar($_REQUEST);
@@ -126,7 +126,7 @@ if ($_REQUEST['identifier'] == "tabela") {
              <th>Data de Cadastro</th>
              <th>Data de Atualização</th>
 								';
-        //Somente ver a coluna de alterar se tiver acesso completo a tela					
+        //Somente ver a coluna de alterar se tiver acesso completo a tela
         //if ($acesso)
             echo '<th style="width:30px;"></th>';
         echo '</tr>';
@@ -141,9 +141,9 @@ if ($_REQUEST['identifier'] == "tabela") {
                 <td align="center">' . $dados['DT_CADASTRO'][$i] . '</td>
                 <td align="center">' . $dados['DT_ATUALIZACAO'][$i] . '</td>';
 
-            //Somente ver a coluna de alterar se tiver acesso completo a tela					
+            //Somente ver a coluna de alterar se tiver acesso completo a tela
            // if ($acesso)
-                echo '<td align="center"> 
+                echo '<td align="center">
 		  <a href="' . $dados['ID_ORGAO_ESTAGIO'][$i] . '" id="alterar"><img src="' . $urlimg . 'icones/editar.png" alt="itens" title="Alterar"/></a></td>';
             echo '</tr>';
         }
@@ -172,7 +172,7 @@ if ($_REQUEST['identifier'] == "tabela") {
 }else if ($_REQUEST['identifier'] == 'alterar') {
 
     $VO->ID_ORGAO_ESTAGIO = $_SESSION['ID_ORGAO_ESTAGIO'];
-    
+
     $dados = $VO->alterar();
 
    // echo json_encode($dados);

@@ -24,7 +24,7 @@ if ($_POST) {
     $validar = $VO->preencher($_POST);
 
     if ($VO->ID_ORGAO_ESTAGIO) {
-    
+
         $total = $VO->buscarAgenteSetorial();
 
         if ($total) {
@@ -33,7 +33,7 @@ if ($_POST) {
             $smarty->assign("arraybuscarAgenteSetorial", $arraybuscarAgenteSetorial);
         }else{$smarty->assign("arraybuscarAgenteSetorial", $arrayTipotr[''] = 'Nenhum registro encontrado...');}
     }else{$smarty->assign("arraybuscarAgenteSetorial", $arrayTipotr[''] = 'Nenhum registro encontrado...');}
-    
+
     if (!$validar)
         $id_pk = $VO->inserir();
 

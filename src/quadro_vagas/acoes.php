@@ -32,7 +32,7 @@ function gerarTabela($param = '') {
     $VO->Reg_inicio = $primeiro;
     $VO->Reg_quantidade = $qtd;
     $tot_da_pagina = $VO->pesquisarUnidades();
-	
+
 	//Correção exclusao ultima linha da pagina
 	if ($total_page >= 1 && !$tot_da_pagina){
 		$VO->Reg_inicio = $primeiro-$qtd;
@@ -48,7 +48,7 @@ function gerarTabela($param = '') {
 				<th style="width:120px">Quantidade</th>
 				<th>Curso</th>';
 
-    //Somente ver a coluna de alterar se tiver acesso completo a tela	
+    //Somente ver a coluna de alterar se tiver acesso completo a tela
     if ($acesso)
         echo '<th style="width:50px;"></th>';
     echo '</tr>';
@@ -62,10 +62,10 @@ function gerarTabela($param = '') {
 										   <td align="center">' . $dados['TX_AGENCIA_ESTAGIO'][$i] . '</td>
                                            <td align="center">' . $dados['TX_ORGAO_ESTAGIO'][$i] . '</td>
 	                                   	   <td align="center">' . $dados['TX_TIPO_VAGA_ESTAGIO'][$i] . '</td>
-                                           <td align="center" class="qtd">' . $dados['NB_QUANTIDADE'][$i] . '</td>  
+                                           <td align="center" class="qtd">' . $dados['NB_QUANTIDADE'][$i] . '</td>
                                            <td align="center" class="curso">' . $dados['TX_CURSO_ESTAGIO'][$i] . '</td>';
 
-            //Somente ver a coluna de alterar se tiver acesso completo a tela					
+            //Somente ver a coluna de alterar se tiver acesso completo a tela
             if ($acesso)
                 echo'<td align="center" class="icones"> ';
             echo '<a href="'.$dados['ID_AGENCIA_ESTAGIO'][$i].'_'.$dados['ID_ORGAO_ESTAGIO'][$i].'_'.$dados['CS_TIPO_VAGA_ESTAGIO'][$i].'" id="alterar" sel="'.$dados['ID_CURSO_ESTAGIO'][$i].'"><img src="' . $urlimg . 'icones/alterarItem.png" alt="itens" title="Alterar"/></a> ';
@@ -129,8 +129,8 @@ if ($_REQUEST['identifier'] == "tabela") {
 			    <th>Situação</th>
 			    <th style="width:150px;">Data de Cadastro</th>
                 <th style="width:150px;">Data de Atualização</th>';
-        //Somente ver a coluna de alterar se tiver acesso completo a tela					
-        //if ($acesso) 
+        //Somente ver a coluna de alterar se tiver acesso completo a tela
+        //if ($acesso)
         echo '<th style="width:30px;"></th><th style="width:30px;"></th>';
         echo '</tr>';
 
@@ -140,14 +140,14 @@ if ($_REQUEST['identifier'] == "tabela") {
             echo '<tr bgcolor="' . $bgcolor . '">
                      <td align="center">' . $dados['TX_CODIGO'][$i] . '</td>
                      <td align="center">' . $dados['TX_ORGAO_GESTOR_ESTAGIO'][$i] . '</td>
-                     <td align="center">' . $dados['TX_SITUACAO'][$i] . '</td>    
+                     <td align="center">' . $dados['TX_SITUACAO'][$i] . '</td>
 			         <td align="center">' . $dados['DT_CADASTRO'][$i] . '</td>
                      <td align="center">' . $dados['DT_ATUALIZACAO'][$i] . '</td>
-                               
+
 			    ';
-            //Somente ver a coluna de alterar se tiver acesso completo a tela					
-            //if ($acesso) 
-            echo '<td align="center"> 
+            //Somente ver a coluna de alterar se tiver acesso completo a tela
+            //if ($acesso)
+            echo '<td align="center">
 		          <a href="' . $dados['ID_QUADRO_VAGAS_ESTAGIO'][$i] . '_1" id="alterar"><img src="' . $urlimg . 'icones/editar.png" alt="itens" title="Alterar"/></a></td>
                    <td align="center"> <a href="' . $dados['ID_QUADRO_VAGAS_ESTAGIO'][$i] . '" id="alterar"><img src="' . $urlimg . 'icones/visualizarItem.png" alt="itens" title="Visualisar"/></a></td>';
             echo '</tr>';
@@ -185,7 +185,7 @@ if ($_REQUEST['identifier'] == "tabela") {
 
     if ($acesso) {
         $retorno = $VO->inserirVaga();
-		
+
 		if ($retorno){
 			$erro = $VO->erroOracle($retorno);
 		}
@@ -222,7 +222,7 @@ if ($_REQUEST['identifier'] == "tabela") {
 
     gerarTabela($erro);
 
-//-----------------------alterar da pesquisa do detail--------------------------        
+//-----------------------alterar da pesquisa do detail--------------------------
 }else if ($_REQUEST['identifier'] == 'alterarVaga') {
 
     $VO->ID_QUADRO_VAGAS_ESTAGIO 		= $_SESSION['ID_QUADRO_VAGAS_ESTAGIO'];
@@ -232,11 +232,11 @@ if ($_REQUEST['identifier'] == "tabela") {
     $VO->CS_TIPO_VAGA_ESTAGIO 			= $codigo[2];
     $VO->NB_QUANTIDADE 					= $_REQUEST['NB_QUANTIDADE'];
     $VO->ID_CURSO_ESTAGIO 				= $_REQUEST['ID_CURSO_ESTAGIO'];
-	
-	
+
+
  if ($acesso) {
 	 $retorno = $VO->alterarVaga();
-	 
+
 	 if ($retorno){
 		$erro = $VO->erroOracle($retorno);
 	 }

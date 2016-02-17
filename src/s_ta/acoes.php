@@ -24,7 +24,7 @@ function gerarTabela($param = '') {
     $VO->TX_NOME = $_REQUEST['TX_NOME'];
     $VO->NB_CPF = $_REQUEST['NB_CPF'];
     $VO->TX_CODIGO_SOLICITACAO = $_REQUEST['TX_CODIGO_SOLICITACAO'];
-    
+
 
     $page = $_REQUEST['PAGE'];
 
@@ -37,16 +37,16 @@ function gerarTabela($param = '') {
     $total = $VO->pesquisarSolicitacao();
 
     $total_page = ceil($total / $qtd);
-  
+
     $VO->Reg_inicio = $primeiro;
     $VO->Reg_quantidade = $qtd;
     $tot_da_pagina = $total; //$VO->pesquisarSolicitacao();
 
     if ($tot_da_pagina) {
         $dados = $VO->getVetor();
-      
-        
-        
+
+
+
         echo '<div id="status">' . $_SESSION['STATUS'] . '</div>
 		<table width="100%" class="dataGrid">
                 <tr>
@@ -124,17 +124,17 @@ if ($_REQUEST['identifier'] == "tabela") {
 
     echo $dados['TX_FUNCIONARIO'][0];
 
-//------------busca dados do contrato------------------------------    
+//------------busca dados do contrato------------------------------
 }else if ($_REQUEST['identifier'] == "buscarDadosContrato") {
 
     $VO->ID_CONTRATO = $_REQUEST['ID_CONTRATO'];
     $VO->ID_AGENCIA_ESTAGIO = $_REQUEST['ID_AGENCIA_ESTAGIO'];
     $VO->buscarDadosContrato();
     $dados = $VO->getVetor();
-        
+
     echo $dados['TUDO'][0];
-    
-// --------------------------busca agente setorial------------------------------    
+
+// --------------------------busca agente setorial------------------------------
 }else if ($_REQUEST['identifier'] == "buscarASetorial"){
 
     $VO->ID_ORGAO_ESTAGIO = $_REQUEST['ID_ORGAO_ESTAGIO'];
@@ -149,20 +149,20 @@ if ($_REQUEST['identifier'] == "tabela") {
        for ($i = 0; $i < $total; $i++) {
             echo '<option value="' . $dados['CODIGO'][$i] . '">' . $dados['TX_FUNCIONARIO'][$i] . '</option>';
        }
-    
+
     } else
         echo '<option value="">Nenhum registro encontrado</option>';
-    
+
 //------------------------------------
    echo json_encode($dados);
 }else if ($_REQUEST['identifier'] == 'atualizarInf') {
 
     $VO->ID_SOLICITACAO_TA = $_SESSION['ID_SOLICITACAO_TA'];
     $VO->EFETIVAR = $_REQUEST['EFETIVAR'];
-    
+
     $dados = $VO->atualizarInf();
 
     echo json_encode($dados);
-    
+
 }
 ?>

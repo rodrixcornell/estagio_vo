@@ -6,21 +6,21 @@ class RepositorioRecesso extends Repositorio {
 
      function efetivar($VO) {
 		  $query = "update RECESSO_ESTAGIO set CS_SITUACAO = 2 where ID_RECESSO_ESTAGIO = " . $VO->ID_RECESSO_ESTAGIO;
-		 
+
 		  return $this->sql($query);
       }
-    
+
     function buscarAgenteSetorial($VO) {
         // fun��o que busca no banco todas as agencias de integra��o
         // utilizada no arrays.php
-        $query = "SELECT 
+        $query = "SELECT
                     C.ID_USUARIO ID_USUARIO_RESP,
                     C.ID_SETORIAL_ESTAGIO  CODIGO,
                     B.TX_LOGIN  TX_LOGIN,
                     A.TX_FUNCIONARIO  TX_FUNCIONARIO,
                     to_char(C.DT_CADASTRO,'dd/mm/yyyy')  DT_CADASTRO,
                     to_char(C.DT_ATULIZACAO,'dd/mm/yyyy') DT_ATULIZACAO
-                 FROM 
+                 FROM
                             V_FUNCIONARIO_TOTAl A,
                             USUARIO B ,
                             AGENTE_SETORIAL_ESTAGIO  C
@@ -33,14 +33,14 @@ class RepositorioRecesso extends Repositorio {
     function pesquisarAgenteSetorial($VO) {
         // fun��o que busca no banco todas as agencias de integra��o
         // utilizada no arrays.php
-        $query = "SELECT 
+        $query = "SELECT
                     C.ID_USUARIO ID_USUARIO_RESP,
                     C.ID_SETORIAL_ESTAGIO  CODIGO,
                     B.TX_LOGIN  TX_LOGIN,
                     A.TX_FUNCIONARIO  TX_FUNCIONARIO,
                     to_char(C.DT_CADASTRO,'dd/mm/yyyy')  DT_CADASTRO,
                     to_char(C.DT_ATULIZACAO,'dd/mm/yyyy') DT_ATULIZACAO
-                 FROM 
+                 FROM
                             V_FUNCIONARIO_TOTAl A,
                             USUARIO B ,
                             AGENTE_SETORIAL_ESTAGIO  C
@@ -67,12 +67,12 @@ class RepositorioRecesso extends Repositorio {
         // Fun��o que pega todos os org�os Getores
         // Utilizada na Index chamada pelo arrays.php
 
-        $query = "SELECT 
+        $query = "SELECT
                     ID_ORGAO_GESTOR_ESTAGIO ,
                     ID_ORGAO_GESTOR_ESTAGIO ||'_'||ID_UNIDADE_ORG CODIGO,
                     TX_ORGAO_GESTOR_ESTAGIO,
                     ID_UNIDADE_ORG
-                  FROM 
+                  FROM
                     ORGAO_GESTOR_ESTAGIO";
         return $this->sqlVetor($query);
 
@@ -92,7 +92,7 @@ class RepositorioRecesso extends Repositorio {
             TX_CODIGO,
             TX_CODIGO TX_CONTRATO
             FROM
-            CONTRATO_ESTAGIO 
+            CONTRATO_ESTAGIO
 	WHERE ";
         ($VO->ID_ORGAO_GESTOR_ESTAGIO) ? $query.=" ID_ORGAO_GESTOR_ESTAGIO = '" . $VO->ID_ORGAO_GESTOR_ESTAGIO . "' " : false;
         ($VO->ID_ORGAO_ESTAGIO) ? $query.="  and ($VO->ID_ORGAO_ESTAGIO) = '" . $VO->ID_ORGAO_ESTAGIO . "' " : false;
@@ -102,18 +102,18 @@ class RepositorioRecesso extends Repositorio {
     }
 
     function buscarDadosContrato($VO) {
-        $query = "SELECT   
+        $query = "SELECT
                   A.ID_CONTRATO CODIGO,
-                  D.TX_NOME  || '_' || 
-                  D.NB_CPF || '_' || 
-                  T.TX_TIPO_VAGA_ESTAGIO || '_' || 
-                  I.TX_INSTITUICAO_ENSINO || '_' || 
+                  D.TX_NOME  || '_' ||
+                  D.NB_CPF || '_' ||
+                  T.TX_TIPO_VAGA_ESTAGIO || '_' ||
+                  I.TX_INSTITUICAO_ENSINO || '_' ||
                   CE.TX_CURSO_ESTAGIO
                   || '_' || DECODE(A.CS_PERIODO, 1,'1º Ano', 2,'2º Ano', 3,'3º Ano', 4,'4º Ano', 5,'5º Ano', 6,'1º Periodo', 7,'2º Periodo',8,'3º Periodo',
                                        9,'4º Periodo', 10,'5º Periodo', 11,'6º Periodo', 12,'7º Periodo', 13,'8º Periodo', 14,'9º Periodo', 15,'10º Periodo')
                   || '_' ||  SUBSTR(T.TX_TIPO_VAGA_ESTAGIO, 0, (CASE WHEN INSTR(T.TX_TIPO_VAGA_ESTAGIO, ' ') <> 0 THEN INSTR(T.TX_TIPO_VAGA_ESTAGIO, ' ') - 1 ELSE LENGTH(T.TX_TIPO_VAGA_ESTAGIO) END)) || '_' || A.TX_TCE || '_' ||
-  	         to_char(A.DT_INICIO_VIGENCIA,'dd/mm/yyyy') || '_' ||  to_char(A.DT_FIM_VIGENCIA,'dd/mm/yyyy') || '_' ||  A.ID_AGENCIA_ESTAGIO TUDO 
-            FROM 
+  	         to_char(A.DT_INICIO_VIGENCIA,'dd/mm/yyyy') || '_' ||  to_char(A.DT_FIM_VIGENCIA,'dd/mm/yyyy') || '_' ||  A.ID_AGENCIA_ESTAGIO TUDO
+            FROM
                   CONTRATO_ESTAGIO A,
                   ORGAO_GESTOR_ESTAGIO B,
                   ORGAO_ESTAGIO C,
@@ -123,7 +123,7 @@ class RepositorioRecesso extends Repositorio {
                   TIPO_VAGA_ESTAGIO T,
                   INSTITUICAO_ENSINO I,
                   CURSO_ESTAGIO CE
-            WHERE 
+            WHERE
                       A.ID_AGENCIA_ESTAGIO      = E.ID_AGENCIA_ESTAGIO
                   AND B.ID_ORGAO_GESTOR_ESTAGIO = A.ID_ORGAO_GESTOR_ESTAGIO
                   AND A.ID_ORGAO_ESTAGIO        = C.ID_ORGAO_ESTAGIO
@@ -143,9 +143,9 @@ class RepositorioRecesso extends Repositorio {
 
 
         $query = "
-		
-SELECT 
-        RECESSO_ESTAGIO.id_recesso_estagio, 
+
+SELECT
+        RECESSO_ESTAGIO.id_recesso_estagio,
         RECESSO_ESTAGIO.tx_codigo CODIGO_RECESSO,
         RECESSO_ESTAGIO.tx_cargo_agente,
        RECESSO_ESTAGIO.tx_email_agente,
@@ -158,36 +158,36 @@ SELECT
        RECESSO_ESTAGIO.id_agencia_estagio,
        RECESSO_ESTAGIO.id_orgao_estagio,
        RECESSO_ESTAGIO.dt_cadastro,
-       RECESSO_ESTAGIO.dt_atualizacao, 
+       RECESSO_ESTAGIO.dt_atualizacao,
        RECESSO_ESTAGIO.id_usuario_cadastro,
        RECESSO_ESTAGIO.id_usuario_atualizacao,
        RECESSO_ESTAGIO.cs_situacao,
        RECESSO_ESTAGIO.dt_fim_vigencia_estagio,
        to_char(RECESSO_ESTAGIO.dt_inicio_recesso,'dd/mm/yyyy') dt_inicio_recesso,
        to_char(RECESSO_ESTAGIO.dt_fim_recesso,'dd/mm/yyyy') dt_fim_recesso,
-       RECESSO_ESTAGIO.nb_mes_referencia, 
+       RECESSO_ESTAGIO.nb_mes_referencia,
        RECESSO_ESTAGIO.nb_ano_referencia,
        to_char(RECESSO_ESTAGIO.dt_assinatura,'dd/mm/yyyy') dt_assinatura,
-       RECESSO_ESTAGIO.tx_matricula, 
-       RECESSO_ESTAGIO.nb_dias_restantes, 
+       RECESSO_ESTAGIO.tx_matricula,
+       RECESSO_ESTAGIO.nb_dias_restantes,
        RECESSO_ESTAGIO.tx_chefia_imediata,
-       RECESSO_ESTAGIO.cs_realizacao,       
+       RECESSO_ESTAGIO.cs_realizacao,
        USUARIO_ATUALIZACAO_fun.TX_FUNCIONARIO FUNCIONARIO_CADASTRO,
-       USUARIO_CADASTRO_FUN.TX_FUNCIONARIO FUNCIONARIO_ATUALIZACAO,       
+       USUARIO_CADASTRO_FUN.TX_FUNCIONARIO FUNCIONARIO_ATUALIZACAO,
        V_RESP_UNID_ORG.tx_nome TX_SECRETARIO_ORGAO_GESTOR,
        A.TX_FUNCIONARIO  TX_AGENTE_SETORIAL,
-       ORGAO_ESTAGIO1.TX_ORGAO_ESTAGIO TX_ORGAO_SOLICITANTE, 
+       ORGAO_ESTAGIO1.TX_ORGAO_ESTAGIO TX_ORGAO_SOLICITANTE,
        CONTRATO_ESTAGIO.TX_CODIGO TX_CONTRATO,
-       CONTRATO_ESTAGIO.TX_TCE,        
+       CONTRATO_ESTAGIO.TX_TCE,
         case
-         when CONTRATO_ESTAGIO.CS_TIPO = '1' then '1 - Contrato Inicial' 
+         when CONTRATO_ESTAGIO.CS_TIPO = '1' then '1 - Contrato Inicial'
          when CONTRATO_ESTAGIO.CS_TIPO = '2' then '2 - Aditivo Contratual'
-        end 
-        TX_TIPO_VAGA_ESTAGIO,       
+        end
+        TX_TIPO_VAGA_ESTAGIO,
         TIPO_VAGA_ESTAGIO.TX_TIPO_VAGA_ESTAGIO TX_NIVEL,
-      ORGAO_GESTOR_ESTAGIO.TX_ORGAO_GESTOR_ESTAGIO TX_ORGAO_GESTOR,   
+      ORGAO_GESTOR_ESTAGIO.TX_ORGAO_GESTOR_ESTAGIO TX_ORGAO_GESTOR,
         case
-         when CONTRATO_ESTAGIO.CS_PERIODO = '1' then '1 ano' 
+         when CONTRATO_ESTAGIO.CS_PERIODO = '1' then '1 ano'
          when CONTRATO_ESTAGIO.CS_PERIODO = '2' then '2 ano'
          when CONTRATO_ESTAGIO.CS_PERIODO = '3' then '3 ano'
          when CONTRATO_ESTAGIO.CS_PERIODO = '4' then '4 ano'
@@ -203,38 +203,38 @@ SELECT
          when CONTRATO_ESTAGIO.CS_PERIODO = '14' then '9 periodo'
          when CONTRATO_ESTAGIO.CS_PERIODO = '15' then '10 periodo'
 
-        end 
-        TX_PERIODO,        
-       V_ESTAGIARIO.TX_NOME TX_NOME_ESTAGIARIO,       
-       V_ESTAGIARIO.NB_CPF,       
-       AGENCIA_ESTAGIO.TX_AGENCIA_ESTAGIO,       
+        end
+        TX_PERIODO,
+       V_ESTAGIARIO.TX_NOME TX_NOME_ESTAGIARIO,
+       V_ESTAGIARIO.NB_CPF,
+       AGENCIA_ESTAGIO.TX_AGENCIA_ESTAGIO,
         case
-         when RECESSO_ESTAGIO.CS_SITUACAO = '2' then 'Fechado' 
+         when RECESSO_ESTAGIO.CS_SITUACAO = '2' then 'Fechado'
          when RECESSO_ESTAGIO.CS_SITUACAO = '1' then 'Aberto'
-        end 
-        TX_SITUACAO,        
+        end
+        TX_SITUACAO,
         case
-         when RECESSO_ESTAGIO.CS_REALIZACAO = '3' then '3 - Postergado Parcialmente' 
-         when RECESSO_ESTAGIO.CS_REALIZACAO = '2' then '2 - Postergado Totalmente' 
+         when RECESSO_ESTAGIO.CS_REALIZACAO = '3' then '3 - Postergado Parcialmente'
+         when RECESSO_ESTAGIO.CS_REALIZACAO = '2' then '2 - Postergado Totalmente'
          when RECESSO_ESTAGIO.CS_REALIZACAO = '1' then '1 - Realizado'
-        end 
+        end
         TX_REALIZACAO,
        CURSO_ESTAGIO.TX_CURSO_ESTAGIO,
-       INSTITUICAO_ENSINO.TX_INSTITUICAO_ENSINO      
+       INSTITUICAO_ENSINO.TX_INSTITUICAO_ENSINO
 
   FROM RECESSO_ESTAGIO RECESSO_ESTAGIO
-  
-  
+
+
     , ORGAO_ESTAGIO ORGAO_ESTAGIO1
     , ORGAO_GESTOR_ESTAGIO ORGAO_GESTOR_ESTAGIO
     , CONTRATO_ESTAGIO CONTRATO_ESTAGIO
     , AGENCIA_ESTAGIO AGENCIA_ESTAGIO
-  
-    , V_ESTAGIARIO V_ESTAGIARIO 
-    
+
+    , V_ESTAGIARIO V_ESTAGIARIO
+
     , AGENTE_SETORIAL_ESTAGIO AGENTE_SETORIAL_ESTAGIO
     , CURSO_ESTAGIO CURSO_ESTAGIO
-    
+
     , INSTITUICAO_ENSINO INSTITUICAO_ENSINO
 
     , USUARIO USUARIO_CADASTRO
@@ -243,17 +243,17 @@ SELECT
     , V_FUNCIONARIO_TOTAL USUARIO_ATUALIZACAO_fun
 
     , V_RESP_UNID_ORG
-    
+
     ,V_FUNCIONARIO_TOTAl A
-    , USUARIO B 
+    , USUARIO B
 
     , TIPO_VAGA_ESTAGIO TIPO_VAGA_ESTAGIO
-    
-  WHERE  
+
+  WHERE
     RECESSO_ESTAGIO.ID_ORGAO_ESTAGIO = ORGAO_ESTAGIO1.ID_ORGAO_ESTAGIO
-    
+
     AND RECESSO_ESTAGIO.ID_CONTRATO = CONTRATO_ESTAGIO.ID_CONTRATO
-    
+
     AND CONTRATO_ESTAGIO.ID_ORGAO_GESTOR_ESTAGIO = ORGAO_GESTOR_ESTAGIO.ID_ORGAO_GESTOR_ESTAGIO
 
     AND RECESSO_ESTAGIO.ID_AGENCIA_ESTAGIO = AGENCIA_ESTAGIO.ID_AGENCIA_ESTAGIO
@@ -266,7 +266,7 @@ SELECT
     AND CONTRATO_ESTAGIO.ID_CURSO_ESTAGIO = CURSO_ESTAGIO.ID_CURSO_ESTAGIO
 
     AND CONTRATO_ESTAGIO.ID_INSTITUICAO_ENSINO = INSTITUICAO_ENSINO.ID_INSTITUICAO_ENSINO
-    
+
                     AND USUARIO_CADASTRO.ID_USUARIO                = RECESSO_ESTAGIO.ID_USUARIO_CADASTRO
                     AND USUARIO_CADASTRO.ID_PESSOA_FUNCIONARIO     = USUARIO_CADASTRO_FUN.ID_PESSOA_FUNCIONARIO
                     AND USUARIO_CADASTRO.ID_UNIDADE_GESTORA        = USUARIO_CADASTRO_FUN.ID_UNIDADE_GESTORA
@@ -274,12 +274,12 @@ SELECT
                     AND USUARIO_ATUALIZACAO.ID_PESSOA_FUNCIONARIO  = USUARIO_ATUALIZACAO_fun.ID_PESSOA_FUNCIONARIO
                     AND USUARIO_ATUALIZACAO.ID_UNIDADE_GESTORA     = USUARIO_ATUALIZACAO_fun.ID_UNIDADE_GESTORA
 
-                    AND AGENTE_SETORIAL_ESTAGIO.ID_USUARIO  =  B.ID_USUARIO           
+                    AND AGENTE_SETORIAL_ESTAGIO.ID_USUARIO  =  B.ID_USUARIO
                     and A.ID_PESSOA_FUNCIONARIO=B.ID_PESSOA_FUNCIONARIO
 
 
-                    AND   ORGAO_GESTOR_ESTAGIO.id_unidade_org  = V_RESP_UNID_ORG.id_unidade_org(+) 
-    
+                    AND   ORGAO_GESTOR_ESTAGIO.id_unidade_org  = V_RESP_UNID_ORG.id_unidade_org(+)
+
 AND CONTRATO_ESTAGIO.CS_TIPO_VAGA_ESTAGIO    = TIPO_VAGA_ESTAGIO.CS_TIPO_VAGA_ESTAGIO
  ";
 
@@ -305,12 +305,12 @@ AND CONTRATO_ESTAGIO.CS_TIPO_VAGA_ESTAGIO    = TIPO_VAGA_ESTAGIO.CS_TIPO_VAGA_ES
     function buscar($VO) {
 
         $query = "
-SELECT 
+SELECT
         RECESSO_ESTAGIO.id_recesso_estagio,
         RECESSO_ESTAGIO.tx_codigo CODIGO_RECESSO,
         RECESSO_ESTAGIO.tx_cargo_agente,
        RECESSO_ESTAGIO.tx_email_agente,
-       RECESSO_ESTAGIO.tx_telefone_agente, 
+       RECESSO_ESTAGIO.tx_telefone_agente,
        to_char(RECESSO_ESTAGIO.dt_inicio_vig_estagio,'dd/mm/yyyy')dt_inicio_vig_estagio,
        RECESSO_ESTAGIO.tx_justificativa_adiamento,
        to_char(RECESSO_ESTAGIO.dt_adiamento,'dd/mm/yyyy')dt_adiamento,
@@ -321,37 +321,37 @@ SELECT
        RECESSO_ESTAGIO.ID_ORGAO_GESTOR_ESTAGIO || '_' || ORGAO_ESTAGIO1.ID_UNIDADE_ORG  ID_ORGAO_GESTOR_ESTAGIO,
        to_char(RECESSO_ESTAGIO.dt_cadastro,'dd/mm/yyyy') dt_cadastro,
        to_char(RECESSO_ESTAGIO.dt_atualizacao,'dd/mm/yyyy')dt_atualizacao,
-       RECESSO_ESTAGIO.id_usuario_cadastro, 
-       RECESSO_ESTAGIO.id_usuario_atualizacao, 
+       RECESSO_ESTAGIO.id_usuario_cadastro,
+       RECESSO_ESTAGIO.id_usuario_atualizacao,
        RECESSO_ESTAGIO.cs_situacao,
-       to_char(RECESSO_ESTAGIO.dt_fim_vigencia_estagio,'dd/mm/yyyy') dt_fim_vigencia_estagio, 
+       to_char(RECESSO_ESTAGIO.dt_fim_vigencia_estagio,'dd/mm/yyyy') dt_fim_vigencia_estagio,
        to_char(RECESSO_ESTAGIO.dt_inicio_recesso,'dd/mm/yyyy') dt_inicio_recesso,
        to_char(RECESSO_ESTAGIO.dt_fim_recesso,'dd/mm/yyyy') dt_fim_recesso,
-       RECESSO_ESTAGIO.nb_mes_referencia, 
-       RECESSO_ESTAGIO.nb_ano_referencia, 
+       RECESSO_ESTAGIO.nb_mes_referencia,
+       RECESSO_ESTAGIO.nb_ano_referencia,
        RECESSO_ESTAGIO.dt_assinatura,
        RECESSO_ESTAGIO.tx_matricula,
        RECESSO_ESTAGIO.nb_dias_restantes,
        RECESSO_ESTAGIO.tx_chefia_imediata,
-       RECESSO_ESTAGIO.cs_realizacao,       
+       RECESSO_ESTAGIO.cs_realizacao,
        USUARIO_ATUALIZACAO_fun.TX_FUNCIONARIO FUNCIONARIO_CADASTRO,
-       USUARIO_CADASTRO_FUN.TX_FUNCIONARIO FUNCIONARIO_ATUALIZACAO,       
+       USUARIO_CADASTRO_FUN.TX_FUNCIONARIO FUNCIONARIO_ATUALIZACAO,
        V_RESP_UNID_ORG.tx_nome TX_SECRETARIO_ORGAO_GESTOR,
        A.TX_FUNCIONARIO  TX_AGENTE_SETORIAL,
-       ORGAO_ESTAGIO1.TX_ORGAO_ESTAGIO TX_ORGAO_SOLICITANTE,               
+       ORGAO_ESTAGIO1.TX_ORGAO_ESTAGIO TX_ORGAO_SOLICITANTE,
        CONTRATO_ESTAGIO.TX_CODIGO TX_CONTRATO,
-       CONTRATO_ESTAGIO.TX_TCE,        
+       CONTRATO_ESTAGIO.TX_TCE,
         case
-         when CONTRATO_ESTAGIO.CS_TIPO = '1' then '1 - Contrato Inicial' 
+         when CONTRATO_ESTAGIO.CS_TIPO = '1' then '1 - Contrato Inicial'
          when CONTRATO_ESTAGIO.CS_TIPO = '2' then '2 - Aditivo Contratual'
-        end 
+        end
         TX_TIPO_VAGA_ESTAGIO,
-       
+
         TIPO_VAGA_ESTAGIO.TX_TIPO_VAGA_ESTAGIO TX_NIVEL,
 
-      ORGAO_GESTOR_ESTAGIO.TX_ORGAO_GESTOR_ESTAGIO TX_ORGAO_GESTOR,    
+      ORGAO_GESTOR_ESTAGIO.TX_ORGAO_GESTOR_ESTAGIO TX_ORGAO_GESTOR,
         case
-         when CONTRATO_ESTAGIO.CS_PERIODO = '1' then '1 ano' 
+         when CONTRATO_ESTAGIO.CS_PERIODO = '1' then '1 ano'
          when CONTRATO_ESTAGIO.CS_PERIODO = '2' then '2 ano'
          when CONTRATO_ESTAGIO.CS_PERIODO = '3' then '3 ano'
          when CONTRATO_ESTAGIO.CS_PERIODO = '4' then '4 ano'
@@ -366,37 +366,37 @@ SELECT
          when CONTRATO_ESTAGIO.CS_PERIODO = '13' then '8 periodo'
          when CONTRATO_ESTAGIO.CS_PERIODO = '14' then '9 periodo'
          when CONTRATO_ESTAGIO.CS_PERIODO = '15' then '10 periodo'
-        end 
-        TX_PERIODO,        
-       V_ESTAGIARIO.TX_NOME TX_NOME_ESTAGIARIO,       
-       V_ESTAGIARIO.NB_CPF,       
-       AGENCIA_ESTAGIO.TX_AGENCIA_ESTAGIO,       
+        end
+        TX_PERIODO,
+       V_ESTAGIARIO.TX_NOME TX_NOME_ESTAGIARIO,
+       V_ESTAGIARIO.NB_CPF,
+       AGENCIA_ESTAGIO.TX_AGENCIA_ESTAGIO,
         case
-         when RECESSO_ESTAGIO.CS_SITUACAO = '2' then 'Fechado' 
+         when RECESSO_ESTAGIO.CS_SITUACAO = '2' then 'Fechado'
          when RECESSO_ESTAGIO.CS_SITUACAO = '1' then 'Aberto'
-        end 
-        TX_SITUACAO,        
+        end
+        TX_SITUACAO,
         case
-         when RECESSO_ESTAGIO.CS_REALIZACAO = '3' then '3 - Postergado Parcialmente' 
-         when RECESSO_ESTAGIO.CS_REALIZACAO = '2' then '2 - Postergado Totalmente' 
+         when RECESSO_ESTAGIO.CS_REALIZACAO = '3' then '3 - Postergado Parcialmente'
+         when RECESSO_ESTAGIO.CS_REALIZACAO = '2' then '2 - Postergado Totalmente'
          when RECESSO_ESTAGIO.CS_REALIZACAO = '1' then '1 - Realizado'
-        end 
+        end
         TX_REALIZACAO,
        CURSO_ESTAGIO.TX_CURSO_ESTAGIO,
-       INSTITUICAO_ENSINO.TX_INSTITUICAO_ENSINO 
+       INSTITUICAO_ENSINO.TX_INSTITUICAO_ENSINO
   FROM RECESSO_ESTAGIO RECESSO_ESTAGIO
-  
-  
+
+
     , ORGAO_ESTAGIO ORGAO_ESTAGIO1
     , ORGAO_GESTOR_ESTAGIO ORGAO_GESTOR_ESTAGIO
     , CONTRATO_ESTAGIO CONTRATO_ESTAGIO
     , AGENCIA_ESTAGIO AGENCIA_ESTAGIO
-  
-    , V_ESTAGIARIO V_ESTAGIARIO 
-    
+
+    , V_ESTAGIARIO V_ESTAGIARIO
+
     , AGENTE_SETORIAL_ESTAGIO AGENTE_SETORIAL_ESTAGIO
     , CURSO_ESTAGIO CURSO_ESTAGIO
-    
+
     , INSTITUICAO_ENSINO INSTITUICAO_ENSINO
 
     , USUARIO USUARIO_CADASTRO
@@ -405,17 +405,17 @@ SELECT
     , V_FUNCIONARIO_TOTAL USUARIO_ATUALIZACAO_fun
 
     , V_RESP_UNID_ORG
-    
+
     ,V_FUNCIONARIO_TOTAl A
-    , USUARIO B 
+    , USUARIO B
 
     , TIPO_VAGA_ESTAGIO TIPO_VAGA_ESTAGIO
-    
-  WHERE  
+
+  WHERE
     RECESSO_ESTAGIO.ID_ORGAO_ESTAGIO = ORGAO_ESTAGIO1.ID_ORGAO_ESTAGIO
-    
+
     AND RECESSO_ESTAGIO.ID_CONTRATO = CONTRATO_ESTAGIO.ID_CONTRATO
-    
+
     AND CONTRATO_ESTAGIO.ID_ORGAO_GESTOR_ESTAGIO = ORGAO_GESTOR_ESTAGIO.ID_ORGAO_GESTOR_ESTAGIO
 
     AND RECESSO_ESTAGIO.ID_AGENCIA_ESTAGIO = AGENCIA_ESTAGIO.ID_AGENCIA_ESTAGIO
@@ -428,7 +428,7 @@ SELECT
     AND CONTRATO_ESTAGIO.ID_CURSO_ESTAGIO = CURSO_ESTAGIO.ID_CURSO_ESTAGIO
 
     AND CONTRATO_ESTAGIO.ID_INSTITUICAO_ENSINO = INSTITUICAO_ENSINO.ID_INSTITUICAO_ENSINO
-    
+
                     AND USUARIO_CADASTRO.ID_USUARIO                = RECESSO_ESTAGIO.ID_USUARIO_CADASTRO
                     AND USUARIO_CADASTRO.ID_PESSOA_FUNCIONARIO     = USUARIO_CADASTRO_FUN.ID_PESSOA_FUNCIONARIO
                     AND USUARIO_CADASTRO.ID_UNIDADE_GESTORA        = USUARIO_CADASTRO_FUN.ID_UNIDADE_GESTORA
@@ -436,12 +436,12 @@ SELECT
                     AND USUARIO_ATUALIZACAO.ID_PESSOA_FUNCIONARIO  = USUARIO_ATUALIZACAO_fun.ID_PESSOA_FUNCIONARIO
                     AND USUARIO_ATUALIZACAO.ID_UNIDADE_GESTORA     = USUARIO_ATUALIZACAO_fun.ID_UNIDADE_GESTORA
 
-                    AND AGENTE_SETORIAL_ESTAGIO.ID_USUARIO  =  B.ID_USUARIO           
+                    AND AGENTE_SETORIAL_ESTAGIO.ID_USUARIO  =  B.ID_USUARIO
                     and A.ID_PESSOA_FUNCIONARIO=B.ID_PESSOA_FUNCIONARIO
 
 
-                    AND   ORGAO_GESTOR_ESTAGIO.id_unidade_org  = V_RESP_UNID_ORG.id_unidade_org(+) 
-    
+                    AND   ORGAO_GESTOR_ESTAGIO.id_unidade_org  = V_RESP_UNID_ORG.id_unidade_org(+)
+
                     AND CONTRATO_ESTAGIO.CS_TIPO_VAGA_ESTAGIO    = TIPO_VAGA_ESTAGIO.CS_TIPO_VAGA_ESTAGIO
 
 
@@ -457,19 +457,19 @@ SELECT
                   set
 		      TX_CARGO_AGENTE= '" . $VO->TX_CARGO_AGENTE . "' ,
 		      TX_EMAIL_AGENTE= '" . $VO->TX_EMAIL_AGENTE . "' ,
-		      TX_TELEFONE_AGENTE= '" . $VO->TX_TELEFONE_AGENTE . "' ,		      
+		      TX_TELEFONE_AGENTE= '" . $VO->TX_TELEFONE_AGENTE . "' ,
 		      TX_JUSTIFICATIVA_ADIAMENTO= '" . $VO->TX_JUSTIFICATIVA_ADIAMENTO . "' ,
 		      DT_ADIAMENTO =  to_date('" . $VO->DT_ADIAMENTO . "','dd/mm/yyyy'),
 		      ID_SETORIAL_ESTAGIO= '" . $VO->ID_SETORIAL_ESTAGIO . "' ,
 		      ID_AGENCIA_ESTAGIO= '" . $VO->ID_AGENCIA_ESTAGIO . "' ,
 		      DT_ATUALIZACAO= SYSDATE  ,
-		      ID_USUARIO_ATUALIZACAO= '" . $_SESSION['ID_USUARIO'] . "' ,		     
+		      ID_USUARIO_ATUALIZACAO= '" . $_SESSION['ID_USUARIO'] . "' ,
 		      DT_INICIO_RECESSO=  to_date('" . $VO->DT_INICIO_RECESSO . "','dd/mm/yyyy'),
 		      DT_FIM_RECESSO=     to_date('" . $VO->DT_FIM_RECESSO . "','dd/mm/yyyy'),
 		      NB_MES_REFERENCIA= '" . $VO->NB_MES_REFERENCIA . "' ,
 		      NB_ANO_REFERENCIA= '" . $VO->NB_ANO_REFERENCIA . "' ,
 		      TX_CHEFIA_IMEDIATA= '" . $VO->TX_CHEFIA_IMEDIATA . "' ,
-		      CS_REALIZACAO= " . $VO->CS_REALIZACAO . " 
+		      CS_REALIZACAO= " . $VO->CS_REALIZACAO . "
 		   where
  			ID_RECESSO_ESTAGIO = " . $VO->ID_RECESSO_ESTAGIO;
 //        print_r($query);
@@ -513,14 +513,14 @@ SELECT
        DT_INICIO_RECESSO,
        DT_FIM_RECESSO,
        NB_MES_REFERENCIA,
-       NB_ANO_REFERENCIA, 
+       NB_ANO_REFERENCIA,
        DT_ASSINATURA,
-       TX_CHEFIA_IMEDIATA, 
+       TX_CHEFIA_IMEDIATA,
        CS_REALIZACAO,
        ID_ORGAO_GESTOR_ESTAGIO)
-									
+
       values
-      (" . $CodigoPK['ID_RECESSO_ESTAGIO'][0] . ",	   
+      (" . $CodigoPK['ID_RECESSO_ESTAGIO'][0] . ",
 	   SEMAD.F_G_COD_RECESSO_ESTAGIO(),
 	   '" . $VO->TX_CARGO_AGENTE . "' ,
 	   '" . $VO->TX_EMAIL_AGENTE . "' ,
@@ -545,7 +545,7 @@ SELECT
 	      SYSDATE,
 	      '" . $VO->TX_CHEFIA_IMEDIATA . "' ,
 	      " . $VO->CS_REALIZACAO . ",
-                " . $codigoOrgaoGestor[0] . "  
+                " . $codigoOrgaoGestor[0] . "
               )   ";
 
 
@@ -559,11 +559,11 @@ SELECT
         $codigoOrgaoGestor = explode('_', $VO->ID_ORGAO_GESTOR_ESTAGIO);
         // fun��o responasvel o Secretario do org�o gestor
         // Fun��o utilizada no acaos.php
-        $query = "select 
-                    FUNC.TX_FUNCIONARIO || RESP.id_unidade_org TX_FUNCIONARIO                 
-					from 
+        $query = "select
+                    FUNC.TX_FUNCIONARIO || RESP.id_unidade_org TX_FUNCIONARIO
+					from
                     responsavel_unid_org resp, v_funcionario_total func
-                  where 
+                  where
                     resp.id_pessoa_funcionario = func.id_pessoa_funcionario
                     and resp.id_unidade_gestora = func.id_unidade_gestora
                     and id_unidade_org =" . $codigoOrgaoGestor[1];
@@ -576,12 +576,12 @@ SELECT
         // Fun��o que pega todos os org�os Getores
         // Utilizada na Index chamada pelo arrays.php
 
-        $query = "SELECT 
+        $query = "SELECT
                     ID_ORGAO_GESTOR_ESTAGIO ,
                     ID_ORGAO_GESTOR_ESTAGIO ||'_'||ID_UNIDADE_ORG CODIGO,
                     TX_ORGAO_GESTOR_ESTAGIO,
                     ID_UNIDADE_ORG
-                  FROM 
+                  FROM
                     ORGAO_GESTOR_ESTAGIO";
         return $this->sqlVetor($query);
     }

@@ -8,16 +8,16 @@ class usuarioVO extends VO{
 		//Banco
 		$this->repositorio = new RepositorioUsuario();
 	}
-	
-	
+
+
 	function carregaUsuario(){
             return $this->repositorio->carregaUsuario($this);
     }
-	
+
 	function verificaGrupo(){
             return $this->repositorio->verificaGrupo($this);
     }
-	
+
 	function verificaPermissao(){
             return $this->repositorio->verificaPermissao($this);
     }
@@ -25,6 +25,6 @@ class usuarioVO extends VO{
     function inserirRegistroAcesso(){
             return $this->repositorio->inserirRegistroAcesso($this);
     }
-		
+
 }
 ?>

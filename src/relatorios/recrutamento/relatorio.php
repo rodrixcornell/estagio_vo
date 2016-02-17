@@ -8,7 +8,7 @@ $programa = 7;
 $pasta = 'recrutamento';
 $current = 4;
 
-require_once "../../autenticacao/validaPermissao.php";	
+require_once "../../autenticacao/validaPermissao.php";
 
 if ($_SESSION['ID_RECRUTAMENTO_ESTAGIO']){
     $pdf=new PDF();
@@ -18,8 +18,8 @@ if ($_SESSION['ID_RECRUTAMENTO_ESTAGIO']){
     $pdf->AddPage();
 //    $pdf->conteudo();
     $pdf->Output();
-    
+
 }else
-   header("Location: ".$url."src/relatorios/".$pasta."/index.php");	
+   header("Location: ".$url."src/relatorios/".$pasta."/index.php");
 
 ?>

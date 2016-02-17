@@ -25,8 +25,8 @@ if ($_POST) {
     $validar = $VO->preencher($_POST);
 
     (strlen($_POST['TX_ATIVIDADES']) > 400) ? $validar['TX_ATIVIDADES'] = 'Valor máximo de 200 caracteres, atual de: ' . strlen($_POST['TX_ATIVIDADES']) : false;
-	
-    if (!$validar) 
+
+    if (!$validar)
         $id_pk = $VO->inserir();
 
 	if ($id_pk) {
@@ -34,13 +34,13 @@ if ($_POST) {
 		header("Location: " . $url . "src/" . $pasta . "/detail.php");
 		exit;
 	}
-    
+
 
 
     if ($VO->ID_ORGAO_ESTAGIO) {
         $VO->buscarAgenciaEstagio();
         $smarty->assign("arrayAgenciaEstagio", $VO->getArray("TX_AGENCIA_ESTAGIO"));
-		
+
 		if ($VO->ID_AGENCIA_ESTAGIO && $VO->ID_QUADRO_VAGAS_ESTAGIO) {
         	$VO->buscarTipoVaga();
         	$smarty->assign("arrayTipoVaga", $VO->getArray("TX_TIPO_VAGA_ESTAGIO"));

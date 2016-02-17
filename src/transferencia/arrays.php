@@ -25,7 +25,7 @@ $arrayQuadroVagasEstagio = $VO->getArray("TX_CODIGO");*/
 // $VO->pesquisarTipoVaga();
 //  $arrayTipoVaga = $VO->getArray("TX_TIPO_VAGA_ESTAGIO");
 
-  
+
   // $VO->buscarQuantAtual();
 //  $arraybuscarQuantAtual = $VO->getArray("NB_QUANTIDADE_ATUAL");
 

@@ -22,7 +22,7 @@ if($_POST){
     $VO->setCaracteristica('ID_GRUPO_PAGAMENTO,TX_GRUPO_PAGAMENTO', 'obrigatorios');
     $VO->setCaracteristica('ID_GRUPO_PAGAMENTO', 'numeros');
     $validar = $VO->preencher($_POST);
-	
+
 	if (!$validar){
 		 if (!$VO->inserir()){
 			 $_SESSION['ID_GRUPO_PAGAMENTO'] = $VO->ID_GRUPO_PAGAMENTO;
@@ -31,12 +31,12 @@ if($_POST){
 			 header("Location: " . $url . "src/" . $pasta . "/index.php");
 		 }else
 			 $validar['ID_GRUPO_PAGAMENTO'] = 'Registro já existe!';
-		
+
 	}
-  }	
-        
-     
-    
+  }
+
+
+
 $smarty->assign("current"       , $current);
 $smarty->assign("pasta"         , $pasta);
 $smarty->assign("validar"		, $validar);
@@ -44,6 +44,6 @@ $smarty->assign("VO"			, $VO);
 $smarty->assign("titulopage"    , $titulopage);
 $smarty->assign("arquivoCSS"    , $pasta);
 $smarty->assign("arquivoJS"     , $pasta);
-$smarty->assign("nomeArquivo"   , $pasta."/".$nomeArquivo.".tpl");	
+$smarty->assign("nomeArquivo"   , $pasta."/".$nomeArquivo.".tpl");
 $smarty->display('index.tpl');
 ?>

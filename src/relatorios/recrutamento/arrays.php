@@ -1,17 +1,17 @@
 ﻿<?php
 require_once "../../../php/define.php";
 require_once $pathvo."recrutamentoVO.php";
-	
+
 $VO = new recrutamentoVO();
 //
 //$VO->pesquisarOrgaoGestor();
-//    $arrayOrgaoGestor = $VO->getArray("TX_ORGAO_GESTOR_ESTAGIO");  
-	
+//    $arrayOrgaoGestor = $VO->getArray("TX_ORGAO_GESTOR_ESTAGIO");
+
 $VO->buscarOrgaoSolicitanteRel();
-    $arrayOrgaoSolicitanteRel = $VO->getArray("TX_ORGAO_ESTAGIO"); 
+    $arrayOrgaoSolicitanteRel = $VO->getArray("TX_ORGAO_ESTAGIO");
 //
 //$VO->pesquisarQuadroVagas();
-//    $arrayQuadroVagas = $VO->getArray("TX_CODIGO");   
+//    $arrayQuadroVagas = $VO->getArray("TX_CODIGO");
 
 $arraySituacao[''] 	= 'Escolha...';
 $arraySituacao[1] 	= 'Aberto';

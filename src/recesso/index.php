@@ -15,9 +15,9 @@ $VO = new recessoVO();
 $VO->preencherVOSession($_SESSION);
 
 if($_SESSION['ID_ORGAO_GESTOR_ESTAGIO']){
-    
+
     $VO->pesquisarOrgaoSolicitante();
-    $arrayOrgaoSolicitante = $VO->getArray("TX_ORGAO_ESTAGIO"); 
+    $arrayOrgaoSolicitante = $VO->getArray("TX_ORGAO_ESTAGIO");
     $smarty->assign("arrayOrgaoSolicitante"    	, $arrayOrgaoSolicitante);
 }
 
@@ -28,6 +28,6 @@ $smarty->assign("pasta"         , $pasta);
 $smarty->assign("VO"      		, $VO);
 $smarty->assign("arquivoCSS"    , $pasta);
 $smarty->assign("arquivoJS"     , $pasta);
-$smarty->assign("nomeArquivo"   , $pasta."/".$nomeArquivo.".tpl");	
+$smarty->assign("nomeArquivo"   , $pasta."/".$nomeArquivo.".tpl");
 $smarty->display('index.tpl');
 ?>

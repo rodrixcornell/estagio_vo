@@ -21,18 +21,18 @@ if ($_SESSION['ID_QUADRO_VAGAS_ESTAGIO']) {
 
     $total = $VO->buscar();
     $total ? $dados = $VO->getVetor() : false;
-	
+
 	//Arrays
 	$VO->pesquisarTipo();
 	$smarty->assign("pesquisarTipo", $VO->getArray("TX_TIPO_VAGA_ESTAGIO"));
-	
+
 	$VO->pesquisaCursos();
 	$smarty->assign("pesquisaCursos", $VO->getArray("TX_CURSO_ESTAGIO"));
-	
+
 	$VO->orgao_Solicitante();
 	$smarty->assign("orgao_Solicitante", $VO->getArray("TX_ORGAO_ESTAGIO"));
 
-	
+
 }else
     header("Location: " . $url . "src/" . $pasta . "/index.php");
 

@@ -16,11 +16,11 @@ require_once "../autenticacao/validaPermissao.php";
 $VO = new cursoVO();
 
 if ($_SESSION['ID_CURSO_ESTAGIO']){
-    
+
     $VO->ID_CURSO_ESTAGIO = $_SESSION['ID_CURSO_ESTAGIO'];
     $VO->buscar();
     $VO->preencherVOBD($VO->getVetor());
-  
+
     if($_POST){
 		$VO->configuracao();
 		$VO->setCaracteristica('TX_CURSO_ESTAGIO,CS_AREA_CONHECIMENTO','obrigatorios');
@@ -44,6 +44,6 @@ $smarty->assign("VO"			, $VO);
 $smarty->assign("titulopage"    , $titulopage);
 $smarty->assign("arquivoCSS"    , $pasta);
 $smarty->assign("arquivoJS"     , $pasta);
-$smarty->assign("nomeArquivo"   , $pasta."/".$nomeArquivo.".tpl");	
+$smarty->assign("nomeArquivo"   , $pasta."/".$nomeArquivo.".tpl");
 $smarty->display('index.tpl');
 ?>

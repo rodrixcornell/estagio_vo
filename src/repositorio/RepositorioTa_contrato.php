@@ -12,7 +12,7 @@ class RepositorioTa_contrato extends Repositorio {
         ";
         return $this->sqlVetor($query);
     }
-    
+
 //-----------------PESQUISA CODIGO DO CONTRATO----------------------------------
     function pesquisarCodigoContrato($VO) {
         $query = "
@@ -23,13 +23,13 @@ class RepositorioTa_contrato extends Repositorio {
         ";
         return $this->sqlVetor($query);
     }
-    
+
 //-------------------PESQUISA TERMO ADITIVO-------------------------------------
     function pesquisarCodTermoAditivo($VO) {
         $query = "
             SELECT  ID_ADITIVO_CONTRATO_CP CODIGO,
-                    NB_CODIGO 
-               FROM ADITIVO_CONTRATO_CP  
+                    NB_CODIGO
+               FROM ADITIVO_CONTRATO_CP
               ORDER BY ID_ADITIVO_CONTRATO_CP
         ";
       //  print_r($query);
@@ -45,7 +45,7 @@ class RepositorioTa_contrato extends Repositorio {
                  ";
         return $this->sqlVetor($query);
    }
-    
+
 //-----PESQUISA UNIDADE ORGAO DESTINO-------------------------------------------
     function buscarUnidadeDestino($VO) {
         $query = "
@@ -58,12 +58,12 @@ class RepositorioTa_contrato extends Repositorio {
         return $this->sqlVetor($query);
     }
 
-//-----------------------PESQUISA PRINCIPAL-------------------------------------  
+//-----------------------PESQUISA PRINCIPAL-------------------------------------
     function pesquisar($VO) {
         $query = "
        SELECT OGE.TX_ORGAO_GESTOR_ESTAGIO,
        STA.ID_SOLICITACAO_TA_CP,
-       CCP.NB_CODIGO NB_CODIGO_CONTRATO, 
+       CCP.NB_CODIGO NB_CODIGO_CONTRATO,
        ACCP.NB_CODIGO NB_CODIGO,
        STA.TX_CODIGO,
        STA.DT_SOLICITACAO,
@@ -78,29 +78,29 @@ class RepositorioTa_contrato extends Repositorio {
        AND (STA.ID_ORGAO_GESTOR_ESTAGIO = OGE.ID_ORGAO_GESTOR_ESTAGIO(+))
        AND CCP.ID_CONTRATO_CP = ACCP.ID_CONTRATO_CP(+)
        ";
-($VO->ID_ORGAO_GESTOR_ESTAGIO) ? $query .= " and (ID_ORGAO_GESTOR_ESTAGIO = " . $VO->ID_ORGAO_GESTOR_ESTAGIO . ") " : false;  
-($VO->ID_CONTRATO_CP) ? $query .= " and (CONTRATO_CP.NB_CODIGO = " . $VO->ID_CONTRATO_CP . ") " : false;    
-($VO->ID_ADITIVO_CONTRATO_CP) ? $query .= " and (ADITIVO_CONTRATO_CP.ID_ADITIVO_CONTRATO_CP, = " . $VO->ID_ADITIVO_CONTRATO_CP . ") " : false;    
+($VO->ID_ORGAO_GESTOR_ESTAGIO) ? $query .= " and (ID_ORGAO_GESTOR_ESTAGIO = " . $VO->ID_ORGAO_GESTOR_ESTAGIO . ") " : false;
+($VO->ID_CONTRATO_CP) ? $query .= " and (CONTRATO_CP.NB_CODIGO = " . $VO->ID_CONTRATO_CP . ") " : false;
+($VO->ID_ADITIVO_CONTRATO_CP) ? $query .= " and (ADITIVO_CONTRATO_CP.ID_ADITIVO_CONTRATO_CP, = " . $VO->ID_ADITIVO_CONTRATO_CP . ") " : false;
 ($VO->TX_CODIGO) ? $query .= " and (SOLICITACAO_TA_CP.TX_CODIGO = " . $VO->TX_CODIGO . ") " : false;
-        
+
         $query .= "ORDER BY OGE.TX_ORGAO_GESTOR_ESTAGIO";
-  
+
         if ($VO->Reg_quantidade) {
             !$VO->Reg_inicio ? $VO->Reg_inicio = 0 : false;
             $query = "SELECT * FROM (SELECT PAGING.*, ROWNUM PAGING_RN FROM (" . $query . ") PAGING WHERE (ROWNUM <= " . ($VO->Reg_quantidade + $VO->Reg_inicio) . "))  WHERE (PAGING_RN > " . $VO->Reg_inicio . ")";
         }
-      
+
         return $this->sqlVetor($query);
 }
- 
+
 //--------------------------------CADASTRAR-------------------------------------
 function inserir($VO) {
-    
+
  $queryPK = "select SEMAD.F_G_PK_SOLICITACAO_TA_CP() as ID_SOLICITACAO_TA_CP from dual";
  $this->sqlVetor($queryPK);
  $CodigoPK = $this->getVetor();
-        
-  $query = " INSERT 
+
+  $query = " INSERT
         INTO SOLICITACAO_TA_CP
        (ID_SOLICITACAO_TA_CP,
        TX_CODIGO,
@@ -127,17 +127,17 @@ VALUES
          '" . $VO->TX_ASSUNTO . "',
          '" . $VO->NB_TOTAL_VAGAS . "',
          " . $VO->ID_CONTRATO_CP . ",
-         '" . $VO->ID_ADITIVO_CONTRATO_CP . "',   
+         '" . $VO->ID_ADITIVO_CONTRATO_CP . "',
          " . $VO->ID_ORGAO_GESTOR_ESTAGIO . ",
          " . $_SESSION['ID_USUARIO'] . ",
          " . $_SESSION['ID_USUARIO'] . ",
          1,
          '" . $VO->TX_SOLICITACAO . "',
-         " . $VO->ID_UNIDADE_ORG_ORIGEM . ", 
+         " . $VO->ID_UNIDADE_ORG_ORIGEM . ",
          " . $VO->ID_UNIDADE_ORG_DESTINO . ")";
 
         $retorno = $this->sql($query);
-        
+
         print_r($retorno);
         if (!$retorno) {
             return $CodigoPK['ID_SOLICITACAO_TA_CP'][0];
@@ -181,26 +181,26 @@ VALUES
        USUARIO U_ATUAL,
        V_FUNCIONARIO_TOTAL VFT_CAD,
        V_FUNCIONARIO_TOTAL VFT_ATUAL
- WHERE STA.ID_ADITIVO_CONTRATO_CP = AC.ID_ADITIVO_CONTRATO_CP(+) 
- AND STA.ID_ORGAO_GESTOR_ESTAGIO = OGE.ID_ORGAO_GESTOR_ESTAGIO(+) 
- AND AC.ID_AGENCIA_ESTAGIO = AE.ID_AGENCIA_ESTAGIO(+) 
- AND STA.ID_USUARIO_CADASTRO = U_CAD.ID_USUARIO(+) 
- AND STA.ID_USUARIO_ATUALIZACAO = U_ATUAL.ID_USUARIO(+) 
- AND U_CAD.ID_PESSOA_FUNCIONARIO = VFT_CAD.ID_PESSOA_FUNCIONARIO(+) 
+ WHERE STA.ID_ADITIVO_CONTRATO_CP = AC.ID_ADITIVO_CONTRATO_CP(+)
+ AND STA.ID_ORGAO_GESTOR_ESTAGIO = OGE.ID_ORGAO_GESTOR_ESTAGIO(+)
+ AND AC.ID_AGENCIA_ESTAGIO = AE.ID_AGENCIA_ESTAGIO(+)
+ AND STA.ID_USUARIO_CADASTRO = U_CAD.ID_USUARIO(+)
+ AND STA.ID_USUARIO_ATUALIZACAO = U_ATUAL.ID_USUARIO(+)
+ AND U_CAD.ID_PESSOA_FUNCIONARIO = VFT_CAD.ID_PESSOA_FUNCIONARIO(+)
  AND U_ATUAL.ID_PESSOA_FUNCIONARIO = VFT_ATUAL.ID_PESSOA_FUNCIONARIO(+)
- AND STA.ID_USUARIO_CADASTRO = U_CAD.ID_USUARIO(+) 
- AND STA.ID_USUARIO_ATUALIZACAO = U_ATUAL.ID_USUARIO(+) 
- AND STA.ID_UNID_ORIGEM = ORIGEM.ID_UNIDADE_ORG(+) 
+ AND STA.ID_USUARIO_CADASTRO = U_CAD.ID_USUARIO(+)
+ AND STA.ID_USUARIO_ATUALIZACAO = U_ATUAL.ID_USUARIO(+)
+ AND STA.ID_UNID_ORIGEM = ORIGEM.ID_UNIDADE_ORG(+)
  AND STA.ID_UNID_DESTINO = DESTINO.ID_UNIDADE_ORG(+)
  AND STA.ID_CONTRATO_CP = CCP.ID_CONTRATO_CP(+)
   /*AND STA.ID_UNID_ORIGEM = ".$VO->ID_UNIDADE_ORG_ORIGEM."
   AND STA.ID_UNID_DESTINO = ".$VO->ID_UNIDADE_ORG_DESTINO."*/
  AND STA.ID_SOLICITACAO_TA_CP = " . $VO->ID_SOLICITACAO_TA_CP." ";
-        
+
      //   print_r($query);
         return $this->sqlVetor($query);
     }
-    
+
 //----------------------------ALTERAR DO MASTER---------------------------------
  function alterar($VO) {
          $query = " UPDATE SOLICITACAO_TA_CP set
@@ -211,16 +211,16 @@ VALUES
 		           TX_ASSUNTO = '" . $VO->TX_ASSUNTO . "',
                            TX_SOLICITACAO = '" .$VO->TX_SOLICITACAO . "',
                            CS_SITUACAO = '" . $VO->CS_SITUACAO . "'
-                     WHERE ID_SOLICITACAO_TA_CP = " . $VO->ID_SOLICITACAO_TA_CP . "       
+                     WHERE ID_SOLICITACAO_TA_CP = " . $VO->ID_SOLICITACAO_TA_CP . "
                        AND ID_ORGAO_GESTOR_ESTAGIO = " . $VO->ID_ORGAO_GESTOR_ESTAGIO . "
-                       AND ID_CONTRATO_CP = " . $VO->ID_CONTRATO_CP . " 
-                       AND ID_UNID_ORIGEM = " . $VO->ID_UNIDADE_ORG_ORIGEM . " 
+                       AND ID_CONTRATO_CP = " . $VO->ID_CONTRATO_CP . "
+                       AND ID_UNID_ORIGEM = " . $VO->ID_UNIDADE_ORG_ORIGEM . "
                        AND ID_UNID_DESTINO = " . $VO->ID_UNIDADE_ORG_DESTINO;
- 
+
         //print_r($query);
         return $this->sql($query);
     }
-    
+
 //--------------------------EXCLUIR DO MASTER-----------------------------------
     function excluir($VO) {
         $query = "
@@ -236,14 +236,14 @@ VALUES
         SELECT CS_TIPO_VAGA_ESTAGIO,CS_TIPO_VAGA_ESTAGIO CODIGO,
                TX_TIPO_VAGA_ESTAGIO
           FROM TIPO_VAGA_ESTAGIO TVE";
- 
+
         return $this->sqlVetor($query);
     }
  //------------------------CADASTRAR VAGAS DO DETAIL----------------------------
-    
+
      function inserirVagasSolicitadas($VO) {
-         
-     $query = "    
+
+     $query = "
          INSERT INTO SEMAD.ITEM_SOLIC_TA_CP
       (ID_SOLICITACAO_TA_CP,
        CS_TIPO_VAGA_ESTAGIO,
@@ -258,8 +258,8 @@ VALUES
        DT_ATUALIZACAO)
  VALUES
       (" . $CodigoPK['ID_SOLICITACAO_TA_CP'][0] . ",
-            SEMAD.F_G_COD_SOLICITACAO_TA_CP(), 
-       " . $VO->CS_TIPO_VAGA_ESTAGIO . ", 
+            SEMAD.F_G_COD_SOLICITACAO_TA_CP(),
+       " . $VO->CS_TIPO_VAGA_ESTAGIO . ",
        " . $VO->NB_QUANTIDADE . ",
        " . $VO->NB_TAXA_ADMINISTRATIVA . ",
        " . $VO->NB_AUXILIO_TRANSPORTE . ",
@@ -269,8 +269,8 @@ VALUES
        SYSDATE,
        SYSDATE)
          ";
-        return $this->sql($query);    
-      
+        return $this->sql($query);
+
     }
 //------------------------------------------------------------------------------
 /*
@@ -295,7 +295,7 @@ VALUES
         return $this->sqlVetor($query);
     }
 */
-    
+
 //------------------------------BUSCAR DO DETAIL--------------------------------
     function buscarVagasSolicitadas($VO) {
         $query = "
@@ -325,8 +325,8 @@ VALUES
 
         return $this->sqlVetor($query);
     }
-    
-//--------------------------------------------------------------------------------    
+
+//--------------------------------------------------------------------------------
     function pesquisarVagasSolicitadas($VO) {
         $query = "
         SELECT ID_SOLICITACAO_TA_CP,
@@ -364,13 +364,13 @@ VALUES
     function excluirVagasSolicitadas($VO) {
         $query = "
           delete from ITEM_SOLIC_TA_CP
-                where ID_SOLICITACAO_TA_CP = " . $VO->ID_SOLICITACAO_TA_CP . ")";  
-          
+                where ID_SOLICITACAO_TA_CP = " . $VO->ID_SOLICITACAO_TA_CP . ")";
+
         return $this->sql($query);
     }
 
-	
-//------------------------------------------------------------------------------	
+
+//------------------------------------------------------------------------------
     function verificarRecrutamento($VO) {
         $query = "select ID_RECRUTAMENTO_ESTAGIO from recrutamento_estagio where ID_SOLICITACAO_ESTAGIO = '".$VO->ID_SOLICITACAO_ESTAGIO."'";
 
@@ -395,7 +395,7 @@ VALUES
     function atualizarInf($VO) {
 
         $query = "
-             update ITEM_SOLIC_TA_CP 
+             update ITEM_SOLIC_TA_CP
                 set DT_ATUALIZACAO = sysdate,
                     ID_USUARIO_ATUALIZACAO = " . $_SESSION['ID_USUARIO'] . "
               where CS_TIPO_VAGA_ESTAGIO = " . $VO->CS_TIPO_VAGA_ESTAGIO;
@@ -418,7 +418,7 @@ VALUES
 
         return $datahora;
     }
-    
+
     function efetivarSolicitacao($VO){
 
             $query = " UPDATE SOLICITACAO_ESTAGIO SET
@@ -426,11 +426,11 @@ VALUES
 	                      ID_USUARIO_ATUALIZACAO = '" . $_SESSION['ID_USUARIO'] . "',
 			      DT_ATUALIZACAO = SYSDATE
 		              WHERE ID_SOLICITACAO_ESTAGIO = ".$VO->ID_SOLICITACAO_ESTAGIO."";
-            
-        $this->sql($query);		
-		
+
+        $this->sql($query);
+
     }
-	
+
 }
 
 ?>
