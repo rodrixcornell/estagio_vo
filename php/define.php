@@ -41,7 +41,7 @@ $srv = array(
 	);
 
 //(!in_array(gethostname(), $srv) || (gethostname(), '') ? $smarty->debugging = 'true' : false;
-(in_array(gethostname(), $dev) || (gethostname() != 'daraa')) ? $smarty->debugging = 'true' : false;
+(in_array(gethostname(), $dev) && (gethostname() != 'daraa')) ? $smarty->debugging = 'true' : false;
 
 //Mes por extenso
 $arrayMesExtenso[1] = "janeiro";
