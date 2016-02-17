@@ -32,7 +32,17 @@ $smarty->config_dir = $path . 'configs/';
 $smarty->cache_dir = $path . 'cache/';
 $smarty->force_compile = 'true';
 $smarty->compile_check = 'true';
-$smarty->debugging = 'true';
+
+$srv = array(
+	'daraa',
+	'cruxati',
+	'apuau',
+	'liberdade'
+	);
+
+if (!in_array(gethostname(), $srv)) {
+	$smarty->debugging = 'true';
+}
 
 
 //Mes por extenso
