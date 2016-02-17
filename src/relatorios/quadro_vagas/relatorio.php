@@ -19,6 +19,6 @@ if ($_SESSION['ID_AGENCIA_ESTAGIO']) {
 	ob_end_clean();
 	$pdf->Output();
 	//ob_end_clean();
-}else
+} else
 	header("Location: " . $url . "src/relatorios/" . $pasta . "/index.php");
 ?>

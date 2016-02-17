@@ -20,7 +20,6 @@ if ($_POST) {
 	$validar = $VO->preencher($_POST);
 
 	if (!$validar) {
-
 		$_SESSION['ID_AGENCIA_ESTAGIO'] = $VO->ID_AGENCIA_ESTAGIO;
 		header("Location: " . $url . "src/relatorios/" . $pasta . "/relatorio.php");
 	}
