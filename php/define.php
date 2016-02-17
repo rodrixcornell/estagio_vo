@@ -40,10 +40,8 @@ $srv = array(
 	'liberdade'
 	);
 
-if (!in_array(gethostname(), $srv)) {
-	$smarty->debugging = 'true';
-}
-
+//(!in_array(gethostname(), $srv) || (gethostname(), '') ? $smarty->debugging = 'true' : false;
+(in_array(gethostname(), $dev) || (gethostname() != 'daraa')) ? $smarty->debugging = 'true' : false;
 
 //Mes por extenso
 $arrayMesExtenso[1] = "janeiro";
