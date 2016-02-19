@@ -1,8 +1,0 @@
-*.mno
-*.log
-/buildpath*
-/settings*
-/.phpintel
-/.fuse*
-*[project,idea]*
-*~
