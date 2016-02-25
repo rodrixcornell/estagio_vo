@@ -1,0 +1,58 @@
+#personal ignore
+*.mno
+templates_c/*
+!templates_c/.gitignore
+
+arquivo/*
+!arquivo/.gitignore
+
+cache/*
+!cache/index.html
+!cache/.htaccess
+
+logs/*
+!logs/index.html
+!logs/.htaccess
+
+#ignore thumbnails created by windows
+Thumbs.db
+
+#MicrosoftOffice
+*.tmp
+~*
+
+# Linux
+*~
+
+# IDE Files
+#-------------------------
+/nbproject/
+.idea/*
+
+# Dreamweaver
+# DW Dreamweaver added files
+_notes
+dwsync.xml
+
+# SublimeText
+# cache files for sublime text
+*.tmlanguage.cache
+*.tmPreferences.cache
+*.stTheme.cache
+# workspace files are user-specific
+*.sublime-workspace
+# project files should be checked into the repository, unless a significant
+# proportion of contributors will probably not be using SublimeText
+*.sublime-project
+# sftp configuration file
+sftp-config.json
+
+.phpintel
+
+# Composer files
+composer.phar
+vendor/
+/vendor
+# Commit your application's lock file http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file
+# You may choose to ignore a library lock file http://getcomposer.org/doc/02-libraries.md#lock-file
+composer.lock
