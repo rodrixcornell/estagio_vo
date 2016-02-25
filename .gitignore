@@ -1,16 +1,16 @@
 #personal ignore
 *.mno
-/templates_c/*
+#templates_c/*
 !templates_c/.gitignore
 
-/arquivo/*
+#/arquivo/*
 !arquivo/.gitignore
 
-/cache/*
+#/cache/*
 !cache/index.html
 !cache/.htaccess
 
-/logs/*
+#/logs/*
 !logs/index.html
 !logs/.htaccess
 
