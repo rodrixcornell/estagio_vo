@@ -1,16 +1,16 @@
 #personal ignore
 *.mno
-templates_c/*
+/templates_c/*
 !templates_c/.gitignore
 
-arquivo/*
+/arquivo/*
 !arquivo/.gitignore
 
-cache/*
+/cache/*
 !cache/index.html
 !cache/.htaccess
 
-logs/*
+/logs/*
 !logs/index.html
 !logs/.htaccess
 
@@ -27,7 +27,7 @@ Thumbs.db
 # IDE Files
 #-------------------------
 /nbproject/
-.idea/*
+/.idea/*
 
 # Dreamweaver
 # DW Dreamweaver added files
@@ -51,8 +51,7 @@ sftp-config.json
 
 # Composer files
 composer.phar
-vendor/
-/vendor
+/vendor/
 # Commit your application's lock file http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file
 # You may choose to ignore a library lock file http://getcomposer.org/doc/02-libraries.md#lock-file
 composer.lock
