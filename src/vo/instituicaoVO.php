@@ -14,6 +14,10 @@ class instituicaoVO extends VO{
         return $this->repositorio->pesquisarUnidade($this);
     }
 
+    function buscarInstituicoes() {
+        return $this->repositorio->buscarInstituicoes();
+    }
+
 
 }
 ?>

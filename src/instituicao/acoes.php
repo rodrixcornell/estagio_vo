@@ -91,9 +91,9 @@ function gerarTabela($param=''){
 
 $VO = new instituicaoVO();
 
-if ($_REQUEST['identifier'] == "tabela"){
+if ($_REQUEST['identifier'] == "tabela") {
 	gerarTabela($erro);
-}else if ($_REQUEST['identifier'] == 'excluir'){
+} else if ($_REQUEST['identifier'] == 'excluir') {
 	$VO->ID_INSTITUICAO_ENSINO = $_REQUEST['ID_INSTITUICAO_ENSINO'];
 
 	if ($acesso){
@@ -111,5 +111,13 @@ if ($_REQUEST['identifier'] == "tabela"){
 
 	gerarTabela($erro);
 
+} else if($_POST['identifier'] == 'instituicoes') {
+	$total = $VO->buscarInstituicoes();
+	$dados = $VO->getVetor();
+	for($i = 0;$i < $total; $i++) {
+		$arrayInstituicoes[$i] = $dados['TX_INSTITUICAO_ENSINO'][$i];
+	}
+	$json_arrayInstituicoes = json_encode($arrayInstituicoes);
+	echo "$json_arrayInstituicoes";
 }
 ?>

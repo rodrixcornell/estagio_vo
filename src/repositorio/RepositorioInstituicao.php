@@ -81,6 +81,16 @@ class RepositorioInstituicao extends Repositorio {
         return $this->sql($query);
     }
 
+    function buscarInstituicoes() {
+        $query = "SELECT
+                    ID_INSTITUICAO_ENSINO CODIGO,
+                    TX_INSTITUICAO_ENSINO
+                  FROM
+                    INSTITUICAO_ENSINO";
+
+        return $this->sqlVetor($query);
+    }
+
 }
 
 ?>
