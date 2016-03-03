@@ -8,17 +8,6 @@ $(document).ready(function(){
         $('.fundo_pag').fadeOut(200);
     };
 
-    //Buscas Instituições
-    //instituicoes = '';
-    //$.post("acoes.php",
-    //    {
-    //        identifier: "instituicoes"
-    //    },
-    //    function(data){
-    //        instituicoes = $.parseJSON(data);
-    //    }
-    //);
-
     $.widget( "ui.combobox", {
         _create: function() {
             var input,
@@ -152,10 +141,10 @@ $(document).ready(function(){
 
 // Pesquisar por unidade 
     $('#pesquisar').click(function(){
-         showLoader();
-	 $('#tabela').load('acoes.php?identifier=tabela',{TX_INSTITUICAO_ENSINO:$('#TX_INSTITUICAO_ENSINO').val(),TX_SIGLA:$('#TX_SIGLA').val()}, hideLoader);
-       return false;    
-      });
+        showLoader();
+	    $('#tabela').load('acoes.php?identifier=tabela',{TX_INSTITUICAO_ENSINO:$('#TX_INSTITUICAO_ENSINO').val(),TX_SIGLA:$('#TX_SIGLA').val()}, hideLoader);
+        return false;
+    });
   
 //Paginacao
 $("#paginacao li").live('click', function(){
