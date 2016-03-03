@@ -15,10 +15,10 @@ if ($_SESSION['ID_AGENCIA_ESTAGIO']) {
 	$pdf->AliasNbPages();
 	$pdf->AddPage();
 	$pdf->Conteudo();
-	//ob_start();
-	ob_end_clean();
+	// ob_start();
+	// ob_end_clean();
 	$pdf->Output();
-	//ob_end_clean();
+	// ob_end_clean();
 } else
 	header("Location: " . $url . "src/relatorios/" . $pasta . "/index.php");
 ?>

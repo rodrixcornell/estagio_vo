@@ -3,6 +3,7 @@ header('Content-Type: text/html; charset=utf-8');
 set_time_limit(1000);
 date_default_timezone_set("America/Manaus");
 //error_reporting(0);
+ob_start();
 session_start();
 
 include dirname( __FILE__ ) . '/config.php';

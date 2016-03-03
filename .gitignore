@@ -6,11 +6,11 @@
 #/arquivo/*
 !arquivo/.gitignore
 
-#/cache/*
+/cache/*
 !cache/index.html
 !cache/.htaccess
 
-#/logs/*
+/logs/*
 !logs/index.html
 !logs/.htaccess
 

@@ -995,6 +995,7 @@ function SetXY($x, $y)
 function Output($name='', $dest='')
 {
 	// Output PDF to some destination
+	ob_start();
 	if($this->state<3)
 		$this->Close();
 	$dest = strtoupper($dest);
