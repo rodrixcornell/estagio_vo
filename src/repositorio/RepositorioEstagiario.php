@@ -151,7 +151,7 @@ class RepositorioEstagiario extends Repositorio {
         $query = "
             INSERT
                 INTO ESTAGIARIO
-                    (ID_PESSOA_ESTAGIARIO, TX_CEP, TX_ENDERECO, NB_NUMERO, TX_COMPLEMENTO, TX_BAIRRO, TX_CONTATO, TX_EMAIL, TX_AGENCIA, TX_CONTA_CORRENTE)
+                    (ID_PESSOA_ESTAGIARIO, TX_CEP, TX_ENDERECO, NB_NUMERO, TX_COMPLEMENTO, TX_BAIRRO, TX_CONTATO, TX_EMAIL, TX_AGENCIA, TX_CONTA_CORRENTE, NB_PCD)
                 values
                     ('" . $VO->ID_PESSOA . "',
                      replace(replace('" . $VO->TX_CEP . "', '.',''),'-',''),
@@ -162,7 +162,8 @@ class RepositorioEstagiario extends Repositorio {
                      '" . $VO->TX_CONTATO . "',
                      '" . $VO->TX_EMAIL . "',
                      replace(replace('" . $VO->TX_AGENCIA . "', '.',''),'-',''),
-                     replace(replace('" . $VO->TX_CONTA_CORRENTE . "','.',''),'-',''))";
+                     replace(replace('" . $VO->TX_CONTA_CORRENTE . "','.',''),'-',''),
+                     '" . $VO->NB_PCD . "')";
 
         return $this->sql($query);
     }
@@ -172,7 +173,7 @@ class RepositorioEstagiario extends Repositorio {
             insert
                 into V_ESTAGIARIO
                         (ID_PESSOA_ESTAGIARIO, TX_NOME, CS_SEXO, NB_RG, NB_CPF, DT_NASCIMENTO, TX_CEP, TX_ENDERECO, NB_NUMERO,
-                         TX_COMPLEMENTO, TX_BAIRRO, TX_CONTATO, TX_EMAIL, TX_AGENCIA, TX_CONTA_CORRENTE, DT_ATUALIZACAO, CS_TIPO_PESSOA)
+                         TX_COMPLEMENTO, TX_BAIRRO, TX_CONTATO, TX_EMAIL, TX_AGENCIA, TX_CONTA_CORRENTE, DT_ATUALIZACAO, NB_PCD, CS_TIPO_PESSOA)
                 values
                     (SEMAD.F_G_PK_PESSOA(),
                      '" . $VO->TX_NOME . "',
@@ -190,6 +191,7 @@ class RepositorioEstagiario extends Repositorio {
                      replace(replace('" . $VO->TX_AGENCIA . "', '.',''),'-',''),
                      replace(replace('" . $VO->TX_CONTA_CORRENTE . "', '.',''),'-',''),
                      SYSDATE,
+                     '" . $VO->NB_PCD ."',
                      '0')";
 
         return $this->sql($query);
@@ -215,6 +217,7 @@ class RepositorioEstagiario extends Repositorio {
 			       TX_CONTA_CORRENTE = replace(replace('" . $VO->TX_CONTA_CORRENTE . "', '.',''),'-',''),
 			       DT_ATUALIZACAO = SYSDATE,
 			       CS_TIPO_PESSOA = '0'
+			       NB_PCD = '" . $VO->NB_PCD . "'
 			 where ID_PESSOA_ESTAGIARIO = '" . $VO->ID_PESSOA_ESTAGIARIO . "'";
 
         return $this->sql($query);

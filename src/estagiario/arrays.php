@@ -21,6 +21,10 @@ $arraySexo[''] = 'Escolha...';
 $arraySexo[1] = 'Masculino';
 $arraySexo[2] = 'Feminino';
 
+$arrayPCD[''] = 'Escolha...';
+$arrayPCD[1] = 'Sim';
+$arrayPCD[2] = 'Não';
+
 //$arrayTurno = array('Escolha...', 1 => 'Matutino', 2 => 'Vespertino', 3 => 'Diurno', 4 => 'Noturno');
 
 //$smarty->assign("arrayLocalidade", $arrayLocalidade);
@@ -28,5 +32,6 @@ $arraySexo[2] = 'Feminino';
 //$smarty->assign("arrayCurso", $arrayCurso);
 //$smarty->assign("arrayOfertaVaga", $arrayOfertaVaga);
 $smarty->assign("arraySexo", $arraySexo);
+$smarty->assign("arrayPDC", $arrayPCD);
 //$smarty->assign("arrayTurno", $arrayTurno);
 ?>
