@@ -9,8 +9,10 @@ $(document).ready(function(){
     $('#DT_TERMINO_ESTAGIO').setMask({
         mask:'99/99/9999'
     });
-    
-    
+
+    $('#ID_ORGAO_GESTOR_ESTAGIO option').first().next().attr("selected","selected");
+    $('#ID_ORGAO_GESTOR_ESTAGIO').attr("disabled","disabled");
+    $('#ID_ORGAO_GESTOR_ESTAGIO').attr("readonly","readonly");
 
     $('#DT_TERMINO_ESTAGIO,NB_INICIO_HORARIO,NB_FIM_HORARIO').datepicker({
         changeMonth: true,

@@ -12,7 +12,7 @@
 
     <div id="camada" style="font-family:Verdana, Geneva, sans-serif; width:180px;" >
         <font color="#FF0000">*</font><strong>Órgão Gestor: </strong></div>
-    <select name="ID_ORGAO_GESTOR_ESTAGIO" id="ID_ORGAO_GESTOR_ESTAGIO" style="width:300px;">
+    <select name="ID_ORGAO_GESTOR_ESTAGIO" id="ID_ORGAO_GESTOR_ESTAGIO" style="width:300px;" readonly="readonly" disabled="disabled">
         {html_options options=$arrayOrgaoGestor selected=$VO->ID_ORGAO_GESTOR_ESTAGIO}
     </select><br />
 
@@ -30,7 +30,7 @@
 
     <div id="camada" style="font-family:Verdana, Geneva, sans-serif; width:180px;" >
         <strong>Código da Solicitação: </strong></div>
-    <input type="text" name="TX_CODIGO_OFERTA_VAGA" id="TX_CODIGO_OFERTA_VAGA" value="{$VO->TX_CODIGO_OFERTA_VAGA}"  style="width:200px;" /><br />
+    <input type="text" name="TX_CODIGO_OFERTA_VAGA" id="TX_CODIGO_OFERTA_VAGA" value="{$VO->TX_CODIGO_OFERTA_VAGA}"  style="width:200px;"/><br />
 
     <br />
     <input type="button" name="pesquisar" id="pesquisar" value="Pesquisar" />

@@ -25,7 +25,7 @@ if ($_SESSION['ID_AGENCIA_ESTAGIO']) {
 
     if ($_POST) {
         $VO->configuracao();
-        $VO->setCaracteristica('TX_AGENCIA_ESTAGIO,TX_SIGLA,TX_CNPJ,TX_EMAIL', 'obrigatorios');
+        $VO->setCaracteristica('TX_AGENCIA_ESTAGIO,TX_SIGLA,TX_CNPJ,TX_EMAIL,CS_SITUACAO', 'obrigatorios');
         $VO->setCaracteristica('TX_CNPJ', 'cnpjs');
         $VO->setCaracteristica('TX_EMAIL', 'emails');
 

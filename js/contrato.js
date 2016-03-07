@@ -8,7 +8,11 @@ $(document).ready(function(){
     
     $('#TX_TCE').setMask({ mask:'99999999999999999999' });
     $('#TX_TELEFONE').setMask({ mask:'9999-9999999' });
-    
+
+    $('#ID_ORGAO_GESTOR_ESTAGIO option').first().next().attr("selected","selected");
+    $('#ID_ORGAO_GESTOR_ESTAGIO').attr("disabled","disabled");
+    $('#ID_ORGAO_GESTOR_ESTAGIO').attr("readonly","readonly");
+
     $('#NB_VALOR').maskMoney({
         showSymbol:false, 
         symbol:"R$", 

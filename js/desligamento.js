@@ -6,6 +6,10 @@ $(document).ready(function(){
         $('.fundo_pag').fadeOut(200);
     };
 
+    $('#ID_ORGAO_GESTOR_ESTAGIO option').first().next().attr("selected","selected");
+    $('#ID_ORGAO_GESTOR_ESTAGIO').attr("disabled","disabled");
+    $('#ID_ORGAO_GESTOR_ESTAGIO').attr("readonly","readonly");
+
     $('#DT_SOLICITACAO').setMask({
         mask:'99/99/9999'
     });
