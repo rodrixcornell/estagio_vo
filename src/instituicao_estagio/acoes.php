@@ -82,8 +82,8 @@ function gerarTabela($param = '') {
             //Somente ver a coluna de alterar se tiver acesso completo a tela
             if ($acesso)
                 echo '<td align="center">
-								<a href="' . $dados['ID_AGENCIA_ESTAGIO'][$i] . '" id="alterar"><img src="' . $urlimg . 'icones/editar.png" alt="itens" title="Alterar"/></a>
-								<a href="' . $dados['ID_AGENCIA_ESTAGIO'][$i] . '" id="excluir"><img src="' . $urlimg . 'icones/excluirItem.png" alt="itens" title="Excluir"/></a></td>';
+								<a href="' . $dados['ID_AGENCIA_ESTAGIO'][$i] . '" id="alterar"><img src="' . $urlimg . 'icones/editar.png" alt="itens" title="Alterar"/></a>';
+//								<a href="' . $dados['ID_AGENCIA_ESTAGIO'][$i] . '" id="excluir"><img src="' . $urlimg . 'icones/excluirItem.png" alt="itens" title="Excluir"/></a></td>';
             echo '</tr>';
         }
 
