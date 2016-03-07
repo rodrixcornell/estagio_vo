@@ -9,7 +9,7 @@
                     <li><a href="{$url}src/tipo_estagio/?s=1"><span>4-Tipo de Vaga de Estágio</span></a></li>
                     <li><a href="{$url}src/curso/?s=1"><span>5-Curso</span></a></li>
                     <li><a href="{$url}src/instituicao/?s=1"><span>6-Instituição de Ensino</span></a></li>
-                    <li><a href="{$url}src/agencia/?s=1"><span>7-Agência de Estágio</span></a></li>
+                    <li><a href="{$url}src/instituicao_estagio/?s=1"><span>7-Instituição de Estágio</span></a></li>
                     <li><a href="{$url}src/supervisor/?s=1"><span>8-Supervisor de Estágio</span></a></li>
                     <li><a href="{$url}src/quadro_vagas/?s=1" ><span>9-Quadro de Vagas</span></a></li>
                     <li><a href="{$url}src/transferencia/?s=1"><span>4-Transferência de Vagas</span></a></li>

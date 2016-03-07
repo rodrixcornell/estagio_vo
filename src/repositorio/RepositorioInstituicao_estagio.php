@@ -2,7 +2,7 @@
 
 require_once $path . "src/repositorio/Repositorio.php";
 
-class RepositorioAgencia extends Repositorio {
+class RepositorioInstituicao_estagio extends Repositorio {
 
     function pesquisar($VO) {
 
@@ -61,7 +61,7 @@ class RepositorioAgencia extends Repositorio {
                                            DT_ATUALIZACAO = SYSDATE,
 					ID_Usuario_Atualizacao = '".$_SESSION["ID_USUARIO"]."',
                                             TX_EMAIL= '".mb_strtolower($VO->TX_EMAIL)."'
-			            WHERE  ID_AGENCIA_ESTAGIO = '".$VO->ID_AGENCIA_ESTAGIO."'";
+			            WHERE  ID_AGENCIA_ESTAGIO = " . $VO->ID_AGENCIA_ESTAGIO;
         return $this->sql($query);
     }
 

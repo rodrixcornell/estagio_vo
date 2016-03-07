@@ -1,7 +1,7 @@
 ﻿<?php
 
 include "../../php/define.php";
-require_once $pathvo . "agenciaVO.php";
+require_once $pathvo . "instituicao_estagioVO.php";
 
 $modulo = 78;
 $programa = 7;
@@ -33,10 +33,10 @@ function gerarTabela($param = '') {
     }
 
     include "../../php/define.php";
-    require_once $pathvo . "agenciaVO.php";
+    require_once $pathvo . "instituicao_estagioVO.php";
     $acesso = $GLOBALS['acesso']; //Acessar a Variavel global;
 
-    $VO = new agenciaVO();
+    $VO = new instituicao_estagioVO();
     $VO->TX_AGENCIA_ESTAGIO = $_REQUEST['TX_AGENCIA_ESTAGIO'];
     $VO->TX_SIGLA = $_REQUEST['TX_SIGLA'];
     $page = $_REQUEST['PAGE'];
@@ -113,7 +113,7 @@ function gerarTabela($param = '') {
     unset($_SESSION['STATUS']);
 }
 
-$VO = new agenciaVO();
+$VO = new instituicao_estagioVO();
 
 if ($_REQUEST['identifier'] == "tabela") {
     gerarTabela($erro);
