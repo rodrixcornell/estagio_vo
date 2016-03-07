@@ -2,6 +2,7 @@
 
 require_once "../../php/define.php";
 require_once $pathvo . "instituicao_estagioVO.php";
+require_once "arrays.php";
 
 $modulo = 78;
 $programa = 7;
