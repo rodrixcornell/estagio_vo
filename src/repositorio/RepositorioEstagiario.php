@@ -119,6 +119,7 @@ class RepositorioEstagiario extends Repositorio {
                         t.ID_PESSOA_ESTAGIARIO,
                         t.ID_PESSOA_FUNCIONARIO,
                         t.NB_FUNCIONARIO,
+                        t.NB_PCD,
                         replace(replace(t.TX_CEP, '.',''), '-','') TX_CEP,
                         upper(t.TX_ENDERECO) TX_ENDERECO,
                         replace(replace(t.NB_NUMERO, '.',''), '-','') NB_NUMERO,
@@ -164,7 +165,6 @@ class RepositorioEstagiario extends Repositorio {
                      replace(replace('" . $VO->TX_AGENCIA . "', '.',''),'-',''),
                      replace(replace('" . $VO->TX_CONTA_CORRENTE . "','.',''),'-',''),
                      '" . $VO->NB_PCD . "')";
-
         return $this->sql($query);
     }
 
@@ -193,7 +193,6 @@ class RepositorioEstagiario extends Repositorio {
                      SYSDATE,
                      '" . $VO->NB_PCD ."',
                      '0')";
-
         return $this->sql($query);
     }
 
@@ -204,7 +203,6 @@ class RepositorioEstagiario extends Repositorio {
 			   set TX_NOME = '" . $VO->TX_NOME . "',
 			       CS_SEXO = '" . $VO->CS_SEXO . "',
 			       NB_RG = replace(replace('" . $VO->NB_RG . "', '.',''),'-',''),
-			       NB_CPF = replace(replace('" . $VO->NB_CPF . "', '.',''),'-',''),
 			       DT_NASCIMENTO = TO_DATE('" . $VO->DT_NASCIMENTO . "','DD/MM/YYYY'),
 			       TX_CEP = replace(replace('" . $VO->TX_CEP . "', '.',''),'-',''),
 			       TX_ENDERECO = '" . $VO->TX_ENDERECO . "',
@@ -216,10 +214,10 @@ class RepositorioEstagiario extends Repositorio {
 			       TX_AGENCIA = replace(replace('" . $VO->TX_AGENCIA . "', '.',''),'-',''),
 			       TX_CONTA_CORRENTE = replace(replace('" . $VO->TX_CONTA_CORRENTE . "', '.',''),'-',''),
 			       DT_ATUALIZACAO = SYSDATE,
-			       CS_TIPO_PESSOA = '0'
-			       NB_PCD = '" . $VO->NB_PCD . "'
+			       CS_TIPO_PESSOA = '0',
+			       NB_PCD ='" . $VO->NB_PCD . "'
 			 where ID_PESSOA_ESTAGIARIO = '" . $VO->ID_PESSOA_ESTAGIARIO . "'";
-
+        print_r($query);
         return $this->sql($query);
     }
 

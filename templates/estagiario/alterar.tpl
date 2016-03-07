@@ -10,7 +10,7 @@
         <form name="form" action="{$url}src/{$pasta}/alterar.php" method="post">
 
             <div id="camada" style="width:110px;"><font color="#FF0000">*</font>CPF<font color="#FF0000"> {$validar.NB_CPF} </font><br />
-                <input type="text" name="NB_CPF" id="NB_CPF" CLASS="leitura" value="{$VO->NB_CPF}" style="width:100px;" readonly="readonly"/></div>
+                <input type="text" name="NB_CPF" id="NB_CPF" CLASS="leitura" value="{$VO->NB_CPF}" style="width:100px;" readonly="readonly" disabled="disabled"/></div>
 
             <div id="camada" style="width:390px;"><font color="#FF0000">*</font>Nome<font color="#FF0000"> {$validar.TX_NOME} </font></br>
                 <input type="text" name="TX_NOME" id="TX_NOME" value="{$VO->TX_NOME}" style="width:380px;" /></div>
@@ -59,7 +59,7 @@
 
             <div id="camada" style="width:110px;">PCD?<br/>
                 <select id="NB_PCD" name="NB_PCD" style="width:100px;">
-                    {html_options options=$arrayPDC}
+                    {html_options options=$arrayPDC selected=$VO->NB_PCD}
                 </select></div>
 
             {*<br />
