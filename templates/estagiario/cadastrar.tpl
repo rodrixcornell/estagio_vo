@@ -35,11 +35,11 @@
             <div id="camada" style="width:390px;" >Endereço<font color="#FF0000"> {$validar.TX_ENDERECO}</font><br />
                 <input type="text" name="TX_ENDERECO" id="TX_ENDERECO" style="width:380px;" value="{$VO->TX_ENDERECO}" {*class="leitura" readonly="readonly"*} /></div>
 
-			<div id="camada" style="width:90px;" >Nº<font color="#FF0000"> {$validar.NB_NUMERO}</font><br />
-                <input type="text" name="NB_NUMERO" id="NB_NUMERO" style="width:80px;" value="{$VO->NB_NUMERO}" /></div>
+			<div id="camada" style="width:110px;" >Nº<font color="#FF0000"> {$validar.NB_NUMERO}</font><br />
+                <input type="text" name="NB_NUMERO" id="NB_NUMERO" style="width:100px;" value="{$VO->NB_NUMERO}" /></div>
 
-			<div id="camada" style="width:290px;" >Bairro<font color="#FF0000"> {$validar.TX_BAIRRO}</font><br />
-                <input type="text" name="TX_BAIRRO" id="TX_BAIRRO" style="width:280px;" value="{$VO->TX_BAIRRO}" /></div>
+			<div id="camada" style="width:263px;" >Bairro<font color="#FF0000"> {$validar.TX_BAIRRO}</font><br />
+                <input type="text" name="TX_BAIRRO" id="TX_BAIRRO" style="width:253px;" value="{$VO->TX_BAIRRO}" /></div>
 
 			<div id="camada" style="width:390px;" >Complemento<font color="#FF0000"> {$validar.TX_COMPLEMENTO}</font><br />
                 <input type="text" name="TX_COMPLEMENTO" id="TX_COMPLEMENTO" style="width:380px;" value="{$VO->TX_COMPLEMENTO}" /></div>
@@ -48,14 +48,19 @@
                 <input type="text" name="TX_CONTATO" id="TX_CONTATO" style="width:380px;" value="{$VO->TX_CONTATO}" /></div>
 
 			<br />
-			<div id="camada" style="width:370px;" >E-Mail<font color="#FF0000"> {$validar.TX_EMAIL}</font><br />
-                <input type="text" name="TX_EMAIL" id="TX_EMAIL" style="width:360px;" value="{$VO->TX_EMAIL}" /></div>
+			<div id="camada" style="width:390px;" >E-Mail<font color="#FF0000"> {$validar.TX_EMAIL}</font><br />
+                <input type="text" name="TX_EMAIL" id="TX_EMAIL" style="width:380px;" value="{$VO->TX_EMAIL}" /></div>
 
 			<div id="camada" style="width:110px;" >Agencia<font color="#FF0000"> {$validar.TX_AGENCIA}</font><br />
                 <input type="text" name="TX_AGENCIA" id="TX_AGENCIA" style="width:100px;" value="{$VO->TX_AGENCIA}" /></div>
 
 			<div id="camada" style="width:110px;" >Conta Corrente<font color="#FF0000"> {$validar.TX_CONTA_CORRENTE}</font><br />
                 <input type="text" name="TX_CONTA_CORRENTE" id="TX_CONTA_CORRENTE" style="width:100px;" value="{$VO->TX_CONTA_CORRENTE}" /></div>
+
+            <div id="camada" style="width:110px;">PCD?<br/>
+                <select id="NB_PCD" name="NB_PCD" style="width:100px;">
+                    {html_options options=$arrayPDC}
+                </select></div>
 
 			{*<br />
             <div id="camada" style="width:265px;"><font color="#FF0000">*</font>Curso<font color="#FF0000"> {$validar.ID_CURSO_ESTAGIO} </font><br />

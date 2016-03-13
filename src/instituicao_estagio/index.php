@@ -1,16 +1,16 @@
 ﻿<?php
 require_once "../../php/define.php";
-require_once $pathvo."agenciaVO.php";
+require_once $pathvo."instituicao_estagioVO.php";
 
 $modulo = 78;
 $programa = 7;
-$pasta = 'agencia';
+$pasta = 'instituicao_estagio';
 $current = 1;
-$titulopage = 'Agência de Estágio';
+$titulopage = 'Instituição de Estágio';
 
 require_once "../autenticacao/validaPermissao.php";
 
-$VO = new agenciaVO();
+$VO = new instituicao_estagioVO();
 $VO->preencherVOSession($_SESSION);
 
 $smarty->assign("current"       , $current);

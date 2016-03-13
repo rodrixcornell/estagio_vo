@@ -38,6 +38,13 @@
             <div id="camada" style="width:400px;">Data da Atualização <font color="#FF0000"> {$validar.DT_ATUALIZACAO}</font><br />
                 <input type="text" name="DT_ATUALIZACAO" id="DT_ATUALIZACAO" value="{$VO->DT_ATUALIZACAO}" style="width:150px;" disabled="disabled"/></div>
 
+            <br/>
+
+            <div id="camada" style="width:400px;"><font color="#FF0000">*</font>Situação <font color="#FF0000">{$validar.CS_SITUACAO} </font><font color="#FF0000"></font><br />
+                <select name="CS_SITUACAO" id="CS_SITUACAO" style="width:150px;"/>
+                    {html_options options=$arraySituacao selected=$VO->CS_SITUACAO}
+                </select></div>
+
 
             <br /><br />
 

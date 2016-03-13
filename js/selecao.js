@@ -8,6 +8,10 @@ $(document).ready(function() {
         $('.fundo_pag').fadeOut(200);
     };
 
+    $('#ID_ORGAO_GESTOR_ESTAGIO option').first().next().attr("selected","selected");
+    $('#ID_ORGAO_GESTOR_ESTAGIO').attr("disabled","disabled");
+    $('#ID_ORGAO_GESTOR_ESTAGIO').attr("readonly","readonly");
+
     $('#pesquisar').click(function() {
         if ($('#ID_ORGAO_GESTOR_ESTAGIO').val() && $('#ID_ORGAO_ESTAGIO').val()) {
             showLoader();

@@ -91,9 +91,9 @@ function gerarTabela($param=''){
 
 $VO = new instituicaoVO();
 
-if ($_REQUEST['identifier'] == "tabela"){
+if ($_REQUEST['identifier'] == "tabela") {
 	gerarTabela($erro);
-}else if ($_REQUEST['identifier'] == 'excluir'){
+} else if ($_REQUEST['identifier'] == 'excluir') {
 	$VO->ID_INSTITUICAO_ENSINO = $_REQUEST['ID_INSTITUICAO_ENSINO'];
 
 	if ($acesso){

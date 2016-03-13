@@ -10,7 +10,7 @@
     <br /><br />
   {*------Órgão Gestor------*}
     <div id="camada" style="font-family:Verdana, Geneva, sans-serif; width:160px;"><strong><font color="#FF0000">*</font>Órgão Gestor: </strong></div>
-    <select name="ID_ORGAO_GESTOR_ESTAGIO" id="ID_ORGAO_GESTOR_ESTAGIO" style="width:400px;">
+    <select name="ID_ORGAO_GESTOR_ESTAGIO" id="ID_ORGAO_GESTOR_ESTAGIO" style="width:400px;"  readonly="readonly" disabled="disabled">
         {html_options options=$arrayOrgaoGestor selected=$VO->ID_ORGAO_GESTOR_ESTAGIO}
     </select><br />
 

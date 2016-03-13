@@ -2,26 +2,27 @@
 
 require_once $path . "src/repositorio/Repositorio.php";
 
-class RepositorioAgencia extends Repositorio {
+class RepositorioInstituicao_estagio extends Repositorio {
 
     function pesquisar($VO) {
 
         $query = "
 
-		SELECT ID_AGENCIA_ESTAGIO,
-        TX_AGENCIA_ESTAGIO,
-        to_char(DT_CADASTRO, 'dd/mm/yyyy hh24:mi:ss') DT_CADASTRO,
-        to_char(DT_ATUALIZACAO, 'dd/mm/yyyy hh24:mi:ss') DT_ATUALIZACAO,
-        TX_SIGLA,
-        ID_USUARIO_CADASTRO,
-        ID_USUARIO_ATUALIZACAO,
-        TX_CNPJ,
-        AGENCIA_ESTAGIO.TX_EMAIL,
+		SELECT A.ID_AGENCIA_ESTAGIO,
+        A.TX_AGENCIA_ESTAGIO,
+        to_char(A.DT_CADASTRO, 'dd/mm/yyyy hh24:mi:ss') DT_CADASTRO,
+        to_char(A.DT_ATUALIZACAO, 'dd/mm/yyyy hh24:mi:ss') DT_ATUALIZACAO,
+        A.TX_SIGLA,
+        A.ID_USUARIO_CADASTRO,
+        A.ID_USUARIO_ATUALIZACAO,
+        A.TX_CNPJ,
+        A.CS_SITUACAO,
+        A.TX_EMAIL,
 		USU_CAD.TX_LOGIN USUARIO_CADASTRO,
 		USU_ATU.TX_LOGIN USUARIO_ATUALIZACAO
-        FROM AGENCIA_ESTAGIO, USUARIO USU_CAD, USUARIO USU_ATU
-		WHERE AGENCIA_ESTAGIO.ID_Usuario_Cadastro = USU_CAD.ID_USUARIO
-		AND AGENCIA_ESTAGIO.ID_Usuario_Atualizacao = USU_ATU.ID_USUARIO
+        FROM AGENCIA_ESTAGIO A, USUARIO USU_CAD , USUARIO USU_ATU
+		WHERE A.ID_Usuario_Cadastro = USU_CAD.ID_USUARIO
+		AND A.ID_Usuario_Atualizacao = USU_ATU.ID_USUARIO
         ";
 
         $VO->TX_AGENCIA_ESTAGIO ? $query .= " and upper(TX_AGENCIA_ESTAGIO)  like upper('%" .$VO->TX_AGENCIA_ESTAGIO. "%')" : false;
@@ -44,9 +45,9 @@ class RepositorioAgencia extends Repositorio {
    function inserir($VO){
 
         $query = "
-            INSERT INTO AGENCIA_ESTAGIO(ID_AGENCIA_ESTAGIO,TX_AGENCIA_ESTAGIO,DT_CADASTRO,DT_ATUALIZACAO,TX_SIGLA,TX_CNPJ,ID_USUARIO_CADASTRO,ID_USUARIO_ATUALIZACAO,TX_EMAIL)
+            INSERT INTO AGENCIA_ESTAGIO(ID_AGENCIA_ESTAGIO,TX_AGENCIA_ESTAGIO,DT_CADASTRO,DT_ATUALIZACAO,TX_SIGLA,TX_CNPJ,ID_USUARIO_CADASTRO,ID_USUARIO_ATUALIZACAO,TX_EMAIL,CS_SITUACAO)
 						values
-	(SEMAD.F_G_PK_AGENCIA_ESTAGIO(),'".$VO->TX_AGENCIA_ESTAGIO."',sysdate,sysdate,'".$VO->TX_SIGLA."','".$VO->TX_CNPJ."','".$_SESSION["ID_USUARIO"]."','".$_SESSION["ID_USUARIO"]."','".mb_strtolower($VO->TX_EMAIL)."') ";
+	(SEMAD.F_G_PK_AGENCIA_ESTAGIO(),'".$VO->TX_AGENCIA_ESTAGIO."',sysdate,sysdate,'".$VO->TX_SIGLA."','".$VO->TX_CNPJ."','".$_SESSION["ID_USUARIO"]."','".$_SESSION["ID_USUARIO"]."','".mb_strtolower($VO->TX_EMAIL)."', '1') ";
 
         return $this->sql($query);
 
@@ -60,8 +61,9 @@ class RepositorioAgencia extends Repositorio {
                                            TX_CNPJ = '".$VO->TX_CNPJ."',
                                            DT_ATUALIZACAO = SYSDATE,
 					ID_Usuario_Atualizacao = '".$_SESSION["ID_USUARIO"]."',
-                                            TX_EMAIL= '".mb_strtolower($VO->TX_EMAIL)."'
-			            WHERE  ID_AGENCIA_ESTAGIO = '".$VO->ID_AGENCIA_ESTAGIO."'";
+                                            TX_EMAIL= '".mb_strtolower($VO->TX_EMAIL)."',
+                                            CS_SITUACAO = " . $VO->CS_SITUACAO . "
+			            WHERE  ID_AGENCIA_ESTAGIO = " . $VO->ID_AGENCIA_ESTAGIO;
         return $this->sql($query);
     }
 

@@ -1,19 +1,20 @@
 ﻿<?php
 
 require_once "../../php/define.php";
-require_once $pathvo . "agenciaVO.php";
+require_once $pathvo . "instituicao_estagioVO.php";
+require_once "arrays.php";
 
 $modulo = 78;
 $programa = 7;
-$pasta = 'agencia';
+$pasta = 'instituicao_estagio';
 $current = 1;
-$titulopage = 'Agência de Estágio';
+$titulopage = 'Instituição de Estágio';
 
 session_start();
 require_once "../autenticacao/validaPermissao.php";
 
 // Iniciando Instância
-$VO = new agenciaVO();
+$VO = new instituicao_estagioVO();
 
 if ($_SESSION['ID_AGENCIA_ESTAGIO']) {
 
@@ -24,7 +25,7 @@ if ($_SESSION['ID_AGENCIA_ESTAGIO']) {
 
     if ($_POST) {
         $VO->configuracao();
-        $VO->setCaracteristica('TX_AGENCIA_ESTAGIO,TX_SIGLA,TX_CNPJ,TX_EMAIL', 'obrigatorios');
+        $VO->setCaracteristica('TX_AGENCIA_ESTAGIO,TX_SIGLA,TX_CNPJ,TX_EMAIL,CS_SITUACAO', 'obrigatorios');
         $VO->setCaracteristica('TX_CNPJ', 'cnpjs');
         $VO->setCaracteristica('TX_EMAIL', 'emails');
 

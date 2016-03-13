@@ -15,15 +15,17 @@
     <br />
 
 
-    <div id="camada" style="width:140px;"><strong>Nome da Instituição:</strong><font color="#FF0000"> {$validar.TX_INSTITUICAO_ENSINO} </font> </div>              
-    <input type="text" name="TX_INSTITUICAO_ENSINO" id="TX_INSTITUICAO_ENSINO" value="{$VO->TX_INSTITUICAO_ENSINO}" style="width:500px;"/> 
+    <div id="camada" style="width:145px;"><strong>Nome da Instituição:</strong><font color="#FF0000"> {$validar.TX_INSTITUICAO_ENSINO} </font> </div>
+    <select name="TX_INSTITUICAO_ENSINO" id="TX_INSTITUICAO_ENSINO" style="width:600px;">
+        {html_options options=$arrayInstituicoes}
+    </select><br />
+        {*<input type="text" name="TX_INSTITUICAO_ENSINO" id="TX_INSTITUICAO_ENSINO" value="{$VO->TX_INSTITUICAO_ENSINO}" style="width:500px;"/>*}
     <br />
 
 
-    <div id="camada" style="width:140px;"><strong>Sigla da instituição:</strong><font color="#FF0000"> {$validar.TX_SIGLA} </font> </div>              
+    <div id="camada" style="width:145px;"><strong>Sigla da instituição:</strong><font color="#FF0000"> {$validar.TX_SIGLA} </font> </div>
     <input type="text" name="TX_SIGLA" id="TX_SIGLA" value="{$VO->TX_SIGLA}" style="width:200px;"/> 
     <br />
-
 
     <br />
     <input type="button" name="pesquisar" id="pesquisar" value="Pesquisar" />
@@ -40,9 +42,8 @@
 				   PAGE:"{$VO->PAGE}"
 				}, hideLoader); 
 			}
-});
+        });
     </script>
-
     <br /><br />
     <div class="fundo_pag">
         <img src="{$urlimg}icones/loader.gif" alt="">
