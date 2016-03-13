@@ -9,7 +9,7 @@ session_start();
 include dirname( __FILE__ ) . '/config.php';
 
 #$urlAmbiente = "http://" . $_SERVER[HTTP_HOST];
-$url = 'http://' . $_SERVER[HTTP_HOST] . $projeto;
+$url = 'http://' . $_SERVER['HTTP_HOST'] . $projeto;
 $path = $_SERVER['DOCUMENT_ROOT'] . $projeto;
 
 
