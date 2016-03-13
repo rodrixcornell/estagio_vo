@@ -1,0 +1,10 @@
+1 - Acrescentar na tela SOLICITAÇÃO DE TA aviso de vigência de 2 anos;
+2 - Candidato com TCE validado resolve desistir,ação: cancelar TCE e não desligar.
+3 - Inserir banco e conta corrente na tela ESTAGIÁRIO;
+4 - Inserir horário que estuda e turno que irá estagiar;
+5 - Criar relatório mensal com folha de frequencia ( so fe´cha a folha mediante esse relatório)
+6 - Criar tela LOTAÇÃO - gerenciar onde o estagiário está e encluitr zona
+7 - Avaliação semestral obrigatória inserir ótimo/bom/ muito bom
+8 - Apresentação de declaração semestral
+9 - Guia de recesso
+10- Recesso indenizado:sistema acusar se gozou ou não o recesso
