@@ -1,0 +1,75 @@
+CREATE OR REPLACE TRIGGER "SEMAD"."T_GEST_I_I_V_ESTAGIARIO" INSTEAD OF
+  INSERT
+    ON SEMAD.V_ESTAGIARIO REFERENCING OLD AS OLD NEW AS NEW DECLARE BEGIN
+  -- INSERT TABLE Pessoa
+  INSERT
+  INTO
+    Pessoa
+    (
+      ID_Pessoa,
+      tx_Nome,
+      cs_Tipo_Pessoa
+    )
+    VALUES
+    (
+      :new.ID_PESSOA_ESTAGIARIO,
+      :new.tx_Nome,
+      :new.cs_Tipo_Pessoa
+    );
+  -- INSERT TABLE Pessoa_Fisica
+  INSERT
+  INTO
+    Pessoa_Fisica
+    (
+      ID_Pessoa,
+      nb_cpf,
+      nb_rg,
+      cs_sexo,
+      dt_atualizacao,
+      dt_nascimento
+    )
+    VALUES
+    (
+      :new.ID_PESSOA_ESTAGIARIO,
+      :new.nb_cpf,
+      :new.nb_rg,
+      :new.cs_sexo,
+      sysdate,
+      :new.dt_nascimento
+    );
+  -- INSERT TABLE Estagiario
+  INSERT
+  INTO
+    Estagiario
+    (
+      ID_PESSOA_ESTAGIARIO,
+      ID_PESSOA_FUNCIONARIO,
+      NB_FUNCIONARIO,
+      TX_CEP,
+      TX_ENDERECO,
+      NB_NUMERO,
+      TX_COMPLEMENTO,
+      TX_BAIRRO,
+      TX_AGENCIA,
+      TX_CONTA_CORRENTE,
+      TX_CONTATO,
+      TX_EMAIL,
+      NB_PCD
+    )
+    VALUES
+    (
+      :new.ID_PESSOA_ESTAGIARIO,
+      :NEW.ID_PESSOA_FUNCIONARIO,
+      :NEW.NB_FUNCIONARIO,
+      :NEW.TX_CEP,
+      :NEW.TX_ENDERECO,
+      :NEW.NB_NUMERO,
+      :NEW.TX_COMPLEMENTO,
+      :NEW.TX_BAIRRO,
+      :NEW.TX_AGENCIA,
+      :NEW.TX_CONTA_CORRENTE,
+      :NEW.TX_CONTATO,
+      :NEW.TX_EMAIL,
+      :NEW.NB_PCD
+    );
+END;

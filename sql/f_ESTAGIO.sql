@@ -1,0 +1,493 @@
+--------------------------------------------------------
+--  Arquivo criado - Quinta-feira-Março-10-2016   
+--------------------------------------------------------
+--------------------------------------------------------
+--  DDL for Function F_G_COD_CONTRATO_ESTAGIO
+--------------------------------------------------------
+
+  CREATE OR REPLACE FUNCTION "SEMAD"."F_G_COD_CONTRATO_ESTAGIO" 
+RETURN CONTRATO_ESTAGIO.TX_CODIGO%TYPE IS
+
+PNB_CODIGO CONTRATO_ESTAGIO.TX_CODIGO%TYPE;
+V_N_NB_DOCUMENTO NUMBER;
+PANO VARCHAR(4);
+PNB_EXERCICIO VARCHAR(4);
+
+BEGIN
+
+  SELECT TO_CHAR(SYSDATE, 'YYYY') INTO PNB_EXERCICIO
+  FROM DUAL;
+
+  SELECT MAX(SUBSTR(TX_CODIGO,1,5)), TO_CHAR(SYSDATE, 'YYYY') INTO PNB_CODIGO, PANO
+  FROM CONTRATO_ESTAGIO
+  WHERE SUBSTR(TX_CODIGO,7,4) = PNB_EXERCICIO;
+  IF (PNB_CODIGO IS NULL) THEN
+     V_N_NB_DOCUMENTO := 1;
+  ELSE
+     V_N_NB_DOCUMENTO := TO_NUMBER(PNB_CODIGO) + 1;
+  END IF;
+  PNB_CODIGO:= LPAD(V_N_NB_DOCUMENTO,5,'0')||'/'||PANO;
+  RETURN PNB_CODIGO;
+
+end;
+
+/
+--------------------------------------------------------
+--  DDL for Function F_G_COD_QUADRO_VAGAS_ESTAGIO
+--------------------------------------------------------
+
+  CREATE OR REPLACE FUNCTION "SEMAD"."F_G_COD_QUADRO_VAGAS_ESTAGIO" 
+RETURN QUADRO_VAGAS_ESTAGIO.TX_CODIGO%TYPE IS 
+
+PNB_CODIGO QUADRO_VAGAS_ESTAGIO.TX_CODIGO%TYPE;
+V_N_NB_DOCUMENTO NUMBER;
+PANO VARCHAR(4);
+PNB_EXERCICIO VARCHAR(4);
+
+BEGIN
+
+  SELECT TO_CHAR(SYSDATE, 'YYYY') INTO PNB_EXERCICIO
+  FROM DUAL;
+  
+  SELECT MAX(SUBSTR(TX_CODIGO,1,5)), TO_CHAR(SYSDATE, 'YYYY') INTO PNB_CODIGO, PANO
+  FROM QUADRO_VAGAS_ESTAGIO
+  WHERE SUBSTR(TX_CODIGO,7,4) = PNB_EXERCICIO;
+  IF (PNB_CODIGO IS NULL) THEN
+     V_N_NB_DOCUMENTO := 1;
+  ELSE
+     V_N_NB_DOCUMENTO := TO_NUMBER(PNB_CODIGO) + 1;
+  END IF;
+  PNB_CODIGO:= LPAD(V_N_NB_DOCUMENTO,5,'0')||'/'||PANO;
+  RETURN PNB_CODIGO;
+  
+END;
+
+/
+--------------------------------------------------------
+--  DDL for Function F_G_COD_RECESSO_ESTAGIO
+--------------------------------------------------------
+
+  CREATE OR REPLACE FUNCTION "SEMAD"."F_G_COD_RECESSO_ESTAGIO" 
+RETURN RECESSO_ESTAGIO.TX_CODIGO%TYPE IS
+
+PNB_CODIGO RECESSO_ESTAGIO.TX_CODIGO%TYPE;
+V_N_NB_DOCUMENTO NUMBER;
+PANO VARCHAR(4);
+PNB_EXERCICIO VARCHAR(4);
+
+BEGIN
+
+  SELECT TO_CHAR(SYSDATE, 'YYYY') INTO PNB_EXERCICIO
+  FROM DUAL;
+
+  SELECT MAX(SUBSTR(TX_CODIGO,1,5)), TO_CHAR(SYSDATE, 'YYYY') INTO PNB_CODIGO, PANO
+  FROM RECESSO_ESTAGIO
+  WHERE SUBSTR(TX_CODIGO,7,4) = PNB_EXERCICIO;
+  IF (PNB_CODIGO IS NULL) THEN
+     V_N_NB_DOCUMENTO := 1;
+  ELSE
+     V_N_NB_DOCUMENTO := TO_NUMBER(PNB_CODIGO) + 1;
+  END IF;
+  PNB_CODIGO:= LPAD(V_N_NB_DOCUMENTO,5,'0')||'/'||PANO;
+  RETURN PNB_CODIGO;
+
+end;
+
+/
+--------------------------------------------------------
+--  DDL for Function F_G_COD_RECRUTAMENTO_ESTAGIO
+--------------------------------------------------------
+
+  CREATE OR REPLACE FUNCTION "SEMAD"."F_G_COD_RECRUTAMENTO_ESTAGIO" 
+RETURN RECRUTAMENTO_ESTAGIO.TX_COD_RECRUTAMENTO%TYPE IS 
+
+PNB_CODIGO RECRUTAMENTO_ESTAGIO.TX_COD_RECRUTAMENTO%TYPE;
+V_N_NB_DOCUMENTO NUMBER;
+PANO VARCHAR(4);
+PNB_EXERCICIO VARCHAR(4);
+
+BEGIN
+
+  SELECT TO_CHAR(SYSDATE, 'YYYY') INTO PNB_EXERCICIO
+  FROM DUAL;
+  
+  SELECT MAX(SUBSTR(TX_COD_RECRUTAMENTO,1,5)), TO_CHAR(SYSDATE, 'YYYY') INTO PNB_CODIGO, PANO
+  FROM RECRUTAMENTO_ESTAGIO
+  WHERE SUBSTR(TX_COD_RECRUTAMENTO,7,4) = PNB_EXERCICIO;
+  IF (PNB_CODIGO IS NULL) THEN
+     V_N_NB_DOCUMENTO := 1;
+  ELSE
+     V_N_NB_DOCUMENTO := TO_NUMBER(PNB_CODIGO) + 1;
+  END IF;
+  PNB_CODIGO:= LPAD(V_N_NB_DOCUMENTO,5,'0')||'/'||PANO;
+  RETURN PNB_CODIGO;
+  
+END;
+
+/
+--------------------------------------------------------
+--  DDL for Function F_G_COD_SELECAO_ESTAGIO
+--------------------------------------------------------
+
+  CREATE OR REPLACE FUNCTION "SEMAD"."F_G_COD_SELECAO_ESTAGIO" 
+RETURN SELECAO_ESTAGIO.TX_COD_SELECAO%TYPE IS
+
+PNB_CODIGO SELECAO_ESTAGIO.TX_COD_SELECAO%TYPE;
+V_N_NB_DOCUMENTO NUMBER;
+PANO VARCHAR(4);
+PNB_EXERCICIO VARCHAR(4);
+
+BEGIN
+
+  SELECT TO_CHAR(SYSDATE, 'YYYY') INTO PNB_EXERCICIO
+  FROM DUAL;
+
+  SELECT MAX(SUBSTR(TX_COD_SELECAO,1,5)), TO_CHAR(SYSDATE, 'YYYY') INTO PNB_CODIGO, PANO
+  FROM SELECAO_ESTAGIO
+  WHERE SUBSTR(TX_COD_SELECAO,7,4) = PNB_EXERCICIO;
+  IF (PNB_CODIGO IS NULL) THEN
+     V_N_NB_DOCUMENTO := 1;
+  ELSE
+     V_N_NB_DOCUMENTO := TO_NUMBER(PNB_CODIGO) + 1;
+  END IF;
+  PNB_CODIGO:= LPAD(V_N_NB_DOCUMENTO,5,'0')||'/'||PANO;
+  RETURN PNB_CODIGO;
+
+END;
+
+/
+--------------------------------------------------------
+--  DDL for Function F_G_COD_SOLICITACAO_ESTAGIO
+--------------------------------------------------------
+
+  CREATE OR REPLACE FUNCTION "SEMAD"."F_G_COD_SOLICITACAO_ESTAGIO" 
+RETURN SOLICITACAO_ESTAGIO.TX_COD_SOLICITACAO%TYPE IS
+
+PNB_CODIGO SOLICITACAO_ESTAGIO.TX_COD_SOLICITACAO%TYPE;
+V_N_NB_DOCUMENTO NUMBER;
+PANO VARCHAR(4);
+PNB_EXERCICIO VARCHAR(4);
+
+BEGIN
+
+  SELECT TO_CHAR(SYSDATE, 'YYYY') INTO PNB_EXERCICIO
+  FROM DUAL;
+
+  SELECT MAX(SUBSTR(TX_COD_SOLICITACAO,1,5)), TO_CHAR(SYSDATE, 'YYYY') INTO PNB_CODIGO, PANO
+  FROM SOLICITACAO_ESTAGIO
+  WHERE SUBSTR(TX_COD_SOLICITACAO,7,4) = PNB_EXERCICIO;
+  IF (PNB_CODIGO IS NULL) THEN
+     V_N_NB_DOCUMENTO := 1;
+  ELSE
+     V_N_NB_DOCUMENTO := TO_NUMBER(PNB_CODIGO) + 1;
+  END IF;
+  PNB_CODIGO:= LPAD(V_N_NB_DOCUMENTO,5,'0')||'/'||PANO;
+  RETURN PNB_CODIGO;
+
+end;
+
+/
+--------------------------------------------------------
+--  DDL for Function F_G_COD_TRANSFERENCIA_ESTAGIO
+--------------------------------------------------------
+
+  CREATE OR REPLACE FUNCTION "SEMAD"."F_G_COD_TRANSFERENCIA_ESTAGIO" 
+RETURN TRANSFERENCIA_VAGAS.TX_COD_TRANSFERENCIA%TYPE IS
+
+PNB_CODIGO TRANSFERENCIA_VAGAS.TX_COD_TRANSFERENCIA%TYPE;
+V_N_NB_DOCUMENTO NUMBER;
+PANO VARCHAR(4);
+PNB_EXERCICIO VARCHAR(4);
+
+BEGIN
+
+  SELECT TO_CHAR(SYSDATE, 'YYYY') INTO PNB_EXERCICIO
+  FROM DUAL;
+
+  SELECT MAX(SUBSTR(TX_COD_TRANSFERENCIA,1,5)), TO_CHAR(SYSDATE, 'YYYY') INTO PNB_CODIGO, PANO
+  FROM TRANSFERENCIA_VAGAS
+  WHERE SUBSTR(TX_COD_TRANSFERENCIA,7,4) = PNB_EXERCICIO;
+  IF (PNB_CODIGO IS NULL) THEN
+     V_N_NB_DOCUMENTO := 1;
+  ELSE
+     V_N_NB_DOCUMENTO := TO_NUMBER(PNB_CODIGO) + 1;
+  END IF;
+  PNB_CODIGO:= LPAD(V_N_NB_DOCUMENTO,5,'0')||'/'||PANO;
+  RETURN PNB_CODIGO;
+
+end;
+
+/
+--------------------------------------------------------
+--  DDL for Function F_G_PK_AGENCIA_ESTAGIO
+--------------------------------------------------------
+
+  CREATE OR REPLACE FUNCTION "SEMAD"."F_G_PK_AGENCIA_ESTAGIO" RETURN NUMBER IS
+V_S_Agencia_Estagio NUMBER;
+BEGIN
+SELECT S_Agencia_Estagio.NEXTVAL
+INTO V_S_Agencia_Estagio
+FROM SYS.DUAL;
+RETURN V_S_Agencia_Estagio;
+END;
+
+/
+--------------------------------------------------------
+--  DDL for Function F_G_PK_AGENCIA_ESTAGIO_EMAIL
+--------------------------------------------------------
+
+  CREATE OR REPLACE FUNCTION "SEMAD"."F_G_PK_AGENCIA_ESTAGIO_EMAIL" 
+(PID_AGENCIA_ESTAGIO INTEGER)
+RETURN NUMBER IS V_N_AGENCIA_ESTAGIO_EMAIL NUMBER;
+BEGIN
+   SELECT COUNT (*)
+   INTO  V_N_AGENCIA_ESTAGIO_EMAIL
+   FROM AGENCIA_ESTAGIO_EMAIL
+   WHERE(ID_AGENCIA_ESTAGIO = PID_AGENCIA_ESTAGIO);
+    IF V_N_AGENCIA_ESTAGIO_EMAIL = 0 THEN
+        V_N_AGENCIA_ESTAGIO_EMAIL := 1;
+    ELSE
+        SELECT MAX(NB_AGENCIA_ESTAGIO_EMAIL) + 1
+        INTO V_N_AGENCIA_ESTAGIO_EMAIL
+        FROM AGENCIA_ESTAGIO_EMAIL
+        WHERE (ID_AGENCIA_ESTAGIO = PID_AGENCIA_ESTAGIO);
+     END IF;
+     RETURN V_N_AGENCIA_ESTAGIO_EMAIL;
+END;
+
+/
+--------------------------------------------------------
+--  DDL for Function F_G_PK_AGENTE_SETORIAL_ESTAGIO
+--------------------------------------------------------
+
+  CREATE OR REPLACE FUNCTION "SEMAD"."F_G_PK_AGENTE_SETORIAL_ESTAGIO" RETURN NUMBER IS
+V_S_Agente_Setorial_Estagio NUMBER;
+BEGIN
+SELECT S_Agente_Setorial_Estagio.NEXTVAL
+INTO V_S_Agente_Setorial_Estagio
+FROM SYS.DUAL;
+RETURN V_S_Agente_Setorial_Estagio;
+END;
+
+/
+--------------------------------------------------------
+--  DDL for Function F_G_PK_BOLSA_ESTAGIO
+--------------------------------------------------------
+
+  CREATE OR REPLACE FUNCTION "SEMAD"."F_G_PK_BOLSA_ESTAGIO" 
+(PCS_TIPO_VAGA_ESTAGIO INTEGER)
+RETURN NUMBER IS V_N_BOLSA_ESTAGIO NUMBER;
+BEGIN
+   SELECT COUNT (*) INTO  V_N_BOLSA_ESTAGIO
+   FROM BOLSA_ESTAGIO
+   WHERE(CS_TIPO_VAGA_ESTAGIO = PCS_TIPO_VAGA_ESTAGIO);
+    IF V_N_BOLSA_ESTAGIO = 0 THEN
+        V_N_BOLSA_ESTAGIO := 1;
+    ELSE
+        SELECT MAX(NB_BOLSA_ESTAGIO) + 1
+        INTO V_N_BOLSA_ESTAGIO
+        FROM BOLSA_ESTAGIO
+        WHERE (CS_TIPO_VAGA_ESTAGIO = PCS_TIPO_VAGA_ESTAGIO);
+     END IF;
+     RETURN V_N_BOLSA_ESTAGIO;
+END;
+
+/
+--------------------------------------------------------
+--  DDL for Function F_G_PK_CONTRATO_ESTAGIO
+--------------------------------------------------------
+
+  CREATE OR REPLACE FUNCTION "SEMAD"."F_G_PK_CONTRATO_ESTAGIO" RETURN NUMBER IS
+V_S_Contrato_Estagio NUMBER;
+BEGIN
+SELECT S_Contrato_Estagio.NEXTVAL
+INTO V_S_Contrato_Estagio
+FROM SYS.DUAL;
+RETURN V_S_Contrato_Estagio;
+END;
+
+/
+--------------------------------------------------------
+--  DDL for Function F_G_PK_CURSO_ESTAGIO
+--------------------------------------------------------
+
+  CREATE OR REPLACE FUNCTION "SEMAD"."F_G_PK_CURSO_ESTAGIO" RETURN NUMBER IS
+V_S_Curso_Estagio NUMBER;
+BEGIN
+SELECT S_Curso_Estagio.NEXTVAL
+INTO V_S_Curso_Estagio
+FROM SYS.DUAL;
+RETURN V_S_Curso_Estagio;
+END;
+
+/
+--------------------------------------------------------
+--  DDL for Function F_G_PK_ESTAGIARIO_VAGA
+--------------------------------------------------------
+
+  CREATE OR REPLACE FUNCTION "SEMAD"."F_G_PK_ESTAGIARIO_VAGA" 
+(PID_RECRUTAMENTO_ESTAGIO INTEGER,PNB_VAGAS_RECRUTAMENTO INTEGER)
+RETURN NUMBER IS V_N_ESTAGIARIO_VAGA NUMBER;
+BEGIN
+   SELECT COUNT (*) INTO  V_N_ESTAGIARIO_VAGA
+   FROM ESTAGIARIO_VAGA
+   WHERE(ID_RECRUTAMENTO_ESTAGIO = PID_RECRUTAMENTO_ESTAGIO AND NB_VAGAS_RECRUTAMENTO = PNB_VAGAS_RECRUTAMENTO );
+    IF V_N_ESTAGIARIO_VAGA = 0 THEN
+        V_N_ESTAGIARIO_VAGA := 1;
+    ELSE
+        SELECT MAX(NB_CANDIDATO) + 1
+        INTO V_N_ESTAGIARIO_VAGA
+        FROM ESTAGIARIO_VAGA
+        WHERE (ID_RECRUTAMENTO_ESTAGIO = PID_RECRUTAMENTO_ESTAGIO AND NB_VAGAS_RECRUTAMENTO = PNB_VAGAS_RECRUTAMENTO );
+     END IF;
+     RETURN V_N_ESTAGIARIO_VAGA;
+END; -- F_G_PK_ESTAGIARIO_VAGA
+
+/
+--------------------------------------------------------
+--  DDL for Function F_G_PK_GESTOR_ESTAGIO
+--------------------------------------------------------
+
+  CREATE OR REPLACE FUNCTION "SEMAD"."F_G_PK_GESTOR_ESTAGIO" 
+(PID_ORGAO_GESTOR_ESTAGIO INTEGER)
+RETURN NUMBER IS V_N_GESTOR_ESTAGIO NUMBER;
+BEGIN
+   SELECT COUNT (*) INTO  V_N_GESTOR_ESTAGIO
+   FROM GESTOR_ESTAGIO
+   WHERE(ID_ORGAO_GESTOR_ESTAGIO = PID_ORGAO_GESTOR_ESTAGIO);
+    IF V_N_GESTOR_ESTAGIO = 0 THEN
+        V_N_GESTOR_ESTAGIO := 1;
+    ELSE
+        SELECT MAX(NB_GESTOR_ESTAGIO) + 1
+        INTO V_N_GESTOR_ESTAGIO
+        FROM GESTOR_ESTAGIO
+        WHERE (ID_ORGAO_GESTOR_ESTAGIO = PID_ORGAO_GESTOR_ESTAGIO);
+     END IF;
+     RETURN V_N_GESTOR_ESTAGIO;
+END;
+
+/
+--------------------------------------------------------
+--  DDL for Function F_G_PK_ITEM_PAGAMENTO_ESTAGIO
+--------------------------------------------------------
+
+  CREATE OR REPLACE FUNCTION "SEMAD"."F_G_PK_ITEM_PAGAMENTO_ESTAGIO" RETURN NUMBER IS
+V_S_Item_Pagamento_Estagio NUMBER;
+BEGIN
+SELECT S_Item_Pagamento_Estagio.NEXTVAL
+INTO V_S_Item_Pagamento_Estagio
+FROM SYS.DUAL;
+RETURN V_S_Item_Pagamento_Estagio;
+END;
+
+/
+--------------------------------------------------------
+--  DDL for Function F_G_PK_ORGAO_ESTAGIO
+--------------------------------------------------------
+
+  CREATE OR REPLACE FUNCTION "SEMAD"."F_G_PK_ORGAO_ESTAGIO" RETURN NUMBER IS
+V_S_Orgao_Estagio NUMBER;
+BEGIN
+SELECT S_Orgao_Estagio.NEXTVAL
+INTO V_S_Orgao_Estagio
+FROM SYS.DUAL;
+RETURN V_S_Orgao_Estagio;
+END;
+
+/
+--------------------------------------------------------
+--  DDL for Function F_G_PK_ORGAO_GESTOR_ESTAGIO
+--------------------------------------------------------
+
+  CREATE OR REPLACE FUNCTION "SEMAD"."F_G_PK_ORGAO_GESTOR_ESTAGIO" RETURN NUMBER IS
+V_S_Orgao_Gestor_Estagio NUMBER;
+BEGIN
+SELECT S_Orgao_Gestor_Estagio.NEXTVAL
+INTO V_S_Orgao_Gestor_Estagio
+FROM SYS.DUAL;
+RETURN V_S_Orgao_Gestor_Estagio;
+END;
+
+/
+--------------------------------------------------------
+--  DDL for Function F_G_PK_PAGAMENTO_ESTAGIO
+--------------------------------------------------------
+
+  CREATE OR REPLACE FUNCTION "SEMAD"."F_G_PK_PAGAMENTO_ESTAGIO" RETURN NUMBER IS
+V_S_Pagamento_Estagio NUMBER;
+BEGIN
+SELECT S_Pagamento_Estagio.NEXTVAL
+INTO V_S_Pagamento_Estagio
+FROM SYS.DUAL;
+RETURN V_S_Pagamento_Estagio;
+END;
+
+/
+--------------------------------------------------------
+--  DDL for Function F_G_PK_QUADRO_VAGAS_ESTAGIO
+--------------------------------------------------------
+
+  CREATE OR REPLACE FUNCTION "SEMAD"."F_G_PK_QUADRO_VAGAS_ESTAGIO" RETURN NUMBER IS
+V_S_Quadro_Vagas_Estagio NUMBER;
+BEGIN
+SELECT S_Quadro_Vagas_Estagio.NEXTVAL
+INTO V_S_Quadro_Vagas_Estagio
+FROM SYS.DUAL;
+RETURN V_S_Quadro_Vagas_Estagio;
+END;
+
+/
+--------------------------------------------------------
+--  DDL for Function F_G_PK_RECESSO_ESTAGIO
+--------------------------------------------------------
+
+  CREATE OR REPLACE FUNCTION "SEMAD"."F_G_PK_RECESSO_ESTAGIO" RETURN NUMBER IS
+  V_S_Recesso_Estagio NUMBER;
+BEGIN
+  SELECT S_Recesso_Estagio.NEXTVAL  INTO V_S_Recesso_Estagio  FROM SYS.DUAL;
+  RETURN V_S_Recesso_Estagio;
+END; -- F_G_PK_Recesso_Estagio
+
+/
+--------------------------------------------------------
+--  DDL for Function F_G_PK_RECRUTAMENTO_ESTAGIO
+--------------------------------------------------------
+
+  CREATE OR REPLACE FUNCTION "SEMAD"."F_G_PK_RECRUTAMENTO_ESTAGIO" RETURN NUMBER IS
+V_S_Recrutamento_Estagio NUMBER;
+BEGIN
+SELECT S_Recrutamento_Estagio.NEXTVAL
+INTO V_S_Recrutamento_Estagio
+FROM SYS.DUAL;
+RETURN V_S_Recrutamento_Estagio;
+END;
+
+/
+--------------------------------------------------------
+--  DDL for Function F_G_PK_SELECAO_ESTAGIO
+--------------------------------------------------------
+
+  CREATE OR REPLACE FUNCTION "SEMAD"."F_G_PK_SELECAO_ESTAGIO" RETURN NUMBER IS
+V_S_Selecao_Estagio NUMBER;
+BEGIN
+SELECT S_Selecao_Estagio.NEXTVAL
+INTO V_S_Selecao_Estagio
+FROM SYS.DUAL;
+RETURN V_S_Selecao_Estagio;
+END;
+
+/
+--------------------------------------------------------
+--  DDL for Function F_G_PK_SOLICITACAO_ESTAGIO
+--------------------------------------------------------
+
+  CREATE OR REPLACE FUNCTION "SEMAD"."F_G_PK_SOLICITACAO_ESTAGIO" RETURN NUMBER IS
+V_S_Solicitacao_Estagio NUMBER;
+BEGIN
+SELECT S_Solicitacao_Estagio.NEXTVAL
+INTO V_S_Solicitacao_Estagio
+FROM SYS.DUAL;
+RETURN V_S_Solicitacao_Estagio;
+END;
+
+/
