@@ -5,7 +5,7 @@
 !templates_c/.htaccess
 !templates_c/index.html
 
-/arquivo/*
+/arquivo*/*
 !arquivo*/.gitignore
 !arquivo*/.htaccess
 !arquivo*/index.html
