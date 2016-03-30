@@ -36,7 +36,7 @@ if (in_array(gethostname(), $dev)) {
 	if (in_array(gethostname(), $hom)) {
 		$ipBanco = "172.18.1.160:1521/pmmhom";
 		$projeto = "/sistemaspmm/" . $system . "/";
-		$urlAmbiente = "http://" . $_SERVER['HTTP_HOST'] . "sistemaspmm/";
+		$urlAmbiente = "http://" . $_SERVER['HTTP_HOST'] . "/sistemaspmm/";
 	} else {
 		$ipBanco = "172.18.0.33:1521/pmm";
 		$projeto = "/" . $system . "/";
