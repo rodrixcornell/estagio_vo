@@ -1,5 +1,4 @@
 ﻿<?php
-
 include "../../php/define.php";
 require_once $pathvo . "orgao_gestorVO.php";
 
@@ -18,6 +17,7 @@ function gerarTabela($param = '') {
 
     $VO = new orgao_gestorVO();
     $VO->ID_ORGAO_GESTOR_ESTAGIO = $_SESSION['ID_ORGAO_GESTOR_ESTAGIO'];
+    $VO->NB_EMAIL_GESTOR_ESTAGIO = $_REQUEST['NB_EMAIL_GESTOR_ESTAGIO'];
 
     $total = $VO->buscarEmails();
 
@@ -44,7 +44,7 @@ function gerarTabela($param = '') {
             //Somente ver a coluna de alterar se tiver acesso completo a tela
             if ($acesso)
                 echo '<td align="center" class="icones">
-		<a href="' . $dados['NB_ORGAO_GESTOR_EMAIL'][$i] . '" id="excluir" ><img src="' . $urlimg . 'icones/excluirItem.png" title="Excluir Registro"/></a></td>';
+		<a href="' . $dados['NB_EMAIL_GESTOR_ESTAGIO'][$i] . '" id="excluir" ><img src="' . $urlimg . 'icones/excluirItem.png" title="Excluir Registro"/></a></td>';
             echo '</tr>';
         }
 
@@ -63,7 +63,7 @@ function gerarTabela($param = '') {
             echo '	</ul>
 				  </div><br><br>';
         }
-    }else
+    } else
         echo '<tr><td colspan="2" class="nenhum">Nenhum registro encontrado.</td></tr></table><br /> ';
 
     if ($param)
@@ -157,7 +157,9 @@ else if ($_REQUEST['identifier'] == "tabelaEmail") {
     gerarTabela($erro);
 } else if ($_REQUEST['identifier'] == "inserirEmail") {
     $VO->ID_ORGAO_GESTOR_ESTAGIO = $_SESSION['ID_ORGAO_GESTOR_ESTAGIO'];
+    $VO->NB_EMAIL_GESTOR_ESTAGIO = $_REQUEST['NB_EMAIL_GESTOR_ESTAGIO'];
     $VO->TX_EMAIL = $_REQUEST['TX_EMAIL'];
+
 
     if ($acesso) {
         if ($VO->TX_EMAIL) {
@@ -166,9 +168,9 @@ else if ($_REQUEST['identifier'] == "tabelaEmail") {
             if ($retorno) {
                 $erro = 'Registro já existe.';
             }
-        }else
+        } else
             $erro = 'Para inserir preencha o campo E-mail!';
-    }else
+    } else
         $erro = "Você não tem permissão para realizar esta ação.";
 
     gerarTabela($erro);
@@ -182,7 +184,7 @@ else if ($_REQUEST['identifier'] == "tabelaEmail") {
 } else if ($_REQUEST['identifier'] == 'excluirEmail') {
 
     $VO->ID_ORGAO_GESTOR_ESTAGIO = $_SESSION['ID_ORGAO_GESTOR_ESTAGIO'];
-    $VO->NB_ORGAO_GESTOR_EMAIL = $_REQUEST['NB_ORGAO_GESTOR_EMAIL'];
+    $VO->NB_EMAIL_GESTOR_ESTAGIO = $_REQUEST['NB_EMAIL_GESTOR_ESTAGIO'];
 
     if ($acesso) {
 
@@ -190,7 +192,7 @@ else if ($_REQUEST['identifier'] == "tabelaEmail") {
 
         if (is_array($retorno))
             $erro = 'Este registro não pode ser excluído pois possui dependentes.';
-    }else
+    } else
         $erro = "Você não tem permissão para realizar esta ação.";
 
     gerarTabela($erro);
