@@ -91,7 +91,7 @@ if(file_exists($path."/log")) {
 	//FECHA  O PONTEIRO DO ARQUIVO
 	fclose ($ponteiro);
 
-	$smarty->assign("log", $log);
+	(!in_array(gethostname(), $prd)) ? $smarty->assign("log", $log) : false;
 }
 
 $smarty->assign("urlcss", $urlcss);

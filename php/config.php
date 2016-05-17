@@ -28,6 +28,11 @@ $dev = array(
 
 $hom = array('cruxati');
 
+$prd = array(
+	'apuau',
+	'liberdade'
+);
+
 if (in_array(gethostname(), $dev)) {
 	$ipBanco = "172.18.1.160:1521/pmmdev";
 	$projeto = "/semad/" . $system . "/";
