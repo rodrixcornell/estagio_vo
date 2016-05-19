@@ -2,16 +2,82 @@
 header('Content-Type: text/html; charset=utf-8');
 set_time_limit(1000);
 date_default_timezone_set("America/Manaus");
-//error_reporting(0);
-ob_start();
+
+/**
+ * Resolve o problema de sessões do VO. (Precisa incluir a linha abaixo em todos os outros projetos.)
+ *
+ * __DIR__ 		   = serve de chave para diferenciar um projeto do outro, já que o VO não tem chave de segurança.
+ * REMOVE_ADDR 	   = ip da maquina que acessa o projeto
+ * HTTP_USER_AGENT = navegador que acessa o projeto
+ *
+ * Adicionado em 05/05/2016 por Luiz Schmitt <lzschmitt@gmail.com>
+ */
+ if(!function_exists('getToken')) {
+	 function getToken() {
+		 return md5(__DIR__ . $_SERVER['REMOTE_ADDR'] . $_SERVER['HTTP_USER_AGENT']);
+	 }
+ }
+
+$token = getToken();
+session_name($token);
+
+// inicia a sessão.
 session_start();
+
+// coloca o token na sessão.
+$_SESSION['token'] = $token;
+
+/**
+ * Valida o token da sessão atual. Basta incluir a função em todo inicio de tela
+ * para validar a sessão antes de iniciar uma programa ou ação.
+ *
+ * @param bool - se for true, mata a sessão por completo
+ * @param String - se informado, faz o redirencionamento para url informada.
+ * @return bool
+ *
+ * Adicionado em 05/05/2016 por Luiz Schmitt <lzschmitt@gmail.com>
+ */
+ if(!function_exists('validar_token')) {
+	function validar_token($force = false, $url = null) {
+		$bool = ($_SESSION['token'] === getToken()) ? true : false;
+
+		if($bool === false) {
+			if($force === true) {
+				session_destroy();
+				($url) ? header("Location: {$url}") : false;
+			}
+			return false;
+		} else {
+			return true;
+		}
+	}
+}
+
+/**
+ * Forma para visualizar melhor a saida de debug.
+ *
+ * @param String
+ * @param bool
+ * @return String
+ *
+ * Adicionado em 05/05/2016 por Luiz Schmitt <lzschmitt@gmail.com>
+ */
+if(!function_exists('dd')) {
+	function dd($var, $die = false) {
+		echo '<pre style="color:red">', var_dump($var) ,'</pre>';
+
+		($die) ? die('Debug VO - parada forçada!') : false;
+	}
+}
+//
+
+// se alguem alterar a sessão indevidamente, finaliza o acesso por segurança!
+validar_token(true);
 
 include dirname( __FILE__ ) . '/config.php';
 
-#$urlAmbiente = "http://" . $_SERVER[HTTP_HOST];
 $url = 'http://' . $_SERVER['HTTP_HOST'] . $projeto;
 $path = $_SERVER['DOCUMENT_ROOT'] . $projeto;
-
 
 $urlcss = $url . 'css/';
 $urlimg = $url . 'img/';
@@ -34,14 +100,7 @@ $smarty->cache_dir = $path . 'cache/';
 $smarty->force_compile = 'true';
 $smarty->compile_check = 'true';
 
-$srv = array(
-	'daraa',
-	'cruxati',
-	'apuau',
-	'liberdade'
-	);
-
-//(!in_array(gethostname(), $srv) || (gethostname(), '') ? $smarty->debugging = 'true' : false;
+// Debug do Smarty
 (in_array(gethostname(), $dev) && (gethostname() != 'daraa')) ? $smarty->debugging = 'true' : false;
 
 //Mes por extenso
@@ -65,16 +124,15 @@ if (!$_SESSION['usuario'] && $projeto . "src/autenticacao/index.php" != $_SERVER
 }
 
 //Topo Bem vindo usuario
-
 if ($usuario) {
-	$smarty->assign("msgAuthLeft", "Bem vindo, " . $_SESSION['NOME']
+	$topo = "Bem vindo, " . $_SESSION['NOME'] . "&nbsp;&nbsp;-&nbsp;&nbsp;" . $txBanco
 		. "&nbsp;&nbsp;&nbsp;&nbsp;<a href='" . $url . "src/autenticacao/trocaSenha.php'><img src='" . $urlimg . "topo/senha.png' /></a>"
-		. "&nbsp;&nbsp;&nbsp;&nbsp;<a href='" . $url . "src/autenticacao/logout.php'><img src='" . $urlimg . "topo/sair.png' /></a>"
-		. "&nbsp;&nbsp;&nbsp;&nbsp;<a href='$urlAmbiente'><img src='" . $urlimg . "topo/home.png' /></a>");
+		. "&nbsp;&nbsp;&nbsp;&nbsp;<a href='" . $url . "src/autenticacao/logout.php'><img src='" . $urlimg . "topo/sair.png' /></a>";
 } else {
-	$smarty->assign("msgAuthLeft", "<a href='" . $url . "'><img src='" . $urlimg . "topo/entrar.png' /></a>"
-		. "&nbsp;&nbsp;&nbsp;&nbsp;<a href='$urlAmbiente'><img src='" . $urlimg . "topo/home.png' /></a>");
+	$topo = "<a href='" . $url . "'><img src='" . $urlimg . "topo/entrar.png' /></a>";
 }
+$smarty->assign("msgAuthLeft", $topo . "&nbsp;&nbsp;&nbsp;&nbsp;<a href='" . $urlAmbiente . "'><img src='" . $urlimg . "topo/home.png'/></a>");
+
 
 @$nomeArquivo = array_shift(explode(".", array_pop(explode("/", $_SERVER['SCRIPT_NAME']))));
 
@@ -91,6 +149,7 @@ if(file_exists($path."/log")) {
 	//FECHA  O PONTEIRO DO ARQUIVO
 	fclose ($ponteiro);
 
+	// (in_array(gethostname(), $dev) || in_array(gethostname(), $hom)) ? $smarty->assign("log", $log) : false;
 	(!in_array(gethostname(), $prd)) ? $smarty->assign("log", $log) : false;
 }
 
@@ -99,4 +158,5 @@ $smarty->assign("titulo", $titulo);
 $smarty->assign("urlimg", $urlimg);
 $smarty->assign("url", $url);
 $smarty->assign("arrayMesExtenso", $arrayMesExtenso);
+
 ?>

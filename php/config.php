@@ -17,6 +17,7 @@ $dev = array(
 	'DSIS-4021',
 	'DSIS-4019',
 	'DSIS-4002',
+	'DSIS-4029',
 	'chappie',
 	'smith-inspiron',
 	'smith-Inspiron-5547',
@@ -35,17 +36,20 @@ $prd = array(
 
 if (in_array(gethostname(), $dev)) {
 	$ipBanco = "172.18.1.160:1521/pmmdev";
+	$txBanco = 'Desenvolvimento';
 	$projeto = "/semad/" . $system . "/";
 	$urlAmbiente = "http://" . $_SERVER['HTTP_HOST'] . "/semad/";
 } else {
 	if (in_array(gethostname(), $hom)) {
 		$ipBanco = "172.18.1.160:1521/pmmhom";
+		$txBanco = 'Homologação';
 		$projeto = "/sistemaspmm/" . $system . "/";
 		$urlAmbiente = "http://" . $_SERVER['HTTP_HOST'] . "/sistemaspmm/";
 	} else {
 		$ipBanco = "172.18.0.33:1521/pmm";
+		$txBanco = 'Produção';
 		$projeto = "/" . $system . "/";
-		$urlAmbiente = "http://" . $_SERVER['HTTP_HOST'];
+		$urlAmbiente = "http://" . $_SERVER['HTTP_HOST'] . "/";
 	}
 }
 
