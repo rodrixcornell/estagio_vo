@@ -1,4 +1,4 @@
-<div id="linhaTopo">
+<div id="linhaTopo" style="text-transform: uppercase;">
     <table width="100%" border="0">
         <tr id="msgTopo">
           <td id="msgLeft">
