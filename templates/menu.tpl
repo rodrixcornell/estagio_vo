@@ -11,23 +11,24 @@
                     <li><a href="{$url}src/instituicao/?s=1"><span>6-Instituição de Ensino</span></a></li>
                     <li><a href="{$url}src/instituicao_estagio/?s=1"><span>7-Instituição de Estágio</span></a></li>
                     <li><a href="{$url}src/supervisor/?s=1"><span>8-Supervisor de Estágio</span></a></li>
-                    <li><a href="{$url}src/quadro_vagas/?s=1" ><span>9-Quadro de Vagas</span></a></li>
-                    <li><a href="{$url}src/transferencia/?s=1"><span>4-Transferência de Vagas</span></a></li>
                  </ul>
             </div>
         </li>
 
         <li {if $current == 2}class="current"{/if}><a href="#"><span>Gestão de Estagiário</span></a>
             <div><ul>
-                    <li><a href="{$url}src/solicitacao/?s=1"><span>3-Oferta de Vaga</span></a></li>
+                    <li><a href="{$url}src/quadro_vagas/?s=1" ><span>1-Quadro de Vagas</span></a></li>
                     <li><a href="{$url}src/estagiario/?s=1"><span>2-Estagiário</span></a></li>
-                    <li><a href="{$url}src/selecao/?s=1"><span>6-Seleção de Estagiário</span></a></li>
-                    <li><a href="{$url}src/contrato/?s=1"><span>7-Contrato de Estagiário</span></a></li>
-                    <li><a href="{$url}src/recesso/?s=1"><span>9-Recesso Remunerado</span></a></li>
-                    <li><a href="{$url}src/tr/?s=1"><span>8-Solicitação de TR</span></a></li>
-                    <li><a href="{$url}src/desligamento/?s=1"><span>10-Solicitação de Desligamento</span></a></li>
-                    <li><a href="{$url}src/s_ta/?s=1"><span>11-Solicitação TA</span></a></li>
-                    {*<li><a href="{$url}src/recrutamento/?s=1"><span>5-Recrutamento de Estagiário</span></a></li>*}
+                    <li><a href="{$url}src/solicitacao/?s=1"><span>3-Solicitacao</span></a></li>
+                    <li><a href="{$url}src/oferta_vaga/?s=1"><span>3-Oferta de Vaga</span></a></li>
+                    <li><a href="{$url}src/selecao/?s=1"><span>4-Seleção de Estagiário</span></a></li>
+                    <li><a href="{$url}src/contrato/?s=1"><span>5-Contrato de Estagiário</span></a></li>
+                    <li><a href="{$url}src/recesso/?s=1"><span>6-Recesso de Estagiário</span></a></li>
+                    <li><a href="{$url}src/ta/?s=1"><span>7-TA de Estagiário</span></a></li>
+                    <li><a href="{$url}src/tr/?s=1"><span>8-TR de Estagiário</span></a></li>
+                    <li><a href="{$url}src/desligamento/?s=1"><span>9-Desligamento de Estagiário</span></a></li>
+                    <li><a href="{$url}src/transferencia/?s=1"><span>10-Transferência de Vagas</span></a></li>
+                    {*<li><a href="{$url}src/recrutamento/?s=1"><span>11-Recrutamento de Estagiário</span></a></li>*}
                  </ul>
             </div>
         </li>
