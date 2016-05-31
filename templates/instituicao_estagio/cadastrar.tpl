@@ -23,7 +23,11 @@
 
 
                 <div id="camada" style="width:350px;"> <font color="#FF0000">*</font>E-Mail <font color="#FF0000"> {$validar.TX_EMAIL} </font><br />
-                    <input type="text" name="TX_EMAIL" id="TX_EMAIL"  value="{$VO->TX_EMAIL}" style="width:340px;"/></div>
+                    <input type="text" name="TX_EMAIL" id="TX_EMAIL"  value="{$VO->TX_EMAIL}" style="width:340px;"/></div><br />
+
+
+                    <div id="camada" style="width:350px;"> <font color="#FF0000">*</font>Coordenador <font color="#FF0000"> {$validar.TX_COORDENADOR} </font><br />
+                        <input type="text" name="TX_COORDENADOR" id="TX_COORDENADOR"  value="{$VO->TX_COORDENADOR}" style="width:501px;"/></div>
 
                 </br> <br/>
 

@@ -18,6 +18,7 @@ class RepositorioInstituicao_estagio extends Repositorio {
         A.TX_CNPJ,
         A.CS_SITUACAO,
         A.TX_EMAIL,
+        TX_COORDENADOR,
 		USU_CAD.TX_LOGIN USUARIO_CADASTRO,
 		USU_ATU.TX_LOGIN USUARIO_ATUALIZACAO
         FROM AGENCIA_ESTAGIO A, USUARIO USU_CAD , USUARIO USU_ATU
@@ -45,9 +46,9 @@ class RepositorioInstituicao_estagio extends Repositorio {
    function inserir($VO){
 
         $query = "
-            INSERT INTO AGENCIA_ESTAGIO(ID_AGENCIA_ESTAGIO,TX_AGENCIA_ESTAGIO,DT_CADASTRO,DT_ATUALIZACAO,TX_SIGLA,TX_CNPJ,ID_USUARIO_CADASTRO,ID_USUARIO_ATUALIZACAO,TX_EMAIL,CS_SITUACAO)
+            INSERT INTO AGENCIA_ESTAGIO(ID_AGENCIA_ESTAGIO,TX_AGENCIA_ESTAGIO,DT_CADASTRO,DT_ATUALIZACAO,TX_SIGLA,TX_CNPJ,ID_USUARIO_CADASTRO,ID_USUARIO_ATUALIZACAO,TX_EMAIL,CS_SITUACAO, TX_COORDENADOR)
 						values
-	(SEMAD.F_G_PK_AGENCIA_ESTAGIO(),'".$VO->TX_AGENCIA_ESTAGIO."',sysdate,sysdate,'".$VO->TX_SIGLA."','".$VO->TX_CNPJ."','".$_SESSION["ID_USUARIO"]."','".$_SESSION["ID_USUARIO"]."','".mb_strtolower($VO->TX_EMAIL)."', '1') ";
+	(SEMAD.F_G_PK_AGENCIA_ESTAGIO(),'".$VO->TX_AGENCIA_ESTAGIO."',sysdate,sysdate,'".$VO->TX_SIGLA."','".$VO->TX_CNPJ."','".$_SESSION["ID_USUARIO"]."','".$_SESSION["ID_USUARIO"]."','".mb_strtolower($VO->TX_EMAIL)."', '1', '".$VO->TX_COORDENADOR."') ";
 
         return $this->sql($query);
 
@@ -62,8 +63,11 @@ class RepositorioInstituicao_estagio extends Repositorio {
                                            DT_ATUALIZACAO = SYSDATE,
 					ID_Usuario_Atualizacao = '".$_SESSION["ID_USUARIO"]."',
                                             TX_EMAIL= '".mb_strtolower($VO->TX_EMAIL)."',
-                                            CS_SITUACAO = " . $VO->CS_SITUACAO . "
+                                            CS_SITUACAO = " . $VO->CS_SITUACAO . ",
+                                            TX_COORDENADOR= '" . $VO->TX_COORDENADOR . "'
 			            WHERE  ID_AGENCIA_ESTAGIO = " . $VO->ID_AGENCIA_ESTAGIO;
+
+              //  print_r($query);
         return $this->sql($query);
     }
 

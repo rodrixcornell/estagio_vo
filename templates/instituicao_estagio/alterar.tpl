@@ -43,7 +43,11 @@
             <div id="camada" style="width:400px;"><font color="#FF0000">*</font>Situação <font color="#FF0000">{$validar.CS_SITUACAO} </font><font color="#FF0000"></font><br />
                 <select name="CS_SITUACAO" id="CS_SITUACAO" style="width:150px;"/>
                     {html_options options=$arraySituacao selected=$VO->CS_SITUACAO}
-                </select></div>
+                </select></div><br />
+
+
+                <div id="camada" style="width:350px;"> <font color="#FF0000">*</font>Coordenador <font color="#FF0000"> {$validar.TX_COORDENADOR} </font><br />
+                    <input type="text" name="TX_COORDENADOR" id="TX_COORDENADOR"  value="{$VO->TX_COORDENADOR}" style="width:501px;"/></div>
 
 
             <br /><br />
@@ -53,7 +57,3 @@
         </form>
     </div>
 </div>
-
-
-
-
