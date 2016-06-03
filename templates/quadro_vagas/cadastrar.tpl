@@ -12,7 +12,7 @@
         Para cadastrar um novo Quadro de Vagas preencha o formulário abaixo e clique em Salvar:<br /><br />
 
         <form name="form" action="{$url}src/{$pasta}/cadastrar.php" method="post">
-        
+
         	{$msg}
 
             <div id="camada" style="font-family:Verdana, Geneva, sans-serif; width:210px;">
@@ -21,16 +21,16 @@
                     {html_options options=$pesquisarOrgaogestor selected=$VO->ID_ORGAO_GESTOR_ESTAGIO}
                 </select></div>
             <br />
-
+{*
             <div id="camada" style="font-family:Verdana, Geneva, sans-serif; width:210px;">
                 <font color="#FF0000">*</font>Situação <font color="#FF0000">{$validar.CS_SITUACAO}</font><br />
                 <select name="CS_SITUACAO" id="CS_SITUACAO" style="width:200px;" >
                     {html_options options=$arraySituacao selected=$VO->CS_SITUACAO}
                 </select></div>
-             
-                
+
+*}
                  <div id="camada" style="font-family:Verdana, Geneva, sans-serif; width:297px;">
-                <font color="#FF0000">*</font>Contrato <font color="#FF0000">{$validar.ID_CONTRATO_CP}</font><br />
+                 Contrato <font color="#FF0000">{$validar.ID_CONTRATO_CP}</font><br />
                 <select name="ID_CONTRATO_CP" id="ID_CONTRATO_CP" style="width:287px;">
                     {html_options options=$pesquisaContrato selected=$VO->ID_CONTRATO_CP}
                 </select></div>

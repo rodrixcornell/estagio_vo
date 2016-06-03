@@ -30,7 +30,7 @@ if ($_SESSION['ID_QUADRO_VAGAS_ESTAGIO']) {
 
     if ($_POST) {
 
-		(!$ativo) ? $obrigatorios = 'ID_ORGAO_GESTOR_ESTAGIO,CS_SITUACAO,ID_CONTRATO_CP' : $obrigatorios ='ID_ORGAO_GESTOR_ESTAGIO,ID_CONTRATO_CP';
+		(!$ativo) ? $obrigatorios = 'ID_ORGAO_GESTOR_ESTAGIO,CS_SITUACAO' : $obrigatorios ='ID_ORGAO_GESTOR_ESTAGIO';
 
 		$VO->configuracao();
 		$VO->setCaracteristica($obrigatorios, 'obrigatorios');

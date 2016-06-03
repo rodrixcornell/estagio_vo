@@ -73,8 +73,14 @@ class RepositorioQuadro_vagas extends Repositorio {
 //--------------------------CADASTRAR ------------------------------------------
     function inserir($VO) {
         $queryPK = "select SEMAD.F_G_PK_QUADRO_VAGAS_ESTAGIO() as ID_QUADRO_VAGAS_ESTAGIO from dual";
+          $queryPKS = "select SEMAD.F_G_COD_QUADRO_VAGAS_ESTAGIO() as TX_CODIGO from dual";
+
+      /*  $queryPK = "select SEMAD.F_G_PK_RECESSO_ESTAGIO as ID_RECESSO_ESTAGIO from DUAL";*/
         $this->sqlVetor($queryPK);
         $CodigoPK = $this->getVetor();
+
+        $this->sqlVetor($queryPKS);
+        $CodigoPKS = $this->getVetor();
 
         $query = "INSERT INTO QUADRO_VAGAS_ESTAGIO(ID_QUADRO_VAGAS_ESTAGIO,
                                                    ID_ORGAO_GESTOR_ESTAGIO,
@@ -85,20 +91,21 @@ class RepositorioQuadro_vagas extends Repositorio {
                                                    CS_SITUACAO,
                                                    TX_CODIGO,
                                                    ID_CONTRATO_CP)
-		       values(" . $CodigoPK['ID_QUADRO_VAGAS_ESTAGIO'][0] . ",
-			      	  " . $VO->ID_ORGAO_GESTOR_ESTAGIO . ",
+		       values('" . $CodigoPK['ID_QUADRO_VAGAS_ESTAGIO'][0] . "',
+			      	  '" . $VO->ID_ORGAO_GESTOR_ESTAGIO . "',
 			              SYSDATE,
 				  		  SYSDATE,
-		              " . $_SESSION['ID_USUARIO'] . ",
-			      	  " . $_SESSION['ID_USUARIO'] . ",
-			      	  " . $VO->CS_SITUACAO . ",
-				  		  SEMAD.F_G_COD_QUADRO_VAGAS_ESTAGIO(),
-                      " . $VO->ID_CONTRATO_CP . ")";
-
+		              '" . $_SESSION['ID_USUARIO'] . "',
+			      	  '" . $_SESSION['ID_USUARIO'] . "',
+			      	  '1',
+				  		  '" . $CodigoPKS['TX_CODIGO'][0] . "',
+                    '" . $VO->ID_CONTRATO_CP . "')";
+              
         $retorno = $this->sql($query);
 
         if (!$retorno)
             return $CodigoPK['ID_QUADRO_VAGAS_ESTAGIO'][0];
+            return $CodigoPKS['TX_CODIGO'][0];
     }
 
 	function verificarAtivo($VO) {
