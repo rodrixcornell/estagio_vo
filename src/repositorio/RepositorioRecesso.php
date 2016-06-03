@@ -548,7 +548,7 @@ SELECT
                 " . $codigoOrgaoGestor[0] . "
               )   ";
 
-
+              
         $retorno = $this->sql($query);
 //        echo $query;
         return $retorno ? '' : $CodigoPK['ID_RECESSO_ESTAGIO'][0];

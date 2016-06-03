@@ -27,7 +27,7 @@ if ($_POST) {
 	if (!$ativo){
 
 		$VO->configuracao();
-		$VO->setCaracteristica('ID_ORGAO_GESTOR_ESTAGIO,CS_SITUACAO,ID_CONTRATO_CP', 'obrigatorios');
+		$VO->setCaracteristica('ID_ORGAO_GESTOR_ESTAGIO', 'obrigatorios');
 		$validar = $VO->preencher($_POST);
 
 		if (!$validar)
