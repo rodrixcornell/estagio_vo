@@ -12,6 +12,9 @@ $VO->pesquisarOrgaoGestor();
 $VO->pesquisarOrgaoSolicitante();
     $arrayOrgaoSolicitante = $VO->getArray("TX_ORGAO_ESTAGIO");
 
+$VO->buscarTipoVaga();
+  $arrayTipoVaga = $VO->getArray("TX_TIPO_VAGA_ESTAGIO");
+
 $VO->pesquisarValorBolsa();
     $arrayBolsa = $VO->getArray("NB_VALOR");
 
@@ -32,6 +35,7 @@ $smarty->assign("arraySituacao", $arraySituacao);
 $smarty->assign("arrayOrgaoGestor", $arrayOrgaoGestor);
 $smarty->assign("arrayOrgaoSolicitante", $arrayOrgaoSolicitante);
 $smarty->assign("arrayBolsa", $arrayBolsa);
+$smarty->assign("arrayTipoVaga", $arrayTipoVaga);
 $smarty->assign("arrayEscolaridade", $arrayEscolaridade);
 $smarty->assign("arrayCurso", $arrayCurso);
 $smarty->assign("arraySexo", $arraySexo);
