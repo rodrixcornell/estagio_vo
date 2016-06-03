@@ -25,7 +25,7 @@ if ($_SESSION['ID_AGENCIA_ESTAGIO']) {
 
     if ($_POST) {
         $VO->configuracao();
-        $VO->setCaracteristica('TX_AGENCIA_ESTAGIO,TX_SIGLA,TX_CNPJ,TX_EMAIL,CS_SITUACAO', 'obrigatorios');
+        $VO->setCaracteristica('TX_AGENCIA_ESTAGIO,TX_SIGLA,TX_CNPJ,TX_EMAIL,CS_SITUACAO,TX_COORDENADOR', 'obrigatorios');
         $VO->setCaracteristica('TX_CNPJ', 'cnpjs');
         $VO->setCaracteristica('TX_EMAIL', 'emails');
 
@@ -37,6 +37,7 @@ if ($_SESSION['ID_AGENCIA_ESTAGIO']) {
             $_SESSION['TX_SIGLA'] = $VO->TX_SIGLA;
             $_SESSION['STATUS'] = '*Registro alterado com sucesso!';
             $_SESSION['PAGE'] = '1';
+            $_SESSION['TX_COORDENADOR'] = $VO->TX_COORDENADOR;
             header("Location: " . $url . "src/" . $pasta . "/index.php");
         }
     }
