@@ -149,5 +149,19 @@ class RepositorioOrgao_Gestor extends Repositorio {
         return $this->sql($query);
     }
 
+    function verificarEmail($VO) {
+    $query = "SELECT ID_ORGAO_GESTOR_ESTAGIO,
+NB_EMAIL_GESTOR_ESTAGIO,
+TX_EMAIL
+From
+SEMAD.EMAIL_GESTOR_ESTAGIO
+where ID_ORGAO_GESTOR_ESTAGIO = '" . $VO->ID_ORGAO_GESTOR_ESTAGIO . "'
+AND TX_EMAIL = LOWER('" . $VO->TX_EMAIL . "')";
+
+//dd($query);
+
+return $this->sqlVetor($query);
+    }
+
 }
 ?>

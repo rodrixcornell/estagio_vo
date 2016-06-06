@@ -160,18 +160,24 @@ else if ($_REQUEST['identifier'] == "tabelaEmail") {
     $VO->NB_EMAIL_GESTOR_ESTAGIO = $_REQUEST['NB_EMAIL_GESTOR_ESTAGIO'];
     $VO->TX_EMAIL = $_REQUEST['TX_EMAIL'];
 
+    $email = $VO->verificarEmail();
+    //dd($email,true);
+    if(!$email){
+      if ($acesso) {
+          if ($VO->TX_EMAIL) {
+              $retorno = $VO->inserirEmail();
+              echo '<div style="color:blue;" align="center">Registrado incluido com sucesso.</div>';
+              if ($retorno) {
+                  $erro = 'Registro já existe.';
+              }
+          } else
+              $erro = 'Para inserir preencha o campo E-mail!';
+      } else
+          $erro = "Você não tem permissão para realizar esta ação.";
+    }else{
+      $erro = 'E-mail já existe!';
+    }
 
-    if ($acesso) {
-        if ($VO->TX_EMAIL) {
-            $retorno = $VO->inserirEmail();
-
-            if ($retorno) {
-                $erro = 'Registro já existe.';
-            }
-        } else
-            $erro = 'Para inserir preencha o campo E-mail!';
-    } else
-        $erro = "Você não tem permissão para realizar esta ação.";
 
     gerarTabela($erro);
 }else if ($_REQUEST['identifier'] == 'atualizarInf') {

@@ -3,7 +3,7 @@
         <li {if !$current}class="current"{/if}><a href="{$url}" ><span>Início</span></a></li>
        <li {if $current == 1}class="current"{/if}><a href="#"><span>Cadastro</span></a>
             <div><ul>
-                    <li><a href="{$url}src/orgao_gestor/?s=1" ><span>1-Órgão Gestor</span></a></li>
+                    <li><a href="{$url}src/orgao_gestor/?s=1" ><span>1-Órgão Gestor de Estágio</span></a></li>
                     <li><a href="{$url}src/orgao_solicitante/?s=1"><span>2-Órgão Solicitante</span></a></li>
                     <li><a href="{$url}src/agente_setorial/?s=1"><span>3-Agente Setorial</span></a></li>
                     <li><a href="{$url}src/tipo_estagio/?s=1"><span>4-Tipo de Vaga de Estágio</span></a></li>
