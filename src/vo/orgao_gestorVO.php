@@ -31,6 +31,10 @@ class orgao_gestorVO extends VO{
         return $this->repositorio->excluirEmail($this);
     }
 
+  function verificarEmail(){
+      return $this->repositorio->verificarEmail($this);
+    }
+
 
 }
 ?>

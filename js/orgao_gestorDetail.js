@@ -48,12 +48,16 @@ $(document).ready(function () {
         resp = window.confirm('Tem certeza que deseja excluir este Registro?');
         if (resp) {
             showLoader();
-            $("#tabelaEmail").load('acoes.php?identifier=excluirEmail&NB_EMAIL_GESTOR_ESTAGIO=' + href, emptyHideLoader);
-            alert(NB_EMAIL_GESTOR_ESTAGIO);
+            $("#tabelaEmail").load('acoes.php?identifier=excluirEmail&NB_EMAIL_GESTOR_ESTAGIO=' + href+'&PAGE='+$('.selecionado').text(), emptyHideLoader);
+
         }
         return false;
-    });
 
+
+    });
+    showLoader();
+    $("#tabelaEmail").load('acoes.php?identifier=tabelaEmail', hideLoader);
+});
 
     //Excluir Master
 //	$('#excluirMaster').click(function(){
@@ -69,8 +73,3 @@ $(document).ready(function () {
 //		}
 //
 //	});
-
-
-    showLoader();
-    $("#tabelaEmail").load('acoes.php?identifier=tabelaEmail', hideLoader);
-});
