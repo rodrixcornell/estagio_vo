@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 
 require_once $path . "src/repositorio/Repositorio.php";
 
@@ -6,25 +6,23 @@ class RepositorioAgente_setorial extends Repositorio {
 
     function pesquisarUsuario($VO) {
 
-        $query = "SELECT DISTINCT
-                            V_PERFIL_USUARIO.ID_USUARIO CODIGO,
-                            V_PERFIL_USUARIO.ID_USUARIO ID_USUARIO_RESP,
-                            upper(PESSOA.TX_NOME) TX_FUNCIONARIO,
-                            USUARIO.TX_LOGIN
-                        FROM
-                            V_PERFIL_USUARIO,
-                            USUARIO,
-                            PESSOA
-                        WHERE
-                            V_PERFIL_USUARIO.ID_USUARIO = USUARIO.ID_USUARIO
-                            and USUARIO.ID_PESSOA_FUNCIONARIO = PESSOA.ID_PESSOA
-                            AND V_PERFIL_USUARIO.ID_SISTEMA = 77 ";
+        $query = "SELECT DISTINCT V_PERFIL_USUARIO.ID_USUARIO CODIGO,
+                                  V_PERFIL_USUARIO.ID_USUARIO ID_USUARIO_RESP,
+                                  upper(PESSOA.TX_NOME) TX_FUNCIONARIO,
+                                  USUARIO.TX_LOGIN
+                            FROM V_PERFIL_USUARIO,
+                                  USUARIO,
+                                  PESSOA,
+                                  SEMAD.AGENTE_SETORIAL_ESTAGIO
+                            WHERE V_PERFIL_USUARIO.ID_USUARIO = USUARIO.ID_USUARIO
+                              AND USUARIO.ID_PESSOA_FUNCIONARIO = PESSOA.ID_PESSOA
+                              AND V_PERFIL_USUARIO.ID_USUARIO   = SEMAD.AGENTE_SETORIAL_ESTAGIO.ID_USUARIO
+                              AND V_PERFIL_USUARIO.ID_SISTEMA   = 77";
 
-        $VO->ID_USUARIO ? $query .= " AND V_PERFIL_USUARIO.ID_USUARIO = " . $VO->ID_USUARIO : false;
+        $VO->ID_USUARIO_RESP ? $query .= " AND V_PERFIL_USUARIO.ID_USUARIO = " . $VO->ID_USUARIO_RESP : false;
 
         return $this->sqlVetor($query);
     }
-
 
     function pesquisar($VO) {
 
@@ -41,16 +39,13 @@ class RepositorioAgente_setorial extends Repositorio {
                             AGENTE_SETORIAL_ESTAGIO  C
                             WHERE B.ID_USUARIO = C.ID_USUARIO
                             AND A.ID_UNIDADE_GESTORA=B.ID_UNIDADE_GESTORA
-                            and A.ID_PESSOA_FUNCIONARIO=B.ID_PESSOA_FUNCIONARIO
-
-                            ";
+                            and A.ID_PESSOA_FUNCIONARIO=B.ID_PESSOA_FUNCIONARIO";
 
         ($VO->ID_USUARIO_RESP) ? $query .= " AND B.ID_USUARIO = '" . $VO->ID_USUARIO_RESP . "' " : false;
-        ($VO->TX_FUNCIONARIO) ? $query .= " AND upper(A.TX_FUNCIONARIO) like upper('%" . $VO->TX_FUNCIONARIO . "%') " : false;
+        (!$VO->ID_USUARIO_RESP && $VO->TX_FUNCIONARIO) ? $query .= " AND upper(A.TX_FUNCIONARIO) like upper('%". trim($VO->TX_FUNCIONARIO) ."%') " : false;
 
-
+      //  print_r($query);
         $query .= " ORDER BY c.DT_ATULIZACAO desc, c.DT_CADASTRO desc, A.TX_FUNCIONARIO";
-
 
         if ($VO->Reg_quantidade) {
             !$VO->Reg_inicio ? $VO->Reg_inicio = 0 : false;
@@ -104,6 +99,29 @@ class RepositorioAgente_setorial extends Repositorio {
 
         return $this->sqlVetor($query);
     }
+
+    function buscarUsuario($VO) {
+
+        $query = "SELECT DISTINCT
+                            V_PERFIL_USUARIO.ID_USUARIO CODIGO,
+                            V_PERFIL_USUARIO.ID_USUARIO ID_USUARIO_RESP,
+                            upper(PESSOA.TX_NOME) TX_FUNCIONARIOP,
+                            USUARIO.TX_LOGIN
+                        FROM
+                            V_PERFIL_USUARIO,
+                            USUARIO,
+                            PESSOA
+                        WHERE
+                            V_PERFIL_USUARIO.ID_USUARIO = USUARIO.ID_USUARIO
+                            AND V_PERFIL_USUARIO.ID_USUARIO  NOT IN (SELECT A.ID_USUARIO FROM AGENTE_SETORIAL_ESTAGIO A)
+                            and USUARIO.ID_PESSOA_FUNCIONARIO = PESSOA.ID_PESSOA
+                            AND V_PERFIL_USUARIO.ID_SISTEMA = 77";
+        $VO->ID_USUARIO_RESP ? $query .= " AND V_PERFIL_USUARIO.ID_USUARIO = " . $VO->ID_USUARIO_RESP : false;
+  //dd($query, true);
+  $query.=" ORDER BY TX_FUNCIONARIOP";
+        return $this->sqlVetor($query);
+    }
+
 
     function buscarUnidades($VO) {
 

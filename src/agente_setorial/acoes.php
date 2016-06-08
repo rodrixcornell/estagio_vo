@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 include "../../php/define.php";
 require_once $pathvo . "agente_setorialVO.php";
 
@@ -160,14 +160,24 @@ if ($_REQUEST['identifier'] == "tabela") {
     }
 } else if ($_REQUEST['identifier'] == "buscarNome") {
 
-    $VO->ID_USUARIO = $_REQUEST['ID_USUARIO_RESP'];
+    $VO->ID_USUARIO_RESP = $_REQUEST['ID_USUARIO_RESP'];
+
+    $VO->buscarUsuario();
+    $dados = $VO->getVetor();
+
+
+
+    echo $dados['TX_FUNCIONARIOP'][0];
+} else if ($_REQUEST['identifier'] == "buscarNomePesq") {
+
+    $VO->ID_USUARIO_RESP = $_REQUEST['ID_USUARIO_RESP'];
 
     $VO->pesquisarUsuario();
     $dados = $VO->getVetor();
 
 
 
-    echo $dados['TX_FUNCIONARIO'][0];
+    echo $dados['TX_FUNCIONARIOP'][0];
 } else if ($_REQUEST['identifier'] == "tabelaUnidade") {
     gerarTabela();
 } else if ($_REQUEST['identifier'] == "inserirOrgao") {
@@ -181,11 +191,14 @@ if ($_REQUEST['identifier'] == "tabela") {
 
             if ($retorno) {
                 $erro = 'Registro já existe.';
-            }
+
+            }else echo '<div style="color:blue;" align="center">Registro incluido com sucesso.</div>';
+
         }else
             $erro = 'Para inserir escolha uma Unidade Solicitante.';
     }else
         $erro = "Você não tem permissão para realizar esta ação.";
+
 
     gerarTabela($erro);
 }else if ($_REQUEST['identifier'] == 'atualizarInf') {

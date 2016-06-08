@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 require_once "../../php/define.php";
 require_once $pathvo."agente_setorialVO.php";
 

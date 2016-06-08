@@ -39,6 +39,10 @@ class agente_setorialVO extends VO{
         return $this->repositorio->excluirOrgao($this);
     }
 
+  function buscarUsuario(){
+        return $this->repositorio->buscarUsuario($this);
+  }
+
 
 }
 ?>

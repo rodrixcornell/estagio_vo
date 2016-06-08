@@ -166,7 +166,7 @@ else if ($_REQUEST['identifier'] == "tabelaEmail") {
       if ($acesso) {
           if ($VO->TX_EMAIL) {
               $retorno = $VO->inserirEmail();
-              echo '<div style="color:blue;" align="center">Registrado incluido com sucesso.</div>';
+              echo '<div style="color:blue;" align="center">Registro incluido com sucesso.</div>';
               if ($retorno) {
                   $erro = 'Registro já existe.';
               }

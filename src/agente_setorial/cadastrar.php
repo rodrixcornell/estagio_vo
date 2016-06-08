@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 require_once "../../php/define.php";
 require_once $path."src/agente_setorial/arrays.php";
 require_once $pathvo."agente_setorialVO.php";
@@ -26,6 +26,9 @@ if($_POST){
 	(!$validar) ? $id_pk = $VO->inserir() : false;
 
     if (!$validar) {
+
+        $_SESSION['ID_SETORIAL_ESTAGIO'] = $VO->ID_SETORIAL_ESTAGIO;
+        $_SESSION['STATUS'] = '*Registro inserido com sucesso!';
         $_SESSION['ID_SETORIAL_ESTAGIO'] = $id_pk;
 		header("Location: ".$url."src/".$pasta."/detail.php");
     }
