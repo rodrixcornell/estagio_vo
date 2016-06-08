@@ -166,7 +166,26 @@ if ($_REQUEST['identifier'] == "tabela") {
     }else {
         echo '<div id="nao_encontrado">Nenhum registro encontrado.</div>';
     }
-} else if ($_REQUEST['identifier'] == "tabelaUnidade") {
+}else if ($_REQUEST['identifier'] == "item") {
+
+    $VO->ID_UNIDADE_ORG = $_REQUEST['extraParam'];
+    $VO->TX_UNIDADE_ORGANIZACIONAL = str_replace("'", "", $_REQUEST['query']);
+    if (strlen($VO->TX_UNIDADE_ORGANIZACIONAL) > 3) {
+        $total = $VO->buscarUnid();
+
+        if ($total && $VO->TX_UNIDADE_ORGANIZACIONAL) {
+            $dados = $VO->getVetor();
+            echo '<ul>' . "\n";
+            for ($i = 0; $i < $total; $i++) {
+                $p = $dados['TX_UNIDADE_ORGANIZACIONAL'][$i];
+                $p = preg_replace('/(' . $_REQUEST['query'] . ')/i', '<span style="font-weight:bold;">$1</span>', $p);
+                echo "\t" . '<li id="autocomplete_' . $dados['ID_UNIDADE_ORG'][$i] . '" rel="' . $dados['ID_UNIDADE_ORG'][$i] . '_' . $dados['TX_UNIDADE_ORGANIZACIONAL'][$i] . '">' . $p . '</li>' . "\n";
+            }
+            echo '</ul>';
+        }
+    }
+
+}else if ($_REQUEST['identifier'] == "tabelaUnidade") {
     gerarTabela();
 
 }else if ($_REQUEST['identifier'] == 'alterar') {

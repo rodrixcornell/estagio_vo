@@ -18,5 +18,9 @@ class orgao_solicitanteVO extends VO{
         return $this->repositorio->pesquisarOrgaoSolicitante($this);
     }
 
+  function buscarUnid(){
+      return$this->repositorio->buscarUnid($this);
+  }
+
 }
 ?>

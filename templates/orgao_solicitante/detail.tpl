@@ -3,7 +3,7 @@
     <div id="titulo">{$titulopage}</div>
 
     <br /><br /><br /><hr />
-	
+
     <div id="conteudo">
 
         <form name="form" action="{$url}src/{$pasta}/excluir.php" method="post" >
@@ -15,18 +15,18 @@
                         <td style="width:350px;">{$dados.TX_ORGAO_ESTAGIO[0]}</td>
                         <td><strong>Situação</strong></td>
                         <td style="text-align:right;">{$dados.TX_STATUS[0]}</td>
-                        
+
                     </tr>
-                                 
+
                      <tr bgcolor="#E0E0E0">
                         <td style="width:125px;"><strong>Unidade Organizacional</strong></td>
                         <td style="width:350px;">{$dados.TX_UNIDADE_ORGANIZACIONAL[0]}</td>
                         <td><strong>CNPJ</strong></td>
                         <td style="text-align:right;">{$dados.TX_CNPJ[0]}</td>
-                        
+
                     </tr>
-                    
-                
+
+
                     <tr bgcolor="#E0E0E0">
                         <td><strong>Cadastrado por</strong></td>
                         <td>{$dados.TX_USUARIO_CAD[0]}</td>
@@ -49,12 +49,12 @@
         </form>
 
         <div class="fundo_pag"><img src="{$urlimg}icones/loader.gif" alt=""></div>
-        
+
 	<fieldset>
-    	<legend>Agentes Autorizados</legend>
+    	<legend>Agente Setorial</legend>
         <div id="tabelaUnidade"></div>
  	</fieldset>
-        
+
         <div id="botoesInferiores">
             <a href="{$url}src/{$pasta}/index.php"><img src="{$urlimg}icones/voltar.png" alt="Voltar" title="Voltar" class="voltar" /></a>
             <a href="{$url}src/{$pasta}/index.php"><img src="{$urlimg}icones/finalizar.png" alt="Finalizar" title="Finalizar" class="finalizar"/></a>

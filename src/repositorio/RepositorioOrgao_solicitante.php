@@ -28,7 +28,7 @@ class RepositorioOrgao_solicitante extends Repositorio {
                          UNIDADE_ORG B
                    WHERE A.ID_UNIDADE_ORG = B.ID_UNIDADE_ORG ";
 
-        ($VO->ID_UNIDADE_ORG) ? $query .= " AND a.ID_UNIDADE_ORG = '" . $VO->ID_UNIDADE_ORG . "' " : false;
+        ($VO->TX_UNIDADE_ORG) ? $query .= " AND upper(a.TX_UNIDADE_ORG) like upper('%" . $VO->TX_UNIDADE_ORG . "%') " : false;
         ($VO->TX_ORGAO_ESTAGIO) ? $query .= " AND upper(a.TX_ORGAO_ESTAGIO) like upper('%" . $VO->TX_ORGAO_ESTAGIO . "%') " : false;
         ($VO->CS_STATUS) ? $query .= " AND a.CS_STATUS = '" . $VO->CS_STATUS . "' " : false;
 
@@ -103,6 +103,38 @@ values  (" . $CodigoPK['ID_ORGAO_ESTAGIO'][0] . ",
        AND U_CAD.ID_PESSOA_FUNCIONARIO = P_CAD.ID_PESSOA
        AND U_ALT.ID_PESSOA_FUNCIONARIO = P_ALT.ID_PESSOA
        AND OE.ID_ORGAO_ESTAGIO =" . $_SESSION['ID_ORGAO_ESTAGIO'];
+
+        return $this->sqlVetor($query);
+    }
+
+
+    function buscarUnid($VO) {
+
+        $query = "SELECT OE.ID_ORGAO_ESTAGIO,
+       OE.TX_ORGAO_ESTAGIO,
+       TO_CHAR(OE.DT_CADASTRO, 'DD/MM/YYYY hh24:mi:ss') DT_CADASTRO,
+       TO_CHAR(OE.DT_ATUALIZACAO, 'DD/MM/YYYY hh24:mi:ss') DT_ATUALIZACAO,
+       OE.ID_UNIDADE_ORG,
+       OE.CS_STATUS, DECODE(CS_STATUS, 1,'ATIVADO', 2,'DESATIVADO')TX_STATUS,
+       OE. TX_CNPJ,
+       OE.ID_USUARIO_CADASTRO,
+       OE.ID_USUARIO_ATUALIZACAO,
+       (UO.TX_SIGLA_UNIDADE || ' - ' || UO.TX_UNIDADE_ORG) TX_UNIDADE_ORGANIZACIONAL,
+       P_CAD.TX_NOME TX_USUARIO_CAD,
+       P_ALT.TX_NOME TX_USUARIO_ALT,
+       U_CAD.tx_login TX_LOGIN_CAD,
+       U_ALT.tx_login TX_LOGIN_ALT
+  FROM ORGAO_ESTAGIO OE,
+       UNIDADE_ORG UO,
+       USUARIO U_CAD,
+       USUARIO U_ALT,
+       PESSOA P_CAD,
+       PESSOA P_ALT
+ WHERE OE.ID_UNIDADE_ORG = UO.ID_UNIDADE_ORG
+       AND OE.ID_USUARIO_CADASTRO = U_CAD.ID_USUARIO
+       AND OE.ID_USUARIO_ATUALIZACAO = U_ALT.ID_USUARIO
+       AND U_CAD.ID_PESSOA_FUNCIONARIO = P_CAD.ID_PESSOA
+       AND U_ALT.ID_PESSOA_FUNCIONARIO = P_ALT.ID_PESSOA";
 
         return $this->sqlVetor($query);
     }

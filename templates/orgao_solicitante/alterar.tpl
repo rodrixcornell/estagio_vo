@@ -38,7 +38,7 @@
                 <input type="text" name="DT_ATUALIZACAO" id="DT_ATUALIZACAO" value="{$VO->DT_ATUALIZACAO}" style="width:150px;" class="leitura" readonly="readonly" /></div>
 
             <div id="camada" style="font-family:Verdana, Geneva, sans-serif; width:310px;">
-                </font>CNPJ <font color="#FF0000">{$validar.TX_CNPJ}</font><br />
+              <font color="#FF0000">*</font>CNPJ <font color="#FF0000">{$validar.TX_CNPJ}</font><br />
                 <input type="text" name="TX_CNPJ" id="TX_CNPJ" value="{$VO->TX_CNPJ}" style="width:300px;" /></div>
 
             <div id="camada" style="font-family:Verdana, Geneva, sans-serif; width:410px;">
