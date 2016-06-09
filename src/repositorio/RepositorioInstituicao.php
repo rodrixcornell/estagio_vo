@@ -35,12 +35,13 @@ class RepositorioInstituicao extends Repositorio {
         $this->sqlVetor($queryPK);
         $CodigoPK = $this->getVetor();
 
-        $query = "INSERT INTO INSTITUICAO_ENSINO(ID_INSTITUICAO_ENSINO,TX_INSTITUICAO_ENSINO,TX_SIGLA)
-			       values("
-                . "'" . $CodigoPK['ID_INSTITUICAO_ENSINO'][0] . "'"
-                . ", '" . $VO->TX_INSTITUICAO_ENSINO . "'"
-                . ", UPPER('" . $VO->TX_SIGLA . "')"
-                . " )";
+        $query = "INSERT INTO INSTITUICAO_ENSINO
+                            (ID_INSTITUICAO_ENSINO,
+                            TX_INSTITUICAO_ENSINO,
+                            TX_SIGLA)
+			       values('" . $CodigoPK['ID_INSTITUICAO_ENSINO'][0] . "',
+                    '" . $VO->TX_INSTITUICAO_ENSINO . "',
+                       UPPER('" . $VO->TX_SIGLA . "'))";
 
         $retorno = $this->sql($query);
         if (!$retorno)

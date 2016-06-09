@@ -10,9 +10,9 @@
         <form name="form" action="{$url}src/{$pasta}/cadastrar.php" method="post">
 
 
-            <div id="camada" style="font-family:Verdana, Geneva, sans-serif; width:410px;">
-                <font color="#FF0000">*</font>Nome da Instituição <font color="#FF0000">{$validar.TX_INSTITUICAO_ENSINO}</font><br />
-                <input type="text" name="TX_INSTITUICAO_ENSINO" id="TX_INSTITUICAO_ENSINO" value="{$VO->TX_INSTITUICAO_ENSINO}" style="width:400px;" /></div>
+          <div id="camada" style="font-family:Verdana, Geneva, sans-serif; width:400px;">
+              <font color="#FF0000">*</font>Instituição de Ensino<font color="#FF0000">{$validar.TX_INSTITUICAO_ENSINO}</font><br />
+              <input type="text" name="TX_INSTITUICAO_ENSINO" id="TX_INSTITUICAO_ENSINO" value="{$VO->TX_INSTITUICAO_ENSINO}" style="width:400px;" /></div>
 
             <br />
 

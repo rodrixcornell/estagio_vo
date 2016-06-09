@@ -93,7 +93,25 @@ $VO = new instituicaoVO();
 
 if ($_REQUEST['identifier'] == "tabela") {
 	gerarTabela($erro);
-} else if ($_REQUEST['identifier'] == 'excluir') {
+} else if ($_REQUEST['identifier'] == "instituicao") {
+
+    $VO->TX_INSTITUICAO_ENSINO = str_replace("'", "", $_REQUEST['query']);
+
+    if (strlen($VO->TX_INSTITUICAO_ENSINO) > 3) {
+        $total = $VO->pesquisar();
+
+        if ($total && $VO->TX_INSTITUICAO_ENSINO) {
+            $dados = $VO->getVetor();
+            echo '<ul>' . "\n";
+            for ($i = 0; $i < $total; $i++) {
+                $p = $dados['TX_INSTITUICAO_ENSINO'][$i];
+                $p = preg_replace('/(' . $_REQUEST['query'] . ')/i', '<span style="font-weight:bold;">$1</span>', $p);
+                echo "\t" . '<li id="autocomplete_' . $dados['ID_INSTITUICAO_ENSINO'][$i] . '" rel="' . $dados['ID_INSTITUICAO_ENSINO'][$i] . '_' . $dados['TX_NOME'][$i] . '">' . $p . '</li>' . "\n";
+            }
+            echo '</ul>';
+        }
+    }
+}else if ($_REQUEST['identifier'] == 'excluir') {
 	$VO->ID_INSTITUICAO_ENSINO = $_REQUEST['ID_INSTITUICAO_ENSINO'];
 
 	if ($acesso){
