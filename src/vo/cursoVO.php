@@ -14,6 +14,9 @@ class cursoVO extends VO {
         return $this->repositorio->pesquisarAreaConhecimento($this);
     }
 
+    function buscarCurso() {
+        return $this->repositorio->buscarCurso($this);
+    }
 
 
 }

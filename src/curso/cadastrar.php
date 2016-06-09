@@ -20,14 +20,15 @@ $VO = new cursoVO();
 
 if ($_POST) {
     $VO->configuracao();
-    $VO->setCaracteristica('TX_CURSO_ESTAGIO,CS_AREA_CONHECIMENTO', 'obrigatorios');
+    $VO->setCaracteristica('TX_CURSO_ESTAGIO,CS_AREA_CONHECIMENTO','obrigatorios');
     $validar = $VO->preencher($_POST);
 
     (!$validar) ? $id_pk = $VO->inserir() : false;
 
     if (!$validar) {
-        $_SESSION['TX_CURSO_ESTAGIO'] = $VO->TX_CURSO_ESTAGIO;
-        $_SESSION['CS_AREA_CONHECIMENTO'] = $VO->CS_AREA_CONHECIMENTO;
+        $_SESSION['ID_CURSO_ESTAGIO']=$id_pk;
+        //$_SESSION['TX_CURSO_ESTAGIO'] = $VO->TX_CURSO_ESTAGIO;
+      //  $_SESSION['CS_AREA_CONHECIMENTO'] = $VO->CS_AREA_CONHECIMENTO;
         $_SESSION['STATUS'] = '*Registro inserido com sucesso!';
         $_SESSION['PAGE'] = '1';
         header("Location: " . $url . "src/" . $pasta . "/index.php");
