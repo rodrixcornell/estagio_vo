@@ -90,7 +90,8 @@ values  (" . $CodigoPK['ID_ORGAO_ESTAGIO'][0] . ",
        P_CAD.TX_NOME TX_USUARIO_CAD,
        P_ALT.TX_NOME TX_USUARIO_ALT,
        U_CAD.tx_login TX_LOGIN_CAD,
-       U_ALT.tx_login TX_LOGIN_ALT
+       U_ALT.tx_login TX_LOGIN_ALT,
+       UO.TX_UNIDADE_ORG
   FROM ORGAO_ESTAGIO OE,
        UNIDADE_ORG UO,
        USUARIO U_CAD,

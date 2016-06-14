@@ -11,7 +11,7 @@
 
             <div id="camada" style="font-family:Verdana, Geneva, sans-serif; width:410px;">
                 <font color="#FF0000">*</font>Órgão Solicitante <font color="#FF0000">{$validar.TX_ORGAO_ESTAGIO}</font><br />
-                <input type="text" name="TX_ORGAO_ESTAGIO" id="TX_ORGAO_ESTAGIO" value="{$VO->TX_ORGAO_ESTAGIO}" style="width:400px;" /></div>
+                <input type="text" name="TX_ORGAO_ESTAGIO" id="TX_ORGAO_ESTAGIO" value="{$VO->TX_ORGAO_ESTAGIO}" style="width:400px;"  class="leitura" readonly="readonly" /></div>
 
             <div id="camada" style="font-family:Verdana, Geneva, sans-serif; width:160px;">
                 Usuário do Cadastro <font color="#FF0000">{$validar.TX_USUARIO_CAD}</font><br />
@@ -24,10 +24,10 @@
             <br />
 
             <div id="camada" style="font-family:Verdana, Geneva, sans-serif; width:410px;">
-                <font color="#FF0000">*</font>Unidade Organizacional <font color="#FF0000">{$validar.ID_UNIDADE_ORG}</font><br />
-                <select name="ID_UNIDADE_ORG" id="ID_UNIDADE_ORG" style="width:400px;">
-                    {html_options options=$pesquisarOrgaoSolicitante selected=$VO->ID_UNIDADE_ORG}
-                </select></div>
+                <font color="#FF0000">*</font>Unidade Organizacional <font color="#FF0000">{$validar.TX_UNIDADE_ORG}</font><br />
+                <input type="text" name="TX_UNIDADE_ORG" id="TX_UNIDADE_ORG" value="{$VO->TX_UNIDADE_ORG} "style="width:400px;" class="leitura" readonly="readonly" />
+                    {*html_options options=$pesquisarOrgaoSolicitante selected=$VO->ID_UNIDADE_ORG*}
+                </div>
 
             <div id="camada" style="font-family:Verdana, Geneva, sans-serif; width:160px;">
                 Usuário da Atualização <font color="#FF0000">{$validar.TX_LOGIN_ALT}</font><br />
@@ -39,7 +39,7 @@
 
             <div id="camada" style="font-family:Verdana, Geneva, sans-serif; width:310px;">
               <font color="#FF0000">*</font>CNPJ <font color="#FF0000">{$validar.TX_CNPJ}</font><br />
-                <input type="text" name="TX_CNPJ" id="TX_CNPJ" value="{$VO->TX_CNPJ}" style="width:300px;" /></div>
+                <input type="text" name="TX_CNPJ" id="TX_CNPJ" value="{$VO->TX_CNPJ}" style="width:300px;" class="leitura" readonly="readonly" /></div>
 
             <div id="camada" style="font-family:Verdana, Geneva, sans-serif; width:410px;">
                 <font color="#FF0000">*</font>Situação <font color="#FF0000">{$validar.CS_STATUS}</font><br />
