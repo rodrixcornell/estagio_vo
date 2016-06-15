@@ -7,7 +7,7 @@ $(document).ready(function(){
     function hideLoader(){
         $('.fundo_pag').fadeOut(200);
     };
-
+/*
     $.widget( "ui.combobox", {
         _create: function() {
             var input,
@@ -137,19 +137,35 @@ $(document).ready(function(){
 
     $( "#TX_INSTITUICAO_ENSINO" ).combobox();
 
+  */
 
-
-// Pesquisar por unidade 
+// Pesquisar por unidade
     $('#pesquisar').click(function(){
         showLoader();
 	    $('#tabela').load('acoes.php?identifier=tabela',{TX_INSTITUICAO_ENSINO:$('#TX_INSTITUICAO_ENSINO').val(),TX_SIGLA:$('#TX_SIGLA').val()}, hideLoader);
         return false;
     });
-  
+
+
+  $('#TX_INSTITUICAO_ENSINO').simpleAutoComplete('acoes.php', {
+      autoCompleteClassName: 'autocomplete',
+      selectedClassName: 'sel',
+      identifier: 'instituicao'
+  }, instituicaoCallback);
+
+  function instituicaoCallback(par) {
+      $("#ID_INSTITUICAO_ENSINO").val(par[0]);
+  }
+
+
+
 //Paginacao
 $("#paginacao li").live('click', function(){
  showLoader();
- $("#tabela").load('acoes.php?identifier=tabela&PAGE='+this.id,{TX_INSTITUICAO_ENSINO:$('#TX_INSTITUICAO_ENSINO').val(),TX_SIGLA:$('#TX_SIGLA').val()}, hideLoader);
+ $("#tabela").load('acoes.php?identifier=tabela&PAGE='+this.id,{
+   TX_INSTITUICAO_ENSINO:$('#TX_INSTITUICAO_ENSINO').val(),
+   TX_SIGLA:$('#TX_SIGLA').val()
+   }, hideLoader);
  return false;
 });
 
@@ -163,7 +179,7 @@ $("#alterar").live('click', function(){
 
 //Excluir
    $('#excluir').live('click', function(){
-		
+
 		resp = window.confirm('Tem certeza que deseja excluir este Registro?');
 		if (resp){
 		   showLoader();
@@ -174,7 +190,7 @@ $("#alterar").live('click', function(){
 				PAGE:$('.selecionado').text()
 			}, hideLoader);
 		}
-					
+
 		return false;
 	});
 

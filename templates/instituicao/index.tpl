@@ -15,16 +15,20 @@
     <br />
 
 
-    <div id="camada" style="width:145px;"><strong>Nome da Instituição:</strong><font color="#FF0000"> {$validar.TX_INSTITUICAO_ENSINO} </font> </div>
+  {*  <div id="camada" style="width:145px;"><strong>Nome da Instituição:</strong><font color="#FF0000"> {$validar.TX_INSTITUICAO_ENSINO} </font> </div>
     <select name="TX_INSTITUICAO_ENSINO" id="TX_INSTITUICAO_ENSINO" style="width:600px;">
         {html_options options=$arrayInstituicoes}
     </select><br />
-        {*<input type="text" name="TX_INSTITUICAO_ENSINO" id="TX_INSTITUICAO_ENSINO" value="{$VO->TX_INSTITUICAO_ENSINO}" style="width:500px;"/>*}
+        <input type="text" name="TX_INSTITUICAO_ENSINO" id="TX_INSTITUICAO_ENSINO" value="{$VO->TX_INSTITUICAO_ENSINO}" style="width:400px;"/>*}
+
+        <div id="camada" style="font-family:Verdana, Geneva, sans-serif; width:200px;"><strong>Nome da Instituição: </strong></div>
+        <input type="text" name="TX_INSTITUICAO_ENSINO" id="TX_INSTITUICAO_ENSINO" value="{$VO->TX_INSTITUICAO_ENSINO}" autocomplete="off" style="width:470px;" />
+        <input type="hidden" name="ID_INSTITUICAO_ENSINO" id="ID_INSTITUICAO_ENSINO" value="{$VO->ID_INSTITUICAO_ENSINO}" />
     <br />
 
 
-    <div id="camada" style="width:145px;"><strong>Sigla da instituição:</strong><font color="#FF0000"> {$validar.TX_SIGLA} </font> </div>
-    <input type="text" name="TX_SIGLA" id="TX_SIGLA" value="{$VO->TX_SIGLA}" style="width:200px;"/> 
+    <div id="camada" style="width:200px;"><strong>Sigla da instituição:</strong><font color="#FF0000"> {$validar.TX_SIGLA} </font> </div>
+    <input type="text" name="TX_SIGLA" id="TX_SIGLA" value="{$VO->TX_SIGLA}" style="width:200px;"/>
     <br />
 
     <br />
@@ -40,7 +44,7 @@
 				   TX_INSTITUICAO_ENSINO:"{$VO->TX_INSTITUICAO_ENSINO}",
 				   TX_SIGLA:             "{$VO->TX_SIGLA}",
 				   PAGE:"{$VO->PAGE}"
-				}, hideLoader); 
+				}, hideLoader);
 			}
         });
     </script>
