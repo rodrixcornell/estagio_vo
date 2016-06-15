@@ -94,7 +94,25 @@ $VO = new cursoVO();
 
 if ($_REQUEST['identifier'] == "tabela") {
     gerarTabela($erro);
-} else if ($_REQUEST['identifier'] == 'excluir') {
+} else if ($_REQUEST['identifier'] == "curso") {
+
+    $VO->TX_CURSO_ESTAGIO = str_replace("'", "", $_REQUEST['query']);
+
+    if (strlen($VO->TX_CURSO_ESTAGIO) > 3) {
+        $total = $VO->pesquisar();
+
+        if ($total && $VO->TX_CURSO_ESTAGIO) {
+            $dados = $VO->getVetor();
+            echo '<ul>' . "\n";
+            for ($i = 0; $i < $total; $i++) {
+                $p = $dados['TX_CURSO_ESTAGIO'][$i];
+                $p = preg_replace('/(' . $_REQUEST['query'] . ')/i', '<span style="font-weight:bold;">$1</span>', $p);
+                echo "\t" . '<li id="autocomplete_' . $dados['ID_CURSO_ESTAGIO'][$i] . '" rel="' . $dados['ID_CURSO_ESTAGIO'][$i] . '_' . $dados['TX_CURSO_ESTAGIO'][$i] . '">' . $p . '</li>' . "\n";
+            }
+            echo '</ul>';
+        }
+    }
+}else if ($_REQUEST['identifier'] == 'excluir') {
 
     $VO->ID_CURSO_ESTAGIO = $_REQUEST['ID_CURSO_ESTAGIO'];
 

@@ -43,7 +43,7 @@ class RepositorioCurso extends Repositorio {
         $CodigoPK = $this->getVetor();
 
         $query = "
-            INSERT INTO curso_estagio(ID_CURSO_ESTAGIO, TX_CURSO_ESTAGIO, cs_area_conhecimento)
+            INSERT INTO curso_estagio(ID_CURSO_ESTAGIO, TX_CURSO_ESTAGIO, CS_AREA_CONHECIMENTO)
 						values
 	   ('" . $CodigoPK['ID_CURSO_ESTAGIO'][0] . "', '" . $VO->TX_CURSO_ESTAGIO . "','" . $VO->CS_AREA_CONHECIMENTO . "')
         ";
@@ -64,6 +64,19 @@ class RepositorioCurso extends Repositorio {
 
 
         return $this->sqlVetor($query);
+    }
+
+    function buscarCurso($VO) {
+        $query = "SELECT DISTINCT ID_CURSO_ESTAGIO,
+                        ID_CURSO_ESTAGIO CODIGO,
+                        TX_CURSO_ESTAGIO TX_CURSO_ESTAGIO,
+                        TX_AREA_CONHECIMENTO,
+                        CURSO_ESTAGIO.CS_AREA_CONHECIMENTO CS_AREA_CONHECIMENTO
+                   FROM CURSO_ESTAGIO,
+                        AREA_CONHECIMENTO_GE
+                 WHERE CURSO_ESTAGIO.CS_AREA_CONHECIMENTO = AREA_CONHECIMENTO_GE.CS_AREA_CONHECIMENTO";
+
+         return $this->sqlVetor($query);
     }
 
     function alterar($VO) {
