@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 header('Content-Type: text/html; charset=utf-8');
 set_time_limit(1000);
 date_default_timezone_set("America/Manaus");
@@ -12,11 +12,11 @@ date_default_timezone_set("America/Manaus");
  *
  * Adicionado em 05/05/2016 por Luiz Schmitt <lzschmitt@gmail.com>
  */
- if(!function_exists('getToken')) {
-	 function getToken() {
-		 return md5(__DIR__ . $_SERVER['REMOTE_ADDR'] . $_SERVER['HTTP_USER_AGENT']);
-	 }
- }
+if(!function_exists('getToken')) {
+	function getToken() {
+		return md5(__DIR__ . $_SERVER['REMOTE_ADDR'] . $_SERVER['HTTP_USER_AGENT']);
+	}
+}
 
 $token = getToken();
 session_name($token);
@@ -37,7 +37,7 @@ $_SESSION['token'] = $token;
  *
  * Adicionado em 05/05/2016 por Luiz Schmitt <lzschmitt@gmail.com>
  */
- if(!function_exists('validar_token')) {
+if(!function_exists('validar_token')) {
 	function validar_token($force = false, $url = null) {
 		$bool = ($_SESSION['token'] === getToken()) ? true : false;
 
@@ -100,8 +100,8 @@ $smarty->cache_dir = $path . 'cache/';
 $smarty->force_compile = 'true';
 $smarty->compile_check = 'true';
 
-// Debug do Smarty
-(in_array(gethostname(), $dev) && (gethostname() != 'daraa')) ? $smarty->debugging = 'true' : false;
+//(!in_array(gethostname(), $srv) || (gethostname(), '') ? $smarty->debugging = 'true' : false;
+(in_array(gethostname(), $prod) || in_array(gethostname(), $hom) || (gethostname() == 'daraa') ) ? false : $smarty->debugging = 'true';
 
 //Mes por extenso
 $arrayMesExtenso[1] = "janeiro";
@@ -126,8 +126,8 @@ if (!$_SESSION['usuario'] && $projeto . "src/autenticacao/index.php" != $_SERVER
 //Topo Bem vindo usuario
 if ($usuario) {
 	$topo = "Bem vindo, " . $_SESSION['NOME'] . "&nbsp;&nbsp;-&nbsp;&nbsp;" . $txBanco
-		. "&nbsp;&nbsp;&nbsp;&nbsp;<a href='" . $url . "src/autenticacao/trocaSenha.php'><img src='" . $urlimg . "topo/senha.png' /></a>"
-		. "&nbsp;&nbsp;&nbsp;&nbsp;<a href='" . $url . "src/autenticacao/logout.php'><img src='" . $urlimg . "topo/sair.png' /></a>";
+  . "&nbsp;&nbsp;&nbsp;&nbsp;<a href='" . $url . "src/autenticacao/trocaSenha.php'><img src='" . $urlimg . "topo/senha.png' /></a>"
+  . "&nbsp;&nbsp;&nbsp;&nbsp;<a href='" . $url . "src/autenticacao/logout.php'><img src='" . $urlimg . "topo/sair.png' /></a>";
 } else {
 	$topo = "<a href='" . $url . "'><img src='" . $urlimg . "topo/entrar.png' /></a>";
 }
@@ -149,8 +149,7 @@ if(file_exists($path."/log")) {
 	//FECHA  O PONTEIRO DO ARQUIVO
 	fclose ($ponteiro);
 
-	// (in_array(gethostname(), $dev) || in_array(gethostname(), $hom)) ? $smarty->assign("log", $log) : false;
-	(!in_array(gethostname(), $prd)) ? $smarty->assign("log", $log) : false;
+	(in_array(gethostname(), $prod)) ?  false : $smarty->assign("log", $log) ;
 }
 
 $smarty->assign("urlcss", $urlcss);
@@ -158,5 +157,4 @@ $smarty->assign("titulo", $titulo);
 $smarty->assign("urlimg", $urlimg);
 $smarty->assign("url", $url);
 $smarty->assign("arrayMesExtenso", $arrayMesExtenso);
-
 ?>

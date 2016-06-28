@@ -2,56 +2,35 @@
 $titulo = 'Gestão de Estágio Remunerado - Prefeitura de Manaus';
 $system = 'estagio';
 
-$dev = array(
-	'daraa',
-	'DSIS-4003',
-	'DSIS-4024',
-	'DSIS-4023',
-	'DSIS-4022',
-	'DSIS-4010',
-	'DSIS-4025',
-	'DSIS-4004',
-	'DSIS-4018',
-	'DSIS-4001',
-	'DSIS-4026',
-	'DSIS-4021',
-	'DSIS-4019',
-	'DSIS-4002',
-	'DSIS-4029',
-	'chappie',
-	'smith-inspiron',
-	'smith-Inspiron-5547',
-	'ludhriq-t4500',
-	'OptiPlex-7010',
-	'programador',
-	'Eduardo-PC'
-);
+$prod = array(
+	'apuau',
+	'liberdade'
+	);
 
 $hom = array('cruxati');
 
-$prd = array(
-	'apuau',
-	'liberdade'
-);
-
-if (in_array(gethostname(), $dev)) {
-	$ipBanco = "172.18.1.160:1521/pmmdev";
-	$txBanco = 'Desenvolvimento';
-	$projeto = "/semad/" . $system . "/";
-	$urlAmbiente = "http://" . $_SERVER['HTTP_HOST'] . "/semad/";
+if (in_array(gethostname(), $prod)) {
+	error_reporting(0);
+	$ipBanco = "172.18.0.33:1521/pmm";
+	$txBanco = 'Produção';
+	$projeto = "/" . $system . "/";
+	$urlAmbiente = "http://" . $_SERVER['HTTP_HOST'];
 } else {
+	error_reporting(0);
 	if (in_array(gethostname(), $hom)) {
 		$ipBanco = "172.18.1.160:1521/pmmhom";
-		$txBanco = 'Homologação';
+		$txBanco = gethostname().' - Homologação';
 		$projeto = "/sistemaspmm/" . $system . "/";
 		$urlAmbiente = "http://" . $_SERVER['HTTP_HOST'] . "/sistemaspmm/";
 	} else {
-		$ipBanco = "172.18.0.33:1521/pmm";
-		$txBanco = 'Produção';
-		$projeto = "/" . $system . "/";
-		$urlAmbiente = "http://" . $_SERVER['HTTP_HOST'] . "/";
+		(gethostname() == 'daraa') ? error_reporting(0) : FALSE;
+		$ipBanco = "172.18.1.160:1521/pmmdev";
+		$txBanco = gethostname().' - Desenvolvimento';
+		$projeto = "/semad/" . $system . "/";
+		$urlAmbiente = "http://" . $_SERVER['HTTP_HOST'] . "/semad/";
 	}
 }
+
 
 $usuario = $_SESSION['usuario'];
 $senha = $_SESSION['senha'];
